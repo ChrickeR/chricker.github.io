@@ -1,9 +1,14 @@
 main:
+
+  - title: "The business"
+    url: /business/
+  - title: "Profile"
+    url: /profile/
   - title: "Posts"
     url: /posts/
-  - title: "Categories"
+  - title: "Partners"
     url: /categories/
   - title: "Tags"
     url: /tags/
-  - title: "About"
-    url: /about/
+  - title: "Links"
+    url: /links/
