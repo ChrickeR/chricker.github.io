@@ -14,6 +14,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 logo: "/assets/images/Troi_loggo.PNG"
+subtitle: "Version 0.01"
 email: Christoffer.Rasten@troi.se
 phone: +(46)708-93 95 51 
 description: >- # this means to ignore newlines until "baseurl:"
@@ -22,7 +23,7 @@ description: >- # this means to ignore newlines until "baseurl:"
   Google search results) and in your feed.xml site description.
 twitter_username: username
 github_username: chricker
-minimal_mistakes_skin: dark
+minimal_mistakes_skin: contrast 
 search: true
 
 # Build settings
@@ -63,6 +64,8 @@ author:
   avatar : "/assets/images/Profile_Pic.jpg"
   phone: (+46) 708-93 95 51
   email: Christoffer.rasten@troi.se
+  location: "Stockholm, Sweden"
+  Timezone: Europe/Berlin
   bio    : "Chief, Enterprise, and Solutions Architect that thrives in a mix of business, people and technology"
   links:
     - label: "LinkedIn"
