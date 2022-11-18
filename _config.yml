@@ -59,12 +59,9 @@ plugins:
 
 author:
   name   : "Christoffer Råsten"
-  avatar : "/assets/images/bio-photo.jpg"
+  avatar : "/assets/images/Profile_Pic.jpg"
   bio    : "My awesome biography constrained to a sentence or two goes here."
   links:
-    - label: "TROI"
-      icon: "fas fa-fw fa-link"
-      url: "https://"
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
       url: "https://twitter.com/"
@@ -105,8 +102,7 @@ defaults:
       type: pages
     values:
       layout: single
-      author_profile: true
-
+      author_profile: false
 category_archive:
   type: liquid
   path: /categories/
