@@ -1,3 +1,1 @@
-
-header:
-  image: /assets/images/pexels.jpg
+image: /assets/images/pexels.jpg
