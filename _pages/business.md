@@ -1,1 +1,3 @@
-image: /assets/images/pexels.jpg
+Header:
+![TROI](/assets/images/pexels.jpg){:class="img-responsive"}
+image: 
