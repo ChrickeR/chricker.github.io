@@ -14,7 +14,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 logo: "/assets/images/Troi_loggo.PNG"
-email: Christoffer.Rasten@troi.se
+email: Christoffer.Rasten@TROI.se
 phone: +(46)708-93 95 51 
 description: >- # this means to ignore newlines until "baseurl:"
   In both my professional role and privately, I am driven by a great interest in 
