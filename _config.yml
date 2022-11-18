@@ -64,18 +64,18 @@ author:
   phone: (+46) 708-93 95 51
   email: Christoffer.rasten@troi.se
   location: Nacka, Sweden
-  bio    : "In both my professional role and privately, I am driven by a great interest in digitalization, technology, and efficiency, which benefits businesses, users, customers and my own everyday life."
+  bio    : "Chief, Enterprise, and Solutions Architect that thives in a mix of Business, People and Technology"
   links:
+    - label: "LinkedIn"
+      icon: "fab fa-fw fa-linkedin"
+      url: "https://linkedin.com/"
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
       url: "https://twitter.com/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/"
-    - label: "Instagram"
-      icon: "fab fa-fw fa-instagram"
-      url: "https://instagram.com/"
-
+    
 footer:
   links:
     - label: "Twitter"
