@@ -1,7 +1,7 @@
 main:
 
   - title: "The business"
-    url: /business/
+    url: /_pages/business/
   - title: "Profile"
     url: /profile/
   - title: "Posts"
