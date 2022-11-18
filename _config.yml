@@ -58,11 +58,11 @@ plugins:
   - jekyll-include-cache
 
 author:
-  name   : "First Lastname"
+  name   : "Christoffer Råsten"
   avatar : "/assets/images/bio-photo.jpg"
   bio    : "My awesome biography constrained to a sentence or two goes here."
   links:
-    - label: "Website"
+    - label: "TROI"
       icon: "fas fa-fw fa-link"
       url: "https://"
     - label: "Twitter"
