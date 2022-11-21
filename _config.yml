@@ -117,7 +117,7 @@ author:
       url: "mailto:christoffer.rasten@troi.se
     - label: "Website"
       icon: "fas fa-fw fa-link"
-      # url: "https://troi.se"
+      url: "https://troi.se"
     #- label: "Twitter"
     #  icon: "fab fa-fw fa-twitter-square"
       # url: "https://twitter.com/"
