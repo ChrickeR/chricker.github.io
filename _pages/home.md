@@ -1,9 +1,13 @@
 ---
-title: "Welcome..."
-excerpt: "Home of TROi"
-sitemap: true
-permalink: /_pages/home.html
+title: "TROi"
+layout: splash
+permalink: /home/
+header:
+  overlay_color: "#000"
+  overlay_filter: "0.5"
+  overlay_image: /assets/images/hero-area.jpg
+  actions:
+    - label: "Download"
+      url: "#test-link"
+excerpt: "Bacon ipsum dolor sit amet salami ham hock ham, hamburger corned beef short ribs kielbasa biltong t-bone drumstick tri-tip tail sirloin pork chop."
 ---
-
-# ![TROi Arkitektur AB](/assets/images/pexels.jpg){:class="img-responsive"}
-[![image alt text]([image URL link](https://demo.gethugothemes.com/meghna/site/images/backgrounds/hero-area.jpg))](anchor link)
