@@ -1,14 +1,15 @@
 main:
-
-  - title: "The business"
+  - title: "Home"
+    url: /_pages/home/
+  - title: "TROi"
     url: /_pages/business/
   - title: "Profile"
-    url: /profile/
+    url: /_pages//profile/
   - title: "Posts"
-    url: /posts/
+    url: /_pages//posts/
   - title: "Partners"
-    url: /categories/
+    url: /_pages//categories/
   - title: "Tags"
-    url: /tags/
+    url: /_pages//tags/
   - title: "Links"
-    url: /links/
+    url: /_pages//links/
