@@ -106,7 +106,7 @@ analytics:
 # Site Author
 author:
   name             : "Christoffer Råsten"
-  avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  avatar           : "/assets/Christoffer.jpg"
   bio              : "~~Chief, Enterprise, and Solutions Architect~~ Engineer that thrives in a mix of business, people and technology"
   location         : "Stockholm, Sweden"
   Timezone         : Europe/Berlin
