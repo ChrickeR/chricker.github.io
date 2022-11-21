@@ -5,7 +5,7 @@ permalink: /home/
 header:
   overlay_color: "#000"
   overlay_filter: "0.5"
-  overlay_image: [/assets/images/hero-area.jpg](https://github.com/ChrickeR/TROI/blob/master/assets/images/hero-area.jpg)
+  overlay_image: ![/assets/images/hero-area.jpg](https://github.com/ChrickeR/TROI/blob/master/assets/images/hero-area.jpg)
   actions:
     - label: "Profile"
       url: "#test-link"
