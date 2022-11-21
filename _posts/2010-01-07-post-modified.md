@@ -1,5 +1,5 @@
 ---
-title: "Hello wolrld"
+title: "Hello world :)"
 last_modified_at: 2022-11-21 T07:20:02-05:00
 categories:
   - Blog
