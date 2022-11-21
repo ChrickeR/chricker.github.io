@@ -114,7 +114,7 @@ author:
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
-      url: "mailto:christoffer.rasten@troi.se
+      url: "mailto:christoffer.rasten@troi.se"
     - label: "Website"
       icon: "fas fa-fw fa-link"
       url: "https://troi.se"
