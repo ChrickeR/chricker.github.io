@@ -5,4 +5,4 @@ sitemap: true
 permalink: /_pages/home.html
 ---
 
-![image-title-here](/path/to/image.jpg){:class="img-responsive"}
+![TROi Arkitektur AB](/assets/images/pexels.png){:class="img-responsive"}
