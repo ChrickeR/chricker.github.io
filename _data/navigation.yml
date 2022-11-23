@@ -1,0 +1,14 @@
+# main links
+main:
+  - title: "Home"
+    url: /splash-page/
+  - title: "About TROi"
+    url: /splash-page/
+ - title: "Profile"
+    url: /splash-page/
+  - title: "Sample Posts"
+    url: /year-archive/
+  - title: "Sample Collections"
+    url: /collection-archive/
+  - title: "Terms &amp; Privacy Policy"
+    url: /terms/
