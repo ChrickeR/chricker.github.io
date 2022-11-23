@@ -20,9 +20,11 @@ foo:
 
 # main links
 main:
-  - title: "Quick-Start Guide"
-    url: /_docs/quick-start-guide/
-  - title: "About"
+  - title: "Home"
+    url: /splash-page/
+  - title: "About TROi"
+    url: /splash-page/
+ - title: "Profile"
     url: /splash-page/
   - title: "Sample Posts"
     url: /year-archive/
