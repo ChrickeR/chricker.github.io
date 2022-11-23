@@ -2,13 +2,13 @@
 main:
   - title: "Home"
     url: /splash-page/
-  - title: "About TROi"
+  # - title: "About TROi"
     url: /splash-page/
- - title: "Profile"
+ #- title: "Profile"
     url: /splash-page/
-  - title: "Sample Posts"
+ # - title: "Sample Posts"
     url: /year-archive/
-  - title: "Sample Collections"
+  # - title: "Sample Collections"
     url: /collection-archive/
-  - title: "Terms &amp; Privacy Policy"
+ # - title: "Terms &amp; Privacy Policy"
     url: /terms/
