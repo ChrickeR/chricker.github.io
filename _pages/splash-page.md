@@ -8,11 +8,11 @@ header:
   overlay_filter: "0.5"
   overlay_image: "https://demo.gethugothemes.com/meghna/site/images/backgrounds/hero-area.jpg"
   actions:
-    - label: "Profile"
+    - label: "Profile "
       url: 
-    - label: "TROi"
+    - label: "TROi    "
       url:
-    - label: "Blog"
+    - label: "Blog    "
       url:
   caption: "Photo credit: [**Unsplash**](https://unsplash.com)"
 excerpt: "Bacon ipsum dolor sit amet salami ham hock ham, hamburger corned beef short ribs kielbasa biltong t-bone drumstick tri-tip tail sirloin pork chop."
