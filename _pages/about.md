@@ -1,7 +1,7 @@
 ---
 title: "TROi Architecture"
 layout: splash
-permalink: /splash-page/
+permalink: /about/
 header:
   overlay_color: "#000"
   overlay_filter: "0.5"
