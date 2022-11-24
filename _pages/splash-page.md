@@ -16,8 +16,9 @@ header:
       url:
  # caption: "Photo credit: [**HugoTheme**]"
 excerpt: "Focus, simplicity and close cooperation with our clients are the basis for creating practical solutions that have a real effect for our clients and their customers."
-intro: 
-  - excerpt: 'TROi offers consulting services in business development, digitalization, Enterprise and solution architecture with a focus on customer value, quality and efficiency. If you need help, do not hesitate to get in touch!'
 ---
 
-{% include id="intro" type="center" %}
+TROi offers consulting services in business development, digitalization, Enterprise and solution architecture with a focus on customer value, quality and efficiency.
+<BR/>
+ If you need help, do not hesitate to get in touch!
+
