@@ -1,6 +1,6 @@
 ---
 title: "Contact"
-layout: splash
+layout: single
 permalink: /contact/
 date: 2022-11-23T11:48:41-04:00
 header:
