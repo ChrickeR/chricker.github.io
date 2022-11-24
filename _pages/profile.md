@@ -8,12 +8,9 @@ header:
   overlay_filter: "0.5"
   overlay_image: "https://demo.gethugothemes.com/meghna/site/images/backgrounds/hero-area.jpg"
   actions:
-    - label: "Contact "
-      url: 
-    - label: "Profile    "
-      url:
-   # - label: "Blog    "
-   #   url:
+    - label: "Download CV "
+      url: /_docs/ChristofferCV.pdf
+ 
  # caption: "Photo credit: [**HugoTheme**]"
 #excerpt: "Focus, simplicity and close cooperation with our clients are the basis for creating practical solutions that have a real effect for our clients and their customers."
 #index:
