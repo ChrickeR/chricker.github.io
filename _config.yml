@@ -10,14 +10,14 @@
 # Review documentation to determine if you should use `theme` or `remote_theme`
 # https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/#installing-the-theme
 
-remote_theme             : "mmistakes/minimal-mistakes@4.24.0"
-# remote_theme           : "mmistakes/minimal-mistakes"
+#remote_theme             : "mmistakes/minimal-mistakes@4.24.0"
+ remote_theme           : "mmistakes/minimal-mistakes"
 minimal_mistakes_skin    : "contrast" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise" "default"
 
 # Site Settings
 locale                   : "en-US"
 title                    : "TROi"
-subtitle                 : "Version 0.01"
+subtitle                 : "Work in progress :)"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "Christoffer Råsten"
