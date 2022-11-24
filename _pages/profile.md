@@ -8,11 +8,13 @@ header:
   overlay_filter: "0.5"
   overlay_image: "https://demo.gethugothemes.com/meghna/site/images/backgrounds/hero-area.jpg"
   actions:
-    - label: "Download CV "
-      url: /assets/Christoffer_CV.pdf
+    - label: "Download CV (Eng) "
+      url: /assets/CV_Eng.pdf
+    - label: "Download CV (Swe)"
+      url: /assets/CV_Swe.pdf
  
  # caption: "Photo credit: [**HugoTheme**]"
-#excerpt: "Focus, simplicity and close cooperation with our clients are the basis for creating practical solutions that have a real effect for our clients and their customers."
+excerpt: "I både sin yrkesroll och privat så drivs Christoffer av ett stort intresse för digitalisering, teknik och effektivisering som gynnar verksamhet, användare, kunder och hans egen vardag."
 #index:
 #intro: 
 #  - excerpt: TROi offers consulting services in business development, digitalization, Enterprise and solution architecture with a focus on customer value, quality and efficiency.
@@ -20,27 +22,13 @@ header:
 
 # {% include feature_row id="intro" type="center" %}
 
-content:
-  - title: Section Name
-    layout: list (options: list, text)
-    content:
-      - layout: left (options: left, right, top, top-right, top-middle)(default: left)
-        title: Name of item (eg. Company or Project name)
-        sub_title: Sub title (eg. Qualification or Job title)(optional)
-        caption: Item caption (eg. Employment or course dates)(optional)
-        link: Web link (eg. https://sproogen.github.io/modern-resume-theme)(optional)
-        link_text: Text for link (optional: without this link will show URL as link text)
-        additional_links: (optional)
-          - title: Link name
-            icon: Font Awesome brand icon name (eg. fab fa-twitter) (https://fontawesome.com/icons?d=gallery&s=brands&m=free)
-            url: Link url (eg. https://google.com)
-        quote: >
-          Short overview or quote for the item
-        description: | # this will include new lines to allow paragraphs
-          Main content area for the list item.
-  - title: Section Name
-    layout: text (options: list, text)
-    content: | # this will include new lines to allow paragraphs
-      This is where you can write a little more about yourself. You could title this section **Interests** and include some of your other interests.
+**Ledare inom digitalisering och arkitektur**
+<Br/>
+Under Christoffers 20 år inom IT har han haft flera ledande roller, senast som chef för avdelningen Arkitektur och tillika Chefsarkitekt. I den rollen har Christoffer haft ett betydande ansvar i Afa Försäkrings framtidssäkring och arbetet med det IT-strategiska ramverket och IT-styrning som lagt grunden för organisationens digitala transformation. Som ett viktigt stöd till organisationens transformation har han även haft som uppgift att etablera och bygga organisationens förmåga kring enterprisearkitektur och digitalisering. Detta har bl.a. inneburit att coacha och leda erfarna seniora arkitekter, utvecklare och ledare.
+<Br/>
+<Br/>
+Christoffers mål är att fortsätta sin karriär som ledare inom digitalisering, vilket för honom innebär en mix mellan affär, människor och teknik, där han kan dra nytta av sina kunskaper och erfarenheter inom enterprisearkitektur och verksamhetsutveckling.
+<Br/>
+<Br/>
+Läs mer om Christoffers tidigare strategiska uppdrag, uppdrag lösningsarkitektur, CV och utbildning längre ner.
 
-      Or you could title it **Skills** and write a bit more about things that make you more desirable, like *leadership* or *teamwork*
