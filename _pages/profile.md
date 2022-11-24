@@ -20,15 +20,51 @@ excerpt: "I både sin yrkesroll och privat så drivs Christoffer av ett stort in
 #  - excerpt: TROi offers consulting services in business development, digitalization, Enterprise and solution architecture with a focus on customer value, quality and efficiency.
 ---
 
-# {% include feature_row id="intro" type="center" %}
+**Frilansande arkitekt och ledare inom digitalisering**
+TROI, 2021-Nu
 
-**Ledare inom digitalisering och arkitektur**
-<Br/>
-Under Christoffers 20 år inom IT har han haft flera ledande roller, senast som chef för avdelningen Arkitektur och tillika Chefsarkitekt. I den rollen har Christoffer haft ett betydande ansvar i Afa Försäkrings framtidssäkring och arbetet med det IT-strategiska ramverket och IT-styrning som lagt grunden för organisationens digitala transformation. Som ett viktigt stöd till organisationens transformation har han även haft som uppgift att etablera och bygga organisationens förmåga kring enterprisearkitektur och digitalisering. Detta har bl.a. inneburit att coacha och leda erfarna seniora arkitekter, utvecklare och ledare.
-<Br/>
-<Br/>
-Christoffers mål är att fortsätta sin karriär som ledare inom digitalisering, vilket för honom innebär en mix mellan affär, människor och teknik, där han kan dra nytta av sina kunskaper och erfarenheter inom enterprisearkitektur och verksamhetsutveckling.
-<Br/>
-<Br/>
-Läs mer om Christoffers tidigare strategiska uppdrag, uppdrag lösningsarkitektur, CV och utbildning längre ner.
+Frilansande arkitekt med fokus på digitalisering och arkitektur.
+
+Frilansuppdrag
+
+-TV4 Media AB, C More - Solution Architect 2021 - Pågående
+-TV4 ICT Business Systems - Integration and Information strategy - Pågånde 
+
+Chefsarkitekt samt Chef avd. Arkitektur
+Afa Försäkring, 2018 – 2021
+
+Chefsarkitekt med resultat och medarbetaransvar (7st) samt ansvar för att bygga upp förmågan kring Enterprisearkitektur på AFA Försäkring. Del av IT-ledningsgrupp med fokus på IT operativ styrning samt ansvar för framtagning av en IT-strategi som går i linje med företagets framtidssäkring och vision.
+
+Domänarkitekt
+Afa Försäkring, 2013 – 2018
+
+Del av arkitekturteamet som utvecklar och leder arbetet kring arkitekturförmåga och arkitektur- styrning med fokus på digitalisering av verksamheten och löpande frågeställningar. Ansvarig domänarkitekt för skadereglering och kundinteraktion.
+
+Lösningsarkitekt
+Afa Försäkring, 2008 – 2013
+
+Lösningsarkitektur och verksamhetsutveckling där arbetet fokuserade på e-tjänster för AFA Försäkrings anslutna arbetstagare och arbetsgivare samt effektivisering av interna processer.
+
+Systemutvecklare
+Afa Försäkring, 2001 – 2008
+
+Systemutvecklare med fokus på att förbättra och förenkla för skadehandläggare och kunder gällande in- och utgående kommunikation och dokument- hantering.
+
+Drift och supporttekniker
+X-Source AB, (Datametrix AS), 2000 – 2001
+
+Drift och support för främst MTG koncernen. Ansvarade bl.a. för Tidningen Metros on-site support.
+
+**Relevanta utbildningar**
+Certifierad Chefsarkitekt,  2017
+
+Business Technology Strategy, 2016
+
+Solutions Architecture, Associate level, 2016
+
+UX certified, 2015
+
+IT Architecture, Foundation level, 2015 
+
+
 
