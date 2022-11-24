@@ -9,9 +9,9 @@ header:
   overlay_image: "https://demo.gethugothemes.com/meghna/site/images/backgrounds/hero-area.jpg"
   actions:
     - label: "Download CV (Eng) "
-      url: /assets/CV_Eng.pdf
+      url: /assets/CV_Eng1.pdf
     - label: "Download CV (Swe)"
-      url: /assets/CV_Swe.pdf
+      url: /assets/CV_Swe1.pdf
  
  # caption: "Photo credit: [**HugoTheme**]"
 excerpt: "I både sin yrkesroll och privat så drivs Christoffer av ett stort intresse för digitalisering, teknik och effektivisering som gynnar verksamhet, användare, kunder och hans egen vardag."
