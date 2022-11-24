@@ -20,4 +20,4 @@ intro:
   - excerpt: 'TROi offers consulting services in business development, digitalization, Enterprise and solution architecture with a focus on customer value, quality and efficiency. If you need help, do not hesitate to get in touch!'
 ---
 
-{% include feature_row id="intro" type="center" %}
+{% include id="intro" type="center" %}
