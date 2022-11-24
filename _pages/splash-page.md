@@ -14,10 +14,10 @@ header:
       url:
     - label: "Blog    "
       url:
- # caption: "Photo credit: [**Unsplash**](https://unsplash.com)"
+ # caption: "Photo credit: [**HugoTheme**]"
 excerpt: "Focus, simplicity and close cooperation with our clients are the basis for creating practical solutions that have a real effect for our clients and their customers."
 intro: 
-  - excerpt: 'TROi offers consulting services in business development, digitalization, Enterprise and solution architecture with a focus on customer value, quality and efficiency.' <br/> 'If you need help, do not hesitate to get in touch!'
+  - excerpt: 'TROi offers consulting services in business development, digitalization, Enterprise and solution architecture with a focus on customer value, quality and efficiency. If you need help, do not hesitate to get in touch!'
 ---
 
 {% include feature_row id="intro" type="center" %}
