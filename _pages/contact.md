@@ -11,7 +11,14 @@ header:
    # - label: "Blog    "
    #   url:
  # caption: "Photo credit: [**HugoTheme**]"
-excerpt: "TROi Arkitektur AB 
+
+---
+
+# {% include feature_row id="intro" type="center" %}
+
+{% include sidebar.html %}
+
+TROi Arkitektur AB 
 
 Gnejsvägen 13B
 
@@ -19,10 +26,5 @@ Gnejsvägen 13B
 
 Mobile: 0708-93 95 51
 
-Email : Christoffer.Rasten@TROi.se"
-
----
-
-# {% include feature_row id="intro" type="center" %}
-
+Email : Christoffer.Rasten@TROi.se
 
