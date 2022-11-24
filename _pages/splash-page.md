@@ -17,7 +17,8 @@ header:
  # caption: "Photo credit: [**HugoTheme**]"
 excerpt: "Focus, simplicity and close cooperation with our clients are the basis for creating practical solutions that have a real effect for our clients and their customers."
 index:
-excerpt: TROi offers consulting services in business development, digitalization, Enterprise and solution architecture with a focus on customer value, quality and efficiency.
+intro: 
+  - excerpt: TROi offers consulting services in business development, digitalization, Enterprise and solution architecture with a focus on customer value, quality and efficiency.
 ---
 
 {% include feature_row id="intro" type="center" %}
