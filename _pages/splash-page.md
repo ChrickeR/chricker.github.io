@@ -14,7 +14,7 @@ header:
       url:
     - label: "Blog    "
       url:
-  caption: "Photo credit: [**Unsplash**](https://unsplash.com)"
+ # caption: "Photo credit: [**Unsplash**](https://unsplash.com)"
 excerpt: "Focus, simplicity and close cooperation with our clients are the basis for creating practical solutions that have a real effect for our clients and their customers."
 intro: 
   - excerpt: 'TROI offers consulting services in business development, digitalization, Enterprise and solution architecture with a focus on customer value, quality and efficiency.
