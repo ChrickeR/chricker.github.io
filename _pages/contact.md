@@ -16,5 +16,12 @@ header:
 #intro: 
 #  - excerpt: TROi offers consulting services in business development, digitalization, Enterprise and solution architecture with a focus on customer value, quality and efficiency.
 ---
+TROi Arkitektur AB
+Gnejsvägen 13B
+132 35 Saltsjö-boo
 
+Mobile: 0708-93 95 51
+Email : Christoffer.Rasten@TROi.se
 # {% include feature_row id="intro" type="center" %}
+
+
