@@ -15,9 +15,11 @@ header:
     - label: "Blog    "
       url:
   caption: "Photo credit: [**Unsplash**](https://unsplash.com)"
-excerpt: "Focus, simplicity and close cooperation with our clients are the basis for creating practical solutions that have a real effect for our customers."
+excerpt: "Focus, simplicity and close cooperation with our clients are the basis for creating practical solutions that have a real effect for our clients and their customers."
 intro: 
-  - excerpt: 'Nullam suscipit et nam, tellus velit pellentesque at malesuada, enim eaque. Quis nulla, netus tempor in diam gravida tincidunt, *proin faucibus* voluptate felis id sollicitudin. Centered with `type="center"`'
+  - excerpt: 'TROI offers consulting services in business development, digitalization, Enterprise and solution architecture with a focus on customer value, quality and efficiency.
+If you need help, do not hesitate to get in touch!'
+
 feature_row:
   - image_path: assets/images/unsplash-gallery-image-1-th.jpg
     alt: "placeholder image 1"
