@@ -20,5 +20,5 @@ index:
 excerpt: TROi offers consulting services in business development, digitalization, Enterprise and solution architecture with a focus on customer value, quality and efficiency.
 ---
 
-
+{% include feature_row id="intro" type="center" %}
 
