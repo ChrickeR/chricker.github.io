@@ -9,7 +9,7 @@ header:
   overlay_image: "https://demo.gethugothemes.com/meghna/site/images/backgrounds/hero-area.jpg"
   actions:
     - label: "Download CV "
-      url: /_docs/ChristofferCV.pdf
+      url: /assets/Christoffer_CV.pdf
  
  # caption: "Photo credit: [**HugoTheme**]"
 #excerpt: "Focus, simplicity and close cooperation with our clients are the basis for creating practical solutions that have a real effect for our clients and their customers."
