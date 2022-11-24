@@ -20,7 +20,7 @@ excerpt: "I både sin yrkesroll och privat så drivs Christoffer av ett stort in
 #  - excerpt: TROi offers consulting services in business development, digitalization, Enterprise and solution architecture with a focus on customer value, quality and efficiency.
 ---
 
-**Frilansande arkitekt och ledare inom digitalisering**
+**Frilansande arkitekt och ledare inom digitalisering** <Br/>
 TROI, 2021-Nu
 
 Frilansande arkitekt med fokus på digitalisering och arkitektur.
