@@ -19,7 +19,6 @@ locale                   : "en-US"
 title                    : "TROi"
 subtitle                 : "Work in progress :)"
 title_separator          : "-"
-subtitle                 : # site tagline that appears below site title in masthead
 name                     : "Christoffer Råsten"
 description              : "TROi supporting digitalization"
 url                      : # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
