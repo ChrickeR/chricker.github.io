@@ -11,12 +11,11 @@ header:
    # - label: "Blog    "
    #   url:
  # caption: "Photo credit: [**HugoTheme**]"
-#excerpt: "TROi Arkitektur AB 
+excerpt: "TROi Arkitektur AB 
 
 Gnejsvägen 13B
 
 132 35 Saltsjö-boo
-
 
 Mobile: 0708-93 95 51
 
