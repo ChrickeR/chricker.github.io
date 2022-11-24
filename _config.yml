@@ -10,7 +10,7 @@
 # Review documentation to determine if you should use `theme` or `remote_theme`
 # https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/#installing-the-theme
 
-# theme                  : "minimal-mistakes-jekyll"
+remote_theme             : "mmistakes/minimal-mistakes@4.24.0"
 # remote_theme           : "mmistakes/minimal-mistakes"
 minimal_mistakes_skin    : "contrast" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise" "default"
 
@@ -26,7 +26,7 @@ url                      : # the base hostname & protocol for your site e.g. "ht
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
-logo                     : "/assets/troi-loggo.png"
+logo                     : "/assets/images/troi-loggo.png"
 masthead_title           : # overrides the website title displayed in the masthead, use " " for no title
 breadcrumbs              : true # true, false (default)
 words_per_minute         : 200
@@ -107,7 +107,7 @@ analytics:
 # Site Author
 author:
   name             : "Christoffer Råsten"
-  avatar           : "/assets/Christoffer.jpg"
+  avatar           : "/assets/images/Christoffer.jpg"
   bio              : "~~Chief, Enterprise, and Solutions Architect~~ Engineer that thrives in a mix of business, people and technology"
   location         : "Stockholm, Sweden"
   Timezone         : Europe/Berlin
