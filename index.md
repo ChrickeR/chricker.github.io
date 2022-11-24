@@ -8,9 +8,9 @@ header:
   overlay_image: "https://demo.gethugothemes.com/meghna/site/images/backgrounds/hero-area.jpg"
   actions:
     - label: "Contact "
-      url: /contact/
+      url: /TROI/contact/
     - label: "Profile    "
-      url: /profile/
+      url: /TROI/profile/
     # - label: "Blog    "
     #   url:
  # caption: "Photo credit: [**HugoTheme**]"
