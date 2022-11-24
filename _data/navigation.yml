@@ -2,10 +2,10 @@
 main:
   - title: "Home"
     url: /splash-page/
-  # - title: "About TROi"
-   # url: /splash-page/
- #- title: "Profile"
-   # url: /splash-page/
+  - title: "Profile"
+    url: /profile/
+  - title: "Contact"
+    url: /contact/
  # - title: "Sample Posts"
    # url: /year-archive/
   # - title: "Sample Collections"

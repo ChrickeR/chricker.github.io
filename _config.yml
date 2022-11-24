@@ -17,7 +17,7 @@ minimal_mistakes_skin    : "contrast" # "air", "aqua", "contrast", "dark", "dirt
 # Site Settings
 locale                   : "en-US"
 title                    : "TROi"
-subtitle                 : "Version 0.01"
+subtitle                 : "Work in progress :)"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "Christoffer Råsten"
