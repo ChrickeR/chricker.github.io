@@ -4,13 +4,13 @@ permalink: /friends/
 
 ---
 
-**Friends:**
-[David Pettersson](pettersson.dev)
-[Lars Barkman](larsbarkman.com)
-[Verksamhetsarkitektur](verksamhertsarkitektur.se)
-
-
-**Links:**
+**Friends:** <Br/>
+[David Pettersson](pettersson.dev) <Br/>
+[Lars Barkman](larsbarkman.com) <Br/>
+[Verksamhetsarkitektur](verksamhertsarkitektur.se) <Br/>
+<Br/>
+<Br/>
+**Links:** <Br/>
 
 [Thoughtworks](thoughtworks.com)
 
