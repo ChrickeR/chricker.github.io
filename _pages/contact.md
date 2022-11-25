@@ -2,7 +2,7 @@
 title: "Contact"
 layout: single
 permalink: /contact/
-author: true
+author_profile: true
 breadcrumbs: false
 paginator: false
 header:
