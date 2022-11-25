@@ -14,7 +14,7 @@ header:
 
 
 ![](/assets/images/troi.loggo.png) 
->Br/>
+<Br/>
 **TROi Arkitektur AB** <Br/>
 Gnejsvägen 13B <Br/>
 132 35 Saltsjö-boo <Br/>
