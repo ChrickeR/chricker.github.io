@@ -9,5 +9,5 @@ header:
   overlay_filter: "0.5"
   overlay_image: "https://demo.gethugothemes.com/meghna/site/images/backgrounds/hero-area.jpg"
 
-excerpt: "Charing an engineer's thoughts and lessons learned"
+excerpt: "An engineer's thoughts and lessons learned"
 ---
