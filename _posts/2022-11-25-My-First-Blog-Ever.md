@@ -1,5 +1,5 @@
 ---
-title: "So now you are on your own..."
+title: "So now you are on your own, or..."
 layout: splash
 breadcrumbs: true
 paginator: true
@@ -9,5 +9,5 @@ header:
   overlay_image: "https://demo.gethugothemes.com/meghna/site/images/backgrounds/hero-area.jpg"
 excerpt: ''
 ---
-
-Loren ipsum
+Okay, so here it goes. My first blog post ever 😅 <Br/>
+ 
