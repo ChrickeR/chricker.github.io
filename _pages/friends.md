@@ -1,5 +1,6 @@
 ---
 title: "Friends & stuff"
+layout: splash
 permalink: /friends/
 author_profile: false
 breadcrumbs: true
