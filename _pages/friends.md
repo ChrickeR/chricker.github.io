@@ -12,14 +12,14 @@ header:
 ---
 
 **Friends:** <Br/>
-[David Pettersson](pettersson.dev) <Br/>
-[Lars Barkman](larsbarkman.com) <Br/>
-[Verksamhetsarkitektur](verksamhertsarkitektur.se) <Br/>
+[David Pettersson](https://www.pettersson.dev) <Br/>
+[Lars Barkman](https://www.larsbarkman.com) <Br/>
+[Verksamhetsarkitektur](https://www.verksamhertsarkitektur.se) <Br/>
 <Br/>
 <Br/>
 **Links:** <Br/>
 
-[Thoughtworks](thoughtworks.com)
+[Thoughtworks](https://www.thoughtworks.com)
 
 
 **Books:** <Br/>
