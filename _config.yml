@@ -110,8 +110,7 @@ author:
   avatar           : "/assets/images/Christoffer.jpg"
   bio              : "~~Chief, Enterprise, and Solutions Architect~~ Engineer that thrives in a mix of business, people and technology"
   location         : "Stockholm, Sweden"
-  Timezone         : Europe/Berlin
-  email            : "Christoffer.Rasten@TROi.se"
+  Timezone         : Europe/Berlinoo
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
