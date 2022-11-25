@@ -12,13 +12,6 @@ header:
   overlay_image: "https://demo.gethugothemes.com/meghna/site/images/backgrounds/hero-area.jpg"
 ---
 
-<Br/>
-<Br/>
-<Br/>
-<Br/>
-<Br/>
-
-
 **TROi Arkitektur AB** <Br/>
 Gnejsvägen 13B <Br/>
 132 35 Saltsjö-boo <Br/>
