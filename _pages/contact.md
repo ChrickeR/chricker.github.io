@@ -18,9 +18,6 @@ header:
 <Br/>
 <Br/>
 
-![](/assets/images/troi.loggo.png) 
-
-<Br/>
 
 **TROi Arkitektur AB** <Br/>
 Gnejsvägen 13B <Br/>
