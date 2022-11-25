@@ -23,9 +23,8 @@ header:
 [Thoughtworks - Technology radar](https://www.thoughtworks.com/radar) <Br/>
 [Zalando Open Source](https://opensource.zalando.com/) <Br/>
 
-**Books:** <Br/>
-
-<Br/>
+**Books:** <Br
+[Accelerate: Building and Scaling High Performing Technology Organizations](https://danlebrero.com/2020/01/22/accelerate-high-performing-technology-orgs-summary/) <Br/>
 
 **Clips:** <Br/>
 <Br/>
