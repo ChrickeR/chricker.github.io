@@ -1,8 +1,8 @@
 ---
-title: "My first blog post ever!"
+title: "So now you are on your own..."
 layout: splash
-breadcrumbs: false
-paginator: false
+breadcrumbs: true
+paginator: true
 header:
   overlay_color: "#000"
   overlay_filter: "0.5"
