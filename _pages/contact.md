@@ -17,5 +17,5 @@ Gnejsvägen 13B <Br/>
 Mobile: 0708-93 95 51 <Br/>
 Email : Christoffer.Rasten@TROi.se <Br/>
 <Br/>
-Org.nummer 559322-1889
+Org.number 559322-1889
 
