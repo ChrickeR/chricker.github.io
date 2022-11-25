@@ -1,5 +1,6 @@
 ---
 title: "My first blog post ever!"
+layout: splash
 breadcrumbs: false
 paginator: false
 header:
