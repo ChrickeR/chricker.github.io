@@ -1,6 +1,7 @@
 ---
 title: "Friends & stuff"
 layout: splash
+date: 2022-11-25T15:48:41-04:00
 permalink: /friends/
 author_profile: false
 breadcrumbs: true
