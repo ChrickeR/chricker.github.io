@@ -20,8 +20,9 @@ header:
 **Links:** <Br/>
 [Verksamhetsarkitektur](https://www.verksamhetsarkitektur.se) <Br/>
 [Thoughtworks](https://www.thoughtworks.com) <Br/>
-[Zalando Open Source](https://opensource.zalando.com/) <Br/>
 [Thoughtworks - Technology radar](https://www.thoughtworks.com/radar) <Br/>
+[Zalando Open Source](https://opensource.zalando.com/) <Br/>
+
 **Books:** <Br/>
 
 <Br/>
