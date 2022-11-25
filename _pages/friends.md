@@ -1,5 +1,5 @@
 ---
-title: "Friends & links"
+title: "Friends & stuff"
 permalink: /friends/
 
 ---
@@ -15,3 +15,5 @@ permalink: /friends/
 [Thoughtworks](thoughtworks.com)
 
 
+**Books:**
+--
