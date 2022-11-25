@@ -6,8 +6,8 @@ main:
     url: /profile/
   - title: "Contact"
     url: /contact/
- # - title: "Sample Posts"
-   # url: /year-archive/
+ - title: "Friends"
+    url: /friends/
   # - title: "Sample Collections"
     # url: /collection-archive/
  # - title: "Terms &amp; Privacy Policy"

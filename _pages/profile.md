@@ -14,9 +14,9 @@ header:
       url: /assets/CV_Swe1.pdf
  
  # caption: "Photo credit: [**HugoTheme**]"
-excerpt: "I både sin yrkesroll och privat så drivs Christoffer av ett stort intresse för digitalisering, teknik och effektivisering som gynnar verksamhet, användare, kunder och hans egen vardag."
+excerpt: "Engineer that thrives in a mix of business, people and technology"
 #index:
-#intro: 
-#  - excerpt: TROi offers consulting services in business development, digitalization, Enterprise and solution architecture with a focus on customer value, quality and efficiency.
+intro: 
+ - excerpt: TROi offers consulting services in business development, digitalization, Enterprise and solution architecture with a focus on customer value, quality and efficiency.
 ---
-
+{% include feature_row id="intro" type="center" %}
