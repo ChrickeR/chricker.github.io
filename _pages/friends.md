@@ -14,7 +14,7 @@ header:
 **Friends:** <Br/>
 [David Pettersson](https://www.pettersson.dev) <Br/>
 [Lars Barkman](https://www.larsbarkman.com) <Br/>
-[Jörgen Dahlberg](https://firn.se/)<Br/>
+
 <Br/>
 **Links:** <Br/>
 [Verksamhetsarkitektur](https://www.verksamhetsarkitektur.se) <Br/>
