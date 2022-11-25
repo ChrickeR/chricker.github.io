@@ -6,7 +6,7 @@ main:
     url: /profile/
   - title: "Contact"
     url: /contact/
- - title: "Friends"
+  - title: "Friends"
     url: /friends/
   # - title: "Sample Collections"
     # url: /collection-archive/
