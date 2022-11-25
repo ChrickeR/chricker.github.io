@@ -3,7 +3,7 @@ title: "Posts"
 permalink: /year-archive/
 layout: posts
 author_profile: true
-breadcrums: false
+breadcrumbs: false
 header:
   overlay_color: "#000"
   overlay_filter: "0.5"
