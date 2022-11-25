@@ -1,7 +1,7 @@
 # main links
 main:
-  - title: "Home"
-    url: /splash-page/
+  - title: "Blog"
+    url: /blog/
   - title: "Profile"
     url: /profile/
   - title: "Contact"
