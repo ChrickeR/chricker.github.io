@@ -1,7 +1,7 @@
 ---
 title: "Assignments"
 permalink: /assignments/
-layout: posts
+layout: assignments 
 author_profile: true
 breadcrumbs: false
 header:
