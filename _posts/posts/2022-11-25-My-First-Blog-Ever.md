@@ -1,6 +1,7 @@
 ---
 title: "So now you are on your own, or..."
 layout: splash
+categories: posts
 breadcrumbs: true
 paginator: true
 header:
