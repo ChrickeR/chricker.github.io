@@ -3,8 +3,6 @@ main:
   - title: "Blog"
     url: /year-archive/
   - title: "Profile"
-    url: /profile/
-  - title: "Assigments"
     url: /assignments/
   - title: "Contact"
     url: /contact/
