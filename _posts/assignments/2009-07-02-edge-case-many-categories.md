@@ -6,6 +6,7 @@ categories:
 tags:
   - solution architecture
   - PCI
+share: false
 breadcrumbs: true
 paginator: true
 header:
