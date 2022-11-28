@@ -1,9 +1,9 @@
 ---
 title: "So now you are on your own, or..."
-layout: splash
 categories: posts
 breadcrumbs: true
 paginator: true
+share: true
 header:
   overlay_color: "#000"
   overlay_filter: "0.5"
