@@ -1,9 +1,9 @@
 # main links
 main:
-  - title: "Blog"
-    url: /year-archive/
   - title: "Profile"
     url: /assignments/
+  - title: "Blog"
+    url: /year-archive/
   - title: "Contact"
     url: /contact/
   - title: "Friends"
