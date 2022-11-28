@@ -1,6 +1,5 @@
 ---
 title: "System developer"
-layout: splash
 categories: assignments
 breadcrumbs: true
 paginator: true
