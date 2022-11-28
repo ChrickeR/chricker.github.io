@@ -1,5 +1,5 @@
 ---
-title: "Assignments"
+title: "Profile & Assignments"
 permalink: /assignments/
 layout: assignments 
 author_profile: true
