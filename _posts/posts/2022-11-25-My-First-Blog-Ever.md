@@ -1,5 +1,5 @@
 ---
-title: "So now you are on your own, or..."
+title: "Sooon... My first blog post ever..."
 categories: posts
 breadcrumbs: true
 paginator: true
@@ -10,5 +10,5 @@ header:
   overlay_image: "https://demo.gethugothemes.com/meghna/site/images/backgrounds/hero-area.jpg"
 excerpt: ''
 ---
-Sooon... My first blog post ever 😅 <Br/>
+😅 <Br/>
  
