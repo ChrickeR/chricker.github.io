@@ -1,7 +1,7 @@
 ---
 title: "Friends & stuff"
 layout: splash
-date: 2022-11-25T15:48:41-04:00
+date: 2022-11-29T15:48:41-04:00
 permalink: /friends/
 author_profile: false
 breadcrumbs: true
@@ -25,6 +25,9 @@ header:
 
 **Books:** <Br/>
 [Accelerate: Building and Scaling High Performing Technology Organizations](https://danlebrero.com/2020/01/22/accelerate-high-performing-technology-orgs-summary/) <Br/>
+[Fundamentals of software architecture, an engineering approach](https://fundamentalsofsoftwarearchitecture.com/)  <Br/>
+[Team Topologies](https://teamtopologies.com/) <Br/>
+[Escaping the builtrap](https://www.goodreads.com/book/show/42611483-escaping-the-build-trap)
 
 **Clips:** <Br/>
 <Br/>
