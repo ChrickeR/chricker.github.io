@@ -150,12 +150,8 @@ whitelist:
   - jekyll-feed
   - jekyll-include-cache
 # Analytics
-
-<script src="https://getinsights.io/js/insights.js"></script>
-<script>
-insights.init('zC1BwFdpXTJGSvmA');
-insights.trackPages();
-</script>
+analytics:  
+  provider: "custom"
 
 # Archives
 #  Type
