@@ -2,8 +2,6 @@
 main:
   - title: "Profile"
     url: /assignments/
-  - title: "Blog"
-    url: /year-archive/
   - title: "Contact"
     url: /contact/
   - title: "Friends"
