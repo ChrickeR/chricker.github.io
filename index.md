@@ -10,7 +10,7 @@ header:
     - label: "Contact "
       url: /contact/
     - label: "Profile    "
-      url: /profile/
+      url: /assignments/
     # - label: "Blog    "
     #   url:
  # caption: "Photo credit: [**HugoTheme**]"
