@@ -4,7 +4,6 @@ categories: assignments
 breadcrumbs: true
 paginator: true
 categories: 
-- employment
 - assignments
 tags:
 - Founder
