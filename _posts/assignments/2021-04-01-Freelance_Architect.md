@@ -3,6 +3,9 @@ title: "Freelance IT-architect "
 categories: assignments
 breadcrumbs: true
 paginator: true
+categories: 
+- Employment
+- Assignments
 tags:
 - Founder
 share: false
