@@ -6,7 +6,10 @@ paginator: true
 categories: 
 - assignments
 tags:
-- Founder
+- Progress
+- Javascript
+- Insurance systems
+- Customer communication
 share: false
 header:
   overlay_color: "#000"
