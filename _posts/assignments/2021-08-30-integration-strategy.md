@@ -1,16 +1,19 @@
 ---
-title: "System developer"
+title: "Integration strategy and EA"
 categories: assignments
 breadcrumbs: true
 paginator: true
 tags:
-- solution
+- integration strategy
+- integration architecture
+- Information architecture
+- EA
 share: false
 header:
   overlay_color: "#000"
   overlay_filter: "0.5"
   overlay_image: "https://demo.gethugothemes.com/meghna/site/images/backgrounds/hero-area.jpg"
-excerpt: 'With focus on ....'
+excerpt: 'TV4, 2021 - Ongoing'
 ---
 As a system dev.... <Br/>
  
