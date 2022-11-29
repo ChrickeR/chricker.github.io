@@ -1,6 +1,6 @@
 ---
 title: "Sooon... My first blog post ever..."
-categories: posts
+categories: tabortdetposts
 breadcrumbs: true
 paginator: true
 share: true
