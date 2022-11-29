@@ -1,10 +1,11 @@
 ---
-title: "Edge Case: Many Categories"
+title: "Payment as a service"
 categories: 
   - assignments
-  - work
 tags:
-  - solution architecture
+  - Solution Architecture
+  - CRM
+  - Subscription Management
   - PCI
 share: false
 breadcrumbs: true
@@ -13,6 +14,6 @@ header:
   overlay_color: "#000"
   overlay_filter: "0.5"
   overlay_image: "https://demo.gethugothemes.com/meghna/site/images/backgrounds/hero-area.jpg"
-excerpt: 'With focus on ....'
+excerpt: 'TV4 - C More, 2021-05-20'
 ---
-As a system dev.... <Br/>
+ <Br/>
