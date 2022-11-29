@@ -2,6 +2,8 @@
 main:
   - title: "Profile"
     url: /assignments/
+    - title: "second test"
+      url:
   - title: "Contact"
     url: /contact/
   - title: "Friends"
