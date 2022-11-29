@@ -1,9 +1,11 @@
 ---
 title: "System developer"
-layout: splash
 categories: assignments
 breadcrumbs: true
 paginator: true
+tags:
+- solution
+share: false
 header:
   overlay_color: "#000"
   overlay_filter: "0.5"

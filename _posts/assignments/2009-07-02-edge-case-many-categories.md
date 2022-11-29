@@ -1,22 +1,18 @@
 ---
 title: "Edge Case: Many Categories"
-categories:
-  - aciform
-  - antiquarianism
-  - arrangement
-  - asmodeus
-  - broder
-  - buying
-  - championship
-  - chastening
-  - disinclination
-  - disinfection
-  - dispatch
-  - echappee
-  - enphagy
+categories: 
+  - assignments
+  - work
 tags:
-  - categories
-  - edge case
+  - solution architecture
+  - PCI
+share: false
+breadcrumbs: true
+paginator: true
+header:
+  overlay_color: "#000"
+  overlay_filter: "0.5"
+  overlay_image: "https://demo.gethugothemes.com/meghna/site/images/backgrounds/hero-area.jpg"
+excerpt: 'With focus on ....'
 ---
-
-This post has many categories.
+As a system dev.... <Br/>
