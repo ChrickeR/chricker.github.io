@@ -4,8 +4,8 @@ categories: assignments
 breadcrumbs: true
 paginator: true
 categories: 
-- Employment
-- Assignments
+- employment
+- assignments
 tags:
 - Founder
 share: false
