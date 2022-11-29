@@ -16,23 +16,50 @@ excerpt: 'AFA Insurance, 2013 - 2021'
 ---
 ## Digital transformation
 
-Christoffer har arbetat med att tydliggöra den IT operativa modellen och utveckla den för attmöta behovet av effektivare leveranser av kundvärde. Målet var att etablera IT som envärdeskapande partner i affären och inte enbart vara en pålitlig leverantör av IT-stöd. Somen värdeskapande partner har information, teknologier,ekosystem och affärsprocesserbelysts för att utveckla organisationens erbjudande och roll i ekosystemet.
+As Chief Architect, I have been part of the IT management team and reported to CIO. I 
+have worked to clarify the IT operational model and change it to meet the need for 
+more efficient deliveries of customer value and to establish IT as a value-creating 
+partner in the business and not just as a supplier.
 
-Detta har resulterat i påbörjad produktifiering av organisationens förmågor ihop medmoderna agila principer, arbetssätt och teknik där IT ses som en naturlig del i företagetsverksamhetsutveckling. Det framtagna IT-strategiska ramverket och IT-styrning är nu grundenför organisationens digitala transformation.
-
-## IT-strategi
-
-Som en del av digitaliseringsarbetet ansvarade Christoffer även för att ta fram en IT-strategisom tydligt beskrev och guidade organisationen mot det utpekade riktmärket.
-
-IT-strategingrundar sig i ett IT-strategiskt ramverk som belyser sex strategiska områden medmålsättningen att stärka kundfokus, samverkan och innovationskraft. Det handlar om säkraen kontinuerlig kompetensutveckling, utforma lösningar för effektiv och ständig utveckling,
-omfamna omvärldens innovationskraft, säkerställa förtroendefulla relationer, aktivera detdigitala ekosystemet och använda kraften i intelligent teknik.
-Detta har resulterat i en påbörjad och förändrad arkitektur och modernisering avorganisationens egenutvecklade skadesystem, kompetensförflyttning och ny infrastrukturmed fokus på kundvärde, automatisering, löst kopplade tjänster, devops och allt som kod.
+This has resulted in the beginning of productization of the organization's capabilities 
+together with modern agile principles, working methods and technology where IT is 
+seen as a natural part of the company's business development.
 
 
-## Enterprisearkitektur
+## IT-strategy
 
-Christoffer har definierat och etablerat förmågorna kring Enterprisearkitektur;affärsarkitektur, verksamhetsarkitektur, informationsarkitektur, lösningsarkitektur,infrastrukturarkitektur och säkerhetsarkitektur.
-Detta har resulterat i en Enterprisearkitekturfunktion som med lättviktig dokumentation avarkitekturbeslut, guidande principer och ett nyfiket coachande förhållningssätt somtillsammans med olika verksamhetsområden och leveransteam utvecklar organisationenserbjudande och arkitektur.
+As part of the digitization, I also was responsible for developing an IT strategy that 
+clearly described and guided the organization towards the targeted state.
+
+The IT strategy was based on an IT strategic framework that highlights six strategic areas 
+with the aim of strengthening customer focus, collaboration and innovation. It´s about 
+ensuring continuous competence development, designing solutions for effective and 
+continuous improvement, embracing the innovative power of the outside world, 
+ensuring trusting relationships, activating the digital eco system, and exploring the 
+power of intelligent technology.
+
+This has resulted in an ongoing changed architecture and modernization of our self developed claims systems, skills transfer and new infrastructure with a focus on customer value, automation, loosely coupled services, DevOps and everything as code.
+
+
+## Enterprise architecture
+
+Another mission was to define and establish the capabilities around enterprise 
+architecture; business architecture, information architecture, solution architecture, 
+infrastructure architecture and security architecture.
+
+This resulted in an enterprise architecture function with light-weight 
+documentation of architectural decisions, guiding principles and a curious coaching 
+approach, which together with various business areas and delivery teams develops the 
+organization's offering in "business products" based on the business capabillities.
+
+## Collaboration and communication
+
+As a natural part of all transformations, my assignments have required collaboration 
+and clear communication and anchoring with both management and employees 
+regarding changed responsibilities, competencies, delivery models and changed and 
+developed business processes and business offers both internally within the 
+organization and externally with partners in the eco system, experts, knowledge and 
+service providers as well as IT partners.
 
 ## Ökad digital samverkan i ekosystemet
 
