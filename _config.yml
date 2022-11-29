@@ -35,7 +35,7 @@ words_per_minute         : 200
 author:
   name             : "Christoffer Råsten"
   avatar           : "/assets/images/Christoffer.jpg"
-  bio              : "~~Chief, Enterprise, and Solutions Architect~~ Engineer that thrives in a mix of business, people and technology"
+  bio              : "Engineer that thrives in a mix of business, people and technology"
   location         : "Stockholm, Sweden"
   Timezone         : Europe/Berlinoo
   links:
