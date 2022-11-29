@@ -1,5 +1,5 @@
 ---
-title: "Integration strategy and EA"
+title: "Integration strategy and Enterprise architecture"
 categories: assignments
 breadcrumbs: true
 paginator: true
