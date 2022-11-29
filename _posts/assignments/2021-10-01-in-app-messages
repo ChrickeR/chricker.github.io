@@ -4,12 +4,13 @@ categories: assignments
 breadcrumbs: true
 paginator: true
 tags:
-- In-app messages
+- In-app-messages
 - Products
 - CRM
-- Subscription management
+- Subscription-management
 - PCI
-- Solution architecture
+- Payments
+- Solution-architecture
 share: false
 header:
   overlay_color: "#000"
