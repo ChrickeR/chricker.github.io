@@ -16,4 +16,7 @@ header:
   overlay_image: "https://demo.gethugothemes.com/meghna/site/images/backgrounds/hero-area.jpg"
 excerpt: 'TV4 - C More, 2021 - 2022'
 ---
- <Br/>
+## Byte av betalningslösning och checkoutflöde
+
+
+Lösningsarkitekt för byte av betalningslösning och checkoutflöde förtransaktionsintensiv last samt integrationer mot CRM och internaverksamhetsprocesser. Uppdraget innefattade samverkan med externa partners,målarkitektur och lösningsarkitektur samt genomförande. Även hjälpt till meddokumentationsstruktur och kartläggning av integrationer och flöden.
