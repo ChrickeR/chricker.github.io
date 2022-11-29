@@ -14,3 +14,25 @@ header:
   overlay_image: "https://demo.gethugothemes.com/meghna/site/images/backgrounds/hero-area.jpg"
 excerpt: 'AFA Insurance, 2013 - 2021'
 ---
+##Plattformshjälp – DevOps
+Stöd till projektet från ett arkitekturperspektiv kring
+angreppssätt, produktvaloch struktur kring plattformshjälp till
+utvecklingsteam och DevOps kultur.
+Uppdraget innefattade
+styrgruppsarbete samt att stötta projekt och team iförstudie och
+implementation.
+
+
+##Stöd till utvecklingsteam
+Som chefsarkitekt har jag haft daglig kontakt med
+utvecklingsteam i olikalösnings och designdiskussioner.
+
+
+##IT-revisioner
+Uppdraget innefattade att stötta interna och externa revisorer och
+IT-organisationen kring lösningar och dokumentation.
+
+
+##Dataskyddsprocessen
+Uppdraget innefattade att stötta dataskyddsfunktionen och Afa Försäkringsverksamheter kring processutveckling, implementation och genomförandeav processer
+kopplat till dataskydd och de registrerades rättigheter.
