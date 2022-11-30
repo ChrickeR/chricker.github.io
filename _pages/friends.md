@@ -12,7 +12,7 @@ header:
   overlay_image: "https://demo.gethugothemes.com/meghna/site/images/backgrounds/hero-area.jpg"
 ---
 
-## Friends:** 
+## Friends:
 [David Pettersson](https://www.pettersson.dev) <Br/>
 [Lars Barkman](https://www.larsbarkman.com) <Br/>
 <Br/>
