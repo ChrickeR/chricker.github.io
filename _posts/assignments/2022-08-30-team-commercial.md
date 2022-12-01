@@ -1,5 +1,5 @@
 ---
-title: "Team commercial"
+title: "IT Architect, Team Commercial"
 categories: assignments
 breadcrumbs: true
 paginator: true
@@ -18,5 +18,7 @@ header:
   overlay_image: "https://demo.gethugothemes.com/meghna/site/images/backgrounds/hero-area.jpg"
 excerpt: 'C More, Telia play, 2022 - Ongoing'
 ---
-<Br/>
+Member of the commercial team at TV4 TVM, which as of December 2022 is part of Telia CPS Product and Transformation, PA Pay TV.
+
+Team commercial handles solutions around purchase flows, products, subscription management, PSP, payments and CRM.
  
