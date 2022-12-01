@@ -23,8 +23,8 @@ feature_row2:
     image_caption: "Image courtesy of [Unsplash](https://unsplash.com/)"
     alt: "David Pettersson"
     title: "David Pettersson"
-    excerpt: "technical professional dedicated to improving efficiency and business value by enabling teams and individuals in digital transformation."
-    url: ""
+    excerpt: "Technical professional dedicated to improving efficiency and business value by enabling teams and individuals in digital transformation."
+    url: https://pettersson.dev/
     btn_label: "Read More"
     btn_class: "btn--primary"
 ---
