@@ -23,7 +23,7 @@ Here are some examples of the work we did while acting as change agents for the 
 ## Digital transformation
 We worked hard to clarify the IT operational model and aligne it for the need of 
 more efficient deliveries of customer value and establish IT as a value-creating 
-partner in the business and not just as a supplier
+partner in the business and not just as a supplier.
 
 This resulted in the beginning of productization of the organization's capabilities 
 together with modern agile principles, working methods and technology where IT is 
@@ -47,7 +47,7 @@ The Strategic areas where:
 - Activating the digital eco system
 - Exploring the power of intelligent technology.
 
-This resulted in an ongoing changed architecture and modernization of our self developed claims systems, skills transfer and new infrastructure with a focus on customer value, automation, loosely coupled services, DevOps and everything as code.
+This resulted in an architecture evolution and modernization of the self developed claims systems, skills transfer and new infrastructure with a focus on customer value, automation, loosely coupled services, DevOps and everything as code.
 
 
 ## Enterprise architecture
@@ -67,12 +67,14 @@ organization's offering in "business services" based on the business capabilliti
 
 ## Collaboration and communication
 
-As a natural part of all transformations, all assignments have required collaboration 
+As a natural part of all transformations, it required collaboration 
 and clear communication and anchoring with both management and employees 
-regarding changed responsibilities, competencies, delivery models. It also changed and 
-developed the business processes and business offers both within the 
-organization and externally with partners in the eco system, experts, knowledge and 
-service providers as well as IT partners.
+regarding changed responsibilities, competencies, delivery models. 
+
+It also changed and developed the business processes and business offers both within the 
+organization and externally.
+
+One of the biggest changes was the creation of "Business Services"...
 
 ## Ökad digital samverkan i ekosystemet
 
