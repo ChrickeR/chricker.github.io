@@ -18,12 +18,12 @@ feature_row:
     btn_label: "Read More"
     btn_class: "btn--primary"
     excerpt: "Engineer that thrives in a mix of business, people and technology"
-  - image_path: /assets/images/unsplash-gallery-image-2-th.jpg
+  - image_path: /assets/images/David.jpg
     image_caption: "Image courtesy of [Unsplash](https://unsplash.com/)"
     alt: "David Pettersson"
     title: "David Pettersson"
     excerpt: "technical professional dedicated to improving efficiency and business value by enabling teams and individuals in digital transformation."
-    url: "[David Pettersson](https://pettersson.dev/)"
+    url: ""
     btn_label: "Read More"
     btn_class: "btn--primary"
 feature_row2:
