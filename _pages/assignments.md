@@ -1,5 +1,5 @@
 ---
-title: "Christoffer Råsten | Assignments"
+title: "Christoffer Råsten"
 permalink: /assignments/
 layout: assignments 
 author_profile: true
