@@ -10,8 +10,8 @@ header:
 excerpt: "Previous and ongoing key assignments."
 intro: 
   - excerpt: ''
-feature_row:
-  - image_path: assets/images/Christoffer.jpg
+feature_row2:
+  - image_path: assets/images/Christoffer.jpg =100x
     alt: "Christoffer Råsten"
     title: "Christoffer Råsten"
     url: "assignments"
