@@ -21,7 +21,6 @@ feature_row:
     excerpt: "Engineer that thrives in a mix of business, people and technology"
 feature_row2:
   - image_path: /assets/images/David.jpg
-    image_caption: "Image courtesy of [Unsplash](https://unsplash.com/)"
     alt: "David Pettersson"
     title: "David Pettersson"
     excerpt: "Technical professional dedicated to improving efficiency and business value by enabling teams and individuals in digital transformation."
