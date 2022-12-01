@@ -1,7 +1,7 @@
 # main links
 main:
   - title: "Profile"
-    url: /assignments/
+    url: /profile/
   - title: "Contact"
     url: /contact/
   - title: "Friends"
