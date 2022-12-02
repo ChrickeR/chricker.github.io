@@ -16,5 +16,5 @@ header:
 excerpt: 'TV4 TVM ICT & Business Apps Sweden 2021 - Ongoing'
 ---
  
-Architect in the initiative Arondagen integration and system documentation.
+Architect in the initiative concerning integration and system documentation.
  
