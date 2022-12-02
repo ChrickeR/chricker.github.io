@@ -7,6 +7,13 @@ categories:
 - assignments
 tags:
 - Cheif Architect
+- IT-strategy
+- Integration strategy
+- Business productization
+- Agile
+- Digital transformation
+- Enterprise architecture
+- Collaboration
 share: false
 header:
   overlay_color: "#000"
