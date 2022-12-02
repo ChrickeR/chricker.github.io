@@ -74,40 +74,17 @@ regarding changed responsibilities, competencies, delivery models.
 It also changed and developed the business processes and business offers both within the 
 organization and externally.
 
-One of the biggest changes was the creation of "Business Services", cross functional teams that included both business and developement competences to be able to act quick within a specified domain with a clear RACI model. The teams where staffed by self selection where the product owner first pitch their product and then every individual by them self selected the product the 
+One of the biggest changes was the creation of "Business Products", cross functional teams that included both business and developement competences to be able to act quick within a specified domain based on the business capabillity map with a clear RACI model. The teams where staffed by self selection with no management interferance. The process in short, the product owner first pitch their product and then every individual by them self selected the product they wanted to work with. We did this in close cooperation with product management and was a big step in the digialization journey. 
 
-## Ökad digital samverkan i ekosystemet
+The archiecture team had daily close contact with the teams and in most cases also a team member to drive the solution against the target architecture using the guiding principles.
 
-Huvudansvarig arkitekt för arkitektur och lösningsförslag för det strategiskainitiativet "Veta vem den försäkrade är".
+## Audits
 
-Uppdraget innefattade samverkan med externa partners i ekosystemet, affärsarkitektur, verksamhetsarkitektur och lösningsarkitektur vilket inkluderarprocessutveckling, informationsmodellering, integrationer samt systemarkitekturför modernisering av skadesystem.
-
-## Plattformshjälp – DevOps
+The architecture team also supported internal and external auditors to guide them in solutions and documentation.
 
 
-Stöd till projektet från ett arkitekturperspektiv kring
-angreppssätt, produktvaloch struktur kring plattformshjälp till
-utvecklingsteam och DevOps kultur.
+## Data protection and GDPR
 
-Uppdraget innefattade
-styrgruppsarbete samt att stötta projekt och team iförstudie och
-implementation.
+The architecture team also supported the data protection function and business domains around process development, implementation and implementation of processes linked to data protection.
 
-
-## Stöd till utvecklingsteam
-
-
-Som chefsarkitekt har jag haft daglig kontakt med
-utvecklingsteam i olikalösnings och designdiskussioner.
-
-## IT-revisioner
-
-
-Uppdraget innefattade att stötta interna och externa revisorer och
-IT-organisationen kring lösningar och dokumentation.
-
-
-## Dataskyddsprocessen
-
-
-Uppdraget innefattade att stötta dataskyddsfunktionen och Afa Försäkringsverksamheter kring processutveckling, implementation och genomförandeav processer kopplat till dataskydd och de registrerades rättigheter.
+And ofcourse we did al lot more :)
