@@ -13,7 +13,8 @@ header:
   overlay_color: "#000"
   overlay_filter: "0.5"
   overlay_image: "https://demo.gethugothemes.com/meghna/site/images/backgrounds/hero-area.jpg"
-excerpt: 'TV4, 2021 - Ongoing'
+excerpt: 'TV4 TVM ICT & Business Apps Sweden 2021 - Ongoing'
 ---
-<Br/>
+ 
+Architect in the initiative Arondagen integration and system documentation.
  
