@@ -18,4 +18,4 @@ header:
 excerpt: 'Certified Chief Architect, Dataföreningen, 2017'
 ---
 
-The education develops your ability to lead the architectural work with the business's strategies and goals in focus
+The education is focused on the ability to lead the architectural work with the business's strategies and goals in focus
