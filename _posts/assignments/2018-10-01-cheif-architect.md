@@ -1,7 +1,6 @@
 ---
 title: "Cheif Architect and Head of Architecture "
 categories: assignments
-date: 2022-12-02T15:48:41-04:00
 breadcrumbs: true
 paginator: true
 categories: 
