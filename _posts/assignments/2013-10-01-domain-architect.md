@@ -17,7 +17,7 @@ header:
   overlay_image: "https://demo.gethugothemes.com/meghna/site/images/backgrounds/hero-area.jpg"
 excerpt: 'Target architecture, AFA Insurance, 2013 - 2018'
 ---
-As domain Architect I covered and where responsible for gour different domains,
+As domain Architect I covered and where responsible for these domains,
 - Insurance
 - BI
 - Web
