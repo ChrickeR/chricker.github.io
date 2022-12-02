@@ -16,7 +16,12 @@ header:
   overlay_image: "https://demo.gethugothemes.com/meghna/site/images/backgrounds/hero-area.jpg"
 excerpt: 'TV4 - C More, 2021 - 2022'
 ---
-## Byte av betalningslösning och checkoutflöde
+
+My first assignment as a solution architect consultant was to change payment solution and checkout flows for a transaction-intensive product. 
+The solution covered integrations with CRM and internal business processes. 
+
+The assignment included collaboration with external partners, target- and solution architecture as well as implementation. 
 
 
-Lösningsarkitekt för byte av betalningslösning och checkoutflöde förtransaktionsintensiv last samt integrationer mot CRM och internaverksamhetsprocesser. Uppdraget innefattade samverkan med externa partners,målarkitektur och lösningsarkitektur samt genomförande. Även hjälpt till meddokumentationsstruktur och kartläggning av integrationer och flöden.
+
+
