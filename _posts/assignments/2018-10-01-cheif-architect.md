@@ -74,7 +74,7 @@ regarding changed responsibilities, competencies, delivery models.
 It also changed and developed the business processes and business offers both within the 
 organization and externally.
 
-One of the biggest changes was the creation of "Business Services"...
+One of the biggest changes was the creation of "Business Services", cross functional teams that included both business and developement competences to be able to act quick within a specified domain with a clear RACI model. The teams where staffed by self selection where the product owner first pitch their product and then every individual by them self selected the product the 
 
 ## Ökad digital samverkan i ekosystemet
 
