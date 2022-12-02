@@ -9,8 +9,8 @@ header:
   actions:
     - label: "Contact "
       url: /contact/
-    - label: "Profile    "
-      url: /assignments/
+    - label: "Profiles    "
+      url: /profile/
     # - label: "Blog    "
     #   url:
  # caption: "Photo credit: [**HugoTheme**]"
