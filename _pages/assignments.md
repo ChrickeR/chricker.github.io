@@ -16,3 +16,23 @@ header:
       
 excerpt: "Previous and ongoing key assignments"
 ---
+Christoffer works from strategy to implementation.
+
+Christoffer have had roles like:¨
+- Cheif Architect
+- Enterprise Architect
+- Solution Architect
+- Manager (Head of Architectur)
+
+In different businesses like:
+
+- Insurance
+- Media
+
+In domais like:
+
+- Insurance
+- Finans
+- CRM
+- Subscription
+- Purchase flows
