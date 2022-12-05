@@ -37,4 +37,4 @@ In domais like:
 - Subscription management
 - Purchase flows
 
-## Below you can se some of Christoffers key assignments: 
+Below you can se some of Christoffers key assignments: 
