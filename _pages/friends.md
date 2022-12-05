@@ -11,7 +11,7 @@ header:
   overlay_filter: "0.5"
   overlay_image: "https://demo.gethugothemes.com/meghna/site/images/backgrounds/hero-area.jpg"
   
-excerpt: 'A place to gather relevant partners, links and clips ...'
+excerpt: 'A place to gather relevant partners, links and other useful information...'
 ---
 
 ## Friends:
