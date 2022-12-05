@@ -37,4 +37,10 @@ In domais like:
 - Subscription management
 - Purchase flows
 
+In organizations like:
+
+![image alt >](/afa-loga.jpg)
+![image alt <](/telia.jpg)
+![image alt ><](/TV4jpg)
+
 Below you can se some of Christoffers key assignments: 
