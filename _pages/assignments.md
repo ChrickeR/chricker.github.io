@@ -39,8 +39,8 @@ In domais like:
 
 In organizations like:
 
-![image alt >](assets/images/afa-logo.jpg)
-![image alt <](assets/images/teliaPlay.jpg)
-![image alt ><](assets/images/TV4jpg)
+![image alt >](assets/images/afa-logo.jpeg)
+![image alt <](assets/images/TeliaPlay.jpeg)
+![image alt ><](assets/images/TV4.svg)
 
 Below you can se some of Christoffers key assignments: 
