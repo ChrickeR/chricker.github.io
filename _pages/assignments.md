@@ -39,8 +39,8 @@ In domais like:
 
 In organizations like:
 
-![Afa Försäkring](assets/images/afa-logo.jpeg)
-![Telia Company](assets/images/TeliaPlay.jpeg)
-![TV4](assets/images/TV4.svg)
+![Afa Försäkring](/assets/images/afa-logo.jpeg)
+![Telia Company](/assets/images/TeliaPlay.jpeg)
+![TV4](/assets/images/TV4.svg)
 
 Below you can se some of Christoffers key assignments: 
