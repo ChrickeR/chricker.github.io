@@ -18,7 +18,7 @@ excerpt: "Previous and ongoing key assignments"
 ---
 Christoffer works from strategy to implementation.
 
-Christoffer have had roles like:¨
+Christoffer have had roles like:
 - Cheif Architect
 - Enterprise Architect
 - Solution Architect
@@ -32,7 +32,9 @@ In different businesses like:
 In domais like:
 
 - Insurance
-- Finans
+- Finance
 - CRM
-- Subscription
+- Subscription management
 - Purchase flows
+
+## Below you can se some of Christoffers key assignments: 
