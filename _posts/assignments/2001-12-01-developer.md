@@ -18,4 +18,6 @@ header:
 excerpt: 'AFA Insurance, 2001 - 2008'
 ---
 
+System developer, working with insurance claims, customer communications and automations.
+
  

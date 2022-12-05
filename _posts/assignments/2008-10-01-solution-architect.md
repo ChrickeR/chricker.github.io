@@ -14,33 +14,17 @@ header:
   overlay_color: "#000"
   overlay_filter: "0.5"
   overlay_image: "https://demo.gethugothemes.com/meghna/site/images/backgrounds/hero-area.jpg"
-excerpt: 'AFA Insurance, 2008 - 2013'
+excerpt: 'Solutions architect with focus on business outcome and development, AFA Insurance, 2008 - 2013'
 ---
-## Digital kundkommunikation - Brev och notifieringar
+As a solution architect I focused on insurance and customer communications.
 
+Here is some examples of the work.
 
-Huvudansvarig arkitekt för arkitektur och lösningförslag
-kring Afa Försäkringsbehov av att kunna kommunicera i kundens valda kanaler
-samt att kunnanotifiera dessa vid behov och skapa en bra kundupplevelse.
-Uppdraget innefattade samverkan med
-externa partners,
-verksamhetsarkitekturoch lösningsarkitektur vilket inkluderar processutveckling,informationsmodellering,
-integrationer, verktygs och leverantörsval samtsystemarkitektur för modernisering och utbrytning av funktionalitet urförsäkringssystem.
+## Customer communication
 
+Provided and implemented solutions for notifications to digital mailboxes to letters in the customer preferred channel.
 
-## BI och rapportering Ekonomi
-Huvudansvarig arkitekt för arkitektur och lösningförslag
-kringekonomiavdelningens behov av BI och rapportering.
-Uppdraget
-innefattade samverkan med externa partners, integrationer, verktygsoch
-leverantörsval.
-och
-leverantörsval.
+Another solution covered automation of incoming insurance claims and additions to insurance matters.
 
-
-## API management
-Stöd till projektet från ett arkitekturperspektiv kring
-produktval och strukturkring API-management.
-Uppdraget innefattade att stötta
-projektet i förstudie och implementation.
- 
+But the biggest achievement in this role was to prove the value of the customer self-service web solution that handled insurance claims, 
+customer vase status and correspondence. It also supported case supplements and automations in the claims process.

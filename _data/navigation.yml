@@ -1,10 +1,10 @@
 # main links
 main:
-  - title: "Profile"
-    url: /assignments/
+  - title: "Profiles"
+    url: /profile/
   - title: "Contact"
     url: /contact/
-  - title: "Friends"
+  - title: "Friends & Stuff"
     url: /friends/
   # - title: "Sample Collections"
     # url: /collection-archive/

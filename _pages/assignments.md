@@ -1,5 +1,5 @@
 ---
-title: "Profile"
+title: "Christoffer Råsten"
 permalink: /assignments/
 layout: assignments 
 author_profile: true
@@ -16,3 +16,31 @@ header:
       
 excerpt: "Previous and ongoing key assignments"
 ---
+Christoffer works from strategy to implementation.
+
+Christoffer have had roles like:
+- Cheif Architect
+- Enterprise Architect
+- Solution Architect
+- Manager (Head of Architectur)
+
+In different businesses like:
+
+- Insurance
+- Media
+
+In domais like:
+
+- Insurance
+- Finance
+- CRM
+- Subscription management
+- Purchase flows
+
+In organizations like:
+
+![Afa Försäkring](assets/images/afa-logo.jpeg)
+![Telia Company](assets/images/TeliaPlay.jpeg)
+![TV4](assets/images/TV4.svg)
+
+Below you can se some of Christoffers key assignments: 
