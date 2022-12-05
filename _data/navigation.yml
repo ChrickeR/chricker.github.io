@@ -4,7 +4,7 @@ main:
     url: /profile/
   - title: "Contact"
     url: /contact/
-  - title: "Friends"
+  - title: "Friends & Stuff"
     url: /friends/
   # - title: "Sample Collections"
     # url: /collection-archive/
