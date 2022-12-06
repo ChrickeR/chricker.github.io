@@ -1,7 +1,7 @@
 ---
 title: "Friends & stuff"
 layout: splash
-date: 2022-11-29T15:48:41-04:00
+date: 2022-12-06T17:48:41-04:00
 permalink: /friends/
 author_profile: false
 breadcrumbs: true
@@ -24,6 +24,7 @@ excerpt: 'A place to gather relevant partners, links and other useful informatio
 [Thoughtworks](https://www.thoughtworks.com) <Br/>
 [Thoughtworks - Technology radar](https://www.thoughtworks.com/radar) <Br/>
 [Zalando Open Source](https://opensource.zalando.com/) <Br/>
+[OpenAI](https://openai.com/) <Br/>
 
 ## Books:
 [Accelerate: Building and Scaling High Performing Technology Organizations](https://danlebrero.com/2020/01/22/accelerate-high-performing-technology-orgs-summary/) <Br/>
