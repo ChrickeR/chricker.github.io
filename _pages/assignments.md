@@ -47,7 +47,7 @@ In organizations like:
            margin-right: auto;
            width: 30%;"
     src="/assets/images/afa-logo.svg" 
-    alt="AFA Insurance>
+    alt="AFA Insurance">
 </img>
          
 
