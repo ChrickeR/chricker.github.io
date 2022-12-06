@@ -41,8 +41,18 @@ In domais like:
 
 In organizations like:
 
-![Afa Insurance](/assets/images/afa-logo.svg){: style="height:150px;width:150px"}
-![Telia Company](/assets/images/telia.svg){: style="height:150px;width:150px"}
-![TV4](/assets/TV4s.svg){: style="height:150px;width:150px"}
+<img 
+    style="display: block; 
+           margin-left: auto;
+           margin-right: auto;
+           width: 30%;"
+    src="/assets/images/afa-logo.svg" 
+    alt="AFA Insurance>
+</img>
+         
+
+![Afa Insurance](/assets/images/afa-logo.svg)
+![Telia Company](/assets/images/telia.svg)
+![TV4](/assets/TV4s.svg)
 
 Below you can se some of Christoffers key assignments: 
