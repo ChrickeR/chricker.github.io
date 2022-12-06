@@ -42,26 +42,26 @@ In domais like:
 In organizations like:
 
 <img 
-    style="display: left; 
+    style="display: block; 
            margin-left: auto;
            margin-right: auto;
-           width: 15%;"
+           width: 20%;"
     src="/assets/images/afa-logo.svg" 
-    alt="AFA Insurance"
+    alt="AFA Insurance">
 
-         
-    style="display: center; 
+ <img        
+    style="display: block; 
            margin-left: auto;
            margin-right: auto;
-           width: 15%;"
+           width: 20%;"
     src="/assets/TV4s.svg" 
-    alt="TV4"
+    alt="TV4">
 
-
-    style="display: right; 
+<img 
+    style="display: block; 
            margin-left: auto;
            margin-right: auto;
-           width: 15%;"
+           width: 20%;"
     src="/assets/images/telia.svg" 
     alt="Telia Company">
 
