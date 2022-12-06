@@ -15,23 +15,8 @@ header:
       url: /assets/CV_Swe1.pdf
       
 excerpt: "Previous and ongoing key assignments"
-
-feature_row:
-  - image_path: assets/images/Christoffer.jpg
-    alt: "Christoffer Råsten
-    excerpt: "Engineer that thrives in a mix of business, people and technology"
-feature_row2:
-  - image_path: /assets/images/David.jpg
-    alt: "David Pettersson"
-    excerpt: "Technical professional dedicated to improving efficiency and business value by enabling teams and individuals in digital transformation."
-    
+  
 ---
-
-
-{% include feature_row id="feature_row" type="center" %}
-
-{% include feature_row id="feature_row2" type="center" %}
-
 
 Christoffer works from strategy to implementation.
 
@@ -56,8 +41,8 @@ In domais like:
 
 In organizations like:
 
-![Afa Försäkring](/assets/images/afa-logo.jpeg)
-![Telia Company](/assets/images/TeliaPlay.jpeg)
+![Afa Försäkring](/assets/images/afa-logo.jpg)
+![Telia Company](/assets/images/TeliaPlay.jpg)
 ![TV4](/assets/images/TV4.svg)
 
 Below you can se some of Christoffers key assignments: 
