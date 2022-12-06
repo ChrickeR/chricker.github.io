@@ -62,7 +62,7 @@ In organizations like:
     style="display: block; 
            margin-left: auto;
            margin-right: auto;
-           width: 20%;"
+           width: 40%;"
     src="/assets/images/telia.svg" 
     alt="Telia Company">
 
