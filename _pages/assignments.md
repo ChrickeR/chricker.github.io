@@ -41,6 +41,23 @@ In domais like:
 
 In organizations like:
 
+<div class="row">
+  <div class="column">
+    <img src="/assets/images/afa-logo.svg" alt="AFA Insurance" style="width:25%">
+  </div>
+  <div class="column">
+    <img src="/assets/images/telia.svg" alt="Telia" style="width:25%">
+  </div>
+  <div class="column">
+    <img src="/assets/TV4s.svg" alt="TV4" style="width:25%">
+  </div>
+</div>
+
+
+
+
+
+
 <img 
     style="display: block; 
            margin-left: auto;
