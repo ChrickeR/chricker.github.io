@@ -47,19 +47,17 @@ In organizations like:
            margin-right: auto;
            width: 15%;"
     src="/assets/images/afa-logo.svg" 
-    alt="AFA Insurance">
+    alt="AFA Insurance"
 
          
-<img 
     style="display: center; 
            margin-left: auto;
            margin-right: auto;
            width: 15%;"
     src="/assets/TV4s.svg" 
-    alt="TV4">
+    alt="TV4"
 
 
-<img 
     style="display: right; 
            margin-left: auto;
            margin-right: auto;
