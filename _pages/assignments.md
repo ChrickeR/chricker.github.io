@@ -15,7 +15,24 @@ header:
       url: /assets/CV_Swe1.pdf
       
 excerpt: "Previous and ongoing key assignments"
+
+feature_row:
+  - image_path: assets/images/Christoffer.jpg
+    alt: "Christoffer Råsten
+    excerpt: "Engineer that thrives in a mix of business, people and technology"
+feature_row2:
+  - image_path: /assets/images/David.jpg
+    alt: "David Pettersson"
+    excerpt: "Technical professional dedicated to improving efficiency and business value by enabling teams and individuals in digital transformation."
+    
 ---
+
+
+{% include feature_row id="feature_row" type="center" %}
+
+{% include feature_row id="feature_row2" type="center" %}
+
+
 Christoffer works from strategy to implementation.
 
 Christoffer have had roles like:
