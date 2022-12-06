@@ -36,8 +36,9 @@ In domais like:
 - Insurance
 - Finance
 - CRM
+- Customer interaction
 - Subscription management
-- Purchase flows
+- Purchase and payments
 
 In organizations like:
 
