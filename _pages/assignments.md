@@ -15,7 +15,9 @@ header:
       url: /assets/CV_Swe1.pdf
       
 excerpt: "Previous and ongoing key assignments"
+  
 ---
+
 Christoffer works from strategy to implementation.
 
 Christoffer have had roles like:
@@ -39,8 +41,8 @@ In domais like:
 
 In organizations like:
 
-![Afa Försäkring](assets/images/afa-logo.jpeg)
-![Telia Company](assets/images/TeliaPlay.jpeg)
-![TV4](assets/images/TV4.svg)
+![Afa Försäkring](/assets/images/afa-logo.svg)
+![Telia Company](/assets/images/telia.svg)
+![TV4](/assets/images/TV4.jpg)
 
 Below you can se some of Christoffers key assignments: 
