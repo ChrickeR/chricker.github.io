@@ -43,6 +43,6 @@ In organizations like:
 
 ![Afa Insurance](/assets/images/afa-logo.svg)
 ![Telia Company](/assets/images/telia.svg)
-![TV4](/assets/images/TV4.jpg)
+![TV4](/assets/images/tv4.svg)
 
 Below you can se some of Christoffers key assignments: 
