@@ -17,7 +17,7 @@ minimal_mistakes_skin    : "contrast" # "air", "aqua", "contrast", "dark", "dirt
 # Site Settings
 locale                   : "en-US"
 title                    : "TROi"
-subtitle                 : "Turning your vision into reality - TROi makes it happen!"
+subtitle                 : "Turning your vision into reality"
 title_separator          : "-"
 name                     : "Christoffer Råsten"
 description              : "TROi supporting digitalization"
