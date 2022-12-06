@@ -42,31 +42,31 @@ In domais like:
 In organizations like:
 
 <img 
-    style="display: block; 
+    style="display: left; 
            margin-left: auto;
            margin-right: auto;
            width: 15%;"
     src="/assets/images/afa-logo.svg" 
     alt="AFA Insurance">
-</img>
+
          
 <img 
-    style="display: block; 
+    style="display: center; 
            margin-left: auto;
            margin-right: auto;
            width: 15%;"
     src="/assets/TV4s.svg" 
     alt="TV4">
-</img>
+
 
 <img 
-    style="display: block; 
+    style="display: right; 
            margin-left: auto;
            margin-right: auto;
            width: 15%;"
     src="/assets/images/telia.svg" 
     alt="Telia Company">
-</img>
+
 
 
 Below you can se some of Christoffers key assignments: 
