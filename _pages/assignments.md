@@ -45,14 +45,28 @@ In organizations like:
     style="display: block; 
            margin-left: auto;
            margin-right: auto;
-           width: 30%;"
+           width: 15%;"
     src="/assets/images/afa-logo.svg" 
     alt="AFA Insurance">
 </img>
          
+<img 
+    style="display: block; 
+           margin-left: auto;
+           margin-right: auto;
+           width: 15%;"
+    src="/assets/TV4s.svg" 
+    alt="TV4">
+</img>
 
-![Afa Insurance](/assets/images/afa-logo.svg)
-![Telia Company](/assets/images/telia.svg)
-![TV4](/assets/TV4s.svg)
+<img 
+    style="display: block; 
+           margin-left: auto;
+           margin-right: auto;
+           width: 15%;"
+    src="/assets/images/telia.svg" 
+    alt="Telia Company">
+</img>
+
 
 Below you can se some of Christoffers key assignments: 
