@@ -41,7 +41,7 @@ In domais like:
 
 In organizations like:
 
-![Afa Försäkring](/assets/images/afa-logo.svg)
+![Afa Insurance](/assets/images/afa-logo.svg)
 ![Telia Company](/assets/images/telia.svg)
 ![TV4](/assets/images/TV4.jpg)
 
