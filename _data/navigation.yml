@@ -5,7 +5,7 @@ main:
   - title: "Contact"
     url: /contact/
   - title: "Blog"
-    url: /posts/
+    url: /year-archive/
   - title: "Friends & Stuff"
     url: /friends/
   # - title: "Sample Collections"
