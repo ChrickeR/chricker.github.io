@@ -7,7 +7,7 @@ categories:
 - posts
 tags:
 - IT-architecture
-share: false
+share: true
 header:
   overlay_color: "#000"
   overlay_filter: "0.5"
