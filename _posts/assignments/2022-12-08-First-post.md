@@ -1,3 +1,19 @@
+---
+title: "The IT-Architect "
+categories: assignments
+breadcrumbs: true
+paginator: true
+categories: 
+- posts
+tags:
+- IT-architecture
+share: false
+header:
+  overlay_color: "#000"
+  overlay_filter: "0.5"
+  overlay_image: "https://demo.gethugothemes.com/meghna/site/images/backgrounds/hero-area.jpg"
+excerpt: 'After all, a happy and motivated IT-architect is an effective one!'
+---
 
 As an IT Architect, I understand how important technology is in today's world. It plays a major role in our lives and is constantly evolving to make things easier and more efficient. With all the advances in technology and the complexity of the systems we build, it's important to remain flexible and open-minded in order to stay ahead of the curve.
 
