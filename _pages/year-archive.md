@@ -4,7 +4,6 @@ permalink: /year-archive/
 layout: posts
 author_profile: true
 breadcrumbs: true
-share: true
 header:
   overlay_color: "#000"
   overlay_filter: "0.5"
