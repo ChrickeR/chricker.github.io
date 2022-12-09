@@ -23,9 +23,7 @@ Having a guiding principle and vision for your team is an essential part of keep
 
 The most important part of having a guiding principle and vision is that it should be personalized to your team’s unique goals, strengths, weaknesses, and dynamics. Every team is different so what works for one may not work for another; so take the time to think about what would best serve your specific needs. Think about what values are important to you as an individual or organization, such as innovation, creativity, or collaboration. Then use those values to craft your guiding principle or vision statement that will help bring the team together around these shared principles. 
 
-By creating a personalized guiding principle or vision statement you can create unity within the group while giving everyone something tangible to strive for in their daily work life!
-
-When creating a vision for your team or organization, I encourage us all to take the time to think deeply about what our goals are and what values we want to hold ourselves accountable for. From this foundation of clarity, it will be much easier for us all to make decisions with confidence. 
+When creating theese guard-rails for your team or organization, I encourage us all to take the time to think deeply about what our goals are and what values we want to hold ourselves accountable for. From this foundation of clarity, it will be much easier for us all to make decisions with confidence. 
 
 At the same time, I believe that having guiding principles and visions should not stifle creativity or innovation. Instead, they should act as boundaries that help ensure we are working towards common objectives in an efficient manner. This way everyone on the team can feel empowered to contribute their ideas without worrying about straying too far from our core mission and values. 
 
