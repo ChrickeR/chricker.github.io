@@ -1,0 +1,7 @@
+Having a guiding principle and vision for your team is an essential part of keeping it on track and empowering it to succeed. It helps you to focus on the big picture, as well as providing a shared goal that everyone can work towards. It can also help keep the team unified and ensure everyone is working together towards a common purpose.
+
+The most important part of having a guiding principle and vision is that it should be personalized to your team’s unique goals, strengths, weaknesses, and dynamics. Every team is different so what works for one may not work for another; so take the time to think about what would best serve your specific needs. Think about what values are important to you as an individual or organization, such as innovation, creativity, or collaboration. Then use those values to craft your guiding principle or vision statement that will help bring the team together around these shared principles. 
+
+Your guiding principle should also be communicated clearly and often with all members of the team – not just when something goes wrong but also when things are going right too! By doing this you can help ensure everyone has an understanding of how they fit into achieving success together which will in turn increase motivation and commitment from all members involved. 
+
+By creating a personalized guiding principle or vision statement you can create unity within the group while giving everyone something tangible to strive for in their daily work life!
