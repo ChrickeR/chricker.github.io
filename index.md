@@ -11,8 +11,8 @@ header:
       url: /contact/
     - label: "Profiles    "
       url: /profile/
-    # - label: "Blog    "
-    #   url:
+    - label: "Blog    "
+      url: /year-archive/
  # caption: "Photo credit: [**HugoTheme**]"
 excerpt: "Focus, simplicity, knowledge and close cooperation with our clients is our recipe for creating practical solutions that have a real effect for our clients and their customers."
 intro: 
