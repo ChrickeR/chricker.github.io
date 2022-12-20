@@ -17,8 +17,8 @@ header:
 excerpt: "Previous and ongoing key assignments"
   
 ---
+<p style="text-align: center;">Christoffer works from strategy to implementation.</p>
 
-Christoffer works from strategy to implementation.
 
 Christoffer have had roles like:
 - Cheif Architect
