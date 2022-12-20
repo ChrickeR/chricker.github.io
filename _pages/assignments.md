@@ -26,7 +26,7 @@ excerpt: "Previous and ongoing key assignments"
 - Solution Architect
 - Manager (Head of Architectur)</p>
 
-In different businesses like:
+In businesses like:
 
 - Insurance
 - Media
