@@ -20,11 +20,11 @@ excerpt: "Previous and ongoing key assignments"
 <p style="text-align: center;">Christoffer works from strategy to implementation.</p>
 
 
-Christoffer have had roles like:
+<p style="text-align: center;">Christoffer have had roles like:
 - Cheif Architect
 - Enterprise Architect
 - Solution Architect
-- Manager (Head of Architectur)
+- Manager (Head of Architectur)</p>
 
 In different businesses like:
 
