@@ -20,27 +20,28 @@ excerpt: "Previous and ongoing key assignments"
 <p style="text-align: center;">Christoffer works from strategy to implementation.</p>
 
 
-<p style="text-align: center;">Christoffer have had roles like:
-- Cheif Architect
-- Enterprise Architect
-- Solution Architect
-- Manager (Head of Architectur)</p>
+<p style="text-align: center;">Christoffer have had roles like:</p>
+<p style="text-align: center;"> ** Cheif Architect **</p>
+<p style="text-align: center;"> ** Enterprise Architect **</p>
+<p style="text-align: center;"> ** Solution Architect **</p>
+<p style="text-align: center;"> ** Manager (Head of Architectur) **</p>
 
-In businesses like:
+<p style="text-align: center;">In businesses like:</p>
 
-- Insurance
-- Media
+<p style="text-align: center;">- ** Insurance **</p>
+<p style="text-align: center;"> ** Media **</p>
 
-In domais like:
+<p style="text-align: center;">In domais like:</p>
 
-- Insurance
-- Finance
-- CRM
-- Customer interaction
-- Subscription management
-- Purchase and payments
+<p style="text-align: center;"> ** Insurance **</p>
+<p style="text-align: center;"> ** Finance **</p>
+<p style="text-align: center;"> ** CRM **</p>
+<p style="text-align: center;"> ** Customer interaction **</p>
+<p style="text-align: center;"> ** Subscription management **</p>
+<p style="text-align: center;"> ** Purchase and payments **</p>
+<p style="text-align: center;"> ** BI **</p>
 
-In organizations like:
+<p style="text-align: center;">In organizations like:</p>
 
 <img 
     style="display: block; 
