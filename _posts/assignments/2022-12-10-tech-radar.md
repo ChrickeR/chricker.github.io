@@ -30,7 +30,7 @@ Finally, the Hold section includes technologies that are not yet ready for adopt
 
 In conclusion, ThoughtWorks Technology Radar is a great tool for staying up to date on the latest technologies and trends. It provides a comprehensive overview of the current state of technology and helps organizations make better decisions when it comes to investing in new technologies.
 
-Every six months or so, Thoughtworks publishes its Technology Radar.
+Every six months or so, Thoughtworks publishes its [Technology Radar](https://www.thoughtworks.com/radar).
 
 If you think this is a good idea, you can [create one](https://www.thoughtworks.com/radar/byor) for your organization.
 
