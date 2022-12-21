@@ -20,18 +20,6 @@ excerpt: "Previous and ongoing key assignments"
 
 <html>
   <head>
-    <title>Christoffer works from strategy to implementation</title>
-    <style>
-      p {
-         text-align: center;
-         font-weight: bold;
-      }
-    </style>
-  </head>
-</html>
-
-<html>
-  <head>
     <title>Christoffer have had roles like</title>
     <style>
       p {
@@ -44,42 +32,26 @@ excerpt: "Previous and ongoing key assignments"
     </style>
   </head>
   <body>
+       <p>Christoffer works from strategy to implementation</p>
        <p>Christoffer have had roles like</p>
        <h1>Cheif Architect</h1>
        <h1>Enterprise Architect</h1>
-    
+       <h1>Solution Architect</h1>
+       <h1>Manager (Head of Architectur)</h1>
+       <p>In businesses like</p>
+       <h1>Insurance</h1>
+       <h1>Media</h1>
+       <p>In domais like</p>
+       <h1>Insurance</h1>
+       <h1>Finance</h1>
+       <h1>CRM</h1>
+       <h1>Customer interaction</h1>
+       <h1>Subscription management</h1>
+       <h1>Purchase and payments</h1>
+       <h1>BI</h1>
+       <p>In organizations like</p>
   </body>
 </html>
-
-
-
-
-
-<p style="text-align: center;"></p>
-
-
-<p style="">:</p>
-<p style="text-align: center;">Cheif Architect</p>
-<p style="text-align: center;">Enterprise Architect</p>
-<p style="text-align: center;">Solution Architect</p>
-<p style="text-align: center;">Manager (Head of Architectur)</p>
-
-<p style="text-align: center;">In businesses like:</p>
-
-<p style="text-align: center;">Insurance</p>
-<p style="text-align: center;">Media/p>
-
-<p style="text-align: center;">In domais like:</p>
-
-<p style="text-align: center;">Insurance</p>
-<p style="text-align: center;">Finance</p>
-<p style="text-align: center;">CRM **</p>
-<p style="text-align: center;">Customer interaction</p>
-<p style="text-align: center;">Subscription management</p>
-<p style="text-align: center;">Purchase and payments</p>
-<p style="text-align: center;">BI</p>
-
-<p style="text-align: center;">In organizations like:</p>
 
 <img 
     style="display: block; 
