@@ -1,5 +1,6 @@
 ---
-title: "Christoffer Råsten - Previous and ongoing key assignments"
+title: "Christoffer Råsten"
+subtitle: "Previous and ongoing key assignments"
 permalink: /assignments/
 layout: assignments 
 author_profile: true
