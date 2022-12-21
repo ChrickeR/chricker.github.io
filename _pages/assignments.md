@@ -21,6 +21,8 @@ excerpt: <p>"Previous and ongoing key assignments"</p>
 <html>
   <head>
     <title>Christoffer have had roles like</title>
+  </head>
+  <body>
     <style>
       p {
          text-align: center;
@@ -31,8 +33,7 @@ excerpt: <p>"Previous and ongoing key assignments"</p>
          text-align: center;
       }
     </style>
-  </head>
-  <body>
+    
        <p>Christoffer works from strategy to implementation</p>
        <p>In roles like</p>
        <h1>Cheif Architect</h1>
