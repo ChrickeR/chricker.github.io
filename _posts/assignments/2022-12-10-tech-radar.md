@@ -1,3 +1,23 @@
+---
+title: "Stay ahead of the curve in terms of new and emerging technologies"
+categories: posts
+breadcrumbs: true
+paginator: true
+categories: 
+- posts
+tags:
+- Business intelligence
+- Technology trends
+- Lifecycle management
+- Guiding Principles
+share: true
+header:
+  overlay_color: "#000"
+  overlay_filter: "0.5"
+  overlay_image: "https://demo.gethugothemes.com/meghna/site/images/backgrounds/hero-area.jpg"
+excerpt: 'ThoughtWorks Technology Radar is a great tool for keeping up to date'
+---
+
 ThoughtWorks Technology Radar is a great tool for keeping up to date on the latest trends in technology and the industry. This is an invaluable resource for any organization, especially those looking to stay ahead of the curve in terms of new and emerging technologies. The radar provides a comprehensive overview of the latest technologies, trends, and strategies that are currently seen as important or innovative in the industry.
 
 The Technology Radar is split into four different categories: Adopt, Trial, Assess, and Hold. It provides an easy way to evaluate the current state of a technology, as well as how it is likely to evolve in the future. This helps organizations make better decisions about the technologies they should invest in, and those they should avoid.
