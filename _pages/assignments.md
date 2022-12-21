@@ -17,29 +17,62 @@ header:
 excerpt: "Previous and ongoing key assignments"
   
 ---
-<p style="text-align: center;">Christoffer works from strategy to implementation.</p>
+
+<html>
+  <head>
+    <title>Christoffer works from strategy to implementation</title>
+    <style>
+      p {
+         text-align: center;
+         font-weight: bold;
+      }
+    </style>
+  </head>
+</html>
+
+<html>
+  <head>
+    <title>Christoffer have had roles like</title>
+    <style>
+      p {
+         text-align: center;
+         font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Example</h1>
+    <p>Lorem Ipsum</p>
+  </body>
+</html>
 
 
-<p style="text-align: center;">Christoffer have had roles like:</p>
-<p style="text-align: center;"> ** Cheif Architect **</p>
-<p style="text-align: center;"> ** Enterprise Architect **</p>
-<p style="text-align: center;"> ** Solution Architect **</p>
-<p style="text-align: center;"> ** Manager (Head of Architectur) **</p>
+
+
+
+<p style="text-align: center;"></p>
+
+
+<p style="">:</p>
+<p style="text-align: center;">Cheif Architect</p>
+<p style="text-align: center;">Enterprise Architect</p>
+<p style="text-align: center;">Solution Architect</p>
+<p style="text-align: center;">Manager (Head of Architectur)</p>
 
 <p style="text-align: center;">In businesses like:</p>
 
-<p style="text-align: center;">- ** Insurance **</p>
-<p style="text-align: center;"> ** Media **</p>
+<p style="text-align: center;">Insurance</p>
+<p style="text-align: center;">Media/p>
 
 <p style="text-align: center;">In domais like:</p>
 
-<p style="text-align: center;"> ** Insurance **</p>
-<p style="text-align: center;"> ** Finance **</p>
-<p style="text-align: center;"> ** CRM **</p>
-<p style="text-align: center;"> ** Customer interaction **</p>
-<p style="text-align: center;"> ** Subscription management **</p>
-<p style="text-align: center;"> ** Purchase and payments **</p>
-<p style="text-align: center;"> ** BI **</p>
+<p style="text-align: center;">Insurance</p>
+<p style="text-align: center;">Finance</p>
+<p style="text-align: center;">CRM **</p>
+<p style="text-align: center;">Customer interaction</p>
+<p style="text-align: center;">Subscription management</p>
+<p style="text-align: center;">Purchase and payments</p>
+<p style="text-align: center;">BI</p>
 
 <p style="text-align: center;">In organizations like:</p>
 
