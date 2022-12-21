@@ -38,11 +38,16 @@ excerpt: "Previous and ongoing key assignments"
          text-align: center;
          font-weight: bold;
       }
+      h1 {
+         text-align: center;
+      }
     </style>
   </head>
   <body>
-    <h1>Example</h1>
-    <p>Lorem Ipsum</p>
+       <p>Christoffer have had roles like</p>
+       <h1>Cheif Architect</h1>
+       <h1>Enterprise Architect</h1>
+    
   </body>
 </html>
 
