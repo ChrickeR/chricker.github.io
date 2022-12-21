@@ -24,6 +24,7 @@ excerpt: "Previous and ongoing key assignments"
     <style>
       p {
          text-align: center;
+         text decoration:underline;
          font-weight: bold;
       }
       h1 {
@@ -33,7 +34,7 @@ excerpt: "Previous and ongoing key assignments"
   </head>
   <body>
        <p>Christoffer works from strategy to implementation</p>
-       <p>Christoffer have had roles like</p>
+       <p>In roles like</p>
        <h1>Cheif Architect</h1>
        <h1>Enterprise Architect</h1>
        <h1>Solution Architect</h1>
