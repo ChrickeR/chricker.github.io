@@ -14,7 +14,7 @@ header:
     - label: "Hämta CV (Swe)"
       url: /assets/CV_Swe1.pdf
       
-excerpt: <p>"Previous and ongoing key assignments"/p>
+excerpt: <p>"Previous and ongoing key assignments"</p>
   
 ---
 
