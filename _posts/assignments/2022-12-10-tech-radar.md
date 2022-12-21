@@ -34,4 +34,4 @@ Every six months or so, Thoughtworks publishes its [Technology Radar](https://ww
 
 If you think this is a good idea, you can [create one](https://www.thoughtworks.com/radar/byor) for your organization.
 
-Here is an example how Zalando has done it´s own [tech radar](https://opensource.zalando.com/tech-radar/).
+Here is an example how Zalando has done it [Zalando tech radar](https://opensource.zalando.com/tech-radar/).
