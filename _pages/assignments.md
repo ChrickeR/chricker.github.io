@@ -1,5 +1,5 @@
 ---
-title: "Christoffer Råsten"
+title: "Christoffer Råsten - Previous and ongoing key assignments"
 permalink: /assignments/
 layout: assignments 
 author_profile: true
@@ -12,18 +12,13 @@ header:
     - label: "Download Resume (Eng) "
       url: /assets/CV_Eng1.pdf
     - label: "Hämta CV (Swe)"
-      url: /assets/CV_Swe1.pdf
-      
-excerpt: <p>"Previous and ongoing key assignments"</p>
-  
+      url: /assets/CV_Swe1.pdf  
 ---
 
 <html>
   <head>
     <title>Christoffer have had roles like</title>
-  </head>
-  <body>
-    <style>
+        <style>
       p {
          text-align: center;
          text decoration:underline;
@@ -33,7 +28,8 @@ excerpt: <p>"Previous and ongoing key assignments"</p>
          text-align: center;
       }
     </style>
-    
+  </head>
+  <body>
        <p>Christoffer works from strategy to implementation</p>
        <p>In roles like</p>
        <h1>Cheif Architect</h1>
