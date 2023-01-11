@@ -17,14 +17,7 @@ feature_row:
     btn_label: "Read More"
     btn_class: "btn--primary"
     excerpt: "Engineer that thrives in a mix of business, people and technology"
-feature_row2:
-  - image_path: /assets/images/David.jpg
-    alt: "David Pettersson"
-    title: "David Pettersson"
-    excerpt: "Technical professional dedicated to improving efficiency and business value by enabling teams and individuals in digital transformation."
-    url: https://pettersson.dev/
-    btn_label: "Read More"
-    btn_class: "btn--primary"
+
 ---
 
 
