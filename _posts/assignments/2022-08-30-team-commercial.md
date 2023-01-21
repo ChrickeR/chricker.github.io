@@ -20,5 +20,5 @@ excerpt: 'Telia CPS Product and Transformation, PA Pay TV - C More, Telia play, 
 ---
 Member of the commercial team at TV4 TVM, which as of December 2022 is part of Telia CPS Product and Transformation, PA Pay TV.
 
-Team commercial handles solutions around purchase flows, products, subscription management, PSP, payments and CRM.
+Team commercial handles solutions around purchase flows, In-app-messages, purchases, subscription management, PSP, payments, marketing and CRM.
  
