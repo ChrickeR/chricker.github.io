@@ -21,12 +21,12 @@ header:
     <title>Christoffer have had roles like</title>
         <style>
       p {
-         text-align: center;
+         text-align: left;
          text decoration:underline;
          font-weight: bold;
       }
       h1 {
-         text-align: center;
+         text-align: left;
       }
     </style>
   </head>
