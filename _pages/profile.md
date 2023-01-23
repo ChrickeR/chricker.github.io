@@ -16,7 +16,9 @@ feature_row:
     url: "assignments"
     btn_label: "Read More"
     btn_class: "btn--primary"
-    excerpt: "Engineer that thrives in a mix of business, people and technology"
+    excerpt: "Engineer that thrives in a mix of business, people and technology
+    
+    Christoffer lives in Nacka outside Stockholm with his family. His interests outside of work are all forms of sports but perhaps mainly anyone that      includes a ball like soccer, tennis or floorball. He also enjoys being out in the country enjoying nature, fishing. He also enjoys spending time and having fun with friends and family."
 
 ---
 
