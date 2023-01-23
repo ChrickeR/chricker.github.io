@@ -14,7 +14,7 @@ header:
   overlay_color: "#000"
   overlay_filter: "0.5"
   overlay_image: "https://demo.gethugothemes.com/meghna/site/images/backgrounds/hero-area.jpg"
-excerpt: 'How does your organization play the ‘infinity game’?'
+excerpt: 'Share how your organization play the ‘infinity game’'
 ---
 
 As the world continues to become increasingly digitalized, more businesses are realizing the importance of becoming software companies. Software development is no longer just a service that businesses can outsource; it’s an essential part of business development and growth. By embracing software-driven operations, businesses can stay ahead of their competition, attract talented employees, and better their chances of success in the long run.
