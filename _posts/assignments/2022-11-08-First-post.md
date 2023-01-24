@@ -11,8 +11,8 @@ share: true
 header:
   overlay_color: "#000"
   overlay_filter: "0.5"
-  overlay_image: "https://labs.openai.com/s/SCQIYQKEwICEnsAlUl4u64KF"
-  caption: "Christoffer Råsten, DALL-E 2"
+  overlay_image: "https://images.pexels.com/photos/132339/pexels-photo-132339.jpeg?auto=compress&cs=tinysrgb&w=1600"
+  caption: "Picture by: Anthony :)"
 excerpt: 'After all, a happy and motivated IT-architect is an effective one!'
 ---
 
