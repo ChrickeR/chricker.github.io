@@ -19,7 +19,7 @@ header:
   overlay_color: "#000"
   overlay_filter: "0.5"
   overlay_image: "https://demo.gethugothemes.com/meghna/site/images/backgrounds/hero-area.jpg"
-excerpt: 'AFA Insurance, 2013 - 2021'
+excerpt: 'AFA Insurance, 2018 - 2021'
 ---
 As Chief Architect, I had the pleasure of building and working with a very focused and driven architecture team with the size of "Two Large Pizzas" who did a amazing job together with our key bussiness stakeholders, in-house partners and development teams.
 
