@@ -14,8 +14,8 @@ share: true
 header:
   overlay_color: "#000"
   overlay_filter: "0.5"
-  overlay_image: assets/images/Guardrails.jpg
-excerpt: 'Empowered teams is key for driving innovation'
+  teaser: "unsplash-gallery-image-2-th.jpg"
+  excerpt: 'Empowered teams is key for driving innovation'
 ---
 We live in an ever-changing world and having guiding principles and visions to help navigate day to day work, decisions, and empower teams is key for driving innovation. These guardrails help steer towards a unified goal for everyone in the organization, allowing teams to come together around a shared purpose. 
 
