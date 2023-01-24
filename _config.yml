@@ -45,22 +45,16 @@ author:
     - label: "Website"
       icon: "fas fa-fw fa-link"
       url: "https://troi.se"
-    #- label: "Twitter"
-    #  icon: "fab fa-fw fa-twitter-square"
-      # url: "https://twitter.com/"
     - label: "LinkedIn"
       icon: "fab fa-fw fa-linkedin"
-      # url: "https://github.com/"
+      url: "https://www.linkedin.com/in/christofferrasten/"
     
 # Site Footer
 footer:
   links:
-    - label: "GitHub"
-      icon: "fab fa-fw fa-github"
-      # url:
     - label: "LinkedIn"
       icon: "fab fa-fw fa-linkedin"
-      # url:
+      url: "https://www.linkedin.com/in/christofferrasten/"
    
 
 # Reading Files
