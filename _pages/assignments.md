@@ -12,7 +12,7 @@ header:
   actions:
     - label: "Download Resume (Eng) "
       url: /assets/CV_Eng1.pdf
-    - label: "Hämta CV (Swe)"
+    - label: "Ladda hem CV (Swe)"
       url: /assets/CV_Swe1.pdf  
 ---
 
@@ -31,24 +31,7 @@ header:
     </style>
   </head>
   <body>
-       <p>Christoffer works from strategy to implementation</p>
-       <p>In roles like</p>
-       <h1>Cheif Architect</h1>
-       <h1>Enterprise Architect</h1>
-       <h1>Solution Architect</h1>
-       <h1>Manager (Head of Architectur)</h1>
-       <p>In businesses like</p>
-       <h1>Insurance</h1>
-       <h1>Media</h1>
-       <p>In domais like</p>
-       <h1>Insurance</h1>
-       <h1>Finance</h1>
-       <h1>CRM</h1>
-       <h1>Customer interaction</h1>
-       <h1>Subscription management</h1>
-       <h1>Purchase and payments</h1>
-       <h1>BI</h1>
-       <p>In organizations like</p>
+       
   </body>
 </html>
 
