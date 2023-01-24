@@ -14,7 +14,7 @@ share: true
 header:
   overlay_color: "#000"
   overlay_filter: "0.5"
-  overlay_image: "https://images.pexels.com/photos/129742/pexels-photo-129742.jpeg?auto=compress&cs=tinysrgb&w=1600"
+  overlay_image: "https://images.pexels.com/photos/129742/pexels-photo-129742.jpeg?auto=compress&cs=tinysrgb&w=1200"
   caption: "Picture by: George Becker"
 excerpt: 'ThoughtWorks Technology Radar is a great tool for keeping up to date in terms of new and emerging technologies'
 ---
