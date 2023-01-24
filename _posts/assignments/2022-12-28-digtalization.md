@@ -14,7 +14,7 @@ header:
   overlay_color: "#000"
   overlay_filter: "0.5"
   overlay_image: "https://images.pexels.com/photos/11737041/pexels-photo-11737041.jpeg?auto=compress&cs=tinysrgb&w=1600"
-  caption: "Samara Hammer"
+  caption: "Picture by: Samara Hammer"
 excerpt: 'Share how your organization play the ‘infinity game’'
 ---
 
