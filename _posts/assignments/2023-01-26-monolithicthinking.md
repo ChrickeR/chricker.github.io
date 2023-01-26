@@ -1,5 +1,5 @@
 ---
-title: "Break free from monolithic thinking"
+title: "Breaking free from monolithic thinking"
 categories: posts
 breadcrumbs: true
 paginator: true
