@@ -66,3 +66,5 @@ For example, consider a banking application. The application can be divided into
 Domain driven design and bounded context are extremely useful for software development. By understanding the domain and dividing the system into more manageable pieces, architects and developers can create more efficient and effective software solutions. Additionally, by reducing complexity and increasing focus, the development process becomes much faster and more efficient.
 
 Monolithic structures can be beneficial, but they can also limit the ability of a system to adapt to changing conditions and hinder agile ways of working. As with any type of structure, it is important to assess the benefits and drawbacks of monolithic systems in order to determine the best approach for your particular needs.
+
+<em>A book tip for this subject is Matthew Skelton and Manuel Pais book: Team Topologies - Organizing business and technology teams for fast flow</em>
