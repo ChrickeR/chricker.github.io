@@ -45,7 +45,9 @@ Joined-at-the-Database Monoliths: A joined-at-the-database monolith is a single 
 
 Monolithic Builds: A monolithic build is when all components of the system are built at the same time. This type of monolith is difficult to modify or maintain without affecting the entire system.
 
-Monolithic Coupled Releases: A monolithic coupled release is when two or more components of the system are released at the same time. This type of monolith can be difficult to modify or maintain without affecting the entire system.
+Monolithic Coupled Releases: A monolithic coupled release is when two or more components of the system must be released at the same time and in the right order. This type of monolith can be difficult to modify or maintain without affecting the entire system.
+
+Another aspect of monolithic thinking is the single view of the world, standardization and one size fits all is a solutions. When it comes to problem solving, using the same tool or approach for every problem is not always the best option. Rather, the best approach is to assess the problem and determine which tool or approach will be the most effective. There are multiple tools and approaches that can be used to solve a particular problem and it's important to understand which one is the most suitable.
 
 Monolithic Model (Single View of the World): A monolithic model is when all components of the system are viewed as a single entity. This type of monolith is difficult to modify or maintain without affecting the entire system.
 
