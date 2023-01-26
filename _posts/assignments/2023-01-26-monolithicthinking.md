@@ -13,10 +13,10 @@ share: true
 header:
   overlay_color: "#000"
   overlay_filter: "0.5"
-  overlay_image: "https://images.pexels.com/photos/11737041/pexels-photo-11737041.jpeg?auto=compress&cs=tinysrgb&w=1600"
-  caption: "Picture by: Samara Hammer"
+  overlay_image: "https://images.pexels.com/photos/2754200/pexels-photo-2754200.jpeg?auto=compress&cs=tinysrgb&w=1600"
+  caption: "Picture by: Todd Trapani"
   teaser: "unsplash-gallery-image-2-th.jpg"
-excerpt: 'Share how your organization play the ‘infinity game’'
+excerpt: 'Monolithic thinking and centralization hinders agility and responsiveness'
 ---
 In recent years, companies have increasingly adopted an agile approach to working and innovation, as this method has been proven to be an effective way to develop products and services quickly and effectively. However, the success of an agile approach can be hindered by a monolithic thinking and centralization.
 
