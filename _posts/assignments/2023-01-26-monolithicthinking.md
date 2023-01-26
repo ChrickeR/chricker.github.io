@@ -19,7 +19,7 @@ header:
   overlay_image: "https://images.pexels.com/photos/2754200/pexels-photo-2754200.jpeg?auto=compress&cs=tinysrgb&w=1600"
   caption: "Picture by: Todd Trapani"
   teaser: "unsplash-gallery-image-2-th.jpg"
-excerpt: 'Monolithic thinking and centralization hinders agility and responsiveness'
+excerpt: 'Monolithic thinking and centralization hinders agility, inovation and responsiveness'
 ---
 In recent years, companies have increasingly adopted an agile approach to working and innovation, as this method has been proven to be an effective way to develop products and services quickly and effectively. However, the success of an agile approach can be hindered by a monolithic thinking and centralization.
 
