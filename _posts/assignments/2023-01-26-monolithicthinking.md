@@ -8,7 +8,10 @@ categories:
 tags:
 - Digitalization
 - Technology trends
-- Talent
+- Inovation
+- Agile
+- Monolith thinking
+- Distributed solutions
 share: true
 header:
   overlay_color: "#000"
