@@ -65,6 +65,8 @@ For example, consider a banking application. The application can be divided into
 
 Domain driven design and bounded context are extremely useful for software development. By understanding the domain and dividing the system into more manageable pieces, architects and developers can create more efficient and effective software solutions. Additionally, by reducing complexity and increasing focus, the development process becomes much faster and more efficient.
 
+You can advantageously apply Bounded Context with a Best of breed strategy. This focuses on leveraging the best-of-breed components within a given bounded context to create the most optimized solution. By using the best-of-breed components within a given bounded context, businesses are able to create a system that is tailored to the specific needs of their users while also reducing costs and complexity. Additionally, this strategy allows businesses to quickly deploy new features and capabilities as the needs of their users evolve. Ultimately, Best of Breed with Bounded Context Focus is an effective and efficient way to create highly optimized solutions.
+
 Monolithic structures can be beneficial, but they can also limit the ability of a system to adapt to changing conditions and hinder agile ways of working. As with any type of structure, it is important to assess the benefits and drawbacks of monolithic systems in order to determine the best approach for your particular needs.
 
 <em>A book tip for this subject is Matthew Skelton and Manuel Pais book: Team Topologies - Organizing business and technology teams for fast flow</em>
