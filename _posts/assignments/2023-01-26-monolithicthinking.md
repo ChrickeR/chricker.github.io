@@ -71,4 +71,4 @@ You can advantageously apply Bounded Context with a Best of breed strategy. This
 
 Monolithic structures can be beneficial, but they can also limit the ability of a system to adapt to changing conditions and hinder agile ways of working. As with any type of structure, it is important to assess the benefits and drawbacks of monolithic systems in order to determine the best approach for your particular needs.
 
-<em>A book tip for this subject is Matthew Skelton and Manuel Pais book: Team Topologies - Organizing business and technology teams for fast flow</em>
+> <em>A book tip for this subject is Matthew Skelton and Manuel Pais book: Team Topologies - Organizing business and technology teams for fast flow</em>
