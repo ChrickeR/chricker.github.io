@@ -14,11 +14,9 @@ tags:
 - Distributed solutions
 share: true
 header:
-video:
-    id: 369269915
-    provider: vimeo
   overlay_color: "#000"
   overlay_filter: "0.5"
+   overlay_image: "https://cdn.pixabay.com/animation/2023/02/02/16/42/16-42-28-220_512.gif"
   caption: "Video by: Pressmaster"
   teaser: "unsplash-gallery-image-2-th.jpg"
 excerpt: 'Part One - My way of adressing the challenge'
