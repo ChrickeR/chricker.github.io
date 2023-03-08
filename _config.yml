@@ -185,6 +185,12 @@ compress_html:
   ignore:
     envs: development
 
+comments:
+  provider: "facebook"
+  facebook:
+    appid: # optional
+    num_posts: 5 # 5 (default)
+    colorscheme: "dark" # "light" (default), "dark"
 
 # Defaults
 defaults:
