@@ -23,7 +23,7 @@ excerpt: 'Part One - Approaching the challenge with a fresh perspective'
 ---
 Hey everyone!  
 
-I am thrilled to accept the challenge of Digital Transformation in a series of blog posts. I'm looking forward to exploring different ways to Enable Digital and Being Digital with a fresh perspective.
+I am thrilled to accept the challenge of adressing Digital Transformation in a series of blog posts. I'm looking forward to exploring different ways to Enable Digital and Being Digital with a fresh perspective.
 
 For years, I've been talking to former and new colleagues and friends about this topic, and I figured it's finally time to share my thoughts and get some feedback. So don't be shy - feel free to share, ask questions, and make suggestions!
 
