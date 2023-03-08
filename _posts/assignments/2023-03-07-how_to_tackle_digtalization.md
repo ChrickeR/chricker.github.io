@@ -23,3 +23,4 @@ excerpt: 'Part One - Approaching the challenge with a fresh perspective'
 ---
 More to come soon...
 
+![Digital transformation](images/NewOnepager.png)
