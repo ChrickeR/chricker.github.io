@@ -21,6 +21,9 @@ header:
   teaser: "unsplash-gallery-image-2-th.jpg"
 excerpt: 'Part One - Approaching the challenge with a fresh perspective'
 ---
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/sv_SE/sdk.js#xfbml=1&version=v16.0" nonce="Ybuz0owE"></script>
+
 Hey everyone!  
 
 I am thrilled to accept the challenge of adressing Digital Transformation in a series of blog posts. I'm looking forward to exploring ways to Enable Digital and Being Digital with a fresh perspective.
@@ -47,3 +50,5 @@ In the upcoming blog posts, I'm looking forward to sharing my personal experienc
 The next post will cover where I suggest to start and why...
 
 See you soon :)  
+
+<div class="fb-comments" data-href="https://troi.se/posts/how_to_tackle_digtalization/" data-width="" data-numposts="5"></div>
