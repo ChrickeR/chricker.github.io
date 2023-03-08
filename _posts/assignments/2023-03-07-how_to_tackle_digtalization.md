@@ -35,9 +35,8 @@ So with that said, what is ***Digitalization***?
 
 For me digitalization is about more than just technology. It’s about how you can use technology to stay agile and adapt to the ever-changing landscape. It’s about how you can use the latest technologies to improve efficiency, increase customer satisfaction, and unlock new opportunities.  But it is also about people and culture, collaboration, trust, the way we organize, curiosity and learning.
 
-I'm excited to announce that I'm taking on a new challenge - Digital Transformation! I'm going to break it down into two parts and explore each part in a series of blog posts. First, I'm going to look at how to Enable Digital, and then I'm going to explore Being Digital. I'm looking forward to this journey and I hope you'll join me as I explore this new topic!
+I'm going to break it down into two parts and explore each part in a series of blog posts. First, I'm going to look at how to Enable Digital, and then I'm going to explore Being Digital. I'm looking forward to this journey and I hope you'll join me as I explore this topic!
 
-I will try to approach the challenge of ***Digital Transformation*** with a fresh perspective addressing the viewpoints of how to ***Enable Digital*** and ***Being Digital*** in a series of blog posts. 
 
 **Digital Transformation is hard!**
 
