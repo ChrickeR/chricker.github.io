@@ -13,7 +13,7 @@ tags:
 - Monolith thinking
 - Distributed solutions
 share: true
-comments: true
+comments: false
 header:
   overlay_color: "#000"
   overlay_filter: "0.5"
@@ -28,7 +28,7 @@ Hey everyone!
 
 I am thrilled to accept the challenge of adressing Digital Transformation in a series of blog posts. I'm looking forward to exploring ways to Enable Digital and Being Digital with a fresh perspective.
 
-For years, I've been talking to former and new colleagues and friends about this topic, and I figured it's finally time to share my thoughts and get some feedback. So don't be shy - feel free to share, ask questions, and make suggestions!
+For years, I've been talking to colleagues and friends about this topic, and I figured it's finally time to share my thoughts and get some feedback. So don't be shy - feel free to share, ask questions, and make suggestions!
 
 > Any opinions I express here are my own and not necessarily those of my employer or customers.
 
@@ -42,8 +42,6 @@ I'm going to break it down into two parts and explore each part in a series of b
 
 
 **Digital Transformation is hard!**
-
-I am committed to helping with a smooth transition and will do my best to provide guidance and set standards where necessary. I'm not here to be overly prescriptive, but rather to help guide the process and ensure it evolves in a positive way.
 
 In the upcoming blog posts, I'm looking forward to sharing my personal experiences, observations, and analysis with you. I will strive to provide helpful guidance and suggest standards and boundaries where necessary, all while keeping an open mind and allowing for flexibility in the process. I'm sure this journey will be filled with learning and growth for us all.
 
