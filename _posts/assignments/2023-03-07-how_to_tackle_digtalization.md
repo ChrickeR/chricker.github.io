@@ -13,6 +13,7 @@ tags:
 - Monolith thinking
 - Distributed solutions
 share: true
+comments: true
 header:
   overlay_color: "#000"
   overlay_filter: "0.5"
