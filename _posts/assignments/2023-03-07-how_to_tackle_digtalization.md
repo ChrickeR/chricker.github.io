@@ -51,4 +51,4 @@ The next post will cover where I suggest to start and why...
 
 See you soon :)  
 
-<div class="fb-comments" data-href="https://troi.se/posts/how_to_tackle_digtalization/" data-width="" data-numposts="5"></div>
+<div class="powr-comments" id="5bdf3686_1678288039"></div><script src="https://www.powr.io/powr.js?platform=html"></script>
