@@ -36,6 +36,14 @@ So with that said, what is ***Digitalization***?
 
 For me digitalization is about more than just technology. It’s about how you can use technology to stay agile and adapt to the ever-changing landscape. It’s about how you can use the latest technologies to improve efficiency, increase customer satisfaction, and unlock new opportunities.  But it is also about people and culture, collaboration, trust, staffing, curiosity and learning.
 
+It is becoming increasingly clear that IT is not the central focus of digitalization, but rather a natural part of the business. Companies must embrace technology in order to stay competitive, and the future of business will be digital in its core. 
+
+So digitalization is about more than just investing in new technology; it is about changing the way a business works and how it interacts with its customers. It involves rethinking processes, re-engineering operations, and creating new customer experiences. This means that IT is not central to digitalization, but rather an enabler of it.
+
+Businesses that embrace digitalization need to look beyond traditional IT solutions. They need to focus on how technology can be used to create new opportunities and improve customer experience. This could mean investing in new software, implementing automation, or leveraging data analytics to gain insights.
+
+Ultimately, digitalization is not just about technology, but about transforming the way a business operates. IT is an important part of this process, but it is not the only element. Businesses need to think holistically about digitalization and embrace technology as a natural part of their business.
+
 I'm going to break it down into two parts and explore each part in a series of blog posts. First, I'm going to look at how to Enable Digital, and then I'm going to explore Being Digital. I'm looking forward to this journey and I hope you'll join me as I explore this topic!
 
 ![Digital transformation - Mindmap](/assets/images/mindmap.PNG)
