@@ -18,7 +18,7 @@ header:
   overlay_image: "/assets/images/NewOnepager.png"
   caption: "Icons by: Flaticon"
   teaser: "unsplash-gallery-image-2-th.jpg"
-excerpt: 'Approaching the challenge with a fresh perspective'
+excerpt: 'Introduction - Approaching the challenge with a fresh perspective'
 ---
 Hey everyone!  
 
