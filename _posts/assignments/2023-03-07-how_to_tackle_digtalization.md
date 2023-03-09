@@ -36,7 +36,9 @@ Digitalization is a hot topic these days; and has been for several years. But wh
 
 So with that said, what is ***Digitalization***?
 
-For me digitalization is about more than just technology. It’s about how you can use technology to stay agile and adapt to the ever-changing landscape. It’s about how you can use the latest technologies to improve efficiency, increase customer satisfaction, and unlock new opportunities.  But it is also about people and culture, collaboration, trust, the way we organize, curiosity and learning.
+For me digitalization is about more than just technology. It’s about how you can use technology to stay agile and adapt to the ever-changing landscape. It’s about how you can use the latest technologies to improve efficiency, increase customer satisfaction, and unlock new opportunities.  But it is also about people and culture, collaboration, trust, staffing, curiosity and learning.
+
+
 
 I'm going to break it down into two parts and explore each part in a series of blog posts. First, I'm going to look at how to Enable Digital, and then I'm going to explore Being Digital. I'm looking forward to this journey and I hope you'll join me as I explore this topic!
 
@@ -48,5 +50,10 @@ In the upcoming blog posts, I'm looking forward to sharing my personal experienc
 The next post will cover where I suggest to start and why...
 
 See you soon :)  
+
+<div class="commentbox"></div>
+<script src="https://unpkg.com/commentbox.io/dist/commentBox.min.js"></script>
+<script>commentBox('5746482808356864-proj')</script>
+
 
 <div class="powr-comments" id="5bdf3686_1678288039"></div><script src="https://www.powr.io/powr.js?platform=html"></script>
