@@ -44,7 +44,7 @@ Businesses that embrace digitalization need to look beyond traditional IT soluti
 
 Ultimately, digitalization is not just about technology, but about transforming the way a business operates. IT is an important part of this process, but it is not the only element. Businesses need to think holistically about digitalization and embrace technology as a natural part of their business.
 
-I'm going to break it down into two parts and explore each part in a series of blog posts. First, I'm going to look at how to Enable Digital, and then I'm going to explore Being Digital. I'm looking forward to this journey and I hope you'll join me as I explore this topic!
+I'm going to break it down into pieces and explore each piece in a series of blog posts. I'm looking forward to this journey and I hope you'll join me as I explore this topic!
 
 ![Digital transformation - Mindmap](/assets/images/mindmap.PNG)
 
