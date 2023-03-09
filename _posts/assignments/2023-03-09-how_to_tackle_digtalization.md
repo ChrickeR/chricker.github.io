@@ -24,7 +24,7 @@ Hey everyone!
 
 I'm excited to share my ideas and lessons learned on how to navigate digitalization with you in a series of blog posts. I'm eager to explore ways to Enable Digital and Being Digital with all of you.
 
-For years, I've been working and talking to colleagues and friends about this topic, and I figured it's finally time to share my thoughts and get some wider feedback. So don't be shy - feel free to share, ask questions, and make suggestions!
+For years, I’ve been working with digitalization and discussing the topic with colleagues and friends, and I figured it’s finally time to share my thoughts, lessons learned and maby one or two stories from the journey to get some wider feedback. So don’t be shy - feel free to share, ask questions, and make suggestions!
 
 > Any opinions I express here are my own and not necessarily those of my employer or customers.
 
