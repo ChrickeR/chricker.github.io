@@ -19,11 +19,8 @@ header:
   overlay_filter: "0.5"
   overlay_image: "/assets/images/NewOnepager.png"
   teaser: "unsplash-gallery-image-2-th.jpg"
-excerpt: 'Part One - Approaching the challenge with a fresh perspective'
+excerpt: 'Approaching the challenge with a fresh perspective'
 ---
-<div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/sv_SE/sdk.js#xfbml=1&version=v16.0" nonce="Ybuz0owE"></script>
-
 Hey everyone!  
 
 I am thrilled to accept the challenge of adressing Digital Transformation in a series of blog posts. I'm looking forward to exploring ways to Enable Digital and Being Digital with a fresh perspective.
@@ -38,7 +35,7 @@ So with that said, what is ***Digitalization***?
 
 For me digitalization is about more than just technology. It’s about how you can use technology to stay agile and adapt to the ever-changing landscape. It’s about how you can use the latest technologies to improve efficiency, increase customer satisfaction, and unlock new opportunities.  But it is also about people and culture, collaboration, trust, staffing, curiosity and learning.
 
-![Digital transformation - Mindmap](assets/images/mindmap.png)
+![Digital transformation - Mindmap](images/mindmap.png)
 
 I'm going to break it down into two parts and explore each part in a series of blog posts. First, I'm going to look at how to Enable Digital, and then I'm going to explore Being Digital. I'm looking forward to this journey and I hope you'll join me as I explore this topic!
 
