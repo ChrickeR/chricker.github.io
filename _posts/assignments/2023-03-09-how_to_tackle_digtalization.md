@@ -10,8 +10,6 @@ tags:
 - Technology trends
 - Inovation
 - Agile
-- Monolith thinking
-- Distributed solutions
 share: true
 comments: false
 header:
