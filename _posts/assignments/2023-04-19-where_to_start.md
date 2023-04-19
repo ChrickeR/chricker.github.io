@@ -23,7 +23,7 @@ excerpt: 'How to tackle digital transformation'
 ---
 Hello again! 
 
-Let´s start here.
+I think we should start here.
 
 The terms ***digitization***, ***digitalization***, and ***digital transformation*** are often used interchangeably, but it's important to understand their distinct meanings to fully grasp the power and significance of digital transformation.
 
@@ -55,6 +55,13 @@ This means that we need to have a culture of learning and discovery. We need to 
 At the same time, we need to have a mindset that is focused on growth and innovation. We need to be willing to invest in new technologies and new ways of working, even if they are not yet proven. We need to be willing to take calculated risks and experiment with new ideas, and we need to be willing to pivot quickly if something is not working.
 
 In short, the next thing to secure on this journey is not just the technology, but the culture and mindset that will help us get there. We need to be willing to embrace change, learn new skills, and work in new ways. We need to be ready to play the infinity game, where the rules are constantly changing, and the only way to win is to keep evolving. 
+
+- Do you know what digital transformation means for your organization and how it aligns with your objectives+ 
+- Do you have management support and understanding?
+- Are you willing to let go of old ways of doing things?
+- Do you have the structure, trust and culture to move fast?
+- Do you have a mindset that is focused on growth and innovation?
+- Do you have the people and competence?
 
 Are you ready to play?
 
