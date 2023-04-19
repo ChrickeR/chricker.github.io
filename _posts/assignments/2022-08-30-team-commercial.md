@@ -18,7 +18,7 @@ header:
   overlay_image: "https://demo.gethugothemes.com/meghna/site/images/backgrounds/hero-area.jpg"
 excerpt: 'Telia CPS Product and Transformation, PA Pay TV - C More, Telia play, 2022 - Ongoing'
 ---
-Member of the commercial team at TV4 TVM, which as of December 2022 is part of Telia CPS Product and Transformation, PA Pay TV.
+Member of the commercial team  at Telia CPS Product and Transformation, PA Pay TV.
 
 Team commercial handles solutions around purchase flows, In-app-messages, products, subscription management, PSP, payments, marketing and CRM.
  
