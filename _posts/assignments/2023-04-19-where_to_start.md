@@ -63,5 +63,5 @@ In short, the next thing to secure on this journey is not just the technology, b
  5. Do you have a mindset that is focused on growth and innovation?
  6. Do you have the structure, trust and culture to move fast?
 
-*Are you ready to play?
+Are you ready to play?
 
