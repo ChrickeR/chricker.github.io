@@ -27,7 +27,7 @@ Let me start here.
 
 The terms ***digitization***, ***digitalization***, and ***digital transformation*** are often used interchangeably, but it's important to understand their distinct meanings to fully grasp the power and significance of digital transformation.
 
-In the past, we may have used these terms inaccurately, but it's time to clarify them to avoid confusion and prioritize correctly moving forward. ***Digital transformation*** is a strategic transformation driven by customers, requiring comprehensive organizational change and the implementation of digital technologies to meet their evolving needs. On the other hand, ***digitalization*** refers to converting analog information into digital formats, while ***digitization*** involves automating processes and training employees in computer usage.
+In the past, we may have used these terms inaccurately, but it's time to clarify them to avoid confusion and to be able to prioritize correctly moving forward. ***Digital transformation*** is a strategic transformation driven by customers, requiring comprehensive organizational change and the implementation of digital technologies to meet their evolving needs. On the other hand, ***digitalization*** refers to converting analog information into digital formats, while ***digitization*** involves automating processes and training employees in computer usage.
 
 If we confuse these terms, we risk underestimating the true potential of digital transformation and the benefits it can bring to our organizations.
 
