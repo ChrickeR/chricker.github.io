@@ -23,7 +23,7 @@ excerpt: 'How to tackle digital transformation'
 ---
 Hello again! 
 
-Let me start here.
+Lets start here.
 
 The terms ***digitization***, ***digitalization***, and ***digital transformation*** are often used interchangeably, but it's important to understand their distinct meanings to fully grasp the power and significance of digital transformation.
 
