@@ -20,7 +20,7 @@ excerpt: 'TV4 - C More, 2021 - 2022'
 My first assignment as a solution architect consultant was to change payment solution and checkout flows for a transaction-intensive product. 
 The solution covered integrations with CRM and internal business processes. 
 
-The assignment included collaboration with external partners, target- and solution architecture as well as implementation. 
+The assignment included collaboration with external partners, target- and solution architecture as well as implementation and migration. 
 
 
 
