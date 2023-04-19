@@ -37,9 +37,9 @@ In summary, digital transformation involves digitizing information, digitalizing
 
 Therefore, it's crucial to start defining what digital transformation means for your organization and how it aligns with your objectives. 
 
-If you don't have access to top-level management, find a way to connect and have an elevator pitch ready to persuade potential sponsors. Leadership buy-in and understanding is critical for successful digital transformation.
+If you don't have access to top-level management, find a way to connect and have an elevator pitch ready to influence potential sponsors. Leadership buy-in and understanding is critical for successful digital transformation.
 
-I remeber that i back in 2016 I had the opportunity to talk to tech and digitalization leaders such as Adrian Cockcroft (Netflix, AWS) and Rodrigue Schaefer (Head of Engineering Zalando) that even back then stressed the importance of IT being a natural part of the business and accepted as a key differentiator. They couldn't understand why this wasn't coming from leadership and emphasized the challenges of digitalization without it. Looking back, this sentiment still holds as organizations continue to implement the same process with new tools and ways of working.
+Back in 2016 I just had started to work with the digital transformation and had the opportunity to meet and talk to tech and digitalization leaders such as Adrian Cockcroft (Netflix, AWS) and Rodrigue Schaefer (Head of Engineering Zalando) that even back then stressed the importance of IT being a natural part of the business and accepted as a key differentiator. They couldn't understand why this wasn't coming from leadership and emphasized the challenges of digitalization without it. Looking back, this sentiment still holds as organizations continue to implement the same process with new tools and ways of working.
 
 I share Adrians talk from GOTO 2016, Stockholm - It´s Simple
 <iframe width="560" height="315" src="https://www.youtube.com/embed/a8Re9Cvv6nU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>![image](https://user-images.githubusercontent.com/19704400/225951579-b8b3548b-341d-441c-b022-4167cf052107.png)
