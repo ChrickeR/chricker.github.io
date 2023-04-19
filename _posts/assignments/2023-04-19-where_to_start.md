@@ -16,8 +16,8 @@ comments: false
 header:
   overlay_color: "#000"
   overlay_filter: "0.5"
-  overlay_image: "/assets/images/NewOnepager.png"
-  caption: "Icons by: Flaticon"
+  overlay_image: "/assets/images/change.png"
+  caption: "Photo by Nataliya Vaitkevich"
   teaser: "unsplash-gallery-image-2-th.jpg"
 excerpt: 'How to tackle digital transformation'
 ---
