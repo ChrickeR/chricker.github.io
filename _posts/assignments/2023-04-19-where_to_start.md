@@ -56,8 +56,8 @@ At the same time, we need to have a mindset that is focused on growth and innova
 
 In short, the next thing to secure on this journey is not just the technology, but the culture and mindset that will help us get there. We need to be willing to embrace change, learn new skills, and work in new ways. We need to be ready to play the infinity game, where the rules are constantly changing, and the only way to win is to keep evolving. 
 
- 1. Do you know what digital transformation means for your organization and how it aligns with your objectives?
- 2. Do you have management support and understanding?
+ 1. Do you have management support and understanding?
+ 2. Do you know what digital transformation means for your organization and how it aligns with your objectives?
  3. Do you have the people and competence?
  4. Are you willing to let go of old ways of doing things?
  5. Do you have a mindset that is focused on growth and innovation?
