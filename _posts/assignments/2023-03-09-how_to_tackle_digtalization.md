@@ -7,6 +7,7 @@ categories:
 - posts
 tags:
 - Digitalization
+- Digital transformation
 - Technology trends
 - Inovation
 - Agile
