@@ -8,6 +8,8 @@ tags:
 - integration architecture
 - Information architecture
 - EA
+- CRM
+- B2B
 share: false
 header:
   overlay_color: "#000"
@@ -16,6 +18,8 @@ header:
 excerpt: 'TV4 TVM ICT & Business Apps Sweden 2021 - Ongoing'
 ---
  
-Architect in the initiative concerning integration and system documentation eg. domain architecture.
+Architect in the initiative concerning integration modernization and system documentation for Business Apps Sweden (B2B advertising).
+
+- Member of the Integration team
 
  
