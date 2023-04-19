@@ -8,7 +8,7 @@ categories:
 tags:
 - Digitalization
 - Digization
-- Technology trends
+- Digital transformation
 - Inovation
 - Agile
 share: true
