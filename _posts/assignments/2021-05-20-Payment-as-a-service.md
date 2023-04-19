@@ -8,6 +8,7 @@ tags:
   - Subscription Management
   - PCI
   - PSP
+  - C More
 share: false
 breadcrumbs: true
 paginator: true
