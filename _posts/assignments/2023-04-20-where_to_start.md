@@ -50,7 +50,7 @@ Back in 2016 I just had started to work with the digital transformation and had 
 
 Take a look at Adrians talk from GOTO 2016, Stockholm - It´s Simple
 
-<iframe width="560" height="315" src="[https://www.youtube.com/embed/a8Re9Cvv6nU](https://www.youtube.com/embed/a8Re9Cvv6nU)" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/a8Re9Cvv6nU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>![image](https://user-images.githubusercontent.com/19704400/225951579-b8b3548b-341d-441c-b022-4167cf052107.png)
 
 ### Avoid the IT-centric focus
 
