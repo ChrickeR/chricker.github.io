@@ -40,18 +40,19 @@ I will do my best to provide my perspective on each of these why's in the hopes 
 > to discuss more.
 > 
 
-## How to embrace digital transformation
+## How to start embrace digital transformation
 
-### Embracing digital is a organizational joint venture, nothing else
+### Embracing digital is nothing else than a organizational joint venture 
 
 To achieve the necessary speed and attention for digital transformation, it's essential to identify the origin of the initiative and how it's progressing. Often, companies struggle with this, and a common mistake is maintaining a separation between their IT and Business sides. In some instances, the impetus for digital transformation solely comes from the IT side, leading to a narrow focus on technology. In contrast, other organizations have a business-driven approach that prioritizes an appealing vision while underestimating the intricacies of the technology involved.
 
 Back in 2016 I just had started to work with the digital transformation and had the opportunity to meet and talk to tech and digitalization leaders such as Adrian Cockcroft (Netflix, AWS) and Rodrigue Schaefer (Head of Engineering Zalando) that even back then stressed the importance of IT being a natural part of the business and accepted as a key differentiator. They couldn't understand why this wasn't coming from leadership and emphasized the challenges of digitalization without it.In retrospect, this sentiment remains relevant because numerous organizations merely rebrand their traditional approaches and persist in executing the same processes with a slight incorporation of modern technologies and methodologies. Without comprehensive comprehension at the leadership level, the conversion will either fail to materialize or progress at a sluggish pace.
 
 Take a look at Adrians talk from GOTO 2016, Stockholm - It´s Simple
-<iframe width="560" height="315" src="[https://www.youtube.com/embed/a8Re9Cvv6nU](https://www.youtube.com/embed/a8Re9Cvv6nU)" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>)
 
-### Don´t get stuck in an IT-centric focus
+<iframe width="560" height="315" src="[https://www.youtube.com/embed/a8Re9Cvv6nU](https://www.youtube.com/embed/a8Re9Cvv6nU)" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+### Avoid the IT-centric focus
 
 In the past, I made the mistake of driving digital transformation solely from an IT perspective, without considering the challenges involved, as wisely pointed out by Adrian. This approach lacked a customer focus, which is essential for successful transformation. However, the journey became more manageable when a business partner arrived, and I understood the importance of aligning with a business stakeholder who shared the same vision. We then formalized the concept of self-organized, cross-competent business products, organized around business capabilities. 
 
