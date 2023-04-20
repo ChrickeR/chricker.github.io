@@ -23,7 +23,7 @@ excerpt: 'How to tackle digital transformation'
 ---
 Welcome back! I hope you're doing well. 
 
-The intention of your interest in this topic may differ so lets dive into some of the reasons why you might find the subject of digital transformation fascinating and want a way to tackle.
+The intention of your interest in this topic may differ so lets dive into some of the reasons why you might find the subject of digital transformation fascinating.
 
 -   Perhaps you feel that your transformation is progressing too slowly or lacks the necessary attention.
 -   Maybe you do not have the understanding and support from your top leadership.
