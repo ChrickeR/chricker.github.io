@@ -36,84 +36,66 @@ The intention of your interest in this topic may differ so lets dive into some o
 
 I will do my best to provide my perspective on each of these why's in the hopes that it will pique your interest and encourage you to delve deeper into the subject matter. 
 
+But let us start with what is Digital Transformation and why sorting this out matters.
+
 > Please use the comment section below if you have other issues or want
 > to discuss more.
 > 
 
-## How to start embrace digital transformation
+## So why care - It is just semantics or ?
 
-### Embracing digital is nothing else than a organizational joint venture 
+Communication is an essential part of our daily lives, whether it's at home, work or social situations. However, communication can sometimes be a challenge when we assume that we are talking about the same thing. It's a common behavior that we all engage in, but it can cause a lot of confusion and slow down the process.
 
-To achieve the necessary speed and attention for digital transformation, it's essential to identify the origin of the initiative and how it's progressing. Often, companies struggle with this, and a common mistake is maintaining a separation between their IT and Business sides. In some instances, the impetus for digital transformation solely comes from the IT side, leading to a narrow focus on technology. In contrast, other organizations have a business-driven approach that prioritizes an appealing vision while underestimating the intricacies of the technology involved.
+The impact of miscommunication can be felt in all industries. With the rise of digital technologies, many terms and concepts have emerged, and it can be challenging to differentiate them. For instance, terms such as digitization, digitalization, digital transformation, and digital business transformation are often used interchangeably, and sometimes carelessly simplified and merged into digital transformation or digitalization, leading to confusion.
 
-Back in 2016 I just had started to work with the digital transformation and had the opportunity to meet and talk to tech and digitalization leaders such as Adrian Cockcroft (Netflix, AWS) and Rodrigue Schaefer (Head of Engineering Zalando) that even back then stressed the importance of IT being a natural part of the business and accepted as a key differentiator. They couldn't understand why this wasn't coming from leadership and emphasized the challenges of digitalization without it.In retrospect, this sentiment remains relevant because numerous organizations merely rebrand their traditional approaches and persist in executing the same processes with a slight incorporation of modern technologies and methodologies. Without comprehensive comprehension at the leadership level, the conversion will either fail to materialize or progress at a sluggish pace.
+When we assume that we are talking about the same thing, we create expectations that may differ from each other. This can lead to misunderstandings and disagreements, which can be frustrating for everyone involved. For example, if two colleagues are discussing a project, but they have different interpretations of the goals and objectives, their expectations for the project's outcome will differ. This can lead to confusion and conflict, making it challenging to move forward.
 
-Take a look at Adrians talk from GOTO 2016, Stockholm - It´s Simple
+It's essential to take the time to clarify what we mean when discussing digital transformation to avoid such scenarios. Having a common understanding of terms and concepts can ensure that everyone is on the same page, and expectations are aligned. Moreover, it can lead to better collaboration and faster implementation of digital transformation initiatives.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/a8Re9Cvv6nU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>![image](https://user-images.githubusercontent.com/19704400/225951579-b8b3548b-341d-441c-b022-4167cf052107.png)
+In conclusion, miscommunication can have a significant impact on digital transformation projects, leading to delays, misunderstandings, frustration  and disagreements. Therefore, it's crucial to take the time to clarify what we mean when discussing digital transformation to ensure that everyone is on the same page. By doing so, we can avoid confusion, align expectations, prioritize and accelerate the implementation of digital transformation initiatives.
 
-### Avoid the IT-centric focus
+My experience is that this is often is the case when we come to digital transformation and digitalization. 
 
-In the past, I made the mistake of driving digital transformation solely from an IT perspective, without considering the challenges involved, as wisely pointed out by Adrian. This approach lacked a customer focus, which is essential for successful transformation. However, the journey became more manageable when a business partner arrived, and I understood the importance of aligning with a business stakeholder who shared the same vision. We then formalized the concept of self-organized, cross-competent business products, organized around business capabilities. 
+## So what is "Digital Transformation"
 
-### Lack of trust and accountability is the cryptonite for empowered teams
+### Digitization
+Digitization refers to the process of converting analog data into digital format, also known as digital enablement. This can include scanning physical documents and converting them into PDF files or creating digital copies of photographs. Digitization is an important first step in the digital transformation process, as it allows for the storage and manipulation of data in a digital format.
 
-Empowered Trusting teams can be challenging in traditional organizations where managers are viewed as the experts who make all the decisions. However, to truly unleash the power of a team, it's crucial to overcome this hurdle and embrace a culture of trust.
+### Digitalization
+Digitalization, on the other hand, refers to the use of digital technologies to transform business operations. This can include implementing digital tools and processes to streamline workflows and increase efficiency. Digitalization is focused on using technology to optimize existing processes and drive business growth.
 
-When you trust your team, you show them that you believe in their abilities and are willing to collaborate with them to achieve success. You empower them to take ownership of their work and provide them with the freedom to innovate and take risks.
+### Digital Transformation
+Digital transformation is a broader term that encompasses both digitization and digitalization. It refers to the process of using digital technologies to fundamentally change how a business operates. This can include rethinking business models and processes to leverage new technologies and create new value propositions for customers.
 
-Trusting teams also leads to better communication, collaboration, and creativity. Team members feel more comfortable sharing their ideas and feedback, leading to diverse perspectives and more effective problem-solving.
+### Digital Business Transformation
+Digital business transformation is a term that is often used to describe the process of using digital technologies to transform an entire business. This can include everything from digitizing business processes to implementing new digital business models.
 
-By trusting your team, you create a culture of excellence, where everyone is invested in the organization's success. You empower individuals to make decisions, take initiative, and deliver results, resulting in better outcomes for the team and the organization as a whole.
+### Wrapping up
+In the past, we may have used these terms imprecisely, but it's time to differentiate them to avoid misunderstandings. 
 
-So, while it may be challenging, it's essential to trust your team and embrace their potential. By doing so, you can create a culture of trust and collaboration that leads to incredible outcomes and drives the organization forward.
+***Digital transformation*** is a customer-driven strategic transformation that necessitates comprehensive organizational change and the adoption of digital technologies to meet evolving needs. On the other hand, ***Digital Business Transformation***  refers to the process of utilizing digital technologies and capabilities to create a robust new digital business model.
 
-### Get management buy in, interest and understanding
-
-If you don't have access to top-level management, it is crutial to find a way to connect. Have an elevator pitch ready to influence potential sponsors. 
-
-Leadership buy-in and understanding is critical for successful digital transformation.
-Digital transformation has become a game-changer for businesses across all sectors. From manufacturing to healthcare, banking to retail, every industry is being reshaped by digital technologies. But the question is, are we ready to embrace this change? Do we have the culture and mindset to get us there?
-
-One of the biggest challenges of this transformation is the need to let go of old ways of doing things. This includes the way you think about your businesses, your processes, your organization or your systems and even your rewards models. In the past, managers were rewarded for their headcount and the number of people they had working for them. But in the age of digitalization, this model should change. Automation is becoming more prevalent, and companies that can automate their processes are being rewarded.
-
-If the leadership believe that digitalization is the only component of digital transformation they are making a significant strategic mistake. While digitalization initiatives are essential to digital transformation, they are not the only requirement. Digital transformation demands that organizations improve their ability to handle change, making it a fundamental competency as the enterprise shifts towards becoming customer-centric. 
-
-Although being agile can make ongoing digitalization initiatives more manageable, it should not be considered synonymous with them.
-
-**How to comprehend what digital transformation entails and how your objectives align with it**
-
-One aspect that has been puzzling to me is the terminology and shared understanding of what we mean by digital transformation. To establish a common foundation, clarify these terms to avoid confusion and ensure correct prioritization moving forward.
-
-The terms _digitization_, _digitalization_, _digital transformation_, and _digital business transformation_ are often used interchangeably, but it's essential to comprehend their unique meanings to fully grasp the significance of digital transformation.
-
-In the past, we may have used these terms imprecisely, but it's time to differentiate them to avoid misunderstandings. _**Digital transformation**_ is a customer-driven strategic transformation that necessitates comprehensive organizational change and the adoption of digital technologies to meet evolving needs. On the other hand, _**Digital business transformation**_ refers to the process of utilizing digital technologies and capabilities to create a robust new digital business model.
-
-Furthermore, _**digitization**_ pertains to converting analog information into digital formats (also known as digital enablement), while _**digitalization**_ involves modifying business models to provide new revenue and value-producing opportunities by automating processes and training employees in computer usage.
-
-Misunderstanding these terms may cause us to underestimate the true potential of digital transformation and the benefits it can offer your organizations. It may also lead to bad prioritazion and slow down the transformation.
+Furthermore, ***digitization*** pertains to converting analog information into digital formats, while ***digitalization*** involves modifying business models to provide new revenue and value-producing opportunities by automating processes and training employees in computer usage.
 
 In summary, digital transformation involves digitizing information, digitalizing the procedures and functions of a company's operations, and digitally transforming the organization and its strategy.
 
 Therefore, it's crucial to start defining what digital transformation means for your organization and how it aligns with your objectives.
 
-**How to let go of old ways of doing things**
+## Next up topics, teasers...
 
-The key to success in this new digital age is speed. Companies that can move quickly and adapt to new technologies and trends will be the ones that succeed. But to do this, we need to be willing to let go of old ways of doing things and embrace new ways of working.
+### The importance of top management buy in, interest and understanding
+*Back in 2016 I just had started to work with the digital transformation and had the opportunity to meet and talk to tech and digitalization leaders such as Adrian Cockcroft (Netflix, AWS) and Rodrigue Schaefer (Head of Engineering Zalando) that even back then stressed the importance of IT being a natural part of the business and accepted as a key differentiator. They couldn’t understand why this wasn’t coming from leadership and emphasized the challenges of digitalization without retrospect, this sentiment remains relevant because numerous organizations merely rebrand their traditional approaches and persist in executing the same processes with a slight incorporation of modern technologies and methodologies. Without comprehensive comprehension at the leadership level, the conversion will either fail to materialize or progress at a sluggish pace.*
 
-This means that we need to have a culture of learning and discovery. We need to be willing to try new things, take risks, and learn fast from our mistakes. We need to be open to new ideas and perspectives, and we need to be willing to change our minds if we find a better way of doing things.
+### How to avoid the anti-pattern of an IT-centric Digital transformation
 
-At the same time, we need to have a mindset that is focused on growth and innovation. We need to be willing to invest in new technologies and new ways of working, even if they are not yet proven. We need to be willing to take calculated risks and experiment with new ideas, and we need to be willing to pivot quickly if something is not working.
+### How lack of trust and accountability can kill any Digital transformation
+*Lack of trust and accountability is like  Kryptonite for empowered teams.*
 
-In short, the next thing to secure on this journey is not just the technology, but the culture and mindset that will help us get there. We need to be willing to embrace change, learn new skills, and work in new ways. We need to be ready to play the infinity game, where the rules are constantly changing, and the only way to win is to keep evolving.
+### How to let go of old ways of doing things
 
-**Conclusion**
-Based on my experience a would priorotize the actions points in this order but dont forget to itterate and learn fast. 
-Not even this is a one-off.
+### How to build and nourish a culture of learning and discovery
 
-1. Get management support and understanding!
-2. Define  what digital transformation means for your organization and its objectives!
-3. Build and nourish a culture of learning and discovery!
-4. PoC and experiment to build a mindset that is focused on growth and innovation and let go of old ways of doing things!
-5. Focus on your people and digital competence! Make them grow with cofidence!
-6. Build a "simple" structure for business to move fast by minimizing dependencies!
+### How to embracing digital,  a organizational joint venture
+
+### How to organize for being digital
+*How to build a "simple" structure for business to move fast by minimizing dependencies!*
