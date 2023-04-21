@@ -20,5 +20,5 @@ excerpt: 'Telia CPS Product and Transformation, PA Pay TV - C More, Telia play, 
 ---
 Member of the commercial team  at Telia CPS Product and Transformation, PA Pay TV.
 
-Team commercial handles solutions around purchase flows, In-app-messages, products, subscription management, PSP, payments, marketing and CRM.
+Team commercial handles and continously evolve solutions around purchase flows, In-app-messages, products, subscription management, PSP, payments, marketing and CRM for C More and Telia play.
  
