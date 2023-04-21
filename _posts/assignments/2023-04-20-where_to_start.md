@@ -16,8 +16,8 @@ comments: false
 header:
   overlay_color: "#000"
   overlay_filter: "0.5"
-  overlay_image: "/assets/images/change.jpg"
-  caption: "Photo by Nataliya Vaitkevich"
+  overlay_image: "https://cdn.pixabay.com/photo/2018/10/17/08/51/transformation-3753440_960_720.jpg"
+  caption: "Photo by Pixabay"
   teaser: "unsplash-gallery-image-2-th.jpg"
 excerpt: 'How to tackle digital transformation'
 ---
