@@ -70,6 +70,9 @@ Digital transformation is a broader term that encompasses both digitization and 
 ### Digital Business Transformation
 Digital business transformation is a term that is often used to describe the process of using digital technologies to transform an entire business. This can include everything from digitizing business processes to implementing new digital business models.
 
+![image-center](/assets/images/Matris.png)
+
+
 ### Wrapping up
 In the past, we may have used these terms imprecisely, but it's time to differentiate them to avoid misunderstandings. 
 
