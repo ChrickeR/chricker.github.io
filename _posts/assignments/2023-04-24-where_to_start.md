@@ -1,5 +1,5 @@
 ---
-title: "what digital transformation entails and why it matters"
+title: "What digital transformation entails and why it matters"
 categories: posts
 breadcrumbs: true
 paginator: true
