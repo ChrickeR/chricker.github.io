@@ -74,3 +74,5 @@ If you're simply curious about digital transformation, I'll provide a comprehens
 In conclusion, the journey of digital transformation can be complex, but it is a topic that offers immense possibilities for growth, innovation, and staying competitive in today's digital age. By addressing the why's and providing insights on various aspects of digital transformation, my blog post aims to spark your interest, clarify misconceptions, and guide you on your digital transformation journey.
 
 I invite you to join the discussion in the comment section below if you have additional questions or want to explore specific issues related to digital transformation. Let's embark on this exciting journey together!
+
+<script src="https://unpkg.com/commentbox.io/dist/commentBox.min.js"></script> <script>commentBox('5746482808356864-proj')</script>
