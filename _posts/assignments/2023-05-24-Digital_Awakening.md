@@ -29,7 +29,7 @@ These tech visionaries shared a common sentiment—an unwavering belief in the t
 
 As I delved deeper into the subject, I discovered that many companies were merely scratching the surface of digital transformation. They would rebrand their traditional approaches, incorporating a few modern technologies and methodologies, but failing to grasp the true potential of digitalization. It became increasingly clear that without comprehensive comprehension and wholehearted embrace at the leadership level, the conversion to a digital-first mindset would either fail to materialize or progress at a sluggish pace.
 
-The lessons I learned from these industry leaders continue to resonate with me even today. They highlighted the challenges organizations face when they resist or underestimate the power of digital transformation. In a world where technology drives innovation and shapes customer expectations, organizations that fail to embrace digitalization risk being left behind.
+The knowledge I gained from these influential figures and my personal experiences still hold true to this day. They emphasized the difficulties that organizations encounter when they ignore or underestimate the impact of digital transformation. In a society where technology propels progress and molds customer demands, businesses that hesitate to adopt digitalization wholeheartedly run the risk of falling behind.
 
 Fast forward to the present day, and the importance of digital transformation has only intensified. Countless success stories abound in industries such as insurance, banking, retailing, and media, where organizations have harnessed the power of digitalization to achieve remarkable results.
 
