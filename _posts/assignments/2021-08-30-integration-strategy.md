@@ -20,6 +20,8 @@ excerpt: 'TV4 TVM ICT & Business Apps Sweden 2021 - Ongoing'
  
 Architect in the initiative concerning integration modernization and system documentation for Business Apps Sweden (B2B advertising).
 
+- Establish Integration strategy
+- Domain dokumentation
 - Member of the Integration team
 
  
