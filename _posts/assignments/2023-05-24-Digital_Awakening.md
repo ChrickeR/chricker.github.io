@@ -37,7 +37,7 @@ Through my personal journey of digital awakening, I have come to appreciate the 
 
 As we stand at the precipice of a digital revolution, it is imperative that organizations understand the profound impact digital transformation can have on their future success. Leaders must embrace the potential of technology and champion its integration within their organizations. They must foster a culture of innovation, empower their employees to embrace change, and ensure that digitalization is not merely a superficial rebranding of traditional approaches.
 
-My personal journey of digital awakening has reinforced the significance of top management buy-in, interest, and understanding in achieving successful digital transformation. It is a journey that continues to evolve, as organizations across the globe navigate the challenges and opportunities presented by the digital age. Without the occurrence of this transformation, progress will be hindered or significantly delayed.
+My personal journey of digital awakening has reinforced the significance of top management buy-in, interest, and understanding in achieving successful digital transformation. Without the occurrence of this transformation, progress will be hindered or significantly delayed. It is a journey that continues to evolve, as organizations across the globe navigate the challenges and opportunities presented by the digital age. 
 
 As time progresses, it becomes evident that technology, systems, information, business capabilities, organization, and leadership should of-course reinforce one another rather than work against each other. So, which models align with each other, and which ones do not? So Architectural thinking and design span across everything.
 
