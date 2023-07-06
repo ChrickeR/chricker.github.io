@@ -21,7 +21,7 @@ header:
   teaser: "unsplash-gallery-image-2-th.jpg"
 excerpt: 'Embracing the Power of Digital Transformation'
 ---
-In the year 2016, I found myself standing at the threshold of a new era—the era of digital transformation. It all began with a seemingly innocuous question posed by our CEO during a company meeting: "Is our IT future-proof?" Little did I know that this question would mark the beginning of a profound journey that would reshape my perspective on the role of technology in business.
+In the year 2016, I found myself standing at the threshold of a new era—the era of digital transformation. It all began with a seemingly innocuous question posed by our CEO during a company meeting: "Is our IT future-proof?" Little did I know that this question would mark the beginning of a profound journey that would reshape my perspective on the role of architecture and technology in business.
 
 Driven by curiosity and a desire to understand the implications of our CEO's inquiry, I sought guidance from experts in the field of tech and digitalization. Through a stroke of fortune, I had the privilege of connecting with influential thought leaders such as Adrian Cockcroft from Netflix and AWS, and Rodrigue Schaefer, the Head of Engineering at Zalando.
 
