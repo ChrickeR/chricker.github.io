@@ -10,7 +10,7 @@ header:
 excerpt: "TROi offers consulting services in business development, digitalization, enterprise and solution architecture with a focus on customer value, quality and efficiency"
 
 feature_row:
-  - image_path: assets/images/Profile23.jpg
+  - image_path: assets/images/Profil23.jpg
     alt: "Christoffer Råsten"
     title: "Christoffer Råsten"
     url: "assignments"
