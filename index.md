@@ -20,8 +20,8 @@ intro:
 ---
 <center>
 Focus, simplicity, knowledge and close cooperation with our clients is our recipe for creating practical solutions that have a real effect for our clients and their customers.
-{: .notice--success}
 </center>
+{: .notice--success}
 
 {% include feature_row id="intro" type="center" %}
 
