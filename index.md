@@ -18,7 +18,7 @@ excerpt: "Forging Futures: Bridging People, Tech, and Business"
 intro: 
   - excerpt: TROi offers consulting services in business development, management, digitalization, enterprise and solution architecture with a focus on customer value, quality and efficiency.
 ---
-**Notice:** Focus, simplicity, knowledge and close cooperation with our clients is our recipe for creating practical solutions that have a real effect for our clients and their customers.
+Focus, simplicity, knowledge and close cooperation with our clients is our recipe for creating practical solutions that have a real effect for our clients and their customers.
 {: .notice--success}
 
 {% include feature_row id="intro" type="center" %}
