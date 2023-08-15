@@ -14,9 +14,11 @@ header:
     - label: "Blog    "
       url: /year-archive/
  # caption: "Photo credit: [**HugoTheme**]"
-excerpt: "Focus, simplicity, knowledge and close cooperation with our clients is our recipe for creating practical solutions that have a real effect for our clients and their customers."
+excerpt: "Forging Futures: Bridging People, Tech, and Business
+
+Focus, simplicity, knowledge and close cooperation with our clients is our recipe for creating practical solutions that have a real effect for our clients and their customers."
 intro: 
-  - excerpt: TROi offers consulting services in business development, digitalization, enterprise and solution architecture with a focus on customer value, quality and efficiency.
+  - excerpt: TROi offers consulting services in business development, management, digitalization, enterprise and solution architecture with a focus on customer value, quality and efficiency.
 ---
 {% include feature_row id="intro" type="center" %}
 
