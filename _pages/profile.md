@@ -21,7 +21,9 @@ feature_row:
     During my tenure spanning 20+ years, I've been at the helm of crucial endeavors, most recently as a consultant contributing my skills to prestigious entities like Telia and TV4. Prior to this, I held pivotal positions, including that of Head of Architecture and Chief Architect. Notably, my role in the digital transformation of Afa Insurance stands as a testament to my influence in architecting IT     
     strategic frameworks and management systems that have paved the way for the organization's digital odyssey.
     <br/><br/>
-    Eager for new challenges, my appetite for growth remains insatiable—no task is too monumental or trivial. I invite you to explore my portfolio at www.TROI.se or connect with me directly. Let's embark on a shared journey toward innovation and excellence."
+    Eager for new challenges, my appetite for growth remains insatiable — no task is too monumental or trivial. I invite you to explore my portfolio or connect with me directly.
+    <br/><br/>
+    Let's embark on a shared journey toward innovation and excellence."
 
 ---
 {% include feature_row id="feature_row" type="center" %}
