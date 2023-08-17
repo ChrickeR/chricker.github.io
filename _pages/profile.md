@@ -16,9 +16,9 @@ feature_row:
     url: "assignments"
     btn_label: "Read More"
     btn_class: "btn--primary"
-    excerpt: "Engineer that thrives in a mix of business, people and technology"
+    excerpt: "With a profound passion for digitalization, technology, and efficiency, my journey has been defined by a relentless pursuit of innovation that serves the interests of businesses, users, customers, and even my own daily routines. With over two decades entrenched in the realm of Information Technology, I have embraced diverse leadership roles that have shaped my expertise and perspective."
 
 ---
 {% include feature_row id="feature_row" type="center" %}
-With a profound passion for digitalization, technology, and efficiency, my journey has been defined by a relentless pursuit of innovation that serves the interests of businesses, users, customers, and even my own daily routines. With over two decades entrenched in the realm of Information Technology, I have embraced diverse leadership roles that have shaped my expertise and perspective.
+
 {% include feature_row id="feature_row2" type="center" %}
