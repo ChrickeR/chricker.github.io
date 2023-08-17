@@ -27,7 +27,7 @@ excerpt: 'A place to gather relevant partners, links and other useful informatio
 [OpenAI](https://openai.com/) <Br/>
 
 ## Books:
-[Range: Why Generalists Triumph in a Specialized World]([https://danlebrero.com/2020/01/22/accelerate-high-performing-technology-orgs-summary/](https://en.wikipedia.org/wiki/Range:_Why_Generalists_Triumph_in_a_Specialized_World)) <Br/>
+[Range: Why Generalists Triumph in a Specialized World](https://en.wikipedia.org/wiki/Range:_Why_Generalists_Triumph_in_a_Specialized_World) <Br/>
 [Accelerate: Building and Scaling High Performing Technology Organizations](https://danlebrero.com/2020/01/22/accelerate-high-performing-technology-orgs-summary/) <Br/>
 [Fundamentals of software architecture, an engineering approach](https://fundamentalsofsoftwarearchitecture.com/)  <Br/>
 [Team Topologies](https://teamtopologies.com/) <Br/>
