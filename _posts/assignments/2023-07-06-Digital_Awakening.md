@@ -42,3 +42,8 @@ My personal journey of digital awakening has reinforced the significance of top 
 As time progresses, it becomes evident that technology, systems, information, business capabilities, organization, and leadership should of-course reinforce one another rather than work against each other. So, which models align with each other, and which ones do not? So Architectural thinking and design span across everything.
 
 So, let us embark on this transformative journey together, fueled by the knowledge that the future belongs to those who wholeheartedly embrace the power of digital transformation.
+
+Take a look at Adrians talk from GOTO 2016, Stockholm - It´s Simple
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/a8Re9Cvv6nU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>![image](https://user-images.githubusercontent.com/19704400/225951579-b8b3548b-341d-441c-b022-4167cf052107.png)
+
