@@ -18,4 +18,4 @@ header:
 excerpt: 'TV4- TVM ICT & Business Apps Sweden 2023 - Ongoing'
 ---
  
-Architect in the several initiatives concerning integration strategy implemenation and modernization for TVM ICT Business Apps Sweden (B2B advertising).
+Architect in the several initiatives concerning integration strategy implemenation and modernization for TV4 TV/Media - ICT Business Apps Sweden (B2B advertising).
