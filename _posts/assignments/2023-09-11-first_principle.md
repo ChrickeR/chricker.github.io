@@ -54,7 +54,7 @@ Disrupted Healthcare with a Fresh Perspective
 
 10 years ago I attended a remarkable session featuring the founders of "Kry," the innovative Swedish online doctor service. Their story revealed an intriguing twist - their success was, in part, due to their lack of traditional medical backgrounds.
 
-In an industry where expertise was deemed paramount, their unconventional approach defied conventional wisdom. Their journey was fraught with skepticism, as many believed online healthcare services were implausible without a medical pedigree.
+In an industry where expertise was deemed paramount, their unconventional approach defied conventional wisdom. 
 
 However, the founders' outsider perspective became their strength. Unburdened by conventional thinking, they challenged the norm and developed innovative solutions. Their journey transformed "Kry" into a pioneer, redefining how healthcare is accessed online.
 
