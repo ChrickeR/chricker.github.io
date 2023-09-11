@@ -46,7 +46,7 @@ Additionally, Epstein highlights how being too specialized can limit our ability
 
 That teaches us that while first principles are valuable, we must balance them with an open-minded approach that embraces diverse thinking. To apply first principles effectively, we need to recognize and overcome our biases and be willing to explore different perspectives.
 
-we must therefore encourages us to cultivate a broader, more adaptable mindset to find effective solutions.
+We must therefore encourage us to cultivate a broader, more adaptable mindset to find effective solutions.
 
 Here is some inspirational examples
 
