@@ -34,7 +34,7 @@ Challenging the Conventional Wisdom
 
 The limitations of conventional wisdom often confine us to incremental improvements rather than true paradigm shifts. Consider the historical anecdote of "faster horses" in the context of transportation. Instead of envisioning the automobile, people were fixated on making horses run faster.
 
-A Revolutionary Leap: The V-Style in Ski Jumping by Jan Boklöv
+A Revolutionary Leap: The V-Style in Ski Jumping
 
 Let's venture into the world of sports with an exemplary tale of Jan Boklöv, the pioneer who defied conventions. Inspired by First Principles Thinking, Boklöv raised fundamental questions about ski jumping: "What defines ski jumping at its core? What are the fundamental elements involved?"
 
