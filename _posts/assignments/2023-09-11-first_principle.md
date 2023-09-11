@@ -1,3 +1,29 @@
+---
+title: "First Principles Thinking"
+categories: posts
+breadcrumbs: true
+paginator: true
+categories: 
+- posts
+tags:
+- Digitalization
+- Digization
+- Capabilities
+- Models
+- Digital transformation
+- Inovation
+- Agile
+share: true
+comments: false
+header:
+  overlay_color: "#000"
+  overlay_filter: "0.5"
+  overlay_image: "https://cdn.pixabay.com/photo/2017/12/01/19/41/ethics-2991600_1280.jpg"
+  caption: "Image by Tumisu"
+  teaser: "unsplash-gallery-image-2-th.jpg"
+excerpt: 'Fueling Innovation Beyond Conventional Boundaries'
+---
+
 In the realm of creative problem-solving and innovation, "First Principles Thinking" serves as a compass, guiding us to unravel intricate problems down to their most fundamental truths. This approach empowers individuals to challenge assumptions, liberate their thinking from conventional norms, and forge fresh solutions. In this blog post, we'll delve into the essence of First Principles Thinking and its diverse applications, drawing inspiration from the past and introducing Jan Boklöv as the visionary behind the revolutionary V-style in ski jumping.
 
 Understanding First Principles
@@ -34,6 +60,7 @@ Seek alternatives: Explore novel ideas and solutions that emerge when you approa
 
 Iterate and refine: Continuously hone your understanding and solutions as you gather additional information and insights.
 
-Conclusion
-
 First Principles Thinking is a potent tool for catalyzing creative problem-solving and innovation. By daring to question the status quo, dissecting problems into their core truths, and exploring fresh solutions, we can transcend the confines of conventional thinking. Whether you're a seasoned professional, an aspiring innovator, or simply inquisitive, the might of First Principles Thinking can embolden you to unlock creativity and reimagine solutions across diverse domains. It's a mindset that encourages us to envision "automobiles" instead of settling for "faster horses" and empowers us to tread uncharted paths of innovation, much like Jan Boklöv did with the revolutionary V-style in ski jumping.
+
+If you've already read the preceding post about Business Capabilities and now have a firm grasp of "What we do," perhaps the next logical step is to explore the distinction between right and wrong. This involves defining the problem, breaking it down into its fundamental components, questioning existing assumptions, and seeking innovative alternatives.
+
