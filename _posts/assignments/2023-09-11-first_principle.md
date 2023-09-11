@@ -24,7 +24,7 @@ header:
 excerpt: 'Fueling Innovation Beyond Conventional Boundaries'
 ---
 
-In the realm of creative problem-solving and innovation, "First Principles Thinking" serves as a compass, guiding us to unravel intricate problems down to their most fundamental truths. This approach empowers individuals to challenge assumptions, liberate their thinking from conventional norms, and forge fresh solutions. In this blog post, we'll delve into the essence of First Principles Thinking and drawing inspiration from the past.
+In the arena of creative problem-solving and innovation, "First Principles Thinking" acts as a guiding star, leading us to deconstruct complex problems to their most fundamental truths. This approach enables individuals to question assumptions, break free from traditional norms, and craft innovative solutions. Possessing this mindset is indispensable in the field of digital transformation. In this blog post, we will explore the core concept of First Principles Thinking and draw inspiration from historical examples.
 
 Understanding First Principles
 
@@ -63,5 +63,3 @@ Iterate and refine: Continuously hone your understanding and solutions as you ga
 First Principles Thinking is a potent tool for catalyzing creative problem-solving and innovation. By daring to question the status quo, dissecting problems into their core truths, and exploring fresh solutions, we can transcend the confines of conventional thinking. Whether you're a seasoned professional, an aspiring innovator, or simply inquisitive, the might of First Principles Thinking can embolden you to unlock creativity and reimagine solutions across diverse domains. It's a mindset that encourages us to envision "automobiles" instead of settling for "faster horses" and empowers us to tread uncharted paths of innovation, much like Jan Boklöv did with the revolutionary V-style in ski jumping.
 
 If you've already read the preceding post about Business Capabilities and now have a firm grasp of "What we do," perhaps your next logical step is to apply First-principle. This involves defining the problem, breaking it down into its fundamental components, questioning existing assumptions, and seeking innovative alternatives.
-
-Having this mindset is crucial within the domain of digital transformation.
