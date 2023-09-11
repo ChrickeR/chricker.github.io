@@ -34,7 +34,7 @@ Challenging the Conventional Wisdom
 
 The limitations of conventional wisdom often confine us to incremental improvements rather than true paradigm shifts. Consider the historical anecdote of "faster horses" in the context of transportation. Instead of envisioning the automobile, people were fixated on making horses run longer and faster.
 
-Navigating First Principles:
+Navigating First Principles
 
 In a world that values specialization and sticking to the basics, it's important to understand why applying first principles can be challenging.
 
@@ -48,7 +48,17 @@ That teaches us that while first principles are valuable, we must balance them w
 
 we must therefore encourages us to cultivate a broader, more adaptable mindset to find effective solutions.
 
-Here is some inspiring examples.
+Here is some inspirational examples
+
+Disrupted Healthcare with a Fresh Perspective
+
+10 years ago Iattended a remarkable session featuring the founders of "Kry," the innovative Swedish online doctor service. Their story revealed an intriguing twist - their success was, in part, due to their lack of traditional medical backgrounds.
+
+In an industry where expertise was deemed paramount, their unconventional approach defied conventional wisdom. Their journey was fraught with skepticism, as many believed online healthcare services were implausible without a medical pedigree.
+
+However, the founders' outsider perspective became their strength. Unburdened by conventional thinking, they challenged the norm and developed innovative solutions. Their journey transformed "Kry" into a pioneer, redefining how healthcare is accessed online.
+
+Their story serves as a reminder that outsiders can often make the greatest impact by daring to question established norms and redefine what’s possible.
 
 A Revolutionary Leap: The V-Style in Ski Jumping
 
