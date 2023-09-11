@@ -32,7 +32,7 @@ First Principles Thinking is an age-old strategy, harnessed by great thinkers th
 
 Challenging the Conventional Wisdom
 
-The limitations of conventional wisdom often confine us to incremental improvements rather than true paradigm shifts. Consider the historical anecdote of "faster horses" in the context of transportation. Instead of envisioning the automobile, people were fixated on making horses run faster.
+The limitations of conventional wisdom often confine us to incremental improvements rather than true paradigm shifts. Consider the historical anecdote of "faster horses" in the context of transportation. Instead of envisioning the automobile, people were fixated on making horses run longer and faster.
 
 A Revolutionary Leap: The V-Style in Ski Jumping
 
@@ -40,7 +40,7 @@ Let's venture into the world of sports with an exemplary tale of Jan Boklöv, th
 
 As he broke down the problem, Boklöv identified the critical factor of minimizing air resistance to maximize flight distance. This profound insight gave birth to the V-style, where ski jumpers spread their skis in a V shape to reduce drag and soar to greater distances. The introduction of the V-style revolutionized ski jumping, challenging the established norms and pushing the boundaries of what was previously deemed possible.
 
-From Cooking to Innovation: The Sous Vide Method
+Culinary Precision: The Sous Vide Method
 
 First Principles Thinking extends its reach far beyond sports, encompassing a multitude of domains, including the culinary world. Picture the conventional method of cooking, reliant on the temperature of a flame or heat source. By questioning this traditional approach, chefs asked: "What are the fundamental principles of cooking? What are the core elements involved?"
 
