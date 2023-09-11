@@ -34,6 +34,20 @@ Challenging the Conventional Wisdom
 
 The limitations of conventional wisdom often confine us to incremental improvements rather than true paradigm shifts. Consider the historical anecdote of "faster horses" in the context of transportation. Instead of envisioning the automobile, people were fixated on making horses run longer and faster.
 
+Navigating First Principles:
+
+In a world that values specialization and sticking to the basics, it's important to understand why applying first principles can be challenging.
+
+I recently read David Epstein's book, "Range: Why Generalists Triumph in a Specialized World," which sheds a interesting light on this.
+
+Epstein explains that our natural tendency to see patterns can be both a strength and a weakness. It helps us, but it can also make us too rigid in our thinking.
+
+Additionally, Epstein highlights how being too specialized can limit our ability to adapt to new or complex problems. It narrows our perspective.
+
+In summary, "Range" teaches us that while first principles are valuable, we must balance them with an open-minded approach that embraces diverse thinking. To apply first principles effectively, we need to recognize and overcome our biases and be willing to explore different perspectives.
+
+In conclusion, "Range" encourages us to cultivate a broader, more adaptable mindset to find effective solutions.
+
 A Revolutionary Leap: The V-Style in Ski Jumping
 
 Let's venture into the world of sports with an exemplary tale of Jan Boklöv, the pioneer who defied conventions. Inspired by First Principles Thinking, Boklöv raised fundamental questions about ski jumping: "What defines ski jumping at its core? What are the fundamental elements involved?"
