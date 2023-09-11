@@ -35,7 +35,7 @@ Ultimately, moving beyond an IT-centric focus in digitalization means recognizin
 
 Challenges:
 
-* Organizational Silos: Organizational silos refer to the situation in which different departments, teams, or units within an organization operate in isolation from one another, often leading to communication and collaboration barriers.
+*  Organizational Silos: Organizational silos refer to the situation in which different departments, teams, or units within an organization operate in isolation from one another, often leading to communication and collaboration barriers.
 *  Cost Allocation: Allocating resources for technology may overshadow other critical aspects of your mission.
 *  Resistance to Change: Focusing solely on IT can lead to resistance when integrating it with other parts of your organization.
 *  Reduced Communication: Poor communication between departments. When teams do not share information or collaborate, it can result in duplication of efforts, misalignment of goals, and missed opportunities.
@@ -43,8 +43,8 @@ Challenges:
 
 Where to Start:
 
-* Cross-Functional Teams: Create cross-functional teams to work on specific projects or initiatives. This encourages collaboration and allows employees from different areas to work together.
-*  Leadership Support: Leaders should set the example by collaborating across departments and promoting a culture of cooperation.
+*  Cross-Functional Teams: Create cross-functional teams to work on specific projects or initiatives. This encourages collaboration and allows employees from different areas to work together.See post [Gardening Teamwork](https://troi.se/posts/teamwork/)
+*  Leadership Support: Leaders should set the example by collaborating across departments and promoting a culture of cooperation. 
 *  Shared Goals: Ensure that departments have shared goals and objectives that align with the overall mission and vision of the organization.
 *  Develop a holistic strategy: Create high-level plans (strategies) that consider people, processes, and technology to fulfill your mission and vision.
 *  Set specific goals for holistic transformation: These goals should encompass all aspects of your organization, not just IT.
@@ -69,7 +69,7 @@ Where to Start:
 *  Apply "First Principles Thinking”, This approach enables individuals to question assumptions, break free from traditional norms, and craft innovative solutions. See upcoming post [First Principle](https://troi.se/posts/first_principle/).
 *  Start by aligning innovation with your mission and vision: Ensure that your innovation efforts directly contribute to fulfilling your overarching purpose and inspiring future.
 *  Set specific innovation-related goals: These goals should align with your strategies and contribute to fulfilling your mission.
-*  Choose effective innovation tactics: These are the detailed methods for achieving your innovation-related objectives, all in support of your goals.
+*  Choose effective innovation tactics: These are the detailed methods for achieving your innovation-related objectives, all in support of your goals. See Post [How Guardrail Empower Teams](https://troi.se/posts/guiding-principles-and-vision/)
 *  Measure key results: Assess the progress and success of your innovation efforts to ensure they align with your mission and vision.
 
 *Customer-Centricity:*
