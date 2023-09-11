@@ -66,7 +66,7 @@ Challenges:
 
 Where to Start:
 
-1. Apply "First Principles Thinking”, This approach enables individuals to question assumptions, break free from traditional norms, and craft innovative solutions. See upcoming post.
+1. Apply "First Principles Thinking”, This approach enables individuals to question assumptions, break free from traditional norms, and craft innovative solutions. See upcoming post [First Principle](https://troi.se/posts/first_principle/).
 2. Start by aligning innovation with your mission and vision: Ensure that your innovation efforts directly contribute to fulfilling your overarching purpose and inspiring future.
 3. Set specific innovation-related goals: These goals should align with your strategies and contribute to fulfilling your mission.
 4. Choose effective innovation tactics: These are the detailed methods for achieving your innovation-related objectives, all in support of your goals.
@@ -105,7 +105,7 @@ Challenges:
 Where to Start:
 
 1. Begin by aligning process improvements with your mission and vision: Ensure that optimizing your processes directly contributes to fulfilling your overarching purpose and inspiring future.
-2. Craft a process optimization strategy: Dont be afraid of starting over. Zooming in and out.
+2. Craft a process optimization strategy: Dont be afraid of starting over. [Zooming in and out](https://troi.se/posts/zooming/).
 3. Set specific process-related goals: These goals should align with your strategies and contribute to fulfilling your mission.
 4. Select effective process tactics: These are the detailed methods for achieving your process-related objectives, all in support of your goals.
 5. Implement process improvements: Execute your plans and tactics to fine-tune your organization's processes.
