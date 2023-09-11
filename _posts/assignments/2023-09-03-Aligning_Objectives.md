@@ -35,23 +35,23 @@ Ultimately, moving beyond an IT-centric focus in digitalization means recognizin
 
 Challenges:
 
-1. Organizational Silos: Organizational silos refer to the situation in which different departments, teams, or units within an organization operate in isolation from one another, often leading to communication and collaboration barriers. 
-2. Cost Allocation: Allocating resources for technology may overshadow other critical aspects of your mission.
-3. Resistance to Change: Focusing solely on IT can lead to resistance when integrating it with other parts of your organization.
-4. Reduced Communication: Poor communication between departments. When teams do not share information or collaborate, it can result in duplication of efforts, misalignment of goals, and missed opportunities.
-5. Alignment Issues: Ensuring that technology aligns with your holistic approach can be challenging.
+* Organizational Silos: Organizational silos refer to the situation in which different departments, teams, or units within an organization operate in isolation from one another, often leading to communication and collaboration barriers.
+*  Cost Allocation: Allocating resources for technology may overshadow other critical aspects of your mission.
+*  Resistance to Change: Focusing solely on IT can lead to resistance when integrating it with other parts of your organization.
+*  Reduced Communication: Poor communication between departments. When teams do not share information or collaborate, it can result in duplication of efforts, misalignment of goals, and missed opportunities.
+*  Alignment Issues: Ensuring that technology aligns with your holistic approach can be challenging.
 
 Where to Start:
 
-1. Cross-Functional Teams: Create cross-functional teams to work on specific projects or initiatives. This encourages collaboration and allows employees from different areas to work together.
-2. Leadership Support: Leaders should set the example by collaborating across departments and promoting a culture of cooperation.
-3. Shared Goals: Ensure that departments have shared goals and objectives that align with the overall mission and vision of the organization.
-4. Develop a holistic strategy: Create high-level plans (strategies) that consider people, processes, and technology to fulfill your mission and vision.
-5. Set specific goals for holistic transformation: These goals should encompass all aspects of your organization, not just IT.
-6. Choose integrated tactics: These are detailed methods for achieving your holistic objectives, addressing people and processes as well as technology.
-7. Implement holistic changes: Execute your plans and tactics to ensure that digital transformation benefits your entire organization.
-8. Measure key results: Assess the progress and success of your holistic approach to digital transformation to ensure alignment with your mission and vision.
-9. Performance Metrics: Evaluate and reward employees based on their ability to work collaboratively and achieve shared goals.
+* Cross-Functional Teams: Create cross-functional teams to work on specific projects or initiatives. This encourages collaboration and allows employees from different areas to work together.
+*  Leadership Support: Leaders should set the example by collaborating across departments and promoting a culture of cooperation.
+*  Shared Goals: Ensure that departments have shared goals and objectives that align with the overall mission and vision of the organization.
+*  Develop a holistic strategy: Create high-level plans (strategies) that consider people, processes, and technology to fulfill your mission and vision.
+*  Set specific goals for holistic transformation: These goals should encompass all aspects of your organization, not just IT.
+*  Choose integrated tactics: These are detailed methods for achieving your holistic objectives, addressing people and processes as well as technology.
+*  Implement holistic changes: Execute your plans and tactics to ensure that digital transformation benefits your entire organization.
+*  Measure key results: Assess the progress and success of your holistic approach to digital transformation to ensure alignment with your mission and vision.
+*  Performance Metrics: Evaluate and reward employees based on their ability to work collaboratively and achieve shared goals.
 
 *Cultivating a Growth and Innovation Mindset:*
 
@@ -59,18 +59,18 @@ Cultivating a growth and innovation-focused mindset is essential for successful 
 
 Challenges:
 
-1. Assumptions: We are stuck in old truths and solutions
-2. Risk Aversion: Overcoming the fear of trying new things is essential for innovation to thrive.
-3. Resource Allocation: Allocating resources, including time and talent, to innovative projects is crucial.
+*  Assumptions: We are stuck in old truths and solutions
+*  Risk Aversion: Overcoming the fear of trying new things is essential for innovation to thrive.
+*  Resource Allocation: Allocating resources, including time and talent, to innovative projects is crucial.
 
 
 Where to Start:
 
-1. Apply "First Principles Thinking”, This approach enables individuals to question assumptions, break free from traditional norms, and craft innovative solutions. See upcoming post [First Principle](https://troi.se/posts/first_principle/).
-2. Start by aligning innovation with your mission and vision: Ensure that your innovation efforts directly contribute to fulfilling your overarching purpose and inspiring future.
-3. Set specific innovation-related goals: These goals should align with your strategies and contribute to fulfilling your mission.
-4. Choose effective innovation tactics: These are the detailed methods for achieving your innovation-related objectives, all in support of your goals.
-5. Measure key results: Assess the progress and success of your innovation efforts to ensure they align with your mission and vision.
+*  Apply "First Principles Thinking”, This approach enables individuals to question assumptions, break free from traditional norms, and craft innovative solutions. See upcoming post [First Principle](https://troi.se/posts/first_principle/).
+*  Start by aligning innovation with your mission and vision: Ensure that your innovation efforts directly contribute to fulfilling your overarching purpose and inspiring future.
+*  Set specific innovation-related goals: These goals should align with your strategies and contribute to fulfilling your mission.
+*  Choose effective innovation tactics: These are the detailed methods for achieving your innovation-related objectives, all in support of your goals.
+*  Measure key results: Assess the progress and success of your innovation efforts to ensure they align with your mission and vision.
 
 *Customer-Centricity:*
 
@@ -78,19 +78,19 @@ Being customer-centric is about creating a positive customer experience that ali
 
 Challenges:
 
-1. Understanding Customer Needs: Knowing what your customers want is crucial for achieving your strategic objectives. 
-2. Data Privacy: Protecting customer data is essential while striving to meet their expectations.
-3. Competing with Customer Expectations: Staying in sync with evolving customer expectations is key to fulfilling your mission.
+*  Understanding Customer Needs: Knowing what your customers want is crucial for achieving your strategic objectives. 
+*  Data Privacy: Protecting customer data is essential while striving to meet their expectations.
+*  Competing with Customer Expectations: Staying in sync with evolving customer expectations is key to fulfilling your mission.
 
 Where to Start:
 
-1. Stop guessing: Ask and involve the customers.
-2. Begin by aligning customer-centricity with your mission and vision: Ensure that your customer-centric initiatives directly contribute to fulfilling your overarching purpose and inspiring future.
-3. Craft a customer-centric strategy: Develop high-level plans (strategies) outlining how your customer-centric approach will support your mission and vision.
-4. Set specific customer-related goals: These goals should align with your strategies and contribute to fulfilling your mission.
-5. Choose effective customer-centric tactics: These are the detailed methods for achieving your customer-focused objectives, all in support of your goals.
-6. Implement customer-centric initiatives: Execute your plans and tactics to create a positive customer experience.
-7. Measure key results: Assess the progress and success of your customer-centric efforts.
+*  Stop guessing: Ask and involve the customers.
+*  Begin by aligning customer-centricity with your mission and vision: Ensure that your customer-centric initiatives directly contribute to fulfilling your overarching purpose and inspiring future.
+*  Craft a customer-centric strategy: Develop high-level plans (strategies) outlining how your customer-centric approach will support your mission and vision.
+*  Set specific customer-related goals: These goals should align with your strategies and contribute to fulfilling your mission.
+*  Choose effective customer-centric tactics: These are the detailed methods for achieving your customer-focused objectives, all in support of your goals.
+*  Implement customer-centric initiatives: Execute your plans and tactics to create a positive customer experience.
+*  Measure key results: Assess the progress and success of your customer-centric efforts.
 
 *Process Optimization:*
 
@@ -98,18 +98,18 @@ Process optimization is like fine-tuning the engine of your organization to effi
 
 Challenges:
 
-1. Identifying Inefficiencies: Recognizing where processes can be improved is critical to achieving your strategic goals.
-2. Employee Buy-In: Getting everyone on board with process changes is essential for successful implementation.
-3. Measuring Progress: Tracking key results helps ensure that process optimizations align with your mission.
+*  Identifying Inefficiencies: Recognizing where processes can be improved is critical to achieving your strategic goals.
+* Employee Buy-In: Getting everyone on board with process changes is essential for successful implementation.
+*  Measuring Progress: Tracking key results helps ensure that process optimizations align with your mission.
 
 Where to Start:
 
-1. Begin by aligning process improvements with your mission and vision: Ensure that optimizing your processes directly contributes to fulfilling your overarching purpose and inspiring future.
-2. Craft a process optimization strategy: Dont be afraid of starting over. [Zooming in and out](https://troi.se/posts/zooming/).
-3. Set specific process-related goals: These goals should align with your strategies and contribute to fulfilling your mission.
-4. Select effective process tactics: These are the detailed methods for achieving your process-related objectives, all in support of your goals.
-5. Implement process improvements: Execute your plans and tactics to fine-tune your organization's processes.
-6. Measure key results: Assess the progress and success of your process optimization efforts to ensure they align with your mission and vision.
+*  Begin by aligning process improvements with your mission and vision: Ensure that optimizing your processes directly contributes to fulfilling your overarching purpose and inspiring future.
+*  Craft a process optimization strategy: Dont be afraid of starting over. [Zooming in and out](https://troi.se/posts/zooming/).
+*  Set specific process-related goals: These goals should align with your strategies and contribute to fulfilling your mission.
+*  Select effective process tactics: These are the detailed methods for achieving your process-related objectives, all in support of your goals.
+*  Implement process improvements: Execute your plans and tactics to fine-tune your organization's processes.
+*  Measure key results: Assess the progress and success of your process optimization efforts to ensure they align with your mission and vision.
 
 *In Conclusion: Prioritizing the Elephant's Pieces, Taking Action, and Embracing Learning*
 
