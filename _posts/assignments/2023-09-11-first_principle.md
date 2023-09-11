@@ -24,7 +24,7 @@ header:
 excerpt: 'Fueling Innovation Beyond Conventional Boundaries'
 ---
 
-In the realm of creative problem-solving and innovation, "First Principles Thinking" serves as a compass, guiding us to unravel intricate problems down to their most fundamental truths. This approach empowers individuals to challenge assumptions, liberate their thinking from conventional norms, and forge fresh solutions. In this blog post, we'll delve into the essence of First Principles Thinking and its diverse applications, drawing inspiration from the past and introducing Jan Boklöv as the visionary behind the revolutionary V-style in ski jumping.
+In the realm of creative problem-solving and innovation, "First Principles Thinking" serves as a compass, guiding us to unravel intricate problems down to their most fundamental truths. This approach empowers individuals to challenge assumptions, liberate their thinking from conventional norms, and forge fresh solutions. In this blog post, we'll delve into the essence of First Principles Thinking and drawing inspiration from the past.
 
 Understanding First Principles
 
