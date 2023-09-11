@@ -44,9 +44,11 @@ Epstein explains that our natural tendency to see patterns can be both a strengt
 
 Additionally, Epstein highlights how being too specialized can limit our ability to adapt to new or complex problems. It narrows our perspective.
 
-In summary, "Range" teaches us that while first principles are valuable, we must balance them with an open-minded approach that embraces diverse thinking. To apply first principles effectively, we need to recognize and overcome our biases and be willing to explore different perspectives.
+That teaches us that while first principles are valuable, we must balance them with an open-minded approach that embraces diverse thinking. To apply first principles effectively, we need to recognize and overcome our biases and be willing to explore different perspectives.
 
-In conclusion, "Range" encourages us to cultivate a broader, more adaptable mindset to find effective solutions.
+we must therefore encourages us to cultivate a broader, more adaptable mindset to find effective solutions.
+
+Here is some inspiring examples.
 
 A Revolutionary Leap: The V-Style in Ski Jumping
 
