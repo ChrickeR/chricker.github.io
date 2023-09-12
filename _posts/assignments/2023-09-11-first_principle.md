@@ -24,7 +24,9 @@ header:
 excerpt: 'Fueling Innovation Beyond Conventional Boundaries'
 ---
 
-In the arena of creative problem-solving and innovation, "First Principle Thinking" acts as a guiding star, leading us to deconstruct complex problems to their most fundamental truths. This approach enables individuals to question assumptions, break free from traditional norms, and craft innovative solutions. Possessing this mindset is indispensable in the field of digital transformation. In this blog post, we will explore the core concept of First Principles Thinking and draw inspiration from historical examples.
+In the arena of creative problem-solving and innovation, "First Principle Thinking" acts as a guiding star, leading us to deconstruct complex problems to their most fundamental truths. This approach enables individuals to question assumptions, break free from traditional norms, and craft innovative solutions. Possessing this mindset is indispensable in the field of digital transformation. 
+
+While this may not be groundbreaking information for many of you, it's worth emphasizing. Based on my experience, achieving this can be quite challenging. In this blog post, we will explore the core concept of First Principles Thinking and draw inspiration from some historical examples.
 
 **Understanding First Principle**
 
