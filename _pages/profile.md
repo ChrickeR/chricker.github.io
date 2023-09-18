@@ -8,6 +8,11 @@ header:
   overlay_filter: "0.5"
   overlay_image: "https://demo.gethugothemes.com/meghna/site/images/backgrounds/hero-area.jpg"
 excerpt: "TROi offers consulting services in business development, digitalization, enterprise and solution architecture with a focus on customer value, quality and efficiency"
+ actions:
+    - label: "English resumé"
+      url: /assets/CV_Eng1.pdf
+    - label: "Svenskt CV"
+      url: /assets/CV_Swe1.pdf  
 
 feature_row:
   - image_path: assets/images/Profil23.jpg
