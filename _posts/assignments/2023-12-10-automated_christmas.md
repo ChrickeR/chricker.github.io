@@ -1,5 +1,5 @@
 ---
-title: "Happly Christmas and a smashing new year!"
+title: "Happly Christmas and a Smashing New Year!"
 categories: posts
 breadcrumbs: true
 paginator: true
