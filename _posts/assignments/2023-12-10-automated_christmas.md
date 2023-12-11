@@ -22,7 +22,7 @@ header:
   overlay_image: "https://images.pexels.com/photos/753500/pexels-photo-753500.jpeg?auto=compress&cs=tinysrgb&w=600"
   caption: "Image by Barry Plott"
   teaser: "unsplash-gallery-image-2-th.jpg"
-excerpt: 'Pause, Brew, and Cherish Christmas Moments with Loved Ones'
+excerpt: 'Time to Pause, brew up joy, and share some Christmas laughs with your favorite people!'
 ---
 
 Picture a world where mundane tasks are a breeze,
