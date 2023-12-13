@@ -28,11 +28,10 @@ excerpt: 'It is soon time to Pause, brew up joy, and share some Christmas laughs
 In a realm where mundane tasks find ease,<br />
 A life touched by automation, a tranquil release.<br />
 Imagine a morn, where coffee stirs on its own,<br />
-
 No early rising needed, let tech's seeds be sown.<br />
+
 Or a commute where traffic is a distant trace,<br />
 Automated travel, a journey through space.<br />
-
 Self-driving cars, navigating with seamless grace,<br />
 Leaving you free to savor the morning's embrace.<br />
 
