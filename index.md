@@ -13,6 +13,8 @@ header:
       url: /profile/
     - label: "Blog    "
       url: /year-archive/
+    - label: "About    "
+      url: /about/
  # caption: "Photo credit: [**HugoTheme**]"
 excerpt: "Forging Futures: Bridging People, Tech, and Business"
 intro: 
