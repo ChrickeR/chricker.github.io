@@ -2,7 +2,7 @@
 title: "About"
 layout: single
 date: 2022-11-25T15:48:41-04:00
-permalink: /contact/
+permalink: /about/
 author_profile: false
 breadcrumbs: false
 paginator: false
