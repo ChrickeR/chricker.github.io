@@ -8,7 +8,7 @@ main:
     url: /year-archive/
   - title: "Friends & Stuff"
     url: /friends/
-  # - title: "Sample Collections"
-    # url: /collection-archive/
+  - title: "About"
+    url: /about/
  # - title: "Terms &amp; Privacy Policy"
   #  url: /terms/
