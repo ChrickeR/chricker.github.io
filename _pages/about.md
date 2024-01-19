@@ -13,7 +13,9 @@ header:
 excerpt: 'TROI Architecture: Blending Total Return of Investment with a Personal Touch'
 ---
 
-At the heart of TROI Architecture lies a commitment to delivering value that extends beyond the traditional metrics of financial gain. Total Return of Investment encompasses not only the monetary returns from a project but also factors in the broader benefits it brings to the community, environment, and the people involved. TROI Architecture seeks to create spaces that not only stand as a testament to architectural prowess but also contribute positively to the well-being of those who inhabit them.
+At the heart of TROI Architecture lies a commitment to delivering value that extends beyond the traditional metrics of financial gain. Total Return of Investment encompasses not only the monetary returns from a project but also factors in the broader benefits it brings to the community, environment, and the people involved. 
+
 We understand that engineering success goes hand-in-hand with strategic business goals. Our solutions are designed to maximize efficiency, streamline processes, and deliver tangible value, ensuring that every project contributes to the holistic success of our clients.
-Established in 2021 by Christoffer Råsten, TROI Architecture is an embodiment of his visionary approach to consultancy. With a dedication to precision and a focus on delivering transformative solutions.
+
+Established in 2021 by Christoffer Råsten.
 
