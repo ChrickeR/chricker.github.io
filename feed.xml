@@ -3,12 +3,33 @@
     <title>troi</title>
     <link href="https://troi.se/feed.xml" rel="self" />
     <link href="https://troi.se" />
-    <updated>2024-06-26T13:32:33+02:00</updated>
+    <updated>2024-06-26T15:44:08+02:00</updated>
     <author>
         <name>Christoffer Råsten</name>
     </author>
     <id>https://troi.se</id>
 
+    <entry>
+        <title>My latest blog post</title>
+        <author>
+            <name>Christoffer Råsten</name>
+        </author>
+        <link href="https://troi.se/testar-igen.html"/>
+        <id>https://troi.se/testar-igen.html</id>
+        <media:content url="https://troi.se/media/posts/9/agenda-968603_1280.jpg" medium="image" />
+
+        <updated>2024-06-26T15:21:43+02:00</updated>
+            <summary></summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://troi.se/media/posts/9/agenda-968603_1280.jpg" class="type:primaryImage" alt="" /></p>
+                
+  <p>
+    
+  </p>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>About Me</title>
         <author>
@@ -29,11 +50,6 @@
             <![CDATA[
                     <p><img src="https://troi.se/media/posts/5/Untitled-1.jpg" class="type:primaryImage" alt="" /></p>
                 
-    <figure class="post__image--left post__image post__image--wide">
-      <img loading="lazy" src="https://troi.se/media/posts/5/Untitled-1-2.jpg" height="1024" width="808" alt=""  sizes="(max-width: 1024px) 100vw, 1024px" srcset="https://troi.se/media/posts/5/responsive/Untitled-1-2-xs.jpg 300w ,https://troi.se/media/posts/5/responsive/Untitled-1-2-sm.jpg 480w ,https://troi.se/media/posts/5/responsive/Untitled-1-2-md.jpg 768w ,https://troi.se/media/posts/5/responsive/Untitled-1-2-lg.jpg 1024w">
-      
-    </figure>
-
   <p>
     With a profound passion for digitalization, technology, and efficiency, my journey has been defined by a relentless pursuit of innovation that serves the interests of businesses, users, customers, and even my own daily routines. With over two decades entrenched in the realm of Information Technology, I have embraced diverse leadership roles that have shaped my expertise and perspective.<br><br>During my tenure spanning 20+ years, I’ve been at the helm of crucial endeavors, most recently as a consultant contributing my skills to prestigious entities like Telia and TV4. Prior to this, I held pivotal positions, including that of Head of Architecture and Chief Architect. Notably, my role in the digital transformation of Afa Insurance stands as a testament to my influence in architecting IT strategic frameworks and management systems that have paved the way for the organization’s digital odyssey.<br><br>Eager for new challenges, my appetite for growth remains insatiable — no task is too monumental or trivial. I invite you to explore my portfolio or connect with me directly.<br><br>Let’s embark on a shared journey toward innovation and excellence.
   </p>
@@ -54,41 +70,6 @@
   <p>
     <a href="https://troi.se/CV_Swe.pdf" target="_blank" download>Download Swedish CV (pdf)</a><br><a href="https://troi.se/CV_Eng.pdf" target="_blank" download>Download Enlish CV (pdf)</a><br><br>
   </p>
-<div><!DOCTYPE html>
-<html lang="en">
-<head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Post Example</title>
-   <link rel="stylesheet" href="styles.css"> <!-- Link to the main CSS file -->
-   <!-- Custom sizes for cards  -->
-  <style>
-   
-    .c-card--large {
-      grid-column: span 2; /* Span 2 columns */
-      grid-row: span 2; /* Span 2 rows */
-    }
-    .c-card--small {
-      grid-column: span 1; /* Span 1 column */
-      grid-row: span 1; /* Span 1 row */
-    }
-    .l-grid {
-         display: grid;
-         gap: 1rem;
-         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      }
-    .l-grid--4 {
-         grid-template-columns: repeat(4, 1fr);
-      }
-    .hero__image > img {
-          display: none;
-     }
-
-      
-</style>
-</head>
-</html>
-</div>
             ]]>
         </content>
     </entry>
@@ -99,137 +80,23 @@
         </author>
         <link href="https://troi.se/test-2.html"/>
         <id>https://troi.se/test-2.html</id>
-        <media:content url="https://troi.se/media/posts/2/agenda-968603_1280.jpg" medium="image" />
+        <media:content url="https://troi.se/media/posts/2/agenda-968603_1280-2.jpg" medium="image" />
 
         <updated>2024-06-25T15:54:50+02:00</updated>
             <summary>
                 <![CDATA[
-                        <img src="https://troi.se/media/posts/2/agenda-968603_1280.jpg" alt="" />
+                        <img src="https://troi.se/media/posts/2/agenda-968603_1280-2.jpg" alt="" />
                     This blog is a platform for me to share my knowledge and&hellip;
                 ]]>
             </summary>
         <content type="html">
             <![CDATA[
-                    <p><img src="https://troi.se/media/posts/2/agenda-968603_1280.jpg" class="type:primaryImage" alt="" /></p>
+                    <p><img src="https://troi.se/media/posts/2/agenda-968603_1280-2.jpg" class="type:primaryImage" alt="" /></p>
                 
   <p>
     This blog is a platform for me to share my knowledge and experience of Enterprise and Software Engineering. I will only share information that I have personally experienced, observed and/or analyzed, and any opinions I express here are my own and not necessarily those of my employer or customers.<br><br>The information contained on this blog is intended to provide general information and should not be used as the basis for making business, legal or other decisions. While I will make every effort to ensure the accuracy and reliability of the information provided, I make no promises or guarantees. Any reliance you place on this information is therefore done so at your own risk. I will not be held responsible for any inaccuracies or omissions.
   </p>
 <hr class="separator separator--dots" />
-<div><!DOCTYPE html>
-<html lang="en">
-<head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Post Example</title>
-   <link rel="stylesheet" href="styles.css"> <!-- Link to the main CSS file -->
-   <!-- Custom sizes for cards  -->
-  <style>
-   
-    .c-card--large {
-      grid-column: span 2; /* Span 2 columns */
-      grid-row: span 2; /* Span 2 rows */
-    }
-    .c-card--small {
-      grid-column: span 1; /* Span 1 column */
-      grid-row: span 1; /* Span 1 row */
-    }
-    .l-grid {
-         display: grid;
-         gap: 1rem;
-         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      }
-    .l-grid--4 {
-         grid-template-columns: repeat(4, 1fr);
-      }
-      
-</style>
-</head>
-<body>
-
-   <main class="l-grid l-grid--4"> <!-- Use grid class to control layout -->
-      <article class="c-card c-card--large">
-         <figure class="c-card__image">
-            <a href="/post/first-post">
-               <img loading="lazy" src="https://images.pexels.com/photos/26442630/pexels-photo-26442630/free-photo-of-manniskor-bil-arkitektur-sport.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="Placeholder Image" data-is-external-image="true">
-            </a>
-         </figure>
-         <header class="c-card__header">
-            <h2><a href="/post/first-post">Title of the First Post</a></h2>
-            <p>Published on June 25, 2024</p>
-         </header>
-         <div class="c-card__content">
-            <p>This is the content of the first post. You can include paragraphs, images, videos, and any other HTML content here.</p>
-            <p>For example, <a href="#">this is a link</a>.</p>
-         </div>
-         <footer class="c-card__footer">
-            <p>Tags: <a href="/tags/technology">Technology</a>, <a href="/tags/web-design">Web Design</a></p>
-            <p><a href="/post/first-post">Read more</a></p>
-         </footer>
-      </article>
-
-      <article class="c-card c-card--small">
-         <figure class="c-card__image">
-            <a href="/post/second-post">
-               <img loading="lazy" src="https://images.pexels.com/photos/26442630/pexels-photo-26442630/free-photo-of-manniskor-bil-arkitektur-sport.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="Placeholder Image" data-is-external-image="true">
-            </a>
-         </figure>
-         <header class="c-card__header">
-            <h2><a href="/post/second-post">Title of the Second Post</a></h2>
-            <p>Published on June 25, 2024</p>
-         </header>
-         <div class="c-card__content">
-            <p>This is the content of the second post. You can include paragraphs, images, videos, and any other HTML content here.</p>
-            <p>For example, <a href="#">this is a link</a>.</p>
-         </div>
-         <footer class="c-card__footer">
-            <p>Tags: <a href="/tags/technology">Technology</a>, <a href="/tags/web-design">Web Design</a></p>
-            <p><a href="/post/second-post">Read more</a></p>
-         </footer>
-      </article>
-      <article class="c-card c-card--small">
-         <figure class="c-card__image">
-            <a href="/post/th-post">
-               <img loading="lazy" src="https://images.pexels.com/photos/26442630/pexels-photo-26442630/free-photo-of-manniskor-bil-arkitektur-sport.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="Placeholder Image" data-is-external-image="true">
-            </a>
-         </figure>
-         <header class="c-card__header">
-            <h2><a href="/post/th-post">Title of the Second Post</a></h2>
-            <p>Published on June 25, 2024</p>
-         </header>
-         <div class="c-card__content">
-            <p>This is the content of the second post. You can include paragraphs, images, videos, and any other HTML content here.</p>
-            <p>For example, <a href="#">this is a link</a>.</p>
-         </div>
-         <footer class="c-card__footer">
-            <p>Tags: <a href="/tags/technology">Technology</a>, <a href="/tags/web-design">Web Design</a></p>
-            <p><a href="/post/th-post">Read more</a></p>
-         </footer>
-      </article>
-      <article class="c-card c-card--small">
-         <figure class="c-card__image">
-            <a href="/post/four-post">
-               <img loading="lazy" src="https://images.pexels.com/photos/26442630/pexels-photo-26442630/free-photo-of-manniskor-bil-arkitektur-sport.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="Placeholder Image" data-is-external-image="true">
-            </a>
-         </figure>
-         <header class="c-card__header">
-            <h2><a href="/post/four-post">Title of the Second Post</a></h2>
-            <p>Published on June 25, 2024</p>
-         </header>
-         <div class="c-card__content">
-            <p>This is the content of the second post. You can include paragraphs, images, videos, and any other HTML content here.</p>
-            <p>For example, <a href="#">this is a link</a>.</p>
-         </div>
-         <footer class="c-card__footer">
-            <p>Tags: <a href="/tags/technology">Technology</a>, <a href="/tags/web-design">Web Design</a></p>
-            <p><a href="/post/four-post">Read more</a></p>
-         </footer>
-      </article>
-      <!-- Add more articles as needed -->
-   </main>
-
-</body>
-</html></div>
             ]]>
         </content>
     </entry>
@@ -243,126 +110,14 @@
         <media:content url="https://troi.se/media/posts/1/computer-4795762_1280.jpg" medium="image" />
 
         <updated>2024-06-25T15:24:36+02:00</updated>
-            <summary>
-                <![CDATA[
-                        <img src="https://troi.se/media/posts/1/computer-4795762_1280.jpg" alt="" />
-                    Post Example .c-card--large { grid-column: span 2; /* Span 2 columns */&hellip;
-                ]]>
-            </summary>
+            <summary></summary>
         <content type="html">
             <![CDATA[
                     <p><img src="https://troi.se/media/posts/1/computer-4795762_1280.jpg" class="type:primaryImage" alt="" /></p>
-                <div><!DOCTYPE html>
-<html lang="en">
-<head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Post Example</title>
-   <link rel="stylesheet" href="styles.css"> <!-- Link to the main CSS file -->
-   <!-- Custom sizes for cards  -->
-  <style>
-   
-    .c-card--large {
-      grid-column: span 2; /* Span 2 columns */
-      grid-row: span 2; /* Span 2 rows */
-    }
-    .c-card--small {
-      grid-column: span 1; /* Span 1 column */
-      grid-row: span 1; /* Span 1 row */
-    }
-    .l-grid {
-         display: grid;
-         gap: 1rem;
-         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      }
-    .l-grid--4 {
-         grid-template-columns: repeat(4, 1fr);
-      }
-      
-</style>
-</head>
-<body>
-
-   <main class="l-grid l-grid--3"> <!-- Use grid class to control layout -->
-      <article class="c-card c-card--small">
-         <figure class="c-card__image">
-            <a href="/post/tech-lead-and-enterprise-architecture">
-               <img loading="lazy" src="/root-files/TV4.jpg" data-is-external-image="true">
-            </a>
-         </figure>
-         <header class="c-card__header">
-            <h2><a href="/post/tech-lead-and-enterprise-architecture">Tech lead & Enterprse architecture</a></h2>
-            <p> 2023 - Ongoing</p>
-         </header>
-         <div class="c-card__content">
-            <p>Read more</p>
-            <p><a href="#">/post/tech-lead-and-enterprise-architecture</a>.</p>
-         </div>
-        </article>
-
-      <article class="c-card c-card--small">
-         <figure class="c-card__image">
-            <a href="/post/second-post">
-               <img loading="lazy" src="https://images.pexels.com/photos/26442630/pexels-photo-26442630/free-photo-of-manniskor-bil-arkitektur-sport.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="Placeholder Image" data-is-external-image="true">
-            </a>
-         </figure>
-         <header class="c-card__header">
-            <h2><a href="/post/second-post">Title of the Second Post</a></h2>
-            <p>Published on June 25, 2024</p>
-         </header>
-         <div class="c-card__content">
-            <p>This is the content of the second post. You can include paragraphs, images, videos, and any other HTML content here.</p>
-            <p>For example, <a href="#">this is a link</a>.</p>
-         </div>
-         <footer class="c-card__footer">
-            <p>Tags: <a href="/tags/technology">Technology</a>, <a href="/tags/web-design">Web Design</a></p>
-            <p><a href="/post/second-post">Read more</a></p>
-         </footer>
-      </article>
-      <article class="c-card c-card--small">
-         <figure class="c-card__image">
-            <a href="/post/th-post">
-               <img loading="lazy" src="https://images.pexels.com/photos/26442630/pexels-photo-26442630/free-photo-of-manniskor-bil-arkitektur-sport.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="Placeholder Image" data-is-external-image="true">
-            </a>
-         </figure>
-         <header class="c-card__header">
-            <h2><a href="/post/th-post">Title of the Second Post</a></h2>
-            <p>Published on June 25, 2024</p>
-         </header>
-         <div class="c-card__content">
-            <p>This is the content of the second post. You can include paragraphs, images, videos, and any other HTML content here.</p>
-            <p>For example, <a href="#">this is a link</a>.</p>
-         </div>
-         <footer class="c-card__footer">
-            <p>Tags: <a href="/tags/technology">Technology</a>, <a href="/tags/web-design">Web Design</a></p>
-            <p><a href="/post/th-post">Read more</a></p>
-         </footer>
-      </article>
-      <article class="c-card c-card--small">
-         <figure class="c-card__image">
-            <a href="/post/four-post">
-               <img loading="lazy" src="https://images.pexels.com/photos/26442630/pexels-photo-26442630/free-photo-of-manniskor-bil-arkitektur-sport.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="Placeholder Image" data-is-external-image="true">
-            </a>
-         </figure>
-         <header class="c-card__header">
-            <h2><a href="/post/four-post">Title of the Second Post</a></h2>
-            <p>Published on June 25, 2024</p>
-         </header>
-         <div class="c-card__content">
-            <p>This is the content of the second post. You can include paragraphs, images, videos, and any other HTML content here.</p>
-            <p>For example, <a href="#">this is a link</a>.</p>
-         </div>
-         <footer class="c-card__footer">
-            <p>Tags: <a href="/tags/technology">Technology</a>, <a href="/tags/web-design">Web Design</a></p>
-            <p><a href="/post/four-post">Read more</a></p>
-         </footer>
-      </article>
-      <!-- Add more articles as needed -->
-   </main>
-
-</body>
-</html>
-</div>
+                
+  <p>
+    
+  </p>
             ]]>
         </content>
     </entry>
