@@ -15,14 +15,14 @@
             "url": "https://troi.se/testar-igen.html",
             "title": "My latest blog post",
             "content_html": "\n  <p>\n    \n  </p>",
-            "image": "https://troi.se/media/posts/9/agenda-968603_1280.jpg",
+            "image": "https://troi.se/media/posts/9/hero-area.jpg",
             "author": {
                 "name": "Christoffer Råsten"
             },
             "tags": [
             ],
             "date_published": "2024-06-26T15:21:43+02:00",
-            "date_modified": "2024-06-26T15:44:08+02:00"
+            "date_modified": "2024-07-03T17:17:21+02:00"
         },
         {
             "id": "https://troi.se/test-4.html",
