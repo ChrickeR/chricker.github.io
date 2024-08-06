@@ -3,7 +3,7 @@
     <title>troi</title>
     <link href="https://troi.se/feed.xml" rel="self" />
     <link href="https://troi.se" />
-    <updated>2024-08-06T10:04:33+02:00</updated>
+    <updated>2024-08-06T10:14:22+02:00</updated>
     <author>
         <name>Christoffer Råsten</name>
     </author>
@@ -113,7 +113,7 @@
             <summary>
                 <![CDATA[
                         <img src="https://troi.se/media/posts/7/people-4823356_1280.jpg" alt="" />
-                    Friends: David Pettersson Lars Barkman Stellar Collective Oxing Consulting Verksamhetsarkitektur Thoughtworks Thoughtworks - Technology radar Zalando Open Source OpenAI Range: Why Generalists Triumph&hellip;
+                    Friends: David Pettersson Lars Barkman Verksamhetsarkitektur Thoughtworks Thoughtworks - Technology radar Zalando Open Source OpenAI Range: Why Generalists Triumph in a Specialized World&hellip;
                 ]]>
             </summary>
         <content type="html">
@@ -122,9 +122,7 @@
                 <h2 id="friends">Friends:</h2>
 <p><a href="https://www.pettersson.dev">David Pettersson</a> <Br/>
 <a href="https://www.larsbarkman.com">Lars Barkman</a> <Br/>
-<Br/></p><h2 id="partners">Partners:</h2>
-<p><a href="https://www.pettersson.dev">Stellar Collective</a> <Br/>
-<a href="https://www.pettersson.dev">Oxing Consulting</a> <Br/></p><h2 id="links">Links:</h2>
+<Br/></p><h2 id="links">Links:</h2>
 <p><a href="https://www.verksamhetsarkitektur.se">Verksamhetsarkitektur</a> <Br/>
 <a href="https://www.thoughtworks.com">Thoughtworks</a> <Br/>
 <a href="https://www.thoughtworks.com/radar">Thoughtworks - Technology radar</a> <Br/>
