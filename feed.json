@@ -11,6 +11,21 @@
     },
     "items": [
         {
+            "id": "https://troi.se/contact-information.html",
+            "url": "https://troi.se/contact-information.html",
+            "title": "Contact information",
+            "summary": "TROi Arkitektur AB Gnejsvägen 13B 132 35 Saltsjö-boo Sweden Mobile: 0708-93 95 51 Email : Christoffer.Rasten@TROi.se Org.number 559322-1889",
+            "content_html": "\n  <p class=\"align-center\">\n    <strong>TROi Arkitektur AB</strong><br><br>Gnejsvägen 13B<br>132 35 Saltsjö-boo<br>Sweden <br><br><br>Mobile: 0708-93 95 51<br>Email : Christoffer.Rasten@TROi.se <br><br>Org.number 559322-1889\n  </p>\n\n  <p>\n    \n  </p>",
+            "image": "https://troi.se/media/posts/20/Skarmavbild-2024-08-05-kl.-15.43.37.png",
+            "author": {
+                "name": "Christoffer Råsten"
+            },
+            "tags": [
+            ],
+            "date_published": "2024-08-06T13:41:50+02:00",
+            "date_modified": "2024-08-06T13:44:39+02:00"
+        },
+        {
             "id": "https://troi.se/test-4.html",
             "url": "https://troi.se/test-4.html",
             "title": "About Me",
@@ -44,7 +59,8 @@
             "id": "https://troi.se/test.html",
             "url": "https://troi.se/test.html",
             "title": "Previous Assignments ",
-            "content_html": "\n  <p>\n    \n  </p>",
+            "summary": "2023-06-01 ICT Business Applications, TV4, Commercial 2022-08-30 Team Commercial, Telia 2021-08-30 Integration strategy, TV4, MTV 2021-05-20 Payment as a Service, TV4, CMore 2021-04-01&hellip;",
+            "content_html": "\n  <ul>\n    <li>2023-06-01 ICT Business Applications,  TV4, Commercial<br></li><li>2022-08-30 Team Commercial, Telia<br></li><li><span style=\"color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: 1em; font-weight: var(--font-weight-normal);\">2021-08-30 Integration strategy, TV4, MTV</span><br></li><li>2021-05-20 Payment as a Service, TV4, CMore<br></li><li>2021-04-01 Freelance IT Architect, TROi<br></li><li><span style=\"color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: 1em; font-weight: var(--font-weight-normal);\">2018-10-01 Chief Architect &amp; Head of Architecture, Afa Insurance</span><br></li><li>2013-10-01 Domain Architect, Afa Insurance</li><li>2008-10-01 Solutions Architect. Afa Insurance</li><li><span style=\"color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: 1em; font-weight: var(--font-weight-normal);\">2001-12-01 Developer, Afa Insurance</span><br></li><li><span style=\"color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: 1em; font-weight: var(--font-weight-normal);\">...</span></li>\n  </ul>\n\n  <p>\n    Over 20 years of experience within system development.\n  </p>\n\n  <p>\n    <strong><em>Top Certifications</em></strong>\n  </p>\n\n  <ul>\n    <li>Certified Chief Architect, Dataföreningen</li><li>Certified Information Technology Architect, CITA-F, IASA</li><li>UX Certified, Nielsen Norman Group</li><li>Lots of other courses and training during the years...</li>\n  </ul>\n\n  <p>\n    <em><strong>Top Skills</strong></em>\n  </p>\n\n  <ul>\n    <li>IT Architecture</li><li>Enterprise Architecture</li><li>Solution Architecture</li><li>Information Architecture</li><li>Digitalization</li><li>Team empowerment</li><li>IT Strategy</li><li>Business Development</li><li>Project Management</li><li>Integrations</li><li>...</li>\n  </ul>",
             "image": "https://troi.se/media/posts/1/computer-4795762_1280.jpg",
             "author": {
                 "name": "Christoffer Råsten"
@@ -52,7 +68,7 @@
             "tags": [
             ],
             "date_published": "2024-06-25T15:24:36+02:00",
-            "date_modified": "2024-08-06T09:20:51+02:00"
+            "date_modified": "2024-08-06T14:19:31+02:00"
         },
         {
             "id": "https://troi.se/friends-and-stuff.html",
@@ -143,21 +159,6 @@
             ],
             "date_published": "2023-01-26T09:28:00+01:00",
             "date_modified": "2024-08-06T10:37:43+02:00"
-        },
-        {
-            "id": "https://troi.se/attracting-talent.html",
-            "url": "https://troi.se/attracting-talent.html",
-            "title": "Attracting talent",
-            "summary": "As the world continues to become increasingly digitalized, more businesses are realizing the importance of becoming software companies. Software development is no longer&hellip;",
-            "content_html": "\n  <p>\n    As the world continues to become increasingly digitalized, more businesses are realizing the importance of becoming software companies. Software development is no longer just a service that businesses can outsource; it’s an essential part of business development and growth. By embracing software-driven operations, businesses can stay ahead of their competition, attract talented employees, and better their chances of success in the long run.<br><br>Software is a powerful tool that can help a business increase efficiency and improve customer satisfaction while reducing costs. It can also give a business a competitive edge, as software can help automate processes, making them faster and more accurate. Furthermore, software can provide insights and data that can be used to make better decisions. The possibilities are almost endless.<br><br>In order to capitalize on the potential of software, businesses must invest in software-driven strategies. This means investing in the right software and hiring the right people to develop and maintain it. Additionally, businesses should strive to provide a supportive environment for software development so that their staff can be creative, productive, and successful.<br><br>With the right software and personnel, businesses can use software to gain a competitive edge. As the competition gets tougher, businesses must do more to remain competitive. Software development is an essential part of this strategy. By talking about how they’re becoming software companies on their digitalization journeys, businesses can attract the right talent and be well-positioned to play the “infinity game.”<br><br>Software developers need to be integrated into the planning and decision-making process and be given the freedom to come up with innovative solutions and ideas. This requires an investment in the right technology, but also in the right people.<br><br>It is important for businesses to talk openly about their digitalization journey and the challenges they may have faced. This allows them to showcase their successes and learn from their mistakes. For example, businesses should be vocal about their software development process, the technologies they use, the challenges they faced, and the lessons they have learned. This will help to attract talented developers and also demonstrate that the business is serious about its digitalization efforts.<br><br>Businesses should strive to play the ‘infinity game’ – that is, never stop learning and developing. In the modern digital landscape, the only way to stay ahead of the competition is to constantly innovate and improve. By talking openly about their digitalization journey, businesses can demonstrate that they are committed to playing the infinity game.<br><br>In summary, businesses should be more vocal about their digitalization journey – from transitioning from a traditional business to a software-driven one, to the technologies they use and the challenges they face. This will help attract talent people and show that businesses are serious about their digitalization efforts. Finally, businesses should strive to play the infinity game, continuously learning and developing in order to stay ahead of the competition. The future is a mix of Bussiness, People and Technology.\n  </p>",
-            "image": "https://troi.se/media/posts/19/pexels-photo-11737041.jpeg",
-            "author": {
-                "name": "Christoffer Råsten"
-            },
-            "tags": [
-            ],
-            "date_published": "2022-12-28T10:03:00+01:00",
-            "date_modified": "2024-08-06T10:04:33+02:00"
         }
     ]
 }

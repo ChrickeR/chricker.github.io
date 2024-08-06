@@ -3,12 +3,42 @@
     <title>troi</title>
     <link href="https://troi.se/feed.xml" rel="self" />
     <link href="https://troi.se" />
-    <updated>2024-08-06T10:37:43+02:00</updated>
+    <updated>2024-08-06T14:19:31+02:00</updated>
     <author>
         <name>Christoffer Råsten</name>
     </author>
     <id>https://troi.se</id>
 
+    <entry>
+        <title>Contact information</title>
+        <author>
+            <name>Christoffer Råsten</name>
+        </author>
+        <link href="https://troi.se/contact-information.html"/>
+        <id>https://troi.se/contact-information.html</id>
+        <media:content url="https://troi.se/media/posts/20/Skarmavbild-2024-08-05-kl.-15.43.37.png" medium="image" />
+
+        <updated>2024-08-06T13:41:50+02:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://troi.se/media/posts/20/Skarmavbild-2024-08-05-kl.-15.43.37.png" alt="" />
+                    TROi Arkitektur AB Gnejsvägen 13B 132 35 Saltsjö-boo Sweden Mobile: 0708-93 95 51 Email : Christoffer.Rasten@TROi.se Org.number 559322-1889
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://troi.se/media/posts/20/Skarmavbild-2024-08-05-kl.-15.43.37.png" class="type:primaryImage" alt="" /></p>
+                
+  <p class="align-center">
+    <strong>TROi Arkitektur AB</strong><br><br>Gnejsvägen 13B<br>132 35 Saltsjö-boo<br>Sweden <br><br><br>Mobile: 0708-93 95 51<br>Email : Christoffer.Rasten@TROi.se <br><br>Org.number 559322-1889
+  </p>
+
+  <p>
+    
+  </p>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>About Me</title>
         <author>
@@ -89,14 +119,39 @@
         <media:content url="https://troi.se/media/posts/1/computer-4795762_1280.jpg" medium="image" />
 
         <updated>2024-06-25T15:24:36+02:00</updated>
-            <summary></summary>
+            <summary>
+                <![CDATA[
+                        <img src="https://troi.se/media/posts/1/computer-4795762_1280.jpg" alt="" />
+                    2023-06-01 ICT Business Applications, TV4, Commercial 2022-08-30 Team Commercial, Telia 2021-08-30 Integration strategy, TV4, MTV 2021-05-20 Payment as a Service, TV4, CMore 2021-04-01&hellip;
+                ]]>
+            </summary>
         <content type="html">
             <![CDATA[
                     <p><img src="https://troi.se/media/posts/1/computer-4795762_1280.jpg" class="type:primaryImage" alt="" /></p>
                 
+  <ul>
+    <li>2023-06-01 ICT Business Applications,  TV4, Commercial<br></li><li>2022-08-30 Team Commercial, Telia<br></li><li><span style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: 1em; font-weight: var(--font-weight-normal);">2021-08-30 Integration strategy, TV4, MTV</span><br></li><li>2021-05-20 Payment as a Service, TV4, CMore<br></li><li>2021-04-01 Freelance IT Architect, TROi<br></li><li><span style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: 1em; font-weight: var(--font-weight-normal);">2018-10-01 Chief Architect &amp; Head of Architecture, Afa Insurance</span><br></li><li>2013-10-01 Domain Architect, Afa Insurance</li><li>2008-10-01 Solutions Architect. Afa Insurance</li><li><span style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: 1em; font-weight: var(--font-weight-normal);">2001-12-01 Developer, Afa Insurance</span><br></li><li><span style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: 1em; font-weight: var(--font-weight-normal);">...</span></li>
+  </ul>
+
   <p>
-    
+    Over 20 years of experience within system development.
   </p>
+
+  <p>
+    <strong><em>Top Certifications</em></strong>
+  </p>
+
+  <ul>
+    <li>Certified Chief Architect, Dataföreningen</li><li>Certified Information Technology Architect, CITA-F, IASA</li><li>UX Certified, Nielsen Norman Group</li><li>Lots of other courses and training during the years...</li>
+  </ul>
+
+  <p>
+    <em><strong>Top Skills</strong></em>
+  </p>
+
+  <ul>
+    <li>IT Architecture</li><li>Enterprise Architecture</li><li>Solution Architecture</li><li>Information Architecture</li><li>Digitalization</li><li>Team empowerment</li><li>IT Strategy</li><li>Business Development</li><li>Project Management</li><li>Integrations</li><li>...</li>
+  </ul>
             ]]>
         </content>
     </entry>
@@ -265,32 +320,6 @@
                 
   <p>
     In recent years, companies have increasingly adopted an agile approach to working and innovation, as this method has been proven to be an effective way to develop products and services quickly and effectively. However, the success of an agile approach can be hindered by a monolithic thinking and centralization.<br><br>Monolithic thinking is the idea that all aspects of a company should be managed in the same manner. This centralization of control stifles creativity and innovation, as it limits the ability of individual team members to experiment and come up with new ideas. It also slows down decision-making, as each decision must be approved by the top-level management or centralized team.<br><br>Centralization of control also hinders agility and responsiveness. With a centralized structure, teams are unable to react quickly to changes in the market or customer demands. This can lead to missed opportunities and a slower rate of product or service delivery.<br><br>Finally, monolithic thinking and centralization can also lead to increased bureaucracy and costs. Teams are often forced to adhere to rigid processes that are not tailored to the individual needs of the organization, which can lead to wastage of time and resources.<br><br>To ensure that an agile approach is successful, companies must strive for more flexible and distributed decision-making and architecture. This means that teams should be empowered to make decisions independently, so that they can react quickly to changes in the market or customer demands. Additionally, companies should strive for greater transparency and open communication between teams, so that they can collaborate effectively and speed up decision-making.<br><br>By moving away from monolithic thinking and centralization, companies can ensure that their agile approach to working and innovation is successful. This will help them to develop products and services quickly and effectively, and ensure that they remain competitive in the ever-changing business landscape.<br><br>Hidden Monoliths and Coupling: How to Identify and Mitigate Complexity in the Workplace<br><br>In today's ever-changing world of technology, understanding the concept of monoliths and coupling is vital for businesses to remain competitive. Monoliths are large, interconnected systems that are difficult to change without breaking its entire structure. Coupling is when two or more components of a system are linked, making it difficult to modify one without changing the other. Monoliths are often hidden from view, but they play a powerful role in both the digital and physical worlds. They can be found in software applications, databases, solutions, and even in the way we think about our workplaces. Monolithic structures are characterized by strong coupling, which can increase the resilience and efficiency of a system, but can also limit its ability to adapt to changing conditions. In this blog, we will explore the different types of monoliths and coupling, how they can be identified and mitigated in the workplace.<br><br>Application Monoliths: An application monolith is a single, large application that contains all the code and data needed to operate the system. It is difficult to make changes to this type of monolith without affecting its entire structure, making it hard to modify or maintain.<br><br>Joined-at-the-Database Monoliths: A joined-at-the-database monolith is a single database that contains data from multiple applications. This type of monolith is difficult to change or modify without affecting the entire system.<br><br>Monolithic Builds: A monolithic build is when all components of the system are built at the same time. This type of monolith is difficult to modify or maintain without affecting the entire system.<br><br>Monolithic Coupled Releases: A monolithic coupled release is when two or more components of the system must be released at the same time and in the right order. This type of monolith can be difficult to modify or maintain without affecting the entire system.<br><br>Another aspect of monolithic thinking is the single view of the world, standardization and one size fits all is a solutions. When it comes to problem solving, using the same tool or approach for every problem is not always the best option. Rather, the best approach is to assess the problem and determine which tool or approach will be the most effective. There are multiple tools and approaches that can be used to solve a particular problem and it's important to understand which one is the most suitable.<br><br>Monolithic Model (Single View of the World): A monolithic model is when all components of the system are viewed as a single entity. This type of monolith is difficult to modify or maintain without affecting the entire system.<br><br>Monolithic Thinking (Standardization): Monolithic thinking is when all components of the system are standardized and seen as a single entity. This type of monolith can be difficult to modify or maintain without affecting the entire system.<br><br>Monolithic Workplace: A monolithic workplace is when the entire organization is seen as a single entity. This type of monolith can be difficult to modify or maintain without affecting the entire system.<br><br>Understanding the different types of monoliths and coupling can help businesses identify and mitigate complexity in the workplace. By breaking down large, interconnected systems into smaller, more manageable components, businesses can make changes or modifications more easily and quickly. This can help businesses remain competitive and reduce their costs in the long run.<br><br>One way of doing this is the domain driven approach. Domain Driven Development and bounded context are two of the most powerful tools in software development. Both concepts help to create efficient and effective software solutions by making sure that the solution is organized around meaningful business domains.<br><br>Domain driven design (DDD) is an approach to software development that focuses on the underlying structure of a software system and the domain it operates in. It emphasizes the importance of exploring and understanding the domain before attempting to develop a software solution. By understanding the underlying business requirements and mapping them to software elements, the development process becomes much more focused and efficient.<br><br>Bounded context is an important concept in DDD. It is the process of separating out different areas or aspects of the system and defining the boundaries between them. By doing this, the system can be divided into smaller, more manageable parts, which can be better understood and more easily maintained.<br><br>For example, consider a banking application. The application can be divided into separate bounded contexts such as customer information, accounts, payments and loan processing. Each of these bounded contexts could be further divided into smaller bounded contexts, such as customer accounts, customer payments, loan products and loan processing. By dividing the system into smaller pieces, developers can focus on what is important for each area and create more focused solutions.<br><br>Domain driven design and bounded context are extremely useful for software development. By understanding the domain and dividing the system into more manageable pieces, architects and developers can create more efficient and effective software solutions. Additionally, by reducing complexity and increasing focus, the development process becomes much faster and more efficient.<br><br>You can advantageously apply Bounded Context with a Best of breed strategy. This focuses on leveraging the best-of-breed components within a given bounded context to create the most optimized solution. By using the best-of-breed components within a given bounded context, businesses are able to create a system that is tailored to the specific needs of their users while also reducing costs and complexity. Additionally, this strategy allows businesses to quickly deploy new features and capabilities as the needs of their users evolve. Ultimately, Best of Breed with Bounded Context Focus is an effective and efficient way to create highly optimized solutions.<br><br>Monolithic structures can be beneficial, but they can also limit the ability of a system to adapt to changing conditions and hinder agile ways of working. As with any type of structure, it is important to assess the benefits and drawbacks of monolithic thinking and centralization in order to determine the best approach for your particular needs and goals.<br><br>&gt; <em>A book tip for this subject is Matthew Skelton and Manuel Pais book: Team Topologies - Organizing business and technology teams for fast flow</em>
-  </p>
-            ]]>
-        </content>
-    </entry>
-    <entry>
-        <title>Attracting talent</title>
-        <author>
-            <name>Christoffer Råsten</name>
-        </author>
-        <link href="https://troi.se/attracting-talent.html"/>
-        <id>https://troi.se/attracting-talent.html</id>
-        <media:content url="https://troi.se/media/posts/19/pexels-photo-11737041.jpeg" medium="image" />
-
-        <updated>2022-12-28T10:03:00+01:00</updated>
-            <summary>
-                <![CDATA[
-                        <img src="https://troi.se/media/posts/19/pexels-photo-11737041.jpeg" alt="" />
-                    As the world continues to become increasingly digitalized, more businesses are realizing the importance of becoming software companies. Software development is no longer&hellip;
-                ]]>
-            </summary>
-        <content type="html">
-            <![CDATA[
-                    <p><img src="https://troi.se/media/posts/19/pexels-photo-11737041.jpeg" class="type:primaryImage" alt="" /></p>
-                
-  <p>
-    As the world continues to become increasingly digitalized, more businesses are realizing the importance of becoming software companies. Software development is no longer just a service that businesses can outsource; it’s an essential part of business development and growth. By embracing software-driven operations, businesses can stay ahead of their competition, attract talented employees, and better their chances of success in the long run.<br><br>Software is a powerful tool that can help a business increase efficiency and improve customer satisfaction while reducing costs. It can also give a business a competitive edge, as software can help automate processes, making them faster and more accurate. Furthermore, software can provide insights and data that can be used to make better decisions. The possibilities are almost endless.<br><br>In order to capitalize on the potential of software, businesses must invest in software-driven strategies. This means investing in the right software and hiring the right people to develop and maintain it. Additionally, businesses should strive to provide a supportive environment for software development so that their staff can be creative, productive, and successful.<br><br>With the right software and personnel, businesses can use software to gain a competitive edge. As the competition gets tougher, businesses must do more to remain competitive. Software development is an essential part of this strategy. By talking about how they’re becoming software companies on their digitalization journeys, businesses can attract the right talent and be well-positioned to play the “infinity game.”<br><br>Software developers need to be integrated into the planning and decision-making process and be given the freedom to come up with innovative solutions and ideas. This requires an investment in the right technology, but also in the right people.<br><br>It is important for businesses to talk openly about their digitalization journey and the challenges they may have faced. This allows them to showcase their successes and learn from their mistakes. For example, businesses should be vocal about their software development process, the technologies they use, the challenges they faced, and the lessons they have learned. This will help to attract talented developers and also demonstrate that the business is serious about its digitalization efforts.<br><br>Businesses should strive to play the ‘infinity game’ – that is, never stop learning and developing. In the modern digital landscape, the only way to stay ahead of the competition is to constantly innovate and improve. By talking openly about their digitalization journey, businesses can demonstrate that they are committed to playing the infinity game.<br><br>In summary, businesses should be more vocal about their digitalization journey – from transitioning from a traditional business to a software-driven one, to the technologies they use and the challenges they face. This will help attract talent people and show that businesses are serious about their digitalization efforts. Finally, businesses should strive to play the infinity game, continuously learning and developing in order to stay ahead of the competition. The future is a mix of Bussiness, People and Technology.
   </p>
             ]]>
         </content>
