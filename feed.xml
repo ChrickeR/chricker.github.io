@@ -3,7 +3,7 @@
     <title>troi</title>
     <link href="https://troi.se/feed.xml" rel="self" />
     <link href="https://troi.se" />
-    <updated>2024-08-06T15:23:28+02:00</updated>
+    <updated>2024-08-06T15:45:35+02:00</updated>
     <author>
         <name>Christoffer Råsten</name>
     </author>
@@ -16,6 +16,7 @@
         </author>
         <link href="https://troi.se/founder-troi-arkitektur-ab.html"/>
         <id>https://troi.se/founder-troi-arkitektur-ab.html</id>
+            <category term="Assignments"/>
 
         <updated>2024-08-06T15:23:22+02:00</updated>
             <summary>
@@ -39,6 +40,7 @@
         </author>
         <link href="https://troi.se/domain-architect.html"/>
         <id>https://troi.se/domain-architect.html</id>
+            <category term="Assignments"/>
 
         <updated>2024-08-06T15:22:27+02:00</updated>
             <summary>
@@ -66,6 +68,7 @@
         </author>
         <link href="https://troi.se/solutions-architect.html"/>
         <id>https://troi.se/solutions-architect.html</id>
+            <category term="Assignments"/>
 
         <updated>2024-08-06T15:21:18+02:00</updated>
             <summary>
@@ -89,6 +92,7 @@
         </author>
         <link href="https://troi.se/developer.html"/>
         <id>https://troi.se/developer.html</id>
+            <category term="Assignments"/>
 
         <updated>2024-08-06T15:20:26+02:00</updated>
             <summary>
@@ -113,6 +117,7 @@
         <link href="https://troi.se/okr-objectives-and-key-results.html"/>
         <id>https://troi.se/okr-objectives-and-key-results.html</id>
         <media:content url="https://troi.se/media/posts/32/pexels-photo-3077882.webp" medium="image" />
+            <category term="Blog_Post"/>
 
         <updated>2024-08-06T15:19:42+02:00</updated>
             <summary>
@@ -139,6 +144,7 @@
         <link href="https://troi.se/staying-ahead-of-the-curve.html"/>
         <id>https://troi.se/staying-ahead-of-the-curve.html</id>
         <media:content url="https://troi.se/media/posts/31/pexels-photo-129742.jpeg" medium="image" />
+            <category term="Blog_Post"/>
 
         <updated>2024-08-06T15:18:05+02:00</updated>
             <summary>
@@ -164,6 +170,7 @@
         </author>
         <link href="https://troi.se/chief-architect-and-head-of-architecture.html"/>
         <id>https://troi.se/chief-architect-and-head-of-architecture.html</id>
+            <category term="Assignments"/>
 
         <updated>2024-08-06T15:07:03+02:00</updated>
             <summary>
@@ -187,6 +194,7 @@
         </author>
         <link href="https://troi.se/it-architect-team-commercial.html"/>
         <id>https://troi.se/it-architect-team-commercial.html</id>
+            <category term="Assignments"/>
 
         <updated>2024-08-06T14:49:27+02:00</updated>
             <summary>
@@ -210,6 +218,7 @@
         </author>
         <link href="https://troi.se/integration-strategy-and-enterprise-architecture.html"/>
         <id>https://troi.se/integration-strategy-and-enterprise-architecture.html</id>
+            <category term="Assignments"/>
 
         <updated>2024-08-06T14:47:16+02:00</updated>
             <summary>
@@ -233,6 +242,7 @@
         </author>
         <link href="https://troi.se/payment-as-a-service.html"/>
         <id>https://troi.se/payment-as-a-service.html</id>
+            <category term="Assignments"/>
 
         <updated>2024-08-06T14:46:28+02:00</updated>
             <summary>
