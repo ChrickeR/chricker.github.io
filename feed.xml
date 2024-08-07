@@ -3,12 +3,54 @@
     <title>troi</title>
     <link href="https://troi.se/feed.xml" rel="self" />
     <link href="https://troi.se" />
-    <updated>2024-08-07T09:04:40+02:00</updated>
+    <updated>2024-08-07T11:24:47+02:00</updated>
     <author>
         <name>Christoffer Råsten</name>
     </author>
     <id>https://troi.se</id>
 
+    <entry>
+        <title> Innovation Through Foundation: Building on the Best to Create the Future</title>
+        <author>
+            <name>Christoffer Råsten</name>
+        </author>
+        <link href="https://troi.se/innovation-through-foundation-building-on-the-best-to-create-the-future.html"/>
+        <id>https://troi.se/innovation-through-foundation-building-on-the-best-to-create-the-future.html</id>
+        <media:content url="https://troi.se/media/posts/37/stones-2704411_640.webp" medium="image" />
+            <category term="Integrations"/>
+            <category term="Blog_Post"/>
+            <category term="Architecture"/>
+
+        <updated>2024-08-07T11:23:20+02:00</updated>
+            <summary>
+                <![CDATA[
+                        <img src="https://troi.se/media/posts/37/stones-2704411_640.webp" alt="" />
+                    The Art of Innovation: Building on What’s Already Great In the fast-paced world of technology, the word "innovation" is often thrown around as&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                    <p><img src="https://troi.se/media/posts/37/stones-2704411_640.webp" class="type:primaryImage" alt="" /></p>
+                
+  <p>
+    <strong>The Art of Innovation: Building on What’s Already Great<br></strong>In the fast-paced world of technology, the word "innovation" is often thrown around as if it's synonymous with creating something entirely new and groundbreaking. But here's a thought that may seem counterintuitive: sometimes, the most innovative thing you can do is not to invent something from scratch.<br><br><strong>The Power of Trends and Standards<br></strong>In today's digital landscape, being innovative doesn’t always mean being original. In many cases, it’s about being strategic. Trends evolve for a reason; they reflect the collective wisdom of a community or industry. By keeping an eye on these trends, we can discern which practices are becoming de facto standards and which emerging methods are poised to become the next big thing.<br><br>For instance, consider how many companies are adopting specific API design guidelines, such as Zalando's RESTful guidelines. These aren’t just rules—they’re the result of many iterations, discussions, and refinements by experts in the field. By embracing such well-established standards, we save ourselves the time and effort of reinventing the wheel, allowing us to focus our energy on refining and innovating within that framework.<br><br><strong>The Role of Communities in Shaping Innovation<br></strong>The beauty of our connected world is the wealth of knowledge and experience that is freely available through various communities. By engaging with these communities—whether they’re open-source contributors, industry forums, or professional networks—we gain insights that can shape our approach to innovation.<br><br>Communities are where ideas are tested, debated, and refined. They provide a sounding board for new concepts and offer feedback that can be invaluable in improving upon existing solutions. By staying actively involved in these conversations, we position ourselves not just as followers of trends, but as active participants in their evolution.<br><br><strong>Building on What’s Already Great<br></strong>It’s easy to get caught up in the race to be the first to market with a new concept. But there is immense value in taking what already exists and making it better. After all, innovation doesn’t just mean doing something new—it also means doing something better.<br><br>Zalando’s RESTful guidelines are a perfect example of this principle in action. By building on established best practices, Zalando created a set of guidelines that many other organizations now look to as a benchmark for quality. This kind of innovation—refining and enhancing what already works—is often more impactful than starting from scratch.<br><br><strong>Sharing and Collaboration: The Keys to Collective Success<br></strong>The final piece of the puzzle is sharing what you’ve learned. By sharing your insights, your processes, and your innovations, you allow others to build on your work, just as you’ve built on the work of those before you. This kind of openness not only fosters a spirit of collaboration but also accelerates the pace of innovation across the board.<br><br>When we allow others to comment on and refine our ideas, we benefit from their perspectives and expertise. This collaborative approach leads to stronger, more resilient solutions that stand the test of time. In the end, it’s a win-win situation—everyone benefits when knowledge is shared and innovation is a collective effort.<br><br><strong>Conclusion: Creativity Rooted in Fundamentals<br></strong>In conclusion, the fundamentals provided by guidelines and standards don't limit our creativity; they enable it. By grounding ourselves in these principles, we free up mental space to think more creatively and solve problems from first principles. This combination of solid groundwork and imaginative thinking allows us to build truly magical solutions.<br><br>When we understand and respect the frameworks that have been established, we give ourselves the tools to innovate in meaningful ways. The real magic happens when we merge this foundational knowledge with bold, creative thinking, leading to solutions that are both innovative and grounded in reality. Let's embrace this synergy, knowing that true innovation arises when creativity is informed by a strong foundation.
+  </p>
+<hr class="separator separator--dots" />
+
+  <p>
+    <a href="https://opensource.zalando.com/restful-api-guidelines/" target="_blank">https://opensource.zalando.com/restful-api-guidelines/</a>
+  </p>
+
+  <p>
+    <a href="https://www.thoughtworks.com/radar" target="_blank">https://www.thoughtworks.com/radar</a>
+  </p>
+
+  <p>
+    
+  </p>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>Founder TROi Arkitektur AB</title>
         <author>
@@ -244,33 +286,6 @@
   <p>
     
   </p>
-            ]]>
-        </content>
-    </entry>
-    <entry>
-        <title>Blog</title>
-        <author>
-            <name>Christoffer Råsten</name>
-        </author>
-        <link href="https://troi.se/test-2.html"/>
-        <id>https://troi.se/test-2.html</id>
-        <media:content url="https://troi.se/media/posts/2/agenda-968603_1280-2.jpg" medium="image" />
-
-        <updated>2024-06-25T15:54:50+02:00</updated>
-            <summary>
-                <![CDATA[
-                        <img src="https://troi.se/media/posts/2/agenda-968603_1280-2.jpg" alt="" />
-                    This blog is a platform for me to share my knowledge and experience of Enterprise and Software Engineering. I will only share information&hellip;
-                ]]>
-            </summary>
-        <content type="html">
-            <![CDATA[
-                    <p><img src="https://troi.se/media/posts/2/agenda-968603_1280-2.jpg" class="type:primaryImage" alt="" /></p>
-                
-  <p>
-    This blog is a platform for me to share my knowledge and experience of Enterprise and Software Engineering. I will only share information that I have personally experienced, observed and/or analyzed, and any opinions I express here are my own and not necessarily those of my employer or customers.<br><br>The information contained on this blog is intended to provide general information and should not be used as the basis for making business, legal or other decisions. While I will make every effort to ensure the accuracy and reliability of the information provided, I make no promises or guarantees. Any reliance you place on this information is therefore done so at your own risk. I will not be held responsible for any inaccuracies or omissions.
-  </p>
-<hr class="separator separator--dots" />
             ]]>
         </content>
     </entry>
