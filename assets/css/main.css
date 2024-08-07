@@ -2757,15 +2757,15 @@ body.is-preload #wrapper.fade-in:before {
   margin-top: -20rem;
 }
 #intro + #header .logo {
-  -webkit-transform: translateY(2rem);
-  transform: translateY(2rem);
+  -webkit-transform: translateY(6rem);
+  transform: translateY(6rem);
   opacity: 0;
   visibility: hidden;
 }
 #intro.hidden {
   pointer-events: none;
-  -webkit-transform: translateY(2rem);
-  transform: translateY(2rem);
+  -webkit-transform: translateY(6rem);
+  transform: translateY(6rem);
   -webkit-transition: opacity 0.5s ease, -webkit-transform 0.5s ease, visibility 0.5s;
   -webkit-transition: opacity 0.5s ease, visibility 0.5s, -webkit-transform 0.5s ease;
   transition: opacity 0.5s ease, visibility 0.5s, -webkit-transform 0.5s ease;
