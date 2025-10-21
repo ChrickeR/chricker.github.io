@@ -1,4 +1,4 @@
-name: Deploy MkDocs to GitHub Pages (with optional Log4brains)
+name: Deploy MkDocs to GitHub Pages (robust)
 
 on:
   push:
@@ -15,25 +15,17 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  SKIP_L4B: 'false'                 # ENABLED now
-  ADR_REPOSITORY: 'ChrickeR/adr'    # or same repo if ADRs live inside
+  SKIP_L4B: 'false'                 # set to 'true' to always skip Log4brains
+  ADR_REPOSITORY: 'ChrickeR/adr'    # 👉 change to your real ADR repo (owner/repo)
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout MkDocs source
         uses: actions/checkout@v4
 
-      - name: Debug | Show structure
-        run: |
-          echo "Root structure:" && ls -la
-          echo "Docs structure:" && ls -la docs || true
-          echo "mkdocs.yml (head):" && head -n 40 mkdocs.yml || true
-
-      # Ensure basic folders/files always exist
-      - name: Safety | Create placeholder docs if missing
+      - name: Safety | ensure basic docs + CSS exist
         run: |
           ensure() { mkdir -p "$(dirname "$1")"; [ -f "$1" ] || printf "# %s\n\n_TODO_\n" "$1" > "$1"; }
           ensure docs/index.md
@@ -49,53 +41,66 @@ jobs:
           mkdir -p docs/css
           [ -f docs/css/overrides.css ] || echo "/* placeholder */" > docs/css/overrides.css
 
-      # --- LOG4BRAINS BUILD SECTION ---
-      - name: Checkout ADR repo
+      # ---------- Log4brains (safe & optional) ----------
+      - name: Try checkout ADR repository
         if: ${{ env.SKIP_L4B != 'true' }}
+        id: checkout_adr
         uses: actions/checkout@v4
+        continue-on-error: true
         with:
           repository: ${{ env.ADR_REPOSITORY }}
           path: adr-src
+          # token: ${{ secrets.ADR_REPO_TOKEN }} # needed only if ADR repo is private
+
+      - name: Detect ADR repo presence
+        if: ${{ env.SKIP_L4B != 'true' }}
+        run: |
+          if [ ! -d "adr-src" ]; then
+            echo "ADR_REPO_MISSING=true" >> $GITHUB_ENV
+            echo "⚠️ ADR repo not found (${ADR_REPOSITORY}). Skipping Log4brains."
+          else
+            echo "ADR_REPO_MISSING=false" >> $GITHUB_ENV
+          fi
 
       - name: Setup Node.js
-        if: ${{ env.SKIP_L4B != 'true' }}
+        if: ${{ env.SKIP_L4B != 'true' && env.ADR_REPO_MISSING != 'true' }}
         uses: actions/setup-node@v4
         with:
           node-version: 'lts/*'
 
       - name: Prepare Log4brains project
-        if: ${{ env.SKIP_L4B != 'true' }}
+        if: ${{ env.SKIP_L4B != 'true' && env.ADR_REPO_MISSING != 'true' }}
         working-directory: adr-src
         run: |
           if [ ! -f package.json ]; then
-            echo "⚙️ Initializing Log4brains project..."
+            echo "Initializing Log4brains project (no package.json found)..."
             npm init -y
             npm install log4brains --save-dev
             npx log4brains init || true
           fi
 
-      - name: Build Log4brains (safe mode)
-        if: ${{ env.SKIP_L4B != 'true' }}
+      - name: Build Log4brains (safe)
+        if: ${{ env.SKIP_L4B != 'true' && env.ADR_REPO_MISSING != 'true' }}
         working-directory: adr-src
         continue-on-error: true
         run: |
-          echo "Building Log4brains site..."
-          npx log4brains build || echo "⚠️ Log4brains build failed, continuing anyway"
-          ls -R site || echo "No site output generated"
+          npx log4brains build || echo "⚠️ Log4brains build failed, continuing without ADR embed"
+          ls -la site || echo "No site/ output (will skip embed)"
 
-      - name: Copy Log4brains output into MkDocs
-        if: ${{ env.SKIP_L4B != 'true' }}
+      - name: Embed Log4brains output into MkDocs
+        if: ${{ env.SKIP_L4B != 'true' && env.ADR_REPO_MISSING != 'true' }}
         run: |
           rm -rf docs/adr-l4b
           mkdir -p docs/adr-l4b
           if [ -d "adr-src/site" ]; then
             cp -r adr-src/site/* docs/adr-l4b/
-            echo "✅ Copied Log4brains site into docs/adr-l4b/"
+            echo "✅ Embedded Log4brains in docs/adr-l4b/"
           else
-            echo "⚠️ No Log4brains output found — skipped copy"
+            echo "⚠️ Nothing to embed (no adr-src/site)."
           fi
+      # ---------------------------------------------------
 
-      # --- MKDOCS BUILD ---
+      # MkDocs build & deploy
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
@@ -104,10 +109,10 @@ jobs:
       - name: Install dependencies
         run: pip install mkdocs mkdocs-material
 
-      - name: Build MkDocs
+      - name: Build MkDocs site
         run: |
           mkdocs build --clean -v
-          ls -la site || (echo "MkDocs build failed" && exit 1)
+          test -d site || (echo "MkDocs build failed — no site folder" && exit 1)
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
