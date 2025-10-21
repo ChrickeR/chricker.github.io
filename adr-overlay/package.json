@@ -1,0 +1,10 @@
+{
+  "name": "troi-adr",
+  "private": true,
+  "devDependencies": {
+    "log4brains": "^0.7.0"
+  },
+  "scripts": {
+    "build": "log4brains build"
+  }
+}
