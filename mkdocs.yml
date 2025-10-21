@@ -11,7 +11,7 @@ nav:
   - Services: services/index.md
   - Products:
       - Architecture-as-Code: products/architecture-as-code.md
-      - Tech Radar (subdomain): products/tech-radar.md
+      - Tech Radar: products/tech-radar.md
   - Profile: profile/index.md
   - Contact: contact/index.md
 
