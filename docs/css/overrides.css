@@ -1,35 +1,105 @@
-/* Hero */
-.hero { text-align:center; padding: 3.5rem 1rem 2rem; }
-.hero .eyebrow { font-size:.95rem; opacity:.75; margin:0 0 .5rem; }
-.hero h1 { font-size: clamp(2.2rem, 4.5vw, 3.6rem); line-height: 1.05; margin: 0 0 .75rem; font-weight: 800; }
-.hero .subtitle { font-size: clamp(1rem, 1.4vw, 1.25rem); opacity:.8; margin:.5rem auto 1.25rem; max-width: 900px; }
-.hero .cta-row { display:flex; gap:.75rem; justify-content:center; flex-wrap:wrap; }
+/* ================================
+   TROi - MkDocs Material Overrides
+   ================================ */
 
-/* Pillars grid */
-.pillars {
-  display:grid;
+/* --- HERO SECTION (Home page) --- */
+.hero {
+  text-align: center;
+  padding: 3.5rem 1rem 2rem;
+}
+.hero .eyebrow {
+  font-size: .95rem;
+  opacity: .75;
+  margin: 0 0 .5rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.hero h1 {
+  font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+  line-height: 1.05;
+  margin: 0 0 .75rem;
+  font-weight: 800;
+}
+.hero .subtitle {
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  opacity: .8;
+  margin: .5rem auto 1.25rem;
+  max-width: 900px;
+}
+.hero .cta-row {
+  display: flex;
+  gap: .75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.md-button--secondary {
+  background: transparent;
+  border: 1px solid var(--md-primary-fg-color);
+}
+
+/* --- GRID CARDS (Services, Products etc) --- */
+.grid-cards {
+  display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1rem;
+  gap: 1.2rem;
   margin-top: 1rem;
 }
 .card {
   background: var(--md-surface, #fff);
   border-radius: 14px;
-  padding: 1rem 1.1rem;
-  box-shadow: 0 1px 2px rgba(0,0,0,.03), 0 6px 20px rgba(0,0,0,.04);
+  padding: 1.1rem 1.2rem;
+  box-shadow: 0 1px 2px rgba(0,0,0,.03), 0 6px 20px rgba(0,0,0,.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.card .icon { font-size: 1.4rem; margin-bottom:.25rem; }
-.card h3 { margin:.2rem 0 .25rem; font-weight: 700; }
-.card p { margin:.25rem 0 .35rem; opacity:.9; }
-.card ul { margin:.35rem 0 .25rem 1.2rem; }
-.card .more a { text-decoration:none; font-weight:600; }
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(0,0,0,.04), 0 10px 25px rgba(0,0,0,.07);
+}
+.card h3 {
+  margin: .2rem 0 .25rem;
+  font-weight: 700;
+}
+.card p {
+  margin: .25rem 0 .35rem;
+  opacity: .9;
+  line-height: 1.45;
+}
+.card ul {
+  margin: .35rem 0 .25rem 1.2rem;
+}
+.card li {
+  margin-bottom: .25rem;
+}
 
-/* Minor tweaks */
-.md-button--secondary { background: transparent; border: 1px solid var(--md-primary-fg-color); }
+/* --- TEXT / HEADINGS / LINKS --- */
+.md-typeset a {
+  color: var(--md-primary-fg-color);
+  text-decoration: none;
+}
+.md-typeset a:hover {
+  text-decoration: underline;
+}
+.md-typeset h2 {
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+  padding-bottom: .25rem;
+  margin-top: 2rem;
+}
 
-.grid-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1rem;
-  margin: 1rem 0 0;
+/* --- IFRAME EMBEDS (Log4brains, etc) --- */
+iframe {
+  background: var(--md-default-bg-color);
+  border-radius: 8px;
+}
+
+/* --- SMALL RESPONSIVE FIXES --- */
+@media (max-width: 768px) {
+  .hero {
+    padding: 2.5rem 1rem 1.5rem;
+  }
+  .grid-cards {
+    grid-template-columns: 1fr;
+  }
+  .card {
+    padding: 1rem;
+  }
 }
