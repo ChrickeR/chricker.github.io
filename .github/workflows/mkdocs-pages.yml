@@ -1,4 +1,4 @@
-name: Deploy MkDocs to GitHub Pages (minimal)
+name: Build and Deploy MkDocs + Log4brains
 
 on:
   push:
@@ -14,35 +14,73 @@ concurrency:
   group: pages
   cancel-in-progress: true
 
+env:
+  ADR_LOCAL_DIR: 'adr'     # Folder where package.json + log4brains.config.js live
+  SKIP_L4B: 'false'
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repo
+      # --- CHECKOUT ---
+      - name: Checkout main repo
         uses: actions/checkout@v4
 
-      - name: Ensure minimal docs exist
-        run: |
-          mkdir -p docs
-          [ -f docs/index.md ] || printf "# TROi\n\nHello.\n" > docs/index.md
+      # --- LOG4BRAINS BUILD ---
+      - name: Setup Node.js
+        if: env.SKIP_L4B != 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
 
+      - name: Install Log4brains dependencies
+        if: env.SKIP_L4B != 'true'
+        working-directory: ${{ env.ADR_LOCAL_DIR }}
+        run: |
+          if [ ! -f package.json ]; then
+            echo "Creating fallback package.json for ADR build..."
+            echo '{ "name":"troi-adr","private":false,"devDependencies":{"log4brains":"^0.7.0"},"scripts":{"build":"log4brains build"}}' > package.json
+          fi
+          npm ci || npm install
+
+      - name: Build Log4brains site
+        if: env.SKIP_L4B != 'true'
+        working-directory: ${{ env.ADR_LOCAL_DIR }}
+        run: |
+          echo "Building Log4brains site..."
+          npx log4brains build
+          echo "Listing generated site contents:"
+          ls -la site || true
+
+      - name: Embed Log4brains output into MkDocs
+        if: env.SKIP_L4B != 'true'
+        run: |
+          echo "Embedding L4B output into docs/adr-l4b/"
+          rm -rf docs/adr-l4b
+          mkdir -p docs/adr-l4b
+          cp -r "${ADR_LOCAL_DIR}/site/"* docs/adr-l4b/
+          ls -la docs/adr-l4b | head -n 20
+
+      # --- MKDOCS BUILD ---
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.x'
 
-      - name: Install MkDocs deps
-        run: pip install "mkdocs>=1.5" "mkdocs-material>=9.5"
-
-      - name: Build MkDocs (verbose)
+      - name: Install MkDocs dependencies
         run: |
-          mkdocs --version
-          echo "----- mkdocs.yml -----"; sed -n '1,200p' mkdocs.yml
-          echo "----- docs/ listing -----"; ls -la docs
-          mkdocs build --clean -v
-          test -d site || (echo "MkDocs did not produce 'site/'" && exit 1)
+          pip install "mkdocs>=1.5" "mkdocs-material>=9.5"
+          echo "MkDocs and Material theme installed."
 
-      - name: Upload artifact
+      - name: Build MkDocs site
+        run: |
+          echo "Building MkDocs site..."
+          mkdocs build --clean --verbose
+          echo "Listing built site files:"
+          ls -la site | head -n 30
+
+      - name: Upload artifact to GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
           path: site
