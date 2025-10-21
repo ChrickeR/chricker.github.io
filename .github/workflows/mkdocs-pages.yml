@@ -15,17 +15,21 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  SKIP_L4B: 'false'                 # set to 'true' to always skip Log4brains
+  # Start with Log4brains disabled to get green builds.
+  # Set to 'false' to enable L4B once green again.
+  SKIP_L4B: 'true'
+  # If you keep ADRs inside this repo, point here (e.g. 'adr-overlay' or 'adr')
   ADR_LOCAL_DIR: 'adr-overlay'
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout MkDocs source
+      - name: Checkout MkDocs repo
         uses: actions/checkout@v4
 
-      - name: Safety | ensure basic docs + CSS exist
+      # Ensure all files referenced by nav exist, plus CSS and a placeholder for adr-l4b.
+      - name: Safety | Ensure minimal docs + CSS + L4B placeholder
         run: |
           ensure() { mkdir -p "$(dirname "$1")"; [ -f "$1" ] || printf "# %s\n\n_TODO_\n" "$1" > "$1"; }
           ensure docs/index.md
@@ -40,79 +44,82 @@ jobs:
           ensure docs/contact/index.md
           mkdir -p docs/css
           [ -f docs/css/overrides.css ] || echo "/* placeholder */" > docs/css/overrides.css
-
-      # ---------- Log4brains (safe & optional) ----------
-      - name: Try checkout ADR repository
-        if: ${{ env.SKIP_L4B != 'true' }}
-        id: checkout_adr
-        uses: actions/checkout@v4
-        continue-on-error: true
-        with:
-          repository: ${{ env.ADR_REPOSITORY }}
-          path: adr-src
-          # token: ${{ secrets.ADR_REPO_TOKEN }} # needed only if ADR repo is private
-
-      - name: Detect ADR repo presence
-        if: ${{ env.SKIP_L4B != 'true' }}
-        run: |
-          if [ ! -d "adr-src" ]; then
-            echo "ADR_REPO_MISSING=true" >> $GITHUB_ENV
-            echo "⚠️ ADR repo not found (${ADR_REPOSITORY}). Skipping Log4brains."
-          else
-            echo "ADR_REPO_MISSING=false" >> $GITHUB_ENV
+          # Placeholder for direct access to /adr-l4b/, so MkDocs never fails on nav or manual hits
+          mkdir -p docs/adr-l4b
+          if [ ! -f docs/adr-l4b/index.html ]; then
+            cat > docs/adr-l4b/index.html <<'HTML'
+<!doctype html>
+<html lang="en"><meta charset="utf-8">
+<title>ADR (Log4brains)</title>
+<body style="font:16px system-ui,-apple-system,Segoe UI,Roboto,Arial;padding:24px;line-height:1.45">
+  <h1>ADR (Log4brains)</h1>
+  <p>The Log4brains site will appear here after the first successful L4B build.</p>
+  <p>If you expected content, try again in a minute after Actions finishes.</p>
+</body></html>
+HTML
           fi
 
-      - name: Setup Node.js
-        if: ${{ env.SKIP_L4B != 'true' && env.ADR_REPO_MISSING != 'true' }}
+      # ---------- Optional: Log4brains local build ----------
+      - name: Detect local ADR folder
+        if: ${{ env.SKIP_L4B != 'true' }}
+        run: |
+          if [ -d "${ADR_LOCAL_DIR}" ]; then
+            echo "HAS_LOCAL_ADR=true" >> $GITHUB_ENV
+            echo "Found ${ADR_LOCAL_DIR}:"
+            ls -la "${ADR_LOCAL_DIR}" || true
+          else
+            echo "HAS_LOCAL_ADR=false" >> $GITHUB_ENV
+            echo "⚠️ ${ADR_LOCAL_DIR} not found — skipping L4B."
+          fi
+
+      - name: Setup Node
+        if: ${{ env.SKIP_L4B != 'true' && env.HAS_LOCAL_ADR == 'true' }}
         uses: actions/setup-node@v4
         with:
           node-version: 'lts/*'
 
-      - name: Prepare Log4brains project
-        if: ${{ env.SKIP_L4B != 'true' && env.ADR_REPO_MISSING != 'true' }}
-        working-directory: adr-src
+      - name: Ensure package.json & install
+        if: ${{ env.SKIP_L4B != 'true' && env.HAS_LOCAL_ADR == 'true' }}
+        working-directory: ${{ env.ADR_LOCAL_DIR }}
         run: |
           if [ ! -f package.json ]; then
-            echo "Initializing Log4brains project (no package.json found)..."
-            npm init -y
-            npm install log4brains --save-dev
-            npx log4brains init || true
+            echo '{ "name":"troi-adr","private":true,"devDependencies":{"log4brains":"^0.7.0"},"scripts":{"build":"log4brains build"}}' > package.json
           fi
+          npm ci || npm install
 
-      - name: Build Log4brains (safe)
-        if: ${{ env.SKIP_L4B != 'true' && env.ADR_REPO_MISSING != 'true' }}
-        working-directory: adr-src
+      - name: Build Log4brains (non-fatal)
+        if: ${{ env.SKIP_L4B != 'true' && env.HAS_LOCAL_ADR == 'true' }}
+        working-directory: ${{ env.ADR_LOCAL_DIR }}
         continue-on-error: true
         run: |
-          npx log4brains build || echo "⚠️ Log4brains build failed, continuing without ADR embed"
-          ls -la site || echo "No site/ output (will skip embed)"
+          npx log4brains build || echo "⚠️ L4B build failed, continuing"
+          ls -la site || echo "No L4B site/ output"
 
-      - name: Embed Log4brains output into MkDocs
-        if: ${{ env.SKIP_L4B != 'true' && env.ADR_REPO_MISSING != 'true' }}
+      - name: Embed L4B into MkDocs
+        if: ${{ env.SKIP_L4B != 'true' && env.HAS_LOCAL_ADR == 'true' }}
         run: |
-          rm -rf docs/adr-l4b
-          mkdir -p docs/adr-l4b
-          if [ -d "adr-src/site" ]; then
-            cp -r adr-src/site/* docs/adr-l4b/
-            echo "✅ Embedded Log4brains in docs/adr-l4b/"
+          if [ -d "${ADR_LOCAL_DIR}/site" ]; then
+            rm -rf docs/adr-l4b
+            mkdir -p docs/adr-l4b
+            cp -r "${ADR_LOCAL_DIR}/site/"* docs/adr-l4b/
+            echo "✅ Copied Log4brains site to docs/adr-l4b/"
           else
-            echo "⚠️ Nothing to embed (no adr-src/site)."
+            echo "⚠️ Nothing to copy (no ${ADR_LOCAL_DIR}/site)"
           fi
-      # ---------------------------------------------------
+      # ------------------------------------------------------
 
-      # MkDocs build & deploy
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.x'
 
-      - name: Install dependencies
+      - name: Install MkDocs deps
         run: pip install mkdocs mkdocs-material
 
-      - name: Build MkDocs site
+      - name: Build MkDocs
         run: |
           mkdocs build --clean -v
-          test -d site || (echo "MkDocs build failed — no site folder" && exit 1)
+          test -d site || (echo "MkDocs did not produce 'site/'" && exit 1)
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -126,5 +133,4 @@ jobs:
       name: github-pages
     steps:
       - name: Deploy to GitHub Pages
-        id: deployment
         uses: actions/deploy-pages@v4
