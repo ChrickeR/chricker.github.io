@@ -1,3 +1,5 @@
 # Profile
 
-Senior technology leader focused on enterprise architecture and DDD.
+Focused on making value and life simpler through clear architecture, meaningful design, and pragmatic leadership.
+
+more to come...
