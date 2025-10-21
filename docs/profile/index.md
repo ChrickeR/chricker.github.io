@@ -1,3 +1,3 @@
 # Profile
 
-Mobile: +46 708 93 95 51
+Senior technology leader focused on enterprise architecture and DDD.
