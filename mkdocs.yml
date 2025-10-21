@@ -5,7 +5,7 @@ nav:
       - Architecture-as-Code:
           - Overview: products/architecture-as-code/index.md
           - ADRs: products/architecture-as-code/adr/index.md
-          - ADRs (Log4brains): adr-l4b/index.html   # ← direct link
+          - ADRs (Log4brains): products/architecture-as-code/adr/log4brains.md
           - Tech Radar: products/architecture-as-code/tech-radar/index.md
           - Target Architecture: products/target-architecture/index.md
   - Blog: blog/index.md
