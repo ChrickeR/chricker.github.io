@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  SKIP_L4B: 'false'                 # set to 'false' to enable Log4brains build
+  SKIP_L4B: 'true'                 # set to 'false' to enable Log4brains build
   ADR_REPOSITORY: 'ChrickeR/adr'   # optional ADR repo if using Log4brains
 
 jobs:
