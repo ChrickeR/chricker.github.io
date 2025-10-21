@@ -1,1 +1,0 @@
-module.exports={site:{title:'Architecture Decisions',description:'Centralized ADRs',author:'TROi',basePath:'/'},adr:{path:'docs/adr',defaultStatus:'Accepted'}};

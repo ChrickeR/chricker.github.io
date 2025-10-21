@@ -1,0 +1,19 @@
+site_name: TROi
+site_description: Technology leadership that scales businesses
+repo_url: https://github.com/ChrickeR/chricker.github.io
+site_url: https://chricker.github.io/
+
+theme:
+  name: material
+
+nav:
+  - Home: index.md
+  - Services: services/index.md
+  - Products:
+      - Architecture-as-Code: products/architecture-as-code.md
+      - Tech Radar (subdomain): products/tech-radar.md
+  - Profile: profile/index.md
+  - Contact: contact/index.md
+
+plugins:
+  - search
