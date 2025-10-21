@@ -1,9 +1,36 @@
 site_name: TROi
+site_url: https://troi.se
+
 theme:
   name: material
+  features:
+    - navigation.instant
+    - navigation.tabs
+  language: en
 
 plugins:
   - search
 
+extra_css:
+  - css/overrides.css
+
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+  - attr_list
+  - md_in_html
+
 nav:
   - Home: index.md
+  - Services: services/index.md
+  - Products:
+      - Architecture-as-Code:
+          - Overview: products/architecture-as-code/index.md
+          - ADRs: products/architecture-as-code/adr/index.md
+          - ADRs (Log4brains): products/architecture-as-code/adr/log4brains.md
+          - Tech Radar: products/architecture-as-code/tech-radar/index.md
+          - Target Architecture: products/target-architecture/index.md
+  - Blog: blog/index.md
+  - Profile: profile/index.md
+  - Contact: contact/index.md
