@@ -1,30 +1,78 @@
-site_name: TROi
+site_name: TROi Architecture
 site_url: https://troi.se
+site_description: >
+  Helping enterprises build systematic technology organizations
+  that create sustainable competitive advantage.
+site_author: Christoffer Råsten
+
 theme:
   name: material
-  features:
-    - navigation.tabs         # <— top tabs like your screenshot
-    - navigation.instant
-    - search.highlight
-    - content.code.copy
+  language: en
+  logo: images/logo.png
+  favicon: images/favicon.ico
   palette:
     - scheme: default
       primary: indigo
-      accent: indigo
-nav:
-  - Home: index.md
-  - About: about/index.md
-  - Services: services/index.md
-  - Products: products/architecture-as-code/index.md
-  - Partners: partners/index.md
-  - Blog: blog/index.md
-  - Profile: profile/index.md
-  - Contact: contact/index.md
+      accent: cyan
+  features:
+    - navigation.instant
+    - navigation.top
+    - navigation.sections
+    - navigation.expand
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.tabs.link
+
+extra:
+  social:
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/christofferrasten
+    - icon: fontawesome/brands/github
+      link: https://github.com/ChrickeR
+
 extra_css:
   - css/overrides.css
-plugins:
-  - search
+
 markdown_extensions:
   - admonition
   - toc:
       permalink: true
+  - attr_list
+  - md_in_html
+  - footnotes
+  - tables
+  - def_list
+
+nav:
+  - Home: index.md
+  - Services: services/index.md
+  - Products:
+      - Overview: products/index.md
+      - Architecture-as-Code:
+          - Overview: products/architecture-as-code.md
+          - ADRs: products/architecture-as-code/adr/index.md
+          - ADRs (Log4brains view): products/architecture-as-code/adr/log4brains.md
+          - Tech Radar: products/architecture-as-code/tech-radar.md
+          - Target Architecture: products/architecture-as-code/target-architecture.md
+      - Enterprise Integration Suite: products/integration-suite.md
+      - Security Assessment Platform: products/security-assessment.md
+  - Blog: blog/index.md
+  - Profile: profile/index.md
+  - Contact: contact/index.md
+
+plugins:
+  - search
+
+# Deployment config (for GitHub Pages)
+# ------------------------------------
+# This is optional but helps MkDocs find your custom domain.
+extra:
+  generator: false
+  analytics:
+    provider: google
+    property: G-XXXXXXXXXX
+
+# Optional: tell MkDocs to ignore the ADR build folder during rebuild
+exclude_docs:
+  - adr-l4b/**
