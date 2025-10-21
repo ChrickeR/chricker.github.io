@@ -1,1 +1,12 @@
-module.exports={site:{title:"TROi Architecture Decisions",description:"Centralized ADR knowledge base with DDD context",author:"TROi",basePath:"/"},adr:{path:"docs/adr",defaultStatus:"Accepted"}};
+module.exports = {
+  site: {
+    title: "TROi Architecture Decisions",
+    description: "Centralized ADR knowledge with DDD context",
+    author: "TROi",
+    basePath: "/"
+  },
+  adr: {
+    path: "content/adr",
+    defaultStatus: "Accepted"
+  }
+};
