@@ -1,4 +1,4 @@
-name: Deploy MkDocs to GitHub Pages
+name: Deploy MkDocs to GitHub Pages (minimal)
 
 on:
   push:
@@ -14,80 +14,17 @@ concurrency:
   group: pages
   cancel-in-progress: true
 
-env:
-  # Set to 'false' to enable Log4brains later
-  SKIP_L4B: 'true'
-  # If ADRs live in this repo, point to that folder ('adr' or 'adr-overlay')
-  ADR_LOCAL_DIR: 'adr-overlay'
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Ensure required docs exist
+      - name: Ensure minimal docs exist
         run: |
-          ensure() { mkdir -p "$(dirname "$1")"; [ -f "$1" ] || printf "# %s\n\n_TODO_\n" "$1" > "$1"; }
-          ensure docs/index.md
-          ensure docs/services/index.md
-          ensure docs/products/architecture-as-code/index.md
-          ensure docs/products/architecture-as-code/adr/index.md
-          ensure docs/products/architecture-as-code/adr/log4brains.md
-          ensure docs/products/architecture-as-code/tech-radar/index.md
-          ensure docs/products/target-architecture/index.md
-          ensure docs/blog/index.md
-          ensure docs/profile/index.md
-          ensure docs/contact/index.md
-          mkdir -p docs/css
-          [ -f docs/css/overrides.css ] || echo "/* placeholder */" > docs/css/overrides.css
-
-      # --- Optional: Log4brains from local folder (kept OFF until SKIP_L4B='false') ---
-      - name: Setup Node
-        if: ${{ env.SKIP_L4B != 'true' }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: 'lts/*'
-
-      - name: Prepare Log4brains (create package.json if missing)
-        if: ${{ env.SKIP_L4B != 'true' }}
-        run: |
-          DIR="${ADR_LOCAL_DIR}"
-          if [ ! -d "$DIR" ]; then
-            echo "Local ADR folder '$DIR' not found. Skipping L4B."
-            exit 0
-          fi
-          cd "$DIR"
-          if [ ! -f package.json ]; then
-            echo '{ "name":"troi-adr","private":true,"devDependencies":{"log4brains":"^0.7.0"},"scripts":{"build":"log4brains build"}}' > package.json
-          fi
-          npm ci || npm install
-
-      - name: Build Log4brains (non-fatal)
-        if: ${{ env.SKIP_L4B != 'true' }}
-        run: |
-          DIR="${ADR_LOCAL_DIR}"
-          if [ ! -d "$DIR" ]; then
-            echo "No ADR folder. Skipping."
-            exit 0
-          fi
-          cd "$DIR"
-          npx log4brains build || echo "L4B build failed, continuing without embed"
-
-      - name: Embed Log4brains output into MkDocs
-        if: ${{ env.SKIP_L4B != 'true' }}
-        run: |
-          DIR="${ADR_LOCAL_DIR}"
-          if [ -d "$DIR/site" ]; then
-            rm -rf docs/adr-l4b
-            mkdir -p docs/adr-l4b
-            cp -r "$DIR/site/"* docs/adr-l4b/
-            echo "Copied L4B site to docs/adr-l4b/"
-          else
-            echo "No L4B site output to embed."
-          fi
-      # -------------------------------------------------------------------------------
+          mkdir -p docs
+          [ -f docs/index.md ] || printf "# TROi\n\nHello.\n" > docs/index.md
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -95,11 +32,13 @@ jobs:
           python-version: '3.x'
 
       - name: Install MkDocs deps
-        run: pip install mkdocs mkdocs-material
+        run: pip install "mkdocs>=1.5" "mkdocs-material>=9.5"
 
       - name: Build MkDocs (verbose)
         run: |
           mkdocs --version
+          echo "----- mkdocs.yml -----"; sed -n '1,200p' mkdocs.yml
+          echo "----- docs/ listing -----"; ls -la docs
           mkdocs build --clean -v
           test -d site || (echo "MkDocs did not produce 'site/'" && exit 1)
 
