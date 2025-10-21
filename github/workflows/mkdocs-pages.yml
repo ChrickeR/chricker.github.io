@@ -1,0 +1,64 @@
+name: Deploy MkDocs to GitHub Pages
+on:
+  push:
+    branches: [ master, main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # 1) Checka ut HUVUDSAJTEN (MkDocs)
+      - uses: actions/checkout@v4
+
+      # 2) Hämta ADR-KÄLLREPOT (byt till ditt repo-namn)
+      - name: Checkout ADR source (Log4brains)
+        uses: actions/checkout@v4
+        with:
+          repository: ChrickeR/adr         # <-- ändra till ditt ADR-repo
+          path: adr-src
+
+      # 3) Bygg Log4brains
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+      - name: Build Log4brains site
+        working-directory: adr-src
+        run: |
+          npm ci || npm install
+          npx log4brains build
+
+      # 4) Lägg builden i MkDocs under docs/adr-l4b/
+      - name: Embed L4B output into MkDocs
+        run: |
+          rm -rf docs/adr-l4b
+          mkdir -p docs/adr-l4b
+          cp -r adr-src/site/* docs/adr-l4b/
+
+      # 5) Bygg MkDocs som vanligt
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - run: pip install mkdocs-material
+      - run: mkdocs build --clean
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
