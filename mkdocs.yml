@@ -1,23 +1,27 @@
-site_name: TROi Arkitektur AB
+site_name: TROi
 site_url: https://troi.se
 theme:
   name: material
   features:
+    - navigation.tabs         # <— top tabs like your screenshot
     - navigation.instant
-    - navigation.tabs
     - search.highlight
     - content.code.copy
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
 nav:
   - Home: index.md
+  - About: about/index.md
   - Services: services/index.md
-  - Products:
-      - Architecture-as-Code:
-          - Overview: products/architecture-as-code/index.md
-          - ADRs: products/architecture-as-code/adr/index.md
-          - Tech Radar: products/architecture-as-code/tech-radar/index.md
-          - Target Architecture: products/target-architecture/index.md
+  - Products: products/architecture-as-code/index.md
+  - Partners: partners/index.md
+  - Blog: blog/index.md
   - Profile: profile/index.md
   - Contact: contact/index.md
+extra_css:
+  - css/overrides.css
 plugins:
   - search
 markdown_extensions:
