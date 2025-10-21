@@ -16,7 +16,7 @@ concurrency:
 
 env:
   SKIP_L4B: 'false'                 # set to 'true' to always skip Log4brains
-  ADR_REPOSITORY: 'ChrickeR/adr'    # 👉 change to your real ADR repo (owner/repo)
+  ADR_LOCAL_DIR: 'adr-overlay'
 
 jobs:
   build:
