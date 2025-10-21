@@ -28,3 +28,7 @@ Architecture knowledge is scattered across slides and chats. We need a single, v
 
 ## Decision
 Adopt **Architecture-as-Code (AaC)**: store architecture artefacts in version control, reviewed via pull requests, and published as static sites.
+
+## Consequences
+- Positive: shared understanding, faster onboarding
+- Negative: requires minimal tooling ramp-up

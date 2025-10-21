@@ -24,4 +24,4 @@ related: [0001]
 > **Related:** 0001
 
 ## Decision
-Establish a lightweight **Tech Radar** with rings Adopt/Trial/Assess/Hold.
+Establish a lightweight **Tech Radar** with rings Adopt/Trial/Assess/Hold. Each blip has a one-pager with rationale and guardrails.
