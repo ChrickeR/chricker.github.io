@@ -26,3 +26,10 @@
 
 /* Minor tweaks */
 .md-button--secondary { background: transparent; border: 1px solid var(--md-primary-fg-color); }
+
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0 0;
+}
