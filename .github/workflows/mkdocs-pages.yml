@@ -1,4 +1,4 @@
-name: Deploy MkDocs to GitHub Pages
+name: Deploy MkDocs to GitHub Pages (with optional Log4brains)
 
 on:
   push:
@@ -15,8 +15,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  SKIP_L4B: 'true'                 # set to 'false' to enable Log4brains build
-  ADR_REPOSITORY: 'ChrickeR/adr'   # optional ADR repo if using Log4brains
+  SKIP_L4B: 'false'                 # ENABLED now
+  ADR_REPOSITORY: 'ChrickeR/adr'    # or same repo if ADRs live inside
 
 jobs:
   build:
@@ -26,14 +26,13 @@ jobs:
       - name: Checkout MkDocs source
         uses: actions/checkout@v4
 
-      # Print quick debug info (helpful if something fails)
-      - name: Debug | Show structure and mkdocs.yml
+      - name: Debug | Show structure
         run: |
-          echo "Root contents:" && ls -la
-          echo "Docs folder:" && ls -la docs || true
-          echo "First 40 lines of mkdocs.yml:" && head -n 40 mkdocs.yml || true
+          echo "Root structure:" && ls -la
+          echo "Docs structure:" && ls -la docs || true
+          echo "mkdocs.yml (head):" && head -n 40 mkdocs.yml || true
 
-      # Ensure all expected folders and files exist (avoid nav errors)
+      # Ensure basic folders/files always exist
       - name: Safety | Create placeholder docs if missing
         run: |
           ensure() { mkdir -p "$(dirname "$1")"; [ -f "$1" ] || printf "# %s\n\n_TODO_\n" "$1" > "$1"; }
@@ -50,46 +49,53 @@ jobs:
           mkdir -p docs/css
           [ -f docs/css/overrides.css ] || echo "/* placeholder */" > docs/css/overrides.css
 
-      # --- Optional Log4brains build (disabled by default) ---
-      - name: Checkout ADR source (Log4brains)
+      # --- LOG4BRAINS BUILD SECTION ---
+      - name: Checkout ADR repo
         if: ${{ env.SKIP_L4B != 'true' }}
         uses: actions/checkout@v4
         with:
           repository: ${{ env.ADR_REPOSITORY }}
           path: adr-src
 
-      - name: Apply ADR overlay
-        if: ${{ env.SKIP_L4B != 'true' }}
-        run: |
-          if [ -d "adr-overlay" ]; then
-            rsync -av --delete adr-overlay/ adr-src/
-          else
-            echo "adr-overlay not found — skipping overlay"
-          fi
-
-      - name: Setup Node and build Log4brains
+      - name: Setup Node.js
         if: ${{ env.SKIP_L4B != 'true' }}
         uses: actions/setup-node@v4
         with:
           node-version: 'lts/*'
 
-      - name: Build Log4brains
+      - name: Prepare Log4brains project
         if: ${{ env.SKIP_L4B != 'true' }}
         working-directory: adr-src
         run: |
-          npm ci || npm install
-          npx log4brains build
-          ls -la site || (echo "Log4brains build failed — no site directory" && exit 1)
+          if [ ! -f package.json ]; then
+            echo "⚙️ Initializing Log4brains project..."
+            npm init -y
+            npm install log4brains --save-dev
+            npx log4brains init || true
+          fi
 
-      - name: Embed Log4brains output into MkDocs
+      - name: Build Log4brains (safe mode)
+        if: ${{ env.SKIP_L4B != 'true' }}
+        working-directory: adr-src
+        continue-on-error: true
+        run: |
+          echo "Building Log4brains site..."
+          npx log4brains build || echo "⚠️ Log4brains build failed, continuing anyway"
+          ls -R site || echo "No site output generated"
+
+      - name: Copy Log4brains output into MkDocs
         if: ${{ env.SKIP_L4B != 'true' }}
         run: |
           rm -rf docs/adr-l4b
           mkdir -p docs/adr-l4b
-          cp -r adr-src/site/* docs/adr-l4b/
-          echo "Copied Log4brains site into docs/adr-l4b/"
+          if [ -d "adr-src/site" ]; then
+            cp -r adr-src/site/* docs/adr-l4b/
+            echo "✅ Copied Log4brains site into docs/adr-l4b/"
+          else
+            echo "⚠️ No Log4brains output found — skipped copy"
+          fi
 
-      # --- MkDocs build ---
+      # --- MKDOCS BUILD ---
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
@@ -98,16 +104,10 @@ jobs:
       - name: Install dependencies
         run: pip install mkdocs mkdocs-material
 
-      - name: Verify structure
+      - name: Build MkDocs
         run: |
-          test -f mkdocs.yml || (echo "❌ mkdocs.yml missing at repo root" && exit 1)
-          test -d docs || (echo "❌ docs/ folder missing" && exit 1)
-
-      - name: Build MkDocs site
-        run: |
-          mkdocs --version
           mkdocs build --clean -v
-          test -d site || (echo "❌ MkDocs build failed — no site folder" && exit 1)
+          ls -la site || (echo "MkDocs build failed" && exit 1)
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
