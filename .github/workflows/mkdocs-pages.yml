@@ -15,10 +15,9 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  # Start with Log4brains disabled to get green builds.
-  # Set to 'false' to enable L4B once green again.
+  # Start with Log4brains disabled; switch to 'false' after green build.
   SKIP_L4B: 'true'
-  # If you keep ADRs inside this repo, point here (e.g. 'adr-overlay' or 'adr')
+  # If ADRs live in this repo, point to that folder ('adr' or 'adr-overlay').
   ADR_LOCAL_DIR: 'adr-overlay'
 
 jobs:
@@ -28,7 +27,7 @@ jobs:
       - name: Checkout MkDocs repo
         uses: actions/checkout@v4
 
-      # Ensure all files referenced by nav exist, plus CSS and a placeholder for adr-l4b.
+      # Ensure all docs referenced by mkdocs.yml exist + CSS + adr-l4b placeholder
       - name: Safety | Ensure minimal docs + CSS + L4B placeholder
         run: |
           ensure() { mkdir -p "$(dirname "$1")"; [ -f "$1" ] || printf "# %s\n\n_TODO_\n" "$1" > "$1"; }
@@ -44,32 +43,30 @@ jobs:
           ensure docs/contact/index.md
           mkdir -p docs/css
           [ -f docs/css/overrides.css ] || echo "/* placeholder */" > docs/css/overrides.css
-          # Placeholder for direct access to /adr-l4b/, so MkDocs never fails on nav or manual hits
           mkdir -p docs/adr-l4b
           if [ ! -f docs/adr-l4b/index.html ]; then
-            cat > docs/adr-l4b/index.html <<'HTML'
-<!doctype html>
-<html lang="en"><meta charset="utf-8">
-<title>ADR (Log4brains)</title>
-<body style="font:16px system-ui,-apple-system,Segoe UI,Roboto,Arial;padding:24px;line-height:1.45">
-  <h1>ADR (Log4brains)</h1>
-  <p>The Log4brains site will appear here after the first successful L4B build.</p>
-  <p>If you expected content, try again in a minute after Actions finishes.</p>
-</body></html>
-HTML
+            printf '%s\n' \
+'<!doctype html>' \
+'<html lang="en"><meta charset="utf-8">' \
+'<title>ADR (Log4brains)</title>' \
+'<body style="font:16px system-ui,-apple-system,Segoe UI,Roboto,Arial;padding:24px;line-height:1.45">' \
+'  <h1>ADR (Log4brains)</h1>' \
+'  <p>The Log4brains site will appear here after the first successful L4B build.</p>' \
+'  <p>If you expected content, try again after Actions finishes.</p>' \
+'</body></html>' > docs/adr-l4b/index.html
           fi
 
-      # ---------- Optional: Log4brains local build ----------
+      # -------- Optional Log4brains local build (disabled while SKIP_L4B='true') --------
       - name: Detect local ADR folder
         if: ${{ env.SKIP_L4B != 'true' }}
         run: |
           if [ -d "${ADR_LOCAL_DIR}" ]; then
-            echo "HAS_LOCAL_ADR=true" >> $GITHUB_ENV
+            echo "HAS_LOCAL_ADR=true" >> "$GITHUB_ENV"
             echo "Found ${ADR_LOCAL_DIR}:"
             ls -la "${ADR_LOCAL_DIR}" || true
           else
-            echo "HAS_LOCAL_ADR=false" >> $GITHUB_ENV
-            echo "⚠️ ${ADR_LOCAL_DIR} not found — skipping L4B."
+            echo "HAS_LOCAL_ADR=false" >> "$GITHUB_ENV"
+            echo "Local ADR folder '${ADR_LOCAL_DIR}' not found — skipping L4B."
           fi
 
       - name: Setup Node
@@ -92,8 +89,8 @@ HTML
         working-directory: ${{ env.ADR_LOCAL_DIR }}
         continue-on-error: true
         run: |
-          npx log4brains build || echo "⚠️ L4B build failed, continuing"
-          ls -la site || echo "No L4B site/ output"
+          npx log4brains build || echo "L4B build failed, continuing without embed"
+          ls -la site || echo "No site/ output from L4B"
 
       - name: Embed L4B into MkDocs
         if: ${{ env.SKIP_L4B != 'true' && env.HAS_LOCAL_ADR == 'true' }}
@@ -102,11 +99,11 @@ HTML
             rm -rf docs/adr-l4b
             mkdir -p docs/adr-l4b
             cp -r "${ADR_LOCAL_DIR}/site/"* docs/adr-l4b/
-            echo "✅ Copied Log4brains site to docs/adr-l4b/"
+            echo "Copied Log4brains site to docs/adr-l4b/"
           else
-            echo "⚠️ Nothing to copy (no ${ADR_LOCAL_DIR}/site)"
+            echo "Nothing to copy (no ${ADR_LOCAL_DIR}/site)"
           fi
-      # ------------------------------------------------------
+      # -----------------------------------------------------------------------------------
 
       - name: Setup Python
         uses: actions/setup-python@v5
