@@ -1,8 +1,9 @@
-name: Deploy MkDocs to GitHub Pages
+name: Deploy MkDocs (with Log4brains ADR embed) to GitHub Pages
+
 on:
   push:
-    branches: [ master, main ]
-  workflow_dispatch:
+    branches: [ master, main ]   # kör på båda för säkerhets skull
+  workflow_dispatch:             # så du kan köra manuellt från Actions
 
 permissions:
   contents: read
@@ -16,48 +17,73 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps:
-      # 1) Checka ut HUVUDSAJTEN (MkDocs)
-      - uses: actions/checkout@v4
 
-      # 2) Hämta ADR-KÄLLREPOT (byt till ditt repo-namn)
+    steps:
+      # 1) Checka ut MkDocs-sajten (det här repot)
+      - name: Checkout MkDocs site
+        uses: actions/checkout@v4
+
+      # 2) Checka ut ADR-källrepot (BYT till ditt repo-namn)
+      #    Om repot är privat: lägg till en secret (ADR_REPO_TOKEN) och avkommentera 'token:'-raden.
       - name: Checkout ADR source (Log4brains)
         uses: actions/checkout@v4
         with:
-          repository: ChrickeR/adr         # <-- ändra till ditt ADR-repo
+          repository: ChrickeR/adr        # ⬅️ BYT till ditt ADR-repo, t.ex. ChrickeR/architecture-decisions
           path: adr-src
+          # token: ${{ secrets.ADR_REPO_TOKEN }}
 
-      # 3) Bygg Log4brains
+      # 3) Lägg på dina overrides (logo, template, exempel-ADR:er) om adr-overlay finns i MkDocs-repot
+      - name: Apply ADR overlay (logo, template, sample ADRs)
+        run: |
+          if [ -d "adr-overlay" ]; then
+            rsync -av --delete adr-overlay/ adr-src/
+          else
+            echo "adr-overlay/ not found — skipping overlay step"
+          fi
+
+      # 4) Bygg Log4brains-sajten
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 'lts/*'
-      - name: Build Log4brains site
+
+      - name: Build Log4brains
         working-directory: adr-src
         run: |
           npm ci || npm install
           npx log4brains build
 
-      # 4) Lägg builden i MkDocs under docs/adr-l4b/
+      # 5) Bädda in L4B-bygget i MkDocs (så att den nås på /products/.../adr/log4brains/)
       - name: Embed L4B output into MkDocs
         run: |
           rm -rf docs/adr-l4b
           mkdir -p docs/adr-l4b
           cp -r adr-src/site/* docs/adr-l4b/
 
-      # 5) Bygg MkDocs som vanligt
-      - uses: actions/setup-python@v5
+      # 6) Bygg MkDocs-sajten
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: '3.x'
-      - run: pip install mkdocs-material
-      - run: mkdocs build --clean
-      - uses: actions/upload-pages-artifact@v3
+
+      - name: Install MkDocs deps
+        run: |
+          pip install mkdocs-material
+
+      - name: Build MkDocs
+        run: mkdocs build --clean
+
+      # 7) Publicera till GitHub Pages
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
           path: site
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
