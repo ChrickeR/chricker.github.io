@@ -1,0 +1,15 @@
+{
+  "name": "adr-l4b-central",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "preview": "log4brains preview",
+    "build": "log4brains build",
+    "postadr": "node tools/add-metadata-block.js"
+  },
+  "devDependencies": {
+    "log4brains": "^1.0.0",
+    "js-yaml": "^4.1.0"
+  }
+}

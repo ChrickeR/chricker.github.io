@@ -1,0 +1,72 @@
+site_name: TROi
+site_description: Technology leadership that scales businesses
+site_author: Christoffer Råsten
+repo_url: https://github.com/ChrickeR/chricker.github.io
+site_url: https://chricker.github.io/
+
+theme:
+  name: material
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - toc.integrate
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+
+extra:
+  social:
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/christoffer-rasten/
+    - icon: fontawesome/solid/envelope
+      link: mailto:hello@troi.se
+
+nav:
+  - Home: index.md
+  - About: about/index.md
+  - Services:
+      - Overview: services/index.md
+      - Leadership Services: services/leadership.md
+      - Technology Solutions: services/solutions.md
+  - Products:
+      - Overview: products/index.md
+      - Architecture-as-Code: products/architecture-as-code.md
+      - Tech Radar (subdomain): products/tech-radar.md
+      - EA Structures:
+          - Overview: products/ea/index.md
+          - Domains: products/ea/domains.md
+          - Subdomains: products/ea/subdomains.md
+          - Bounded Contexts: products/ea/bounded-contexts.md
+          - Interfaces: products/ea/interfaces.md
+      - Target Architecture: products/target-architecture/index.md
+      - Upcoming Products: products/upcoming.md
+  - Partners:
+      - Overview: partners/index.md
+      - Strategic Partnerships: partners/strategic.md
+      - Communities (Open Circles): partners/communities.md
+  - Blog:
+      - Overview: blog/index.md
+  - Profile: profile/index.md
+  - Contact: contact/index.md
+
+plugins:
+  - search
+  - blog:
+      blog_dir: blog
+      blog_toc: true
+      post_url_format: "{slug}"
+      pagination_per_page: 10
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.critic
+  - pymdownx.highlight
+  - toc:
+      permalink: true
