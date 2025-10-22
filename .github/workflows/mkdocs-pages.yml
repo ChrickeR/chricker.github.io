@@ -1,4 +1,4 @@
-name: Deploy MkDocs (+ Log4brains v1)
+name: Deploy MkDocs (+ Log4brains v1, minimal)
 
 on:
   push:
@@ -15,138 +15,73 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  ADR_LOCAL_DIR: 'adr'        # folder with package.json, .log4brains.yml, ADR files
-  L4B_BASE_PATH: '/adr-l4b'   # no trailing slash for v1
+  ADR_LOCAL_DIR: 'adr'       # adr/.log4brains.yml, adr/package.json, adr/docs/adr/*.md
+  L4B_BASE_PATH: '/adr-l4b'  # OBS: utan avslutande slash
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      # ---------- Log4brains v1 (non-fatal if missing) ----------
-      - name: Setup Node.js
+      # ---------- Log4brains v1 (bygg om adr/ finns) ----------
+      - name: Setup Node
         if: ${{ hashFiles('adr/package.json') != '' }}
         uses: actions/setup-node@v4
         with:
           node-version: 'lts/*'
 
-      - name: Show L4B config & ADRs
+      - name: Install Log4brains deps
+        if: ${{ hashFiles('adr/package.json') != '' }}
+        working-directory: ${{ env.ADR_LOCAL_DIR }}
+        run: npm install
+
+      - name: Build Log4brains (v1)
         if: ${{ hashFiles('adr/package.json') != '' }}
         working-directory: ${{ env.ADR_LOCAL_DIR }}
         continue-on-error: true
         run: |
-          echo "== .log4brains.yml =="
-          if [ -f .log4brains.yml ]; then
-            sed -n '1,200p' .log4brains.yml
-          else
-            echo "⚠️  Missing adr/.log4brains.yml (v1). Example:"
-            echo "project:"
-            echo "  name: \"TROi Architecture Decisions\""
-            echo "  tz: \"Europe/Stockholm\""
-            echo "  adrFolder: \"./docs/adr\""
-          fi
-          echo "== ADR folder listing =="
-          ls -la ./docs/adr || true
-
-      - name: Install Log4brains dependencies
-        if: ${{ hashFiles('adr/package.json') != '' }}
-        working-directory: ${{ env.ADR_LOCAL_DIR }}
-        run: |
-          echo "Node: $(node -v) | npm: $(npm -v)"
-          npm install
-
-      - name: Build Log4brains site (v1)
-        if: ${{ hashFiles('adr/package.json') != '' }}
-        working-directory: ${{ env.ADR_LOCAL_DIR }}
-        continue-on-error: true
-        run: |
-          echo "Building Log4brains v1 with basePath=${L4B_BASE_PATH}"
-          npx -y log4brains@latest build --basePath "${L4B_BASE_PATH}" || echo "⚠️  L4B build failed; continuing."
-          echo "== possible outputs =="
+          echo "Building L4B with basePath=${L4B_BASE_PATH}"
+          npx -y log4brains@latest build --basePath "${L4B_BASE_PATH}" || echo "⚠️ L4B build failed; continuing."
+          echo "Outputs:"
           ls -la .log4brains/out 2>/dev/null || echo "no .log4brains/out"
           ls -la site 2>/dev/null || echo "no legacy site"
 
-      - name: Embed Log4brains output into MkDocs (v1 or legacy)
+      - name: Embed L4B into MkDocs
         run: |
           mkdir -p docs/adr-l4b
-          OUT_V1="${ADR_LOCAL_DIR}/.log4brains/out"
-          OUT_LEG="${ADR_LOCAL_DIR}/site"
-          if [ -d "$OUT_V1" ] && [ "$(ls -A "$OUT_V1" 2>/dev/null)" ]; then
-            echo "Using v1 output: $OUT_V1"
+          if [ -d "${ADR_LOCAL_DIR}/.log4brains/out" ] && [ "$(ls -A "${ADR_LOCAL_DIR}/.log4brains/out" 2>/dev/null)" ]; then
             rm -rf docs/adr-l4b/*
-            cp -r "$OUT_V1/"* docs/adr-l4b/
-          elif [ -d "$OUT_LEG" ] && [ "$(ls -A "$OUT_LEG" 2>/dev/null)" ]; then
-            echo "Using legacy output: $OUT_LEG"
+            cp -r "${ADR_LOCAL_DIR}/.log4brains/out/"* docs/adr-l4b/
+            echo "✅ Embedded v1 output to docs/adr-l4b"
+          elif [ -d "${ADR_LOCAL_DIR}/site" ] && [ "$(ls -A "${ADR_LOCAL_DIR}/site" 2>/dev/null)" ]; then
             rm -rf docs/adr-l4b/*
-            cp -r "$OUT_LEG/"* docs/adr-l4b/
+            cp -r "${ADR_LOCAL_DIR}/site/"* docs/adr-l4b/
+            echo "✅ Embedded legacy output to docs/adr-l4b"
           else
-            echo "No L4B static output found; writing placeholder."
+            echo "ℹ️ No L4B output found; writing placeholder so MkDocs still builds."
             printf '<!doctype html><meta charset="utf-8"><title>ADR</title><body style="font:16px system-ui;padding:24px">ADR site will appear here after a successful Log4brains build.</body>' > docs/adr-l4b/index.html
           fi
-          echo "== docs/adr-l4b listing =="
-          ls -la docs/adr-l4b | head -n 60
+          ls -la docs/adr-l4b | head -n 40
 
-      # ---------- Back to TROi button (safe, no scary quoting) ----------
-      - name: Add "Back to TROi" button on ADR pages
-        run: |
-          if [ -d docs/adr-l4b ]; then
-            # 1) Write CSS
-            cat > docs/adr-l4b/_backlink.css <<'CSS'
-.troi-backlink{
-  position:fixed;right:16px;bottom:16px;z-index:9999;
-  display:inline-block;padding:10px 14px;border-radius:999px;
-  background:#111;color:#fff;font:14px/1.2 system-ui,-apple-system,Segoe UI,Roboto,Arial;
-  text-decoration:none;box-shadow:0 6px 20px rgba(0,0,0,.18),0 1px 3px rgba(0,0,0,.2);
-  opacity:.92
-}
-.troi-backlink:hover{opacity:1;transform:translateY(-1px)}
-CSS
-
-            # 2) Write HTML snippet
-            cat > docs/adr-l4b/_backlink.html <<'HTML'
-<link rel="stylesheet" href="/adr-l4b/_backlink.css">
-<a class="troi-backlink" href="https://troi.se/" aria-label="Back to TROi">← Back to TROi</a>
-HTML
-
-            # 3) Create tiny injector script (avoids inline quoting hell)
-            cat > inject_backlink.sh <<'BASH'
-#!/usr/bin/env bash
-set -e
-for f in $(find docs/adr-l4b -type f -name "*.html"); do
-  awk '1; /<\/body>/{ system("cat docs/adr-l4b/_backlink.html") }' "$f" > "$f.tmp" && mv "$f.tmp" "$f"
-done
-BASH
-            chmod +x inject_backlink.sh
-            ./inject_backlink.sh
-            rm -f inject_backlink.sh
-
-            echo "Inserted backlink on ADR pages."
-          else
-            echo "No docs/adr-l4b directory; skipping backlink injection."
-          fi
-
-      # ---------- MkDocs build & deploy ----------
+      # ---------- MkDocs ----------
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.x'
 
-      - name: Install MkDocs dependencies
+      - name: Install MkDocs deps
         run: |
           pip install "mkdocs>=1.5" "mkdocs-material>=9.5"
           mkdocs --version
 
       - name: Build MkDocs
         run: |
-          echo "== mkdocs.yml (head) =="
-          sed -n '1,200p' mkdocs.yml
+          sed -n '1,200p' mkdocs.yml || true
           mkdocs build --clean --verbose
           test -d site || (echo "❌ MkDocs did not produce site/"; exit 1)
-          echo "== built site/ =="
-          ls -la site | head -n 50
+          ls -la site | head -n 40
 
       - name: Upload artifact to GitHub Pages
         uses: actions/upload-pages-artifact@v3
