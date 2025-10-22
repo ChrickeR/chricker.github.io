@@ -15,30 +15,30 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  ADR_LOCAL_DIR: 'adr'        # where package.json, .log4brains.yml and ADR files live
+  ADR_LOCAL_DIR: 'adr'        # folder with package.json, .log4brains.yml, ADR files
   L4B_BASE_PATH: '/adr-l4b'   # no trailing slash for v1
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      # --- Checkout ---------------------------------------------------
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # --- Log4brains v1: install & build (non-fatal) -----------------
+      # ---------- Log4brains v1 (non-fatal if missing) ----------
       - name: Setup Node.js
         if: ${{ hashFiles('adr/package.json') != '' }}
         uses: actions/setup-node@v4
         with:
           node-version: 'lts/*'
 
-      - name: Show L4B config & ADRs (do not fail)
+      - name: Show L4B config & ADRs
         if: ${{ hashFiles('adr/package.json') != '' }}
         working-directory: ${{ env.ADR_LOCAL_DIR }}
         continue-on-error: true
         run: |
-          echo "== .log4brains.yml (v1 schema expected) =="
+          echo "== .log4brains.yml =="
           if [ -f .log4brains.yml ]; then
             sed -n '1,200p' .log4brains.yml
           else
@@ -57,20 +57,19 @@ jobs:
         run: |
           echo "Node: $(node -v) | npm: $(npm -v)"
           npm install
-          echo "package.json:" && cat package.json || true
 
       - name: Build Log4brains site (v1)
         if: ${{ hashFiles('adr/package.json') != '' }}
         working-directory: ${{ env.ADR_LOCAL_DIR }}
         continue-on-error: true
         run: |
-          echo "Building Log4brains v1 with basePath=${L4B_BASE_PATH} …"
-          npx -y log4brains@latest build --basePath "${L4B_BASE_PATH}" || echo "⚠️  L4B build failed (check .log4brains.yml and ADR files)."
+          echo "Building Log4brains v1 with basePath=${L4B_BASE_PATH}"
+          npx -y log4brains@latest build --basePath "${L4B_BASE_PATH}" || echo "⚠️  L4B build failed; continuing."
           echo "== possible outputs =="
           ls -la .log4brains/out 2>/dev/null || echo "no .log4brains/out"
-          ls -la site 2>/dev/null || echo "no site (legacy output)"
+          ls -la site 2>/dev/null || echo "no legacy site"
 
-      - name: Embed Log4brains output into MkDocs (supports v1 & legacy)
+      - name: Embed Log4brains output into MkDocs (v1 or legacy)
         run: |
           mkdir -p docs/adr-l4b
           OUT_V1="${ADR_LOCAL_DIR}/.log4brains/out"
@@ -84,37 +83,42 @@ jobs:
             rm -rf docs/adr-l4b/*
             cp -r "$OUT_LEG/"* docs/adr-l4b/
           else
-            echo "ℹ️ No L4B static output found; writing placeholder."
+            echo "No L4B static output found; writing placeholder."
             printf '<!doctype html><meta charset="utf-8"><title>ADR</title><body style="font:16px system-ui;padding:24px">ADR site will appear here after a successful Log4brains build.</body>' > docs/adr-l4b/index.html
           fi
           echo "== docs/adr-l4b listing =="
           ls -la docs/adr-l4b | head -n 60
 
-      # --- Add a persistent "Back to TROi" button (safe injection) ----
-      - name: Add "Back to TROi" button on ADR site
+      # ---------- Back to TROi button (safe) ----------
+      - name: Add "Back to TROi" button on ADR pages
         run: |
           if [ -d docs/adr-l4b ]; then
-            # write tiny CSS
-            printf '%s\n' \
-'.troi-backlink{position:fixed;right:16px;bottom:16px;z-index:9999;display:inline-block;padding:10px 14px;border-radius:999px;background:#111;color:#fff;font:14px/1.2 system-ui,-apple-system,Segoe UI,Roboto,Arial;text-decoration:none;box-shadow:0 6px 20px rgba(0,0,0,.18),0 1px 3px rgba(0,0,0,.2);opacity:.92}' \
-'.troi-backlink:hover{opacity:1;transform:translateY(-1px)}' \
-> docs/adr-l4b/_backlink.css
-
-            # write tiny HTML snippet
-            printf '%s\n' \
-'<link rel="stylesheet" href="/adr-l4b/_backlink.css">' \
-'<a class="troi-backlink" href="https://troi.se/" aria-label="Back to TROi">← Back to TROi</a>' \
-> docs/adr-l4b/_backlink.html
-
-            # inject snippet before </body> in every HTML file (robust)
-            find docs/adr-l4b -type f -name "*.html" -print0 | \
-              xargs -0 -I{} sh -c 'awk '"'"'{print} /<\/body>/{system("cat docs/adr-l4b/_backlink.html")} '"'"' "$1" > "$1.tmp" && mv "$1.tmp" "$1"' sh {}
+            # Write CSS
+            cat > docs/adr-l4b/_backlink.css <<'CSS'
+.troi-backlink{
+  position:fixed;right:16px;bottom:16px;z-index:9999;
+  display:inline-block;padding:10px 14px;border-radius:999px;
+  background:#111;color:#fff;font:14px/1.2 system-ui,-apple-system,Segoe UI,Roboto,Arial;
+  text-decoration:none;box-shadow:0 6px 20px rgba(0,0,0,.18),0 1px 3px rgba(0,0,0,.2);
+  opacity:.92
+}
+.troi-backlink:hover{opacity:1;transform:translateY(-1px)}
+CSS
+            # Write HTML snippet
+            cat > docs/adr-l4b/_backlink.html <<'HTML'
+<link rel="stylesheet" href="/adr-l4b/_backlink.css">
+<a class="troi-backlink" href="https://troi.se/" aria-label="Back to TROi">← Back to TROi</a>
+HTML
+            # Inject snippet before </body> (GNU sed)
+            SNIPPET="$(cat docs/adr-l4b/_backlink.html)"
+            find docs/adr-l4b -type f -name '*.html' -print0 | \
+              xargs -0 -I{} bash -c "sed -i 's#</body>#<!-- TROi backlink -->\n'"$SNIPPET"'\n</body>#I' '{}'"
             echo "Inserted backlink on ADR pages."
           else
             echo "No docs/adr-l4b directory; skipping backlink injection."
           fi
 
-      # --- MkDocs: build & publish ------------------------------------
+      # ---------- MkDocs build & deploy ----------
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
