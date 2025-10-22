@@ -89,11 +89,11 @@ jobs:
           echo "== docs/adr-l4b listing =="
           ls -la docs/adr-l4b | head -n 60
 
-      # ---------- Back to TROi button (safe) ----------
+      # ---------- Back to TROi button (safe, no scary quoting) ----------
       - name: Add "Back to TROi" button on ADR pages
         run: |
           if [ -d docs/adr-l4b ]; then
-            # Write CSS
+            # 1) Write CSS
             cat > docs/adr-l4b/_backlink.css <<'CSS'
 .troi-backlink{
   position:fixed;right:16px;bottom:16px;z-index:9999;
@@ -104,15 +104,25 @@ jobs:
 }
 .troi-backlink:hover{opacity:1;transform:translateY(-1px)}
 CSS
-            # Write HTML snippet
+
+            # 2) Write HTML snippet
             cat > docs/adr-l4b/_backlink.html <<'HTML'
 <link rel="stylesheet" href="/adr-l4b/_backlink.css">
 <a class="troi-backlink" href="https://troi.se/" aria-label="Back to TROi">← Back to TROi</a>
 HTML
-            # Inject snippet before </body> (GNU sed)
-            SNIPPET="$(cat docs/adr-l4b/_backlink.html)"
-            find docs/adr-l4b -type f -name '*.html' -print0 | \
-              xargs -0 -I{} bash -c "sed -i 's#</body>#<!-- TROi backlink -->\n'"$SNIPPET"'\n</body>#I' '{}'"
+
+            # 3) Create tiny injector script (avoids inline quoting hell)
+            cat > inject_backlink.sh <<'BASH'
+#!/usr/bin/env bash
+set -e
+for f in $(find docs/adr-l4b -type f -name "*.html"); do
+  awk '1; /<\/body>/{ system("cat docs/adr-l4b/_backlink.html") }' "$f" > "$f.tmp" && mv "$f.tmp" "$f"
+done
+BASH
+            chmod +x inject_backlink.sh
+            ./inject_backlink.sh
+            rm -f inject_backlink.sh
+
             echo "Inserted backlink on ADR pages."
           else
             echo "No docs/adr-l4b directory; skipping backlink injection."
