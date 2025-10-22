@@ -15,148 +15,47 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  ADR_LOCAL_DIR: 'adr'        # where package.json, .log4brains.yml and ADR files live
-  L4B_BASE_PATH: '/adr-l4b'   # no trailing slash for v1
+  ADR_LOCAL_DIR: adr
+  L4B_BASE_PATH: /adr-l4b   # no trailing slash
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      # -----------------------------------------------------------------------
-      # Checkout repository
-      # -----------------------------------------------------------------------
+      # Checkout
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # -----------------------------------------------------------------------
-      # Log4brains install & build
-      # -----------------------------------------------------------------------
+      # Log4brains install & build (safe even if adr/ missing)
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 'lts/*'
 
-      - name: Install Log4brains dependencies
-        working-directory: ${{ env.ADR_LOCAL_DIR }}
+      - name: Install Log4brains
         run: |
-          echo "Installing dependencies for Log4brains..."
-          npm install --save-dev log4brains@latest
-          echo "✅ Installed Log4brains and dependencies."
-
-      - name: Build Log4brains static site
-        working-directory: ${{ env.ADR_LOCAL_DIR }}
-        run: |
-          echo "Building Log4brains v1 with basePath=${L4B_BASE_PATH}"
-          npx log4brains build --basePath "${L4B_BASE_PATH}"
-          echo "✅ Build complete. Checking outputs..."
-          ls -la .log4brains/out || echo "⚠️ No output found."
-
-      - name: Embed Log4brains output into MkDocs
-        run: |
-          echo "Embedding Log4brains output into docs/adr-l4b/"
-          rm -rf docs/adr-l4b
-          mkdir -p docs/adr-l4b
-          cp -r adr/.log4brains/out/* docs/adr-l4b/ || echo "⚠️ No Log4brains output found to copy."
-          ls -la docs/adr-l4b | head -n 40
-
-      # -----------------------------------------------------------------------
-      # Generate ADR index automatically
-      # -----------------------------------------------------------------------
-      - name: Generate ADR index page
-        run: |
-          set -e
-          mkdir -p docs/adr
-          OUT="docs/adr/index.md"
-
-          {
-            echo "# Architecture Decision Records"
-            echo
-            echo "[View with Log4brains layout](/adr-l4b/)"
-            echo
-            echo "## ADR Index"
-            echo
-          } > "$OUT"
-
-          for f in $(ls adr/docs/adr/*.md 2>/dev/null | sort); do
-            slug="$(basename "$f" .md)"
-            id="$(awk '/^id:/{print $2; exit}' "$f")"
-            title="$(awk '
-              BEGIN{inFM=0}
-              NR==1 && $0 ~ /^---\s*$/ {inFM=1; next}
-              inFM==1 && $0 ~ /^---\s*$/ {inFM=0; exit}
-              inFM==1 && $0 ~ /^title:\s*/ {sub(/^title:\s*/,""); print; exit}
-            ' "$f")"
-            [ -z "$title" ] && title="$(grep -m1 '^# ' "$f" | sed 's/^# \+//')"
-            [ -z "$title" ] && title="Untitled"
-            echo "- [$id: $title](/adr-l4b/adrs/$slug/)" >> "$OUT"
-          done
-
-          echo >> "$OUT"
-          echo "> Tip: Each ADR file includes front matter with domain/subdomain/bounded_context, team, decision_owners, and lifecycle links." >> "$OUT"
-
-          echo "✅ Generated $OUT:"
-          sed -n '1,120p' "$OUT"
-
-      # -----------------------------------------------------------------------
-      # Optional Backlink (Back to TROi)
-      # -----------------------------------------------------------------------
-      - name: Add Back to TROi button on ADR site
-        run: |
-          if [ -d docs/adr-l4b ]; then
-            cat > docs/adr-l4b/_backlink.css <<'CSS'
-.troi-backlink {
-  position: fixed; right: 16px; bottom: 16px; z-index: 9999;
-  display: inline-block; padding: 10px 14px; border-radius: 999px;
-  background: #111; color: #fff; font: 14px/1.2 system-ui,-apple-system,Segoe UI,Roboto,Arial;
-  text-decoration: none; box-shadow: 0 6px 20px rgba(0,0,0,.18),0 1px 3px rgba(0,0,0,.2);
-  opacity: .92;
-}
-.troi-backlink:hover { opacity: 1; transform: translateY(-1px); }
-CSS
-
-            cat > docs/adr-l4b/_backlink.html <<'HTML'
-<link rel="stylesheet" href="/adr-l4b/_backlink.css">
-<a class="troi-backlink" href="https://troi.se/" aria-label="Back to TROi">← Back to TROi</a>
-HTML
-
-            find docs/adr-l4b -type f -name "*.html" -print0 | \
-              xargs -0 -I{} bash -c "perl -0777 -pe 's@</body>@<!-- TROi backlink -->\n$(sed "s@/@\\/@g" docs/adr-l4b/_backlink.html)\n</body>@i' -i {}"
-            echo "✅ Inserted backlink on ADR pages."
+          if [ -d "${ADR_LOCAL_DIR}" ]; then
+            echo "Installing Log4brains in ${ADR_LOCAL_DIR}"
+            cd "${ADR_LOCAL_DIR}"
+            npm pkg set private=false >/dev/null 2>&1 || true
+            npm install --save-dev log4brains@latest
           else
-            echo "ℹ️ No docs/adr-l4b directory; skipping backlink injection."
+            echo "No ${ADR_LOCAL_DIR}/ directory found; skipping L4B install."
           fi
 
-      # -----------------------------------------------------------------------
-      # MkDocs build & deploy
-      # -----------------------------------------------------------------------
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
-
-      - name: Install MkDocs dependencies
+      - name: Build Log4brains
         run: |
-          pip install "mkdocs>=1.5" "mkdocs-material>=9.5"
-          mkdocs --version
+          if [ -d "${ADR_LOCAL_DIR}" ]; then
+            echo "Building Log4brains with basePath=${L4B_BASE_PATH}"
+            cd "${ADR_LOCAL_DIR}"
+            npx -y log4brains@latest build --basePath "${L4B_BASE_PATH}" || echo "L4B build failed or produced no output."
+            echo "Listing possible outputs:"
+            ls -la .log4brains/out 2>/dev/null || echo "no .log4brains/out"
+            ls -la site 2>/dev/null || echo "no legacy site"
+          else
+            echo "No ${ADR_LOCAL_DIR}/ directory found; skipping L4B build."
+          fi
 
-      - name: Build MkDocs site
+      - name: Embed L4B output into MkDocs
         run: |
-          echo "Building MkDocs..."
-          mkdocs build --clean --verbose
-          echo "✅ MkDocs build complete."
-          ls -la site | head -n 50
-
-      - name: Upload artifact to GitHub Pages
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: site
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-    steps:
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v4
+          mkdir -p docs/adr-l
