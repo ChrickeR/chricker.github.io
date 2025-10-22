@@ -58,4 +58,90 @@ jobs:
 
       - name: Embed L4B output into MkDocs
         run: |
-          mkdir -p docs/adr-l
+          mkdir -p docs/adr-l4b
+          OUT_V1="${ADR_LOCAL_DIR}/.log4brains/out"
+          OUT_LEG="${ADR_LOCAL_DIR}/site"
+          if [ -d "$OUT_V1" ] && [ "$(ls -A "$OUT_V1" 2>/dev/null)" ]; then
+            rm -rf docs/adr-l4b/*
+            cp -r "$OUT_V1/"* docs/adr-l4b/
+            echo "Embedded v1 output."
+          elif [ -d "$OUT_LEG" ] && [ "$(ls -A "$OUT_LEG" 2>/dev/null)" ]; then
+            rm -rf docs/adr-l4b/*
+            cp -r "$OUT_LEG/"* docs/adr-l4b/
+            echo "Embedded legacy output."
+          else
+            echo "<!doctype html><meta charset='utf-8'><title>ADR</title><body style='font:16px system-ui;padding:24px'>ADR site will appear here after a successful Log4brains build.</body>" > docs/adr-l4b/index.html
+            echo "Wrote placeholder to docs/adr-l4b/index.html"
+          fi
+          ls -la docs/adr-l4b | head -n 40
+
+      # Auto-generate docs/adr/index.md that links to /adr-l4b pages
+      - name: Generate ADR index page
+        run: |
+          mkdir -p docs/adr
+          OUT="docs/adr/index.md"
+          {
+            echo "# Architecture Decision Records"
+            echo
+            echo "[View with Log4brains layout](/adr-l4b/)"
+            echo
+            echo "## ADR Index"
+            echo
+          } > "$OUT"
+
+          if ls adr/docs/adr/*.md >/dev/null 2>&1; then
+            for f in $(ls adr/docs/adr/*.md | sort); do
+              slug="$(basename "$f" .md)"
+              id="$(awk '/^id:/{print $2; exit}' "$f")"
+              title="$(awk '
+                BEGIN{inFM=0}
+                NR==1 && $0 ~ /^---[[:space:]]*$/ {inFM=1; next}
+                inFM==1 && $0 ~ /^---[[:space:]]*$/ {inFM=0; exit}
+                inFM==1 && $0 ~ /^title:[[:space:]]*/ {sub(/^title:[[:space:]]*/,""); print; exit}
+              ' "$f")"
+              [ -z "$title" ] && title="$(grep -m1 '^# ' "$f" | sed 's/^# \+//')"
+              [ -z "$title" ] && title="Untitled"
+              [ -z "$id" ] && id="$slug"
+              echo "- [$id: $title](/adr-l4b/adrs/$slug/)" >> "$OUT"
+            done
+          else
+            echo "- _No ADRs found yet. Add files under \`adr/docs/adr/\`._" >> "$OUT"
+          fi
+
+          {
+            echo
+            echo "> Tip: Each ADR includes front matter like domain/subdomain/bounded_context, team, decision_owners, and lifecycle links."
+          } >> "$OUT"
+
+          echo "Generated $OUT:"
+          sed -n '1,120p' "$OUT"
+
+      # MkDocs build & deploy
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install MkDocs deps
+        run: |
+          pip install "mkdocs>=1.5" "mkdocs-material>=9.5"
+          mkdocs --version
+
+      - name: Build MkDocs site
+        run: |
+          mkdocs build --clean --verbose
+          ls -la site | head -n 50
+
+      - name: Upload artifact to GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+    steps:
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
