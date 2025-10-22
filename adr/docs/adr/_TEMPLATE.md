@@ -13,6 +13,7 @@ supersedes: []
 superseded_by: []
 related: []
 ---
+# ADR Template created
 
 > **Domain:** —  
 > **Subdomain:** —  
