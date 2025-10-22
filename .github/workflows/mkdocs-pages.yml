@@ -62,8 +62,9 @@ jobs:
         working-directory: ${{ env.ADR_LOCAL_DIR }}
         continue-on-error: true
         run: |
-          echo "Building Log4brains v1 with basePath=/adr-l4b/ …"
-          npx -y log4brains@latest build --basePath /adr-l4b/ || echo "⚠️ L4B build failed (check .log4brains.yml and ADR files)."
+          echo "Building Log4brains v1 with basePath=/adr-l4b …"
+          # NOTE: basePath must NOT end with a slash
+          npx -y log4brains@latest build --basePath /adr-l4b || echo "⚠️ L4B build failed (check .log4brains.yml and ADR files)."
           echo "== adr/site listing =="
           ls -la site || true
 
