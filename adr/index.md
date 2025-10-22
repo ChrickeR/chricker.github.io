@@ -34,10 +34,81 @@ The goal is informed decisions — not discussions.
 We use Log4brains to create, preview, and publish ADRs easily.
 Each ADR is a simple Markdown file, managed in version control and published as a static site.
 
+# ─────────────────────────────────────────────────────────────────────────────
+# 0) Requirements: Node.js + Git installed
+#    Quick check:
+```bash
+node -v && npm -v && git --version
+```
+# ─────────────────────────────────────────────────────────────────────────────
+# 1) Go to your repository root
+#    Example: cd ~/code/chricker.github.io
+```bash
+cd /path/to/your/repo
+```
+# ─────────────────────────────────────────────────────────────────────────────
+# 2) Create the ADR folder structure (once)
+```bash
+mkdir -p adr/docs/adr
+cd adr
+```
+# ─────────────────────────────────────────────────────────────────────────────
+# 3) Initialize a minimal npm project and install the latest Log4brains
+```bash
+npm init -y
+npm install --save-dev log4brains@latest
+```
+# ─────────────────────────────────────────────────────────────────────────────
+# 4) Create the Log4brains configuration (v1 format)
+```bash
+cat > .log4brains.yml <<'YAML'
+project:
+  name: "TROi Architecture Decisions"
+  tz: "Europe/Stockholm"
+  adrFolder: "./docs/adr"
+YAML
+```
+# ─────────────────────────────────────────────────────────────────────────────
+# 5) Create your first ADR (interactive)
+```bash
+npx -y log4brains@latest adr new
+```
+# Tip: to skip questions, add a title directly:
+# npx -y log4brains@latest adr new --title "Adopt event-driven integration"
 
+# ─────────────────────────────────────────────────────────────────────────────
+# 6) Preview locally (dev server)
+#    Open the printed URL (e.g. http://localhost:4004/adr-l4b)
+```bash
+npx -y log4brains@latest preview --basePath /adr-l4b
+```
+#   (Stop the dev server with Ctrl+C when finished)
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 7) Build the static ADR site (creates adr/.log4brains/out/)
+```bash
+npx -y log4brains@latest build --basePath /adr-l4b
+ls -la .log4brains/out | head
+```
+# ─────────────────────────────────────────────────────────────────────────────
+# 8) (Optional local test) Copy the build output into MkDocs so you can preview everything
+```bash
+cd ..
+mkdir -p docs/adr-l4b
+rm -rf docs/adr-l4b/*
+cp -r adr/.log4brains/out/* docs/adr-l4b/
+```
+# ─────────────────────────────────────────────────────────────────────────────
+# 9) Commit and push
+```bash
+git add adr .github/workflows/mkdocs-pages.yml docs/adr-l4b || true
+git commit -m "Add Log4brains ADR setup + first ADR"
+git push
+```
+# Done! GitHub Actions will build and publish → https://troi.se/adr-l4b
+# ─────────────────────────────────────────────────────────────────────────────
 
 ### Create a New ADR
 ```bash
-cd adr
-npx -y log4brains@latest adr new
+
 ```
