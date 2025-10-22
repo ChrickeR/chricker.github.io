@@ -11,3 +11,12 @@ Use the index below for quick navigation, or open the **Log4brains view** for a 
 - [ADR-0002: Introduce Tech Radar for Technology Choices](records/adr-0002-introduce-tech-radar.md)
 
 > Tip: Each ADR file includes front matter with domain/subdomain/bounded_context, team, decision_owners, and lifecycle links.
+>
+> <!-- Simple redirect for old ADR path -->
+<meta http-equiv="refresh" content="0; url=/adr/">
+
+# ADRs moved
+This section moved. Go to the new index:
+
+- [ADR Index](/adr/)
+- [Log4brains view](/adr-l4b/)
