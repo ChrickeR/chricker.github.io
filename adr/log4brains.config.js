@@ -6,7 +6,7 @@ module.exports = {
     basePath: "/adr-l4b/"          
   },
   adr: {
-    path: "adr/docs/adr",             
+    path: "docs/adr",             
     defaultStatus: "Accepted"
   }
 };
