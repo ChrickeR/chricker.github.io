@@ -15,8 +15,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  ADR_LOCAL_DIR: 'adr'     # folder with package.json, .log4brains.yml, and ADR files
-  L4B_BASE_PATH: '/adr-l4b'  # no trailing slash for v1
+  ADR_LOCAL_DIR: 'adr'        # where package.json, .log4brains.yml and ADR files live
+  L4B_BASE_PATH: '/adr-l4b'   # no trailing slash for v1
 
 jobs:
   build:
@@ -41,22 +41,24 @@ jobs:
           if [ -f .log4brains.yml ]; then
             sed -n '1,200p' .log4brains.yml
           else
-            echo "❌ Missing .log4brains.yml (v1 schema required: project: …)"
+            echo "❌ Missing adr/.log4brains.yml (v1 schema required)"
             echo "   Example:"
-            echo "   project: { name: 'TROi Architecture Decisions', tz: 'Europe/Stockholm', adrFolder: './docs/adr' }"
+            echo "project:"
+            echo "  name: \"TROi Architecture Decisions\""
+            echo "  tz: \"Europe/Stockholm\""
+            echo "  adrFolder: \"./docs/adr\""
             exit 1
           fi
           echo "== ADR folder listing =="
           ls -la ./docs/adr || true
 
-      - name: Install Log4brains dependencies (npm install)
+      - name: Install Log4brains dependencies
         if: ${{ hashFiles(format('{0}/package.json', env.ADR_LOCAL_DIR)) != '' }}
         working-directory: ${{ env.ADR_LOCAL_DIR }}
         run: |
           echo "Node: $(node -v) | npm: $(npm -v)"
           npm install
-          echo "package.json:"
-          cat package.json || true
+          echo "package.json:" && cat package.json || true
 
       - name: Build Log4brains site (v1, safe)
         if: ${{ hashFiles(format('{0}/package.json', env.ADR_LOCAL_DIR)) != '' }}
@@ -64,11 +66,10 @@ jobs:
         continue-on-error: true
         run: |
           echo "Building Log4brains v1 with basePath=${L4B_BASE_PATH} …"
-          # NOTE: basePath must NOT end with a slash in v1
           npx -y log4brains@latest build --basePath "${L4B_BASE_PATH}" || echo "⚠️ L4B build failed (check .log4brains.yml and ADR files)."
           echo "== possible outputs =="
           ls -la .log4brains/out 2>/dev/null || echo "no .log4brains/out"
-          ls -la site 2>/dev/null || echo "no site"
+          ls -la site 2>/dev/null || echo "no site (legacy output)"
 
       - name: Embed Log4brains output into MkDocs (supports v1 and legacy)
         run: |
@@ -89,6 +90,32 @@ jobs:
           fi
           echo "== docs/adr-l4b listing =="
           ls -la docs/adr-l4b | head -n 60
+
+      # --- Add a persistent "Back to TROi" button on all ADR pages -----
+      - name: Add "Back to TROi" button on ADR site
+        run: |
+          if [ -d docs/adr-l4b ]; then
+            cat > docs/adr-l4b/_backlink.css <<'CSS'
+.troi-backlink{
+  position:fixed;right:16px;bottom:16px;z-index:9999;
+  display:inline-block;padding:10px 14px;border-radius:999px;
+  background:#111;color:#fff;font:14px/1.2 system-ui,-apple-system,Segoe UI,Roboto,Arial;
+  text-decoration:none;box-shadow:0 6px 20px rgba(0,0,0,.18),0 1px 3px rgba(0,0,0,.2);
+  opacity:.92
+}
+.troi-backlink:hover{opacity:1;transform:translateY(-1px)}
+CSS
+            cat > docs/adr-l4b/_backlink.html <<'HTML'
+<link rel="stylesheet" href="/adr-l4b/_backlink.css">
+<a class="troi-backlink" href="https://troi.se/" aria-label="Back to TROi">← Back to TROi</a>
+HTML
+            # Inject before </body> across all static HTML files
+            find docs/adr-l4b -type f -name "*.html" -print0 | \
+              xargs -0 -I{} bash -c "perl -0777 -pe 's@</body>@<!-- TROi backlink -->\n$(sed "s@/@\\/@g" docs/adr-l4b/_backlink.html)\n</body>@i' -i {}"
+            echo "Inserted backlink on ADR pages."
+          else
+            echo "No docs/adr-l4b directory; skipping backlink injection."
+          fi
 
       # --- MkDocs: build & publish ------------------------------------
       - name: Setup Python
