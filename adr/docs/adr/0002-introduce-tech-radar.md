@@ -14,6 +14,8 @@ superseded_by: []
 related: [0001]
 ---
 
+# Adopt Architecture-as-Code for Decisions and Knowledge
+
 > **Domain:** Engineering Enablement  
 > **Subdomain:** Standards & Guardrails  
 > **Bounded Context:** Tech Radar  
