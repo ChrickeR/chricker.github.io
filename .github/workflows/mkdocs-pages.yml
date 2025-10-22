@@ -23,31 +23,64 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # --- Log4brains ---
+      # --- Log4brains: init + install + build (safe) ---
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 'lts/*'
 
-      - name: Build Log4brains (safe)
+      - name: Init ADR project if missing
         run: |
-          if [ -f "${ADR_LOCAL_DIR}/package.json" ] && [ -f "${ADR_LOCAL_DIR}/log4brains.config.js" ]; then
-            echo "Building Log4brains in ${ADR_LOCAL_DIR}…"
-            (cd "${ADR_LOCAL_DIR}" && npm ci || npm install)
-            (cd "${ADR_LOCAL_DIR}" && npx log4brains build) || echo "⚠️ L4B build failed."
-            if [ -d "${ADR_LOCAL_DIR}/site" ] && [ "$(ls -A ${ADR_LOCAL_DIR}/site)" ]; then
-              rm -rf docs/adr-l4b
-              mkdir -p docs/adr-l4b
-              cp -r "${ADR_LOCAL_DIR}/site/"* docs/adr-l4b/
-              echo "✅ Embedded L4B into docs/adr-l4b/"
-              ls -la docs/adr-l4b | head -n 30
-            else
-              echo "ℹ️ No L4B site output; keeping any existing docs/adr-l4b/"
-              mkdir -p docs/adr-l4b
-              [ -f docs/adr-l4b/index.html ] || echo '<!doctype html><title>ADR</title><p>ADR site will appear here after Log4brains build.</p>' > docs/adr-l4b/index.html
-            fi
+          mkdir -p "${ADR_LOCAL_DIR}/docs/adr"
+          if [ ! -f "${ADR_LOCAL_DIR}/package.json" ]; then
+            echo '{ "name":"troi-adr","private":false,"devDependencies":{"log4brains":"^0.7.0"},"scripts":{"build":"log4brains build"}}' > "${ADR_LOCAL_DIR}/package.json"
+          fi
+          if [ ! -f "${ADR_LOCAL_DIR}/log4brains.config.js" ]; then
+            cat > "${ADR_LOCAL_DIR}/log4brains.config.js" <<'JS'
+            module.exports = {
+              site: { title: "TROi Architecture Decisions", description: "Centralized ADR knowledge with DDD context", author: "TROi", basePath: "/adr-l4b/" },
+              adr:  { path: "docs/adr", defaultStatus: "Accepted" }
+            };
+            JS
+          fi
+          # seed one ADR if folder is empty (keeps L4B happy)
+          if [ -z "$(ls -A "${ADR_LOCAL_DIR}/docs/adr" 2>/dev/null)" ]; then
+            cat > "${ADR_LOCAL_DIR}/docs/adr/0001-adopt-architecture-as-code.md" <<'MD'
+            ---
+            id: 0001
+            title: Adopt Architecture-as-Code
+            date: 2025-03-01
+            status: Accepted
+            ---
+            ## Context
+            ## Decision
+            ## Consequences
+            MD
+          fi
+
+      - name: Install L4B deps
+        working-directory: ${{ env.ADR_LOCAL_DIR }}
+        run: npm ci || npm install
+
+      - name: Build Log4brains (safe)
+        working-directory: ${{ env.ADR_LOCAL_DIR }}
+        continue-on-error: true
+        run: |
+          npx log4brains build || echo "⚠️ L4B build failed (check adr/path or ADR files)."
+          echo "== adr/site listing =="
+          ls -la site || true
+
+      - name: Embed L4B into MkDocs (safe)
+        run: |
+          mkdir -p docs/adr-l4b
+          if [ -d "${ADR_LOCAL_DIR}/site" ] && [ "$(ls -A ${ADR_LOCAL_DIR}/site)" ]; then
+            rm -rf docs/adr-l4b/*
+            cp -r "${ADR_LOCAL_DIR}/site/"* docs/adr-l4b/
+            echo "✅ Embedded into docs/adr-l4b:"
+            ls -la docs/adr-l4b | head -n 30
           else
-            echo "ℹ️ No ADR project at ${ADR_LOCAL_DIR}; skipping L4B."
+            echo "ℹ️ No L4B site output; keeping (or writing) placeholder."
+            [ -f docs/adr-l4b/index.html ] || echo '<!doctype html><title>ADR</title><p>ADR site will appear here after L4B build.</p>' > docs/adr-l4b/index.html
           fi
 
       # --- MkDocs ---
