@@ -8,7 +8,7 @@ domain: Engineering Enablement
 subdomain: Standards & Guardrails
 bounded_context: Tech Radar
 team: Architecture Enablement
-decision_owners: [Platform Lead]
+decision_owners: [Architecture Board]
 supersedes: []
 superseded_by: []
 related: [0001]
@@ -23,6 +23,5 @@ related: [0001]
 > **Superseded by:** —  
 > **Related:** 0001
 
-## Context
 ## Decision
-## Consequences
+Establish a lightweight **Tech Radar** with rings Adopt/Trial/Assess/Hold. Each blip has a one-pager with rationale and guardrails.
