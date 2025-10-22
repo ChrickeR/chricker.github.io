@@ -1,188 +1,136 @@
-<!-- TROi – Products & Solutions Landing (styled Markdown) -->
+<!-- TROi – Main Landing (lightweight, airy) -->
 
 <style>
 :root{
-  --bg:#0b0f14;
+  --text:#0f172a;          /* slate-900 */
+  --muted:#64748b;         /* slate-500 */
+  --border:#e5e7eb;        /* gray-200 */
   --card:#ffffff;
-  --text:#0f172a;
-  --muted:#6b7280;
-  --border:#e5e7eb;
-  --shadow:0 10px 24px rgba(2,6,23,.08);
-  --radius:18px;
+  --shadow:0 8px 24px rgba(2,6,23,.06);
+  --radius:16px;
 
-  --accent:#10b981;      /* TROi green */
-  --accent2:#60a5fa;     /* blue */
-  --accent3:#f59e0b;     /* amber */
-  --accent4:#a78bfa;     /* violet */
+  --blue:#60a5fa;
+  --violet:#a78bfa;
+  --green:#34d399;
+  --orange:#fb923c;
+  --indigo:#818cf8;
 }
 
-.troi-wrap{max-width:1100px;margin:0 auto;padding:26px 12px 80px;}
-.troi-hero{
-  text-align:center; margin:10px 0 28px;
+.wrap{max-width:1100px;margin:0 auto;padding:24px 14px 64px;}
+.hero{ text-align:center; margin:18px 0 40px; }
+.hero h1{
+  margin: 0 0 10px;
+  font-size: clamp(32px, 5vw, 56px);
+  line-height: 1.05;
+  color: var(--text);
+  font-weight: 900;
+  letter-spacing: -0.01em;
 }
-.troi-eyebrow{
-  display:inline-block; font-size:.8rem; font-weight:800; letter-spacing:.08em;
-  text-transform:uppercase; color:var(--accent);
-  background:rgba(16,185,129,.08); border:1px solid rgba(16,185,129,.25);
-  padding:6px 10px; border-radius:999px;
+.hero p{
+  margin: 0 auto;
+  max-width: 840px;
+  color: var(--muted);
+  font-size: 1.08rem;
 }
-.troi-title{font-size:clamp(32px,5vw,48px);font-weight:900;color:var(--text);margin:10px 0 8px;line-height:1.08;}
-.troi-sub{color:var(--muted);font-size:1.1rem;max-width:820px;margin:0 auto 8px;}
-.troi-note{color:var(--muted);font-size:.95rem;}
 
-.troi-h2{font-size:1.5rem;color:var(--text);margin:34px 0 12px;}
+.h2{
+  text-align:center;
+  margin: 24px 0 16px;
+  font-size: 1.6rem;
+  color: var(--text);
+  font-weight: 900;
+}
+.sub{ text-align:center; color:var(--muted); margin:0 auto 18px; max-width: 760px; }
 
-.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;}
+.grid{
+  display:grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 18px;
+}
+
 .card{
-  grid-column:span 4;background:var(--card);border:1px solid var(--border);
-  border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 18px 16px;position:relative;overflow:hidden;
+  grid-column: span 4;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px;
+  transition: transform .15s ease, box-shadow .15s ease;
 }
-.card--wide{grid-column:span 12;}
-.card h3{margin:0 0 6px;font-size:1.05rem;color:var(--text);}
-.card p{margin:0 0 10px;color:var(--muted);}
-.card ul{margin:10px 0 0;padding-left:18px;}
-.card li{margin:6px 0;color:var(--text);}
+.card:hover{ transform: translateY(-2px); box-shadow: 0 10px 28px rgba(2,6,23,.09); }
 
-@media (max-width:900px){.card{grid-column:span 12;}}
+@media (max-width: 900px){ .card{ grid-column: span 12; } }
 
-.badge{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:800;
-  padding:4px 10px;border-radius:999px;border:1px solid;
+.card h3{ margin: 8px 0 6px; font-size: 1.06rem; color: var(--text); }
+.card p{ margin: 0 0 8px; color: var(--muted); }
+.meta{ color: var(--muted); font-size: .95rem; }
+
+.icon{
+  width: 40px; height: 40px; border-radius: 12px;
+  display:inline-flex; align-items:center; justify-content:center;
+  font-weight:900; color:white; letter-spacing:.02em;
 }
-.badge--ok{color:var(--accent);background:rgba(16,185,129,.08);border-color:rgba(16,185,129,.25);}
-.badge--dev{color:var(--accent3);background:rgba(245,158,11,.08);border-color:rgba(245,158,11,.25);}
-.badge--plan{color:var(--accent2);background:rgba(96,165,250,.10);border-color:rgba(96,165,250,.25);}
-.dot{width:8px;height:8px;border-radius:999px;background:currentColor;display:inline-block;}
+.i-blue{ background: linear-gradient(135deg, var(--blue), #3b82f6); }
+.i-violet{ background: linear-gradient(135deg, var(--violet), #8b5cf6); }
+.i-green{ background: linear-gradient(135deg, var(--green), #10b981); }
+.i-orange{ background: linear-gradient(135deg, var(--orange), #f97316); }
+.i-indigo{ background: linear-gradient(135deg, var(--indigo), #6366f1); }
 
-.strip{height:6px;position:absolute;inset:0 0 auto 0;background:var(--accent);}
-.strip--blue{background:var(--accent2);} .strip--amber{background:var(--accent3);} .strip--violet{background:var(--accent4);}
-
-.table{width:100%;border-collapse:separate;border-spacing:0;background:var(--card);
-  border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;
-}
-.table th,.table td{padding:12px 14px;text-align:left;vertical-align:top;}
-.table thead th{background:#f8fafc;color:#0f172a;font-weight:900;border-bottom:1px solid var(--border);}
-.table tbody tr+tr td{border-top:1px solid var(--border);}
+.kicker{ display:block; color:var(--muted); font-size:.9rem; margin-top:2px; }
 </style>
 
-<div class="troi-wrap">
+<div class="wrap">
 
-<div class="troi-hero">
-  <span class="troi-eyebrow">TROi — Products & Solutions</span>
-  <h1 class="troi-title">Innovativa ramverk och verktyg<br/>för snabbare, tryggare tech</h1>
-  <p class="troi-sub">Vi bygger **lätta men kraftfulla** ramverk som gör arkitektur, integration och leverans <em>tydligt, versionshanterat och automatiserbart</em> — så team kan röra sig snabbt utan att tappa riktningen.</p>
-  <p class="troi-note">Alla erbjudanden lever som **Docs-as-Code** i Git och kan kopplas till CI/CD.</p>
-</div>
+  <section class="hero">
+    <h1>Technology leadership<br/>that scales businesses</h1>
+    <p>Helping Nordic enterprises build systematic technology organizations that create sustainable competitive advantage.</p>
+  </section>
 
-## Current Offerings
+  <h2 class="h2">Five Pillars of Technology Excellence</h2>
+  <p class="sub">Proven approaches that turn technology into a strategic business enabler — with clarity, speed, and measurable outcomes.</p>
 
-<div class="grid">
+  <div class="grid">
 
-  <div class="card">
-    <span class="strip"></span>
-    <h3>Architecture-as-Code (AaC) <span class="badge badge--ok"><span class="dot"></span>Available</span></h3>
-    <p>Ramverket som gör arkitektur levande och versionshanterad.</p>
-    <ul>
-      <li>ADRs (beslut med kontext & trade-offs)</li>
-      <li>Tech Radar (quadrants & rings)</li>
-      <li>Target Architecture (principer & roadmap)</li>
-    </ul>
+    <div class="card">
+      <span class="icon i-blue">EO</span>
+      <h3>Enterprise Operating Models</h3>
+      <span class="kicker">Clear governance & scalable ways of working</span>
+      <p>Build systematic organizations that scale efficiently and deliver value consistently.</p>
+      <p class="meta">Governance frameworks • Decision structures • Cross-functional alignment • Scalable operations</p>
+    </div>
+
+    <div class="card">
+      <span class="icon i-violet">SA</span>
+      <h3>Solution Architecture</h3>
+      <span class="kicker">Blueprints that solve real business problems</span>
+      <p>Design and architect solutions with a practical, value-first approach.</p>
+      <p class="meta">Technical design • System integration • Architecture blueprints • Implementation roadmaps</p>
+    </div>
+
+    <div class="card">
+      <span class="icon i-green">EL</span>
+      <h3>Engineering Leadership</h3>
+      <span class="kicker">High-performing teams, consistent results</span>
+      <p>Develop teams that deliver reliably through culture, coaching, and enabling systems.</p>
+      <p class="meta">Team capability • Engineering culture • Performance systems • Leadership development</p>
+    </div>
+
+    <div class="card">
+      <span class="icon i-orange">AaC</span>
+      <h3>Architecture-as-Code</h3>
+      <span class="kicker">Living, version-controlled architecture</span>
+      <p>Turn principles, decisions, and direction into transparent, evolvable artefacts.</p>
+      <p class="meta">ADRs • Tech Radar • Target Architecture • Docs-as-Code • Governance automation</p>
+    </div>
+
+    <div class="card">
+      <span class="icon i-indigo">LS</span>
+      <h3>Leadership Services</h3>
+      <span class="kicker">Hands-on guidance, zero fluff</span>
+      <p>Interim leadership, advisory, and coaching to accelerate outcomes and reduce risk.</p>
+      <p class="meta">Fractional roles • Coaching • Strategy facilitation • Decision support</p>
+    </div>
+
   </div>
-
-  <div class="card">
-    <span class="strip strip--blue"></span>
-    <h3>Integration Frameworks <span class="badge badge--ok"><span class="dot"></span>Available</span></h3>
-    <p>Metoder & mönster för robusta integrationsflöden mellan system.</p>
-    <ul>
-      <li>Event-drivet + API-först</li>
-      <li>Antikorruptionslager & översättare</li>
-      <li>Referensarkitektur (cloud-friendly)</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <span class="strip strip--violet"></span>
-    <h3>Technology Assessments <span class="badge badge--ok"><span class="dot"></span>Available</span></h3>
-    <p>Snabb nulägesanalys med tydliga rekommendationer och prioriterad roadmap.</p>
-    <ul>
-      <li>Gap-analys & risk</li>
-      <li>Principer & guardrails</li>
-      <li>Kost/nytta & leveransplan</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <span class="strip strip--amber"></span>
-    <h3>Custom Solution Development <span class="badge badge--ok"><span class="dot"></span>Available</span></h3>
-    <p>Skräddarsydd utveckling med fokus på enkelhet, driftsäkerhet och integration.</p>
-    <ul>
-      <li>Arkitektur & implementering</li>
-      <li>CI/CD & observability</li>
-      <li>Handover med dokumenterade mönster</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <span class="strip strip--blue"></span>
-    <h3>Engineering Competence <span class="badge badge--ok"><span class="dot"></span>Available</span></h3>
-    <p>Guided Autonomy, Team Topologies och arbetssätt som skalar.</p>
-    <ul>
-      <li>Repo-struktur & standarder</li>
-      <li>ADR & ADR-rutiner</li>
-      <li>Tech-radar & enablers</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <span class="strip"></span>
-    <h3>Target Architecture Advisory <span class="badge badge--ok"><span class="dot"></span>Available</span></h3>
-    <p>Från vision till praktisk färdplan med tydliga principer, domäner och BC:er.</p>
-    <ul>
-      <li>Domänkartläggning & kontextgränser</li>
-      <li>Roadmap & värde-sekvenser</li>
-      <li>Beslutslogg (ADRs) kopplad till initiativ</li>
-    </ul>
-  </div>
-
-</div>
-
-## Upcoming Products
-
-<div class="grid">
-
-  <div class="card card--wide">
-    <span class="strip"></span>
-    <h3>Enterprise Integration Suite <span class="badge badge--dev"><span class="dot"></span>In Development</span></h3>
-    <p>Toolkit för sömlös system-integration: mallar, policies, och CI-steg.</p>
-    <ul>
-      <li>API-policy & schema-validering i pipeline</li>
-      <li>Event-kontrakt & kompatibilitetstester</li>
-      <li>Observability-starter (tracing, metrics, logs)</li>
-    </ul>
-  </div>
-
-  <div class="card card--wide">
-    <span class="strip strip--blue"></span>
-    <h3>Security Assessment Platform <span class="badge badge--plan"><span class="dot"></span>Planning Phase</span></h3>
-    <p>Automatiserade kontroller & rapporter för säkrare leverans.</p>
-    <ul>
-      <li>Dependency & license scanning</li>
-      <li>Secrets-detektion & policy-gate</li>
-      <li>Risk-score & rekommenderade åtgärder</li>
-    </ul>
-  </div>
-
-</div>
-
-## Why TROi
-
-<table class="table">
-  <thead><tr><th>Styrka</th><th>Vad du får</th></tr></thead>
-  <tbody>
-    <tr><td><strong>Lightweight men robust</strong></td><td>Praktiska ramverk som funkar i verkligheten utan onödig byråkrati.</td></tr>
-    <tr><td><strong>Docs-as-Code</strong></td><td>Allt lever i Git – versionshistorik, PR-flöde och automatiserad publicering.</td></tr>
-    <tr><td><strong>Guided Autonomy</strong></td><td>Snabba team, tydliga principer, noll tech-sprawl.</td></tr>
-    <tr><td><strong>Mätbart värde</strong></td><td>Från beslut till implementation med spårbar effekt på leveransen.</td></tr>
-  </tbody>
-</table>
 
 </div>
