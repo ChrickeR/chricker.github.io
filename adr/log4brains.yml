@@ -1,0 +1,9 @@
+site:
+  title: "TROi Architecture Decisions"
+  description: "Centralized ADR knowledge with DDD context"
+  author: "TROi"
+  basePath: "/adr-l4b/"     # required so UI works under troi.se/adr-l4b/
+
+adr:
+  path: "docs/adr"          # your ADR .md files live here
+  defaultStatus: "Accepted"
