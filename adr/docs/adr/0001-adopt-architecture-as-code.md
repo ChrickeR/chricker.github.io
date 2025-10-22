@@ -6,9 +6,9 @@ status: Accepted
 tags: [aac, governance, enablement]
 domain: Engineering Enablement
 subdomain: Architecture-as-Code
-bounded_context: Architecture Knowledge Base
-team: Architecture Enablement
-decision_owners: [Chief Architect]
+bounded_context: Architecture
+team: Architecture
+decision_owners: [Architecture board]
 supersedes: []
 superseded_by: []
 related: [0002]
