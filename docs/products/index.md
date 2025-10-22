@@ -1,262 +1,148 @@
-<!-- Architecture-as-Code (AaC) — styled MD inspired by the screenshot -->
+<!-- TROi – Architecture-as-Code (AaC) Product Landing Page -->
 
 <style>
-/* ========= AaC page-scoped styles ========= */
-:root {
-  --aac-bg: #0b0f14;              /* dark page bg works well on light too */
-  --aac-card: #ffffff;            /* card background */
-  --aac-text: #0f172a;            /* slate-900 */
-  --aac-muted: #6b7280;           /* gray-500 */
-  --aac-border: #e5e7eb;          /* gray-200 */
-  --aac-shadow: 0 6px 18px rgba(2, 6, 23, 0.08);
-  --aac-radius: 16px;
+:root{
+  --bg:#0b0f14;
+  --card:#ffffff;
+  --text:#0f172a;
+  --muted:#6b7280;
+  --border:#e5e7eb;
+  --shadow:0 10px 24px rgba(2,6,23,.08);
+  --radius:18px;
 
-  --aac-accent: #10b981;          /* emerald */
-  --aac-accent-2: #60a5fa;        /* blue */
-  --aac-accent-3: #f59e0b;        /* amber */
-  --aac-accent-4: #a78bfa;        /* violet */
-}
-
-.aac-wrap {
-  max-width: 1060px;
-  margin: 0 auto;
-  padding: 24px 12px 64px;
+  --accent:#10b981;      /* TROi green */
+  --accent2:#60a5fa;     /* blue */
+  --accent3:#f59e0b;     /* amber */
+  --accent4:#a78bfa;     /* violet */
 }
 
-.aac-eyebrow {
-  display:inline-block;
-  font-size: .8rem;
-  font-weight: 700;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: var(--aac-accent);
-  background: rgba(16,185,129,.08);
-  border: 1px solid rgba(16,185,129,.25);
-  padding: 6px 10px;
-  border-radius: 999px;
-}
+.wrap{max-width:1100px;margin:0 auto;padding:26px 12px 80px;}
+.hero{text-align:center;margin:10px 0 28px;}
+.eyebrow{display:inline-block;font-size:.8rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--accent);background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.25);
+  padding:6px 10px;border-radius:999px;}
+.title{font-size:clamp(32px,5vw,48px);font-weight:900;color:var(--text);margin:10px 0 8px;line-height:1.08;}
+.sub{color:var(--muted);font-size:1.1rem;max-width:820px;margin:0 auto 8px;}
+.note{color:var(--muted);font-size:.95rem;}
 
-.aac-title {
-  margin: 10px 0 8px;
-  font-size: clamp(28px, 5vw, 42px);
-  line-height: 1.1;
-  color: var(--aac-text);
-  font-weight: 900;
+.h2{font-size:1.5rem;color:var(--text);margin:34px 0 12px;}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;}
+.card{
+  grid-column:span 4;background:var(--card);border:1px solid var(--border);
+  border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 18px 16px;position:relative;overflow:hidden;
 }
+.card--wide{grid-column:span 12;}
+.card h3{margin:0 0 6px;font-size:1.05rem;color:var(--text);}
+.card p{margin:0 0 10px;color:var(--muted);}
+.card ul{margin:10px 0 0;padding-left:18px;}
+.card li{margin:6px 0;color:var(--text);}
+@media (max-width:900px){.card{grid-column:span 12;}}
 
-.aac-subtitle {
-  color: var(--aac-muted);
-  font-size: 1.05rem;
-  margin-bottom: 28px;
-}
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:800;
+  padding:4px 10px;border-radius:999px;border:1px solid;}
+.badge--ok{color:var(--accent);background:rgba(16,185,129,.08);border-color:rgba(16,185,129,.25);}
+.badge--dev{color:var(--accent3);background:rgba(245,158,11,.08);border-color:rgba(245,158,11,.25);}
+.dot{width:8px;height:8px;border-radius:999px;background:currentColor;display:inline-block;}
 
-/* Cards */
-.aac-grid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 18px;
-}
+.strip{height:6px;position:absolute;inset:0 0 auto 0;background:var(--accent);}
+.strip--blue{background:var(--accent2);} .strip--amber{background:var(--accent3);} .strip--violet{background:var(--accent4);}
 
-.aac-card {
-  grid-column: span 4;
-  background: var(--aac-card);
-  border: 1px solid var(--aac-border);
-  border-radius: var(--aac-radius);
-  box-shadow: var(--aac-shadow);
-  padding: 18px 18px 16px;
-}
-
-@media (max-width: 900px) {
-  .aac-card { grid-column: span 12; }
-}
-
-.aac-card h3 {
-  margin: 0 0 6px;
-  font-size: 1.05rem;
-  color: var(--aac-text);
-}
-.aac-card p { margin: 0 0 10px; color: var(--aac-muted); }
-
-.aac-keylist {
-  list-style: none; margin: 10px 0 0; padding: 0;
-}
-.aac-keylist li {
-  padding-left: 24px;
-  position: relative;
-  margin: 8px 0;
-  color: var(--aac-text);
-}
-.aac-keylist li::before {
-  content: "•";
-  position: absolute; left: 8px; top: 0; line-height: 1.2;
-  color: var(--aac-accent);
-  font-weight: 900;
-}
-
-/* Module mini-cards with colored accents */
-.aac-mod {
-  grid-column: span 4;
-  background: var(--aac-card);
-  border: 1px solid var(--aac-border);
-  border-radius: var(--aac-radius);
-  box-shadow: var(--aac-shadow);
-  padding: 16px 16px 14px;
-  position: relative;
-  overflow: hidden;
-}
-.aac-mod::before {
-  content:"";
-  position:absolute; inset:0 0 auto 0; height:6px;
-  background: var(--aac-accent);
-}
-.aac-mod--blue::before  { background: var(--aac-accent-2); }
-.aac-mod--amber::before { background: var(--aac-accent-3); }
-.aac-mod--violet::before{ background: var(--aac-accent-4); }
-
-.aac-mod h4 { margin: 6px 0 6px; font-size: 1rem; color: var(--aac-text); }
-.aac-mod p { margin: 0; color: var(--aac-muted); font-size: .95rem; }
-
-/* Section headings */
-.aac-h2 {
-  margin: 34px 0 12px;
-  font-size: 1.4rem;
-  color: var(--aac-text);
-}
-
-/* Badges */
-.aac-badge {
-  display:inline-flex; align-items:center; gap:6px;
-  font-size:.8rem; font-weight:700; color: var(--aac-accent);
-  background: rgba(16,185,129,.08);
-  border:1px solid rgba(16,185,129,.25);
-  padding: 4px 10px; border-radius: 999px;
-}
-.aac-dot {
-  width:8px; height:8px; border-radius:999px; background: var(--aac-accent);
-}
-
-/* Feature table */
-.aac-table {
-  width:100%; border-collapse:separate; border-spacing:0;
-  background: var(--aac-card); border:1px solid var(--aac-border);
-  border-radius: var(--aac-radius); box-shadow: var(--aac-shadow);
-  overflow:hidden;
-}
-.aac-table th, .aac-table td {
-  text-align:left; padding:12px 14px; vertical-align:top;
-}
-.aac-table thead th {
-  background:#f8fafc; color:#0f172a; font-weight:800;
-  border-bottom:1px solid var(--aac-border);
-}
-.aac-table tbody tr + tr td { border-top:1px solid var(--aac-border); }
+.table{width:100%;border-collapse:separate;border-spacing:0;background:var(--card);
+  border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;}
+.table th,.table td{padding:12px 14px;text-align:left;vertical-align:top;}
+.table thead th{background:#f8fafc;color:#0f172a;font-weight:900;border-bottom:1px solid var(--border);}
+.table tbody tr+tr td{border-top:1px solid var(--border);}
 </style>
 
-<div class="aac-wrap">
+<div class="wrap">
 
-  <span class="aac-eyebrow">Framework Product</span>
-  <h1 class="aac-title">Architecture-as-Code (AaC)</h1>
-  <p class="aac-subtitle">
-    Ett hög­nivåramverk som gör arkitektur <strong>levande och versionshanterad</strong>. 
-    Få beslut, riktning och teknikval att samspela – och utvecklas som kod.
-  </p>
+<div class="hero">
+  <span class="eyebrow">TROi Framework Product</span>
+  <h1 class="title">Architecture-as-Code (AaC)</h1>
+  <p class="sub">A lightweight framework that turns architecture into a <strong>living, version-controlled system</strong> — enabling teams to evolve, align, and govern architecture like code.</p>
+  <p class="note">Available as part of the TROi product suite — built with Docs-as-Code principles and full Git integration.</p>
+</div>
 
-  <div class="aac-grid" style="margin-top:18px;">
-    <div class="aac-card">
-      <h3>Product Overview</h3>
-      <p>AaC är en lättviktig metod + struktur som förvandlar arkitektur från statiska dokument till ett <em>levande system</em> i Git.</p>
-      <ul class="aac-keylist">
-        <li>Versionering & PR-granskning av arkitekturelement</li>
-        <li>Spårbarhet från princip → beslut → implementation</li>
-        <li>Automatiserbar governance i CI/CD</li>
-      </ul>
-    </div>
+## Core Framework Modules
 
-    <div class="aac-card">
-      <h3>Current Status</h3>
-      <p>
-        <span class="aac-badge"><span class="aac-dot"></span> Available</span>
-      </p>
-      <ul class="aac-keylist">
-        <li>Docs-as-Code (MkDocs Material)</li>
-        <li>ADR-publicering (Log4brains)</li>
-        <li>Tech Radar (YAML + renderer)</li>
-      </ul>
-    </div>
-
-    <div class="aac-card">
-      <h3>Who it’s for</h3>
-      <p>Produkt- & teknikledare, domänarkitekter, plattforms- och team-owners som vill ha snabb rörelse utan att tappa alignment.</p>
-      <ul class="aac-keylist">
-        <li>Skalbara organisationer med flera team</li>
-        <li>Domän-/bounded context-tänk</li>
-        <li>Behov av tydlig “guided autonomy”</li>
-      </ul>
-    </div>
+<div class="grid">
+  <div class="card">
+    <span class="strip strip--blue"></span>
+    <h3>ADRs — Architecture Decision Records</h3>
+    <p>Versioned decision logs capturing context, options, trade-offs, and rationale.  
+       Enables traceability and collective decision intelligence.</p>
   </div>
 
-  <h2 class="aac-h2">Core Modules</h2>
-  <div class="aac-grid">
-    <div class="aac-mod aac-mod--blue">
-      <h4>ADRs — Decision Records</h4>
-      <p>Versionshanterade beslut med kontext, alternativ och trade-offs. Sökbart besluts-DNA.</p>
-    </div>
-    <div class="aac-mod aac-mod--amber">
-      <h4>Tech Radar — Technology Alignment</h4>
-      <p>Synliggör val över quadrants & rings (Adopt/Trial/Assess/Hold) för minskad tech-sprawl.</p>
-    </div>
-    <div class="aac-mod aac-mod--violet">
-      <h4>Target Architecture — Principles & Roadmap</h4>
-      <p>Levande riktning och principer som kopplar affärsintention till teknisk utveckling.</p>
-    </div>
+  <div class="card">
+    <span class="strip strip--amber"></span>
+    <h3>Tech Radar — Technology Landscape</h3>
+    <p>Visual map of adopted, trialed, assessed, or deprecated technologies — supporting strategic alignment and tech transparency.</p>
   </div>
 
-  <h2 class="aac-h2">Key Capabilities</h2>
-  <table class="aac-table">
-    <thead>
-      <tr>
-        <th>Capability</th>
-        <th>What it enables</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>Version Control First</strong></td>
-        <td>All arkitektur lever i repo → commit-historik, kodgranskning och revert.</td>
-      </tr>
-      <tr>
-        <td><strong>Traceable Decisions</strong></td>
-        <td>Länkning mellan ADRs, epics, kod och dokumentation.</td>
-      </tr>
-      <tr>
-        <td><strong>Automation Ready</strong></td>
-        <td>Validera policy, rendera rapporter och publicera sidor i CI/CD.</td>
-      </tr>
-      <tr>
-        <td><strong>Guided Autonomy</strong></td>
-        <td>Team rör sig snabbt inom tydliga principer och standarder.</td>
-      </tr>
-      <tr>
-        <td><strong>Single Source of Truth</strong></td>
-        <td>Beslut, riktning och teknikval samlas och uppdateras på ett ställe.</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <h2 class="aac-h2">Integrations</h2>
-  <div class="aac-grid">
-    <div class="aac-mod">
-      <h4>Log4brains</h4>
-      <p>Genererar ADR-index och webbvyer direkt från repo.</p>
-    </div>
-    <div class="aac-mod">
-      <h4>MkDocs Material</h4>
-      <p>Docs-as-Code med teman, sök och komponenter.</p>
-    </div>
-    <div class="aac-mod">
-      <h4>Zalando Tech Radar</h4>
-      <p>YAML-driven radar som kan publiceras automatiskt.</p>
-    </div>
+  <div class="card">
+    <span class="strip strip--violet"></span>
+    <h3>Target Architecture — Principles & Roadmap</h3>
+    <p>Defines principles, desired future state, and architectural evolution path — connecting strategy to implementation.</p>
   </div>
+</div>
+
+## Product Capabilities
+
+<table class="table">
+  <thead><tr><th>Capability</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Version Control First</strong></td><td>All architectural artefacts live in Git — fully traceable, reviewable, and evolvable.</td></tr>
+    <tr><td><strong>Decision Traceability</strong></td><td>Links architecture changes to business intent and code implementation.</td></tr>
+    <tr><td><strong>Automation Ready</strong></td><td>Integrates with CI/CD pipelines for validation, publishing, and governance.</td></tr>
+    <tr><td><strong>Guided Autonomy</strong></td><td>Teams move independently while staying aligned through shared principles.</td></tr>
+    <tr><td><strong>Knowledge Retention</strong></td><td>Architectural knowledge lives on — even when teams evolve.</td></tr>
+  </tbody>
+</table>
+
+## Integrations
+
+<div class="grid">
+  <div class="card">
+    <span class="strip"></span>
+    <h3>Log4brains</h3>
+    <p>Generates searchable ADR indexes and web views directly from your repository.</p>
+  </div>
+  <div class="card">
+    <span class="strip strip--blue"></span>
+    <h3>MkDocs Material</h3>
+    <p>Docs-as-Code site generation with custom components, search, and themes.</p>
+  </div>
+  <div class="card">
+    <span class="strip strip--amber"></span>
+    <h3>Zalando Tech Radar</h3>
+    <p>YAML-driven radar visualisation for technology alignment across teams.</p>
+  </div>
+</div>
+
+## Product Status
+
+<div class="card card--wide">
+  <span class="strip"></span>
+  <h3>Availability <span class="badge badge--ok"><span class="dot"></span>Available</span></h3>
+  <p>The Architecture-as-Code framework is actively used within enterprise-scale environments and available for integration with new projects.</p>
+</div>
+
+<div class="card card--wide">
+  <span class="strip strip--amber"></span>
+  <h3>Next Iteration <span class="badge badge--dev"><span class="dot"></span>In Development</span></h3>
+  <p>Automation layer for architecture validation and governance reporting — including compliance checks and visual dashboards.</p>
+</div>
+
+## Why Architecture-as-Code
+
+<table class="table">
+  <thead><tr><th>Strength</th><th>What it Delivers</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Transparency</strong></td><td>Architecture becomes a visible, shared conversation — not a hidden document.</td></tr>
+    <tr><td><strong>Speed & Alignment</strong></td><td>Faster iteration with consistent, principle-based governance.</td></tr>
+    <tr><td><strong>Longevity</strong></td><td>Decisions and intent are preserved beyond org charts and project cycles.</td></tr>
+    <tr><td><strong>Open Integration</strong></td><td>Works seamlessly with existing repos, docs, and pipelines.</td></tr>
+  </tbody>
+</table>
 
 </div>
