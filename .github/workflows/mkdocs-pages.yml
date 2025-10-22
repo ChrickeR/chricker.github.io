@@ -1,4 +1,4 @@
-name: Deploy MkDocs (+ Log4brains)
+name: Deploy MkDocs (+ Log4brains v1)
 
 on:
   push:
@@ -15,43 +15,55 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  ADR_LOCAL_DIR: 'adr'   # folder that contains package.json + log4brains.config.js
+  ADR_LOCAL_DIR: 'adr'     # folder with package.json, .log4brains.yml, and ADR files
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       # --- Checkout ---------------------------------------------------
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # --- Log4brains: install & build (only if adr/package.json exists) ---
+      # --- Log4brains v1: install & build ------------------------------
+      # Run L4B steps only if adr/package.json exists (MkDocs can still build alone)
       - name: Setup Node.js
         if: ${{ hashFiles(format('{0}/package.json', env.ADR_LOCAL_DIR)) != '' }}
         uses: actions/setup-node@v4
         with:
           node-version: 'lts/*'
 
-      - name: Install Log4brains deps
+      - name: Verify Log4brains config and ADRs
         if: ${{ hashFiles(format('{0}/package.json', env.ADR_LOCAL_DIR)) != '' }}
         working-directory: ${{ env.ADR_LOCAL_DIR }}
         run: |
-          echo "Using Node $(node -v) and npm $(npm -v)"
-          # Use npm install (no package-lock yet)
+          echo "== .log4brains.yml =="
+          if [ -f .log4brains.yml ]; then
+            sed -n '1,120p' .log4brains.yml
+          else
+            echo "❌ Missing .log4brains.yml (v1 schema required: project: …)"
+            echo "   Create adr/.log4brains.yml with:"
+            echo "   project: { name: 'TROi Architecture Decisions', tz: 'Europe/Stockholm', adrFolder: './docs/adr' }"
+          fi
+          echo "== ADR folder listing =="
+          ls -la ./docs/adr || true
+
+      - name: Install Log4brains dependencies (npm install)
+        if: ${{ hashFiles(format('{0}/package.json', env.ADR_LOCAL_DIR)) != '' }}
+        working-directory: ${{ env.ADR_LOCAL_DIR }}
+        run: |
+          echo "Node: $(node -v) | npm: $(npm -v)"
           npm install
           echo "package.json:"
           cat package.json || true
-          echo "log4brains.config.js (head):"
-          sed -n '1,120p' log4brains.config.js || true
 
       - name: Build Log4brains site (safe)
         if: ${{ hashFiles(format('{0}/package.json', env.ADR_LOCAL_DIR)) != '' }}
         working-directory: ${{ env.ADR_LOCAL_DIR }}
         continue-on-error: true
         run: |
-          # Build with the latest CLI, do not fail the whole job if it errors
-          npx -y log4brains@latest build || echo "⚠️ Log4brains build failed (check adr.path or ADR files)."
+          echo "Building Log4brains v1 with basePath=/adr-l4b/ …"
+          npx -y log4brains@latest build --basePath /adr-l4b/ || echo "⚠️ L4B build failed (check .log4brains.yml and ADR files)."
           echo "== adr/site listing =="
           ls -la site || true
 
@@ -65,17 +77,17 @@ jobs:
             ls -la docs/adr-l4b | head -n 40
           else
             # Keep a placeholder so MkDocs always builds
-            [ -f docs/adr-l4b/index.html ] || printf '<!doctype html><meta charset="utf-8"><title>ADR</title><body style="font:16px system-ui;padding:24px">ADR site will appear here after the Log4brains build.</body>' > docs/adr-l4b/index.html
+            [ -f docs/adr-l4b/index.html ] || printf '<!doctype html><meta charset="utf-8"><title>ADR</title><body style="font:16px system-ui;padding:24px">ADR site will appear here after a successful Log4brains build.</body>' > docs/adr-l4b/index.html
             echo "ℹ️ No L4B site output found; using/keeping placeholder."
           fi
 
-      # --- MkDocs: build & publish -----------------------------------
+      # --- MkDocs: build & publish ------------------------------------
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.x'
 
-      - name: Install MkDocs deps
+      - name: Install MkDocs dependencies
         run: |
           pip install "mkdocs>=1.5" "mkdocs-material>=9.5"
           mkdocs --version
