@@ -1,18 +1,20 @@
 ---
 id: 0001
-title: Adopt Architecture-as-Code for Decisions and Knowledge
+title: "Adopt Architecture-as-Code for Decisions and Knowledge"
 date: 2025-03-01
 status: Accepted
 tags: [aac, governance, enablement]
-domain: Engineering Enablement
-subdomain: Architecture
-bounded_context: Architecture-as-Code
-team: Architecture
-decision_owners: [Chief Architect, Architecture Board]
+domain: "Engineering Enablement"
+subdomain: "Architecture"
+bounded_context: "Architecture-as-Code"
+team: "Architecture"
+decision_owners: ["Chief Architect", "Architecture Board"]
 supersedes: []
 superseded_by: []
 related: [0002]
 ---
+
+# Adopt Architecture-as-Code for Decisions and Knowledge
 
 > **Domain:** Engineering Enablement  
 > **Subdomain:** Architecture-as-Code  
