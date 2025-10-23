@@ -16,6 +16,9 @@ related: [0002]
 
 # Adopt Architecture-as-Code for Decisions and Knowledge
 
+- Status: superseded by [20251023-test](20251023-test.md)
+
+
 > **Domain:** Engineering Enablement  
 > **Subdomain:** Architecture-as-Code  
 > **Bounded Context:** Architecture Knowledge Base  
