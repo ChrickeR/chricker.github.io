@@ -1,0 +1,4 @@
+project:
+  name: "TROi Architecture Decisions"
+  tz: "Europe/Stockholm"
+  adrFolder: "./docs/adr"        # Folder containing your ADR .md files

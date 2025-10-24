@@ -1,0 +1,123 @@
+# ==========================================
+# TROi — MkDocs configuration
+# ==========================================
+
+site_name: TROi
+site_description: >
+  Technology leadership that scales businesses — building frameworks, architecture, and tools
+  for modern, systematic technology organizations.
+site_url: https://troi.se
+repo_url: https://github.com/ChrickeR/troi.se
+repo_name: TROi GitHub
+
+# ---------- Navigation ----------
+nav:
+  - Home: index.md
+  - Products:
+      - Architecture-as-Code (AaC): products/architecture-as-code.md
+      - Integration Frameworks: products/integration-frameworks.md
+      - Technology Assessments: products/technology-assessments.md
+  - Blog:
+      - Overview: blog/index.md
+      - The IT-Architect: blog/the-it-architect.md
+  - About: about.md
+  - Contact: contact.md
+
+# ---------- Theme ----------
+theme:
+  name: material
+  logo: assets/images/troi-logo.svg       # Change this path to your logo
+  favicon: assets/images/favicon.ico
+  language: en
+  font:
+    text: Inter
+    code: JetBrains Mono
+  features:
+    - navigation.expand
+    - navigation.top
+    - navigation.tracking
+    - toc.integrate
+    - content.code.copy
+    - content.action.edit
+    - search.suggest
+    - search.highlight
+    - announce.dismiss
+    - header.autohide
+  palette:
+    - scheme: default
+      primary: teal
+      accent: blue
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - scheme: slate
+      primary: teal
+      accent: blue
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+# ---------- Plugins ----------
+plugins:
+  - search
+  - tags
+  - awesome-pages
+  - git-revision-date
+  - git-revision-date-localized:
+      enable_creation_date: true
+      type: date
+  - minify:
+      minify_html: true
+
+# ---------- Markdown extensions ----------
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - meta
+  - toc:
+      permalink: true
+  - md_in_html
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.highlight:
+      linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+
+# ---------- Extra CSS/JS ----------
+extra_css:
+  - assets/css/blog.css   # clean blog layout & typography
+  - assets/css/custom.css # optional overrides or animations
+
+# ---------- Extra info / footer ----------
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/ChrickeR
+      name: GitHub
+    - icon: fontawesome/brands/linkedin
+      link: https://linkedin.com/in/christofferras
+      name: LinkedIn
+    - icon: fontawesome/brands/x-twitter
+      link: https://x.com/troi_ai
+      name: X (Twitter)
+
+  copyright: >
+    © 2025 TROi — Crafted with ❤️ using MkDocs Material.
+
+# ---------- Site structure / paths ----------
+docs_dir: docs
+site_dir: site
+
+# ---------- Dev settings ----------
+dev_addr: 127.0.0.1:8000
+watch:
+  - docs
+  - assets

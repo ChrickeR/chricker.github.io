@@ -1,0 +1,12 @@
+{
+  "name": "troi-adr",
+  "private": false,
+  "devDependencies": {
+    "inquirer": "^9.3.8",
+    "log4brains": "latest",
+    "slugify": "^1.6.6"
+  },
+  "scripts": {
+    "build": "log4brains build"
+  }
+}

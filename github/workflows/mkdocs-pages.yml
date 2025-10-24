@@ -1,0 +1,123 @@
+name: Deploy MkDocs to GitHub Pages (safe)
+
+on:
+  push:
+    branches: [ master, main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+env:
+  SKIP_L4B: 'true'                 # kör utan Log4brains tills bygget är grönt
+  ADR_REPOSITORY: 'ChrickeR/adr'   # byt när du vill aktivera L4B
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout MkDocs site
+        uses: actions/checkout@v4
+
+      - name: Debug | tree & mkdocs.yml
+        run: |
+          echo "Root:" && ls -la || true
+          echo "docs/:" && ls -la docs || true
+          echo "mkdocs.yml (first 200 lines):"
+          sed -n '1,200p' mkdocs.yml || true
+
+      # Skapa placeholders så nav aldrig spricker
+      - name: Safety | create placeholder pages if missing
+        run: |
+          ensure() { mkdir -p "$(dirname "$1")"; [ -f "$1" ] || printf "# %s\n\n_TODO_\n" "$1" > "$1"; }
+          ensure docs/index.md
+          ensure docs/services/index.md
+          ensure docs/products/architecture-as-code/index.md
+          ensure docs/products/architecture-as-code/adr/index.md
+          ensure docs/products/architecture-as-code/adr/log4brains.md
+          ensure docs/products/architecture-as-code/tech-radar/index.md
+          ensure docs/products/target-architecture/index.md
+          ensure docs/blog/index.md
+          ensure docs/profile/index.md
+          ensure docs/contact/index.md
+
+      # (L4B av – slå på när bygget är grönt genom att sätta SKIP_L4B='false')
+      - name: Checkout ADR source (Log4brains)
+        if: ${{ env.SKIP_L4B != 'true' }}
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.ADR_REPOSITORY }}
+          path: adr-src
+          # token: ${{ secrets.ADR_REPO_TOKEN }} # om privat repo
+
+      - name: Apply ADR overlay
+        if: ${{ env.SKIP_L4B != 'true' }}
+        run: |
+          if [ -d "adr-overlay" ]; then
+            rsync -av --delete adr-overlay/ adr-src/
+          else
+            echo "adr-overlay/ not found — skipping overlay"
+          fi
+
+      - name: Setup Node & build Log4brains
+        if: ${{ env.SKIP_L4B != 'true' }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+
+      - name: Build Log4brains site
+        if: ${{ env.SKIP_L4B != 'true' }}
+        working-directory: adr-src
+        run: |
+          npm ci || npm install
+          npx log4brains build
+          ls -la site || (echo "L4B build failed (no site/)" && exit 1)
+
+      - name: Embed L4B output into MkDocs
+        if: ${{ env.SKIP_L4B != 'true' }}
+        run: |
+          rm -rf docs/adr-l4b
+          mkdir -p docs/adr-l4b
+          cp -r adr-src/site/* docs/adr-l4b/
+          ls -la docs/adr-l4b | head -n 50
+
+      # MkDocs build
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install MkDocs deps
+        run: pip install mkdocs mkdocs-material
+
+      - name: Sanity check
+        run: |
+          test -f mkdocs.yml || (echo "mkdocs.yml saknas i repo-roten" && exit 1)
+          test -d docs || (echo "docs/-mappen saknas" && exit 1)
+
+      - name: Build MkDocs
+        run: |
+          mkdocs --version
+          mkdocs build --clean -v
+          test -d site || (echo "MkDocs build misslyckades (ingen site/)" && exit 1)
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
