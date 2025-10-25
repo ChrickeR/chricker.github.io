@@ -1,123 +1,123 @@
-# ==========================================
-# TROi — MkDocs configuration
-# ==========================================
-
-site_name: TROi
-site_description: >
-  Technology leadership that scales businesses — building frameworks, architecture, and tools
-  for modern, systematic technology organizations.
+# =========================================================
+# MkDocs configuration for troi.se / TROi Architecture site
+# =========================================================
+site_name: "TROi Architecture & Tech"
 site_url: https://troi.se
-repo_url: https://github.com/ChrickeR/troi.se
-repo_name: TROi GitHub
+site_author: "Christoffer Råsten"
+site_description: "TROi Insights in the tech space"
 
-# ---------- Navigation ----------
-nav:
-  - Home: index.md
-  - Products:
-      - Architecture-as-Code (AaC): products/architecture-as-code.md
-      - Integration Frameworks: products/integration-frameworks.md
-      - Technology Assessments: products/technology-assessments.md
-  - Blog:
-      - Overview: blog/index.md
-      - The IT-Architect: blog/the-it-architect.md
-  - About: about.md
-  - Contact: contact.md
+repo_url: https://github.com/ChrickeR/chricker.github.io
+repo_name: ChrickeR/chricker.github.io
+edit_uri: edit/main/docs/
 
-# ---------- Theme ----------
 theme:
   name: material
-  logo: assets/images/troi-logo.svg       # Change this path to your logo
-  favicon: assets/images/favicon.ico
   language: en
-  font:
-    text: Inter
-    code: JetBrains Mono
+  logo: assets/troi-logo.svg
+  favicon: assets/favicon.png
   features:
-    - navigation.expand
-    - navigation.top
+    - navigation.instant
     - navigation.tracking
-    - toc.integrate
     - content.code.copy
-    - content.action.edit
-    - search.suggest
+    - content.code.annotate
     - search.highlight
-    - announce.dismiss
-    - header.autohide
+    - search.suggest
+    - toc.integrate
+    - blog
   palette:
     - scheme: default
-      primary: teal
+      primary: blue
+      accent: indigo
+    - scheme: slate
+      primary: indigo
       accent: blue
       toggle:
         icon: material/weather-night
         name: Switch to dark mode
-    - scheme: slate
-      primary: teal
-      accent: blue
-      toggle:
-        icon: material/weather-sunny
-        name: Switch to light mode
+  font:
+    text: Inter
+    code: Fira Code
 
-# ---------- Plugins ----------
+# ---------------------------------------------------------
+# Plugins
+# ---------------------------------------------------------
 plugins:
   - search
+  - blog:
+      blog_dir: blog/posts
+      post_url_format: "{slug}"
+      post_date_format: "%Y-%m-%d"
+      post_readtime: true
   - tags
-  - awesome-pages
-  - git-revision-date
   - git-revision-date-localized:
       enable_creation_date: true
-      type: date
-  - minify:
-      minify_html: true
+  - mkdocs-simple-hooks:
+      hooks:
+        on_pre_build: |
+          import os
+          os.makedirs("docs/blog", exist_ok=True)
+  # you can add others like 'redirects' or 'minify' later
 
-# ---------- Markdown extensions ----------
+# ---------------------------------------------------------
+# Markdown extensions
+# ---------------------------------------------------------
 markdown_extensions:
   - admonition
-  - attr_list
-  - def_list
+  - codehilite
   - footnotes
-  - meta
+  - attr_list
   - toc:
       permalink: true
   - md_in_html
+  - def_list
+  - tables
   - pymdownx.details
   - pymdownx.superfences
-  - pymdownx.tabbed:
-      alternate_style: true
-  - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
-  - pymdownx.highlight:
-      linenums: true
+  - pymdownx.highlight
   - pymdownx.inlinehilite
-  - pymdownx.snippets
+  - pymdownx.emoji
+  - pymdownx.tasklist:
+      custom_checkbox: true
 
-# ---------- Extra CSS/JS ----------
-extra_css:
-  - assets/css/blog.css   # clean blog layout & typography
-  - assets/css/custom.css # optional overrides or animations
+# ---------------------------------------------------------
+# Navigation
+# ---------------------------------------------------------
+nav:
+  - Home: index.md
 
-# ---------- Extra info / footer ----------
+  - Blog:
+      - "Why a Blog": blog/posts/why-a-blog.md
+      - "The IT Architect": blog/posts/the-it-architect.md
+      - "All posts": blog/index.md
+
+  - Architecture Decisions:
+      - "ADR Index": adr/index.md
+      - "Log4brains View": adr-l4b/index.html
+
+  - Tech Radar:
+      - Overview: techradar/index.md
+      - Blips: techradar/tech-radar.yaml
+      - Form (local use): techradar/techradar_form_security.html
+
+  - System Landscape:
+      - "Conceptual Map": system_landscape/system-landscape.md
+      - "Mermaid Source": system_landscape/system-landscape.mmd
+
+  - About: about.md
+
+# ---------------------------------------------------------
+# Extra site info / footer
+# ---------------------------------------------------------
 extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/ChrickeR
-      name: GitHub
     - icon: fontawesome/brands/linkedin
-      link: https://linkedin.com/in/christofferras
-      name: LinkedIn
-    - icon: fontawesome/brands/x-twitter
-      link: https://x.com/troi_ai
-      name: X (Twitter)
+      link: https://www.linkedin.com/in/christofferrassten/
+  analytics:
+    provider: google
+    property: G-XXXXXXX  # optional
 
-  copyright: >
-    © 2025 TROi — Crafted with ❤️ using MkDocs Material.
-
-# ---------- Site structure / paths ----------
-docs_dir: docs
-site_dir: site
-
-# ---------- Dev settings ----------
-dev_addr: 127.0.0.1:8000
-watch:
-  - docs
-  - assets
+copyright: >
+  © 2025 Christoffer Råsten / TROi.  
+  All thoughts are personal, not representing employers or clients.
