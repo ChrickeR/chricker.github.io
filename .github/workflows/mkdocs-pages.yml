@@ -29,14 +29,14 @@ jobs:
         uses: actions/checkout@v4
 
       # -----------------------------------------------------------------------
-      # Log4brains install & build
+      # (Optional) Log4brains install & build if adr/ exists
       # -----------------------------------------------------------------------
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 'lts/*'
 
-      - name: Install Log4brains
+      - name: Install Log4brains (if adr/ exists)
         run: |
           if [ -d "${ADR_LOCAL_DIR}" ]; then
             echo "Installing Log4brains in ${ADR_LOCAL_DIR}"
@@ -47,7 +47,7 @@ jobs:
             echo "No ${ADR_LOCAL_DIR}/ directory found; skipping L4B install."
           fi
 
-      - name: Build Log4brains
+      - name: Build Log4brains (if adr/ exists)
         run: |
           if [ -d "${ADR_LOCAL_DIR}" ]; then
             echo "Building Log4brains with basePath=${L4B_BASE_PATH}"
@@ -68,7 +68,7 @@ jobs:
           if [ -d "$OUT_V1" ] && [ "$(ls -A "$OUT_V1" 2>/dev/null)" ]; then
             rm -rf docs/adr-l4b/*
             cp -r "$OUT_V1/"* docs/adr-l4b/
-            echo "✅ Embedded v1 output."
+            echo "✅ Embedded Log4brains v1 output."
           elif [ -d "$OUT_LEG" ] && [ "$(ls -A "$OUT_LEG" 2>/dev/null)" ]; then
             rm -rf docs/adr-l4b/*
             cp -r "$OUT_LEG/"* docs/adr-l4b/
@@ -80,58 +80,59 @@ jobs:
           ls -la docs/adr-l4b | head -n 40
 
       # -----------------------------------------------------------------------
-      # Generate ADR index page (with intro + ADR list)
+      # Ensure required docs exist (placeholders for nav targets)
       # -----------------------------------------------------------------------
-      - name: Generate ADR index page
+      - name: Ensure required docs exist (placeholders)
         run: |
+          set -e
+          mkdir -p docs/blog/posts docs/techradar docs/system_landscape
+          # Blog index
+          [ -f docs/blog/index.md ] || cat > docs/blog/index.md <<'MD'
+          # Blog
+          Här listas blogginlägg. (Placeholder.)
+          MD
+          # Example posts (optional placeholders, only if missing)
+          [ -f docs/blog/posts/why-a-blog.md ] || cat > docs/blog/posts/why-a-blog.md <<'MD'
+          # Why a Blog
+          Placeholder post.
+          MD
+          [ -f docs/blog/posts/the-it-architect.md ] || cat > docs/blog/posts/the-it-architect.md <<'MD'
+          # The IT Architect
+          Placeholder post.
+          MD
+          # Tech Radar index
+          [ -f docs/techradar/index.md ] || cat > docs/techradar/index.md <<'MD'
+          # Tech Radar
+          Översiktssida för Tech Radar. (Placeholder.)
+          MD
+          # Tech Radar YAML placeholder (if you reference it in nav)
+          [ -f docs/techradar/tech-radar.yaml ] || cat > docs/techradar/tech-radar.yaml <<'YML'
+          rings: [ADOPT, TRIAL, ASSESS, HOLD]
+          quadrants: [Techniques, Tools, Platforms, Languages & Frameworks]
+          blips: []
+          YML
+          # Tech Radar form (HTML) placeholder (if referenced in nav)
+          [ -f docs/techradar/techradar_form_security.html ] || cat > docs/techradar/techradar_form_security.html <<'HTML'
+          <!doctype html><meta charset="utf-8"><title>Techradar Form</title>
+          <body style="font:16px system-ui;padding:24px">Formulär kommer här. (Placeholder.)</body>
+          HTML
+          # System landscape page
+          [ -f docs/system_landscape/system-landscape.md ] || cat > docs/system_landscape/system-landscape.md <<'MD'
+          # System Landscape (Conceptual)
+          Diagram kommer här. (Placeholder.)
+          MD
+          # About page
+          [ -f docs/about.md ] || echo -e "# About\nThis is TROi (placeholder)." > docs/about.md
+          # ADR index (if you link to it in nav)
           mkdir -p docs/adr
-          OUT="docs/adr/index.md"
-
-          # -------------------------------------------------------------------
-          # Write static intro text
-          # -------------------------------------------------------------------
-          {
-            echo "# Architecture Decision Records (ADR)"
-            echo
-            echo "Centralized, version-controlled records for significant architectural decisions."
-            echo "Use the index below for quick navigation, or open the **Log4brains view** for a richer ADR experience (search, status badges, etc.)."
-            echo
-            echo "- [View with Log4brains layout](/adr-l4b/)"
-            echo
-            echo "## ADR Index"
-            echo
-          } > "$OUT"
-
-          # -------------------------------------------------------------------
-          # Append auto-generated ADR list
-          # -------------------------------------------------------------------
-          if ls adr/docs/adr/*.md >/dev/null 2>&1; then
-            for f in $(ls adr/docs/adr/*.md | sort); do
-              slug="$(basename "$f" .md)"
-              id="$(awk '/^id:/{print $2; exit}' "$f")"
-              title="$(awk '
-                BEGIN{inFM=0}
-                NR==1 && $0 ~ /^---[[:space:]]*$/ {inFM=1; next}
-                inFM==1 && $0 ~ /^---[[:space:]]*$/ {inFM=0; exit}
-                inFM==1 && $0 ~ /^title:[[:space:]]*/ {sub(/^title:[[:space:]]*/,""); print; exit}
-              ' "$f")"
-              [ -z "$title" ] && title="$(grep -m1 '^# ' "$f" | sed 's/^# \+//')"
-              [ -z "$title" ] && title="Untitled"
-              [ -z "$id" ] && id="$slug"
-              echo "- [ADR-$id: $title](/adr-l4b/adrs/$slug/)" >> "$OUT"
-            done
-          else
-            echo "- _No ADRs found yet. Add files under \`adr/docs/adr/\`._" >> "$OUT"
-          fi
-
-          echo >> "$OUT"
-          echo "> Tip: Each ADR file includes front matter with domain/subdomain/bounded_context, team, decision_owners, and lifecycle links." >> "$OUT"
-
-          echo "✅ Generated $OUT:"
-          sed -n '1,120p' "$OUT"
+          [ -f docs/adr/index.md ] || cat > docs/adr/index.md <<'MD'
+          # Architecture Decision Records (ADR)
+          Centralized, version-controlled records for significant architectural decisions.
+          - [View with Log4brains layout](/adr-l4b/)
+          MD
 
       # -----------------------------------------------------------------------
-      # MkDocs build & deploy
+      # MkDocs build & upload artifact
       # -----------------------------------------------------------------------
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -140,7 +141,7 @@ jobs:
 
       - name: Install MkDocs dependencies
         run: |
-          pip install "mkdocs>=1.5" "mkdocs-material>=9.5"
+          pip install "mkdocs>=1.5" "mkdocs-material>=9.5" mkdocs-git-revision-date-localized-plugin
           mkdocs --version
 
       - name: Build MkDocs site
