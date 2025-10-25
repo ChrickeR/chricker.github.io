@@ -14,34 +14,14 @@
 }
 
 .wrap {
-  max-width: 1200px;
+  max-width: 1100px;
   margin: 0 auto;
   padding: 48px 14px 64px;
 }
 
 .hero {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 40px;
-}
-
-.hero-text {
-  flex: 1;
-  min-width: 320px;
-}
-
-.hero-image {
-  flex: 1;
-  min-width: 320px;
-  text-align: right;
-}
-
-.hero-image img {
-  max-width: 100%;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  text-align: center;
+  margin: 18px 0 60px;
 }
 
 .hero h1 {
@@ -54,8 +34,8 @@
 }
 
 .hero p {
-  margin: 0 0 18px;
-  max-width: 600px;
+  margin: 0 auto 18px;
+  max-width: 720px;
   color: var(--muted);
   font-size: 1.1rem;
 }
@@ -136,59 +116,53 @@
 <div class="wrap">
 
   <section class="hero">
-    <div class="hero-text">
-      <h1>Technology Leadership<br>That Scales Businesses</h1>
-      <p>I help Nordic enterprises design and operate technology organizations that drive measurable business impact — through structure, clarity, and speed.</p>
-      <p style="color:var(--muted)">From strategy to execution, my framework turns architecture and leadership into a systematic growth engine — not a bottleneck.</p>
-    </div>
-
-    <div class="hero-image">
-      <img src="https://images.pexels.com/photos/1181675/pexels-photo-1181675.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Technology Leadership">
-    </div>
+    <h1>Technology Leadership That Fits Together</h1>
+    <p>Modern technology organizations are built like systems — every part needs to fit, align, and reinforce the others.</p>
+    <p style="color:var(--muted)">I help companies combine strategy, architecture, and engineering leadership into one cohesive engine for growth — hands-on and outcome-driven.</p>
   </section>
 
-  <h2 class="h2">Five Pillars of Technology Excellence</h2>
-  <p class="sub">A practical framework for transforming technology into a strategic business advantage — enabling faster decisions, stronger teams, and sustainable growth.</p>
+  <h2 class="h2">Connected Capabilities</h2>
+  <p class="sub">Each capability stands strong on its own — but when connected, they amplify each other to create lasting impact.</p>
 
   <div class="grid">
     <div class="card">
-      <span class="icon i-blue">EO</span>
-      <h3>Enterprise Operating Models</h3>
-      <span class="kicker">Governance that scales</span>
-      <p>Design organizations that scale efficiently, align business and tech, and deliver predictable outcomes.</p>
-      <p class="meta">Operating models • Governance frameworks • Decision flow • Scalable execution</p>
+      <span class="icon i-blue">CIO</span>
+      <h3>Technology Strategy & CIO Advisory</h3>
+      <span class="kicker">Direction that aligns business and tech</span>
+      <p>Shape long-term technology strategies, investment roadmaps, and organizational design that drive measurable business outcomes.</p>
+      <p class="meta">Tech vision • Operating model design • Investment prioritization • Transformation leadership</p>
     </div>
 
     <div class="card">
-      <span class="icon i-violet">SA</span>
-      <h3>Solution Architecture</h3>
-      <span class="kicker">Blueprints that create value</span>
-      <p>Architect with purpose — translating strategy into actionable, maintainable solutions that evolve with the business.</p>
-      <p class="meta">Technical design • Integration patterns • Architecture blueprints • Implementation roadmaps</p>
+      <span class="icon i-violet">CTO</span>
+      <h3>Engineering & CTO Leadership</h3>
+      <span class="kicker">Hands-on leadership for delivery and growth</span>
+      <p>Lead or support engineering organizations to improve delivery capability, technical excellence, and leadership maturity.</p>
+      <p class="meta">Team design • Delivery frameworks • Coaching • Fractional or interim roles</p>
     </div>
 
     <div class="card">
-      <span class="icon i-green">EL</span>
-      <h3>Engineering Leadership</h3>
-      <span class="kicker">High-performing delivery cultures</span>
-      <p>Develop teams and practices that sustain velocity, quality, and innovation — without burning out your people.</p>
-      <p class="meta">Team enablement • Dev excellence • Culture systems • Leadership coaching</p>
+      <span class="icon i-green">ARCH</span>
+      <h3>Architecture & Systems Design</h3>
+      <span class="kicker">Structure that enables evolution</span>
+      <p>Build scalable architectures that connect business intent with technology execution — balancing structure and agility.</p>
+      <p class="meta">Domain modeling • Integration strategy • Target architecture • Architecture-as-Code</p>
     </div>
 
     <div class="card">
-      <span class="icon i-orange">AaC</span>
-      <h3>Architecture-as-Code</h3>
-      <span class="kicker">Living documentation for real change</span>
-      <p>Embed architecture into your engineering workflows — making decisions, principles, and direction transparent and versioned.</p>
-      <p class="meta">ADRs • Tech Radar • Target Architecture • Docs-as-Code • Automated guardrails</p>
+      <span class="icon i-orange">OPS</span>
+      <h3>Operating Models & Governance</h3>
+      <span class="kicker">The glue between people, process, and tech</span>
+      <p>Define clear ownership, decision flow, and cross-functional collaboration to enable scalable, predictable outcomes.</p>
+      <p class="meta">Governance design • Decision flow • Organizational patterns • Scaling models</p>
     </div>
 
     <div class="card">
-      <span class="icon i-indigo">LS</span>
-      <h3>Leadership Services</h3>
-      <span class="kicker">Hands-on guidance. Zero fluff.</span>
-      <p>Fractional CTO or advisory support to drive transformation, build alignment, and accelerate outcomes.</p>
-      <p class="meta">Fractional leadership • Coaching • Strategy facilitation • Decision support</p>
+      <span class="icon i-indigo">ADV</span>
+      <h3>Advisory & Enablement</h3>
+      <span class="kicker">Support that builds internal strength</span>
+      <p>Mentor teams, align leadership, and enable organizations to continuously evolve through practical, tailored support.</p>
+      <p class="meta">Coaching • Strategy facilitation • Architecture reviews • Capability assessments</p>
     </div>
   </div>
 </div>
