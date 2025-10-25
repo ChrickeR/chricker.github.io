@@ -1,10 +1,10 @@
-# =========================================================
-# MkDocs configuration for troi.se / TROi Architecture site
-# =========================================================
+# ================================
+# MkDocs config for troi.se
+# ================================
 site_name: "TROi Architecture & Tech"
 site_url: https://troi.se
 site_author: "Christoffer Råsten"
-site_description: "TROi Insights in the tech space"
+site_description: "Architecture-as-Code, DDD och MediaTech"
 
 repo_url: https://github.com/ChrickeR/chricker.github.io
 repo_name: ChrickeR/chricker.github.io
@@ -23,7 +23,9 @@ theme:
     - search.highlight
     - search.suggest
     - toc.integrate
-    - blog
+  font:
+    text: Inter
+    code: Fira Code
   palette:
     - scheme: default
       primary: blue
@@ -34,13 +36,7 @@ theme:
       toggle:
         icon: material/weather-night
         name: Switch to dark mode
-  font:
-    text: Inter
-    code: Fira Code
 
-# ---------------------------------------------------------
-# Plugins
-# ---------------------------------------------------------
 plugins:
   - search
   - blog:
@@ -51,26 +47,16 @@ plugins:
   - tags
   - git-revision-date-localized:
       enable_creation_date: true
-  - mkdocs-simple-hooks:
-      hooks:
-        on_pre_build: |
-          import os
-          os.makedirs("docs/blog", exist_ok=True)
-  # you can add others like 'redirects' or 'minify' later
 
-# ---------------------------------------------------------
-# Markdown extensions
-# ---------------------------------------------------------
 markdown_extensions:
   - admonition
-  - codehilite
-  - footnotes
   - attr_list
+  - def_list
+  - footnotes
+  - tables
   - toc:
       permalink: true
   - md_in_html
-  - def_list
-  - tables
   - pymdownx.details
   - pymdownx.superfences
   - pymdownx.highlight
@@ -78,17 +64,15 @@ markdown_extensions:
   - pymdownx.emoji
   - pymdownx.tasklist:
       custom_checkbox: true
+  - codehilite
 
-# ---------------------------------------------------------
-# Navigation
-# ---------------------------------------------------------
 nav:
   - Home: index.md
 
   - Blog:
+      - "All posts": blog/index.md
       - "Why a Blog": blog/posts/why-a-blog.md
       - "The IT Architect": blog/posts/the-it-architect.md
-      - "All posts": blog/index.md
 
   - Architecture Decisions:
       - "ADR Index": adr/index.md
@@ -96,7 +80,7 @@ nav:
 
   - Tech Radar:
       - Overview: techradar/index.md
-      - Blips: techradar/tech-radar.yaml
+      - Blips (YAML): techradar/tech-radar.yaml
       - Form (local use): techradar/techradar_form_security.html
 
   - System Landscape:
@@ -105,9 +89,6 @@ nav:
 
   - About: about.md
 
-# ---------------------------------------------------------
-# Extra site info / footer
-# ---------------------------------------------------------
 extra:
   social:
     - icon: fontawesome/brands/github
@@ -116,8 +97,8 @@ extra:
       link: https://www.linkedin.com/in/christofferrassten/
   analytics:
     provider: google
-    property: G-XXXXXXX  # optional
+    property: G-XXXXXXX  # valfritt
 
 copyright: >
-  © 2025 Christoffer Råsten / TROi.  
-  All thoughts are personal, not representing employers or clients.
+  © 2025 Christoffer Råsten / TROi. Alla tankar är personliga och
+  representerar inte arbetsgivare eller uppdragsgivare.
