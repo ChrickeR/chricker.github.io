@@ -11,6 +11,7 @@
   --green:#34d399;
   --orange:#fb923c;
   --indigo:#818cf8;
+  --rose:#f472b6;
 }
 
 .wrap {
@@ -104,6 +105,7 @@
 .i-green { background: linear-gradient(135deg, var(--green), #10b981); }
 .i-orange { background: linear-gradient(135deg, var(--orange), #f97316); }
 .i-indigo { background: linear-gradient(135deg, var(--indigo), #6366f1); }
+.i-rose { background: linear-gradient(135deg, var(--rose), #ec4899); }
 
 .kicker {
   display: block;
@@ -117,52 +119,62 @@
 
   <section class="hero">
     <h1>Technology Leadership That Fits Together</h1>
-    <p>Modern technology organizations are built like systems — every part needs to fit, align, and reinforce the others.</p>
-    <p style="color:var(--muted)">I help companies combine strategy, architecture, and engineering leadership into one cohesive engine for growth — hands-on and outcome-driven.</p>
+    <p>Modern technology organizations work best when every part — strategy, architecture, engineering, and leadership — reinforces the others.</p>
+    <p style="color:var(--muted)">I help companies connect these pieces into one cohesive engine for growth: practical, outcome-driven, and built to evolve.</p>
   </section>
 
   <h2 class="h2">Connected Capabilities</h2>
-  <p class="sub">Each capability stands strong on its own — but when connected, they amplify each other to create lasting impact.</p>
+  <p class="sub">Each capability stands strong on its own — but together they form a system that scales, adapts, and delivers.</p>
 
   <div class="grid">
     <div class="card">
       <span class="icon i-blue">CIO</span>
       <h3>Technology Strategy & CIO Advisory</h3>
-      <span class="kicker">Direction that aligns business and tech</span>
-      <p>Shape long-term technology strategies, investment roadmaps, and organizational design that drive measurable business outcomes.</p>
-      <p class="meta">Tech vision • Operating model design • Investment prioritization • Transformation leadership</p>
+      <span class="kicker">Clear direction and alignment</span>
+      <p>Shape long-term strategies, roadmaps, and operating principles that connect technology investments to business outcomes.</p>
+      <p class="meta">Tech vision • Investment roadmaps • Organizational design • Transformation support</p>
     </div>
 
     <div class="card">
       <span class="icon i-violet">CTO</span>
       <h3>Engineering & CTO Leadership</h3>
-      <span class="kicker">Hands-on leadership for delivery and growth</span>
-      <p>Lead or support engineering organizations to improve delivery capability, technical excellence, and leadership maturity.</p>
-      <p class="meta">Team design • Delivery frameworks • Coaching • Fractional or interim roles</p>
+      <span class="kicker">From strategy to scalable delivery</span>
+      <p>Enable engineering organizations to deliver value at scale — through structure, culture, and pragmatic leadership.</p>
+      <p class="meta">Engineering leadership • Delivery models • Capability development • Technical direction</p>
     </div>
 
     <div class="card">
       <span class="icon i-green">ARCH</span>
       <h3>Architecture & Systems Design</h3>
-      <span class="kicker">Structure that enables evolution</span>
-      <p>Build scalable architectures that connect business intent with technology execution — balancing structure and agility.</p>
+      <span class="kicker">Structures that evolve with intent</span>
+      <p>Design architectures that bridge business goals and technology evolution — balancing flexibility with clarity.</p>
       <p class="meta">Domain modeling • Integration strategy • Target architecture • Architecture-as-Code</p>
     </div>
 
     <div class="card">
       <span class="icon i-orange">OPS</span>
       <h3>Operating Models & Governance</h3>
-      <span class="kicker">The glue between people, process, and tech</span>
-      <p>Define clear ownership, decision flow, and cross-functional collaboration to enable scalable, predictable outcomes.</p>
-      <p class="meta">Governance design • Decision flow • Organizational patterns • Scaling models</p>
+      <span class="kicker">How people, process, and tech connect</span>
+      <p>Define operating principles that scale — from decision flow and ownership to metrics and cross-domain collaboration.</p>
+      <p class="meta">Governance design • Ownership models • Decision structures • Scaling frameworks</p>
     </div>
 
     <div class="card">
       <span class="icon i-indigo">ADV</span>
       <h3>Advisory & Enablement</h3>
-      <span class="kicker">Support that builds internal strength</span>
-      <p>Mentor teams, align leadership, and enable organizations to continuously evolve through practical, tailored support.</p>
+      <span class="kicker">Building internal capability</span>
+      <p>Support teams and leaders with tailored coaching, facilitation, and actionable insight that accelerates maturity.</p>
       <p class="meta">Coaching • Strategy facilitation • Architecture reviews • Capability assessments</p>
     </div>
+
+    <div class="card">
+      <span class="icon i-rose">INT</span>
+      <h3>Leadership in Action</h3>
+      <span class="kicker">Fractional & interim roles</span>
+      <p>Hands-on leadership when it matters most — stepping in as interim CIO, CTO, or Engineering Manager to stabilize, scale, or transform organizations.</p>
+      <p class="meta">Interim CIO/CTO • Engineering management • Transformation leadership • Hands-on delivery</p>
+    </div>
   </div>
+
+  <p class="sub" style="margin-top:48px;">Let’s connect the pieces — and turn your technology organization into a system that scales.</p>
 </div>
