@@ -1,14 +1,10 @@
 # ================================
 # MkDocs config for troi.se
 # ================================
-site_name: "TROi Architecture & Tech"
+site_name: "TROi — Architecture & Tech"
 site_url: https://troi.se
 site_author: "Christoffer Råsten"
-site_description: "Architecture-as-Code, DDD och MediaTech"
-
-repo_url: https://github.com/ChrickeR/chricker.github.io
-repo_name: ChrickeR/chricker.github.io
-edit_uri: edit/main/docs/
+site_description: "TROi — Tech insights and offerings."
 
 theme:
   name: material
@@ -72,27 +68,45 @@ nav:
       - "Why a Blog": blog/posts/why-a-blog.md
       - "The IT Architect": blog/posts/the-it-architect.md
 
+  - Products:
+      - Overview: products/index.md
+      - "Architecture-as-Code": products/architecture-as-code.md
+      - "Target Architecture": products/target-architecture.md
+
+  - Frameworks:
+      - Overview: frameworks/index.md
+      - "Domain-Driven Design": frameworks/ddd.md
+      - "Team Topologies": frameworks/team-topologies.md
+      - "API Guidelines": frameworks/api-guidelines.md
+
+  - Services:
+      - Overview: services/index.md
+      - "Enterprise Architecture": services/enterprise-architecture.md
+      - "Solution Architecture": services/solution-architecture.md
+      - "Ad Tech & Media Tech": services/adtech-mediatech.md
+
   - Architecture Decisions:
       - "ADR Index": adr/index.md
       - "Log4brains View": adr-l4b/index.html
 
   - Tech Radar:
       - Overview: techradar/index.md
-      - Blips (YAML): techradar/tech-radar.yaml
-      - Form (local use): techradar/techradar_form_security.html
+      - "Blips (YAML)": techradar/tech-radar.yaml
+      - "Form (local use)": techradar/techradar_form_security.html
 
   - System Landscape:
       - "Conceptual Map": system_landscape/system-landscape.md
+      - "Mermaid Source": system_landscape/system-landscape.mmd
 
   - About: about.md
 
 extra:
   social:
-    - icon: fontawesome/brands/github
-      link: https://github.com/ChrickeR
     - icon: fontawesome/brands/linkedin
       link: https://www.linkedin.com/in/christofferrassten/
 
 copyright: >
-  © 2025 Christoffer Råsten / TROi. Alla tankar är personliga och
-  representerar inte arbetsgivare eller uppdragsgivare.
+  © 2025 Christoffer Råsten / TROi.  
+  All content reflects personal views and experiences,  
+  and does not necessarily represent employers, clients,  
+  or associated partners, products, or frameworks.
