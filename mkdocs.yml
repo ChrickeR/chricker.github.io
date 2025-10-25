@@ -27,7 +27,7 @@ theme:
   logo: assets/logo.png
 
 repo_url: https://github.com/chricker/chricker.github.io
-repo_name: "chricker.github.io"
+repo_name: chricker.github.io
 edit_uri: edit/main/docs/
 
 plugins:
@@ -59,6 +59,9 @@ markdown_extensions:
       alternate_style: true
   - pymdownx.tasklist:
       custom_checkbox: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
 nav:
   - Home: index.md
@@ -79,3 +82,10 @@ nav:
       - Tags: blog/tags/index.md
       - Archive: blog/archive.md
   - Contact: contact.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/linkedin
+      link: https://linkedin.com/in/christofferrassten
+    - icon: fontawesome/brands/github
+      link: https://github.com/chricker
