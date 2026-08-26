@@ -1,0 +1,118 @@
+{
+  "note": "Canonical terminology for Organizational Flow. `wrong` entries are matched case-sensitively unless `ci` is true. Keep this the single source of truth for how concepts are spelled and capitalised across every chapter and every generated edition.",
+  "concepts": [
+    {
+      "canonical": "Organizational Flow",
+      "guidance": "Capitalised when naming the concept or the paper. Lowercase 'flow' when describing the movement itself.",
+      "wrong": [
+        "Organisational Flow",
+        "organizational flow",
+        "Organizational flow"
+      ]
+    },
+    {
+      "canonical": "capability",
+      "guidance": "Lowercase in prose. 'Capabilities' capitalised only as a chapter title."
+    },
+    {
+      "canonical": "capability map",
+      "guidance": "Lowercase in prose.",
+      "wrong": [
+        "Capability Map"
+      ]
+    },
+    {
+      "canonical": "guardrail",
+      "guidance": "Lowercase in prose. 'Guardrails' capitalised only as a chapter title."
+    },
+    {
+      "canonical": "friction",
+      "guidance": "Always lowercase. Never capitalised mid-sentence."
+    },
+    {
+      "canonical": "ownership",
+      "guidance": "Lowercase in prose."
+    },
+    {
+      "canonical": "architecture",
+      "guidance": "Lowercase in prose, except as a chapter title."
+    },
+    {
+      "canonical": "decision record",
+      "guidance": "Spelled out on first use per chapter; 'ADR' acceptable after.",
+      "wrong": [
+        "ADR's",
+        "adr"
+      ]
+    },
+    {
+      "canonical": "paper",
+      "guidance": "This work is a paper, not a book. 'book' only when referring to someone else's.",
+      "wrong": [
+        "this book",
+        "This book",
+        "the book,",
+        "the book.",
+        "the book's"
+      ]
+    }
+  ],
+  "spelling": {
+    "note": "The paper uses -ize / -ization throughout. These are the drifts to catch.",
+    "pairs": [
+      [
+        "standardise",
+        "standardize"
+      ],
+      [
+        "organisation",
+        "organization"
+      ],
+      [
+        "organisational",
+        "organizational"
+      ],
+      [
+        "prioritise",
+        "prioritize"
+      ],
+      [
+        "optimise",
+        "optimize"
+      ],
+      [
+        "recognise",
+        "recognize"
+      ],
+      [
+        "specialise",
+        "specialize"
+      ],
+      [
+        "capitalise",
+        "capitalize"
+      ],
+      [
+        "summarise",
+        "summarize"
+      ],
+      [
+        "modelling",
+        "modeling"
+      ],
+      [
+        "behaviour",
+        "behavior"
+      ],
+      [
+        "favour",
+        "favour"
+      ]
+    ],
+    "allow": [
+      "modelling",
+      "favour",
+      "behaviour"
+    ]
+  }
+}

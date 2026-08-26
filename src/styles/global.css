@@ -1,0 +1,908 @@
+:root {
+  --paper: #F1EFE2;
+  --paper-deep: #ECE9D9;
+  /* Sits a shade lighter than the page so boxed content reads as raised. */
+  --card: #FBFAF3;
+  --reading: rgba(75, 100, 85, 0.14);
+  --kpi-own: #A67C3D;
+  --kpi-hand: #9C5A3C;
+  --kpi-dec: #6F7F42;
+  --kpi-learn: #3F7568;
+  --kpi-value: #7A4A5E;
+  --ink: #20281F;
+  --moss: #4B6455;
+  --bark: #8A7458;
+  --gold: #B4884A;
+  --mist: #DCDACB;
+  /* Reading measure. Roughly 70 characters at the body size, which is what
+     the print edition has always used and what the web was only hitting on
+     chapters that happened to have no Insight beside them. */
+  --max: 42rem;
+  --aside: 15rem;
+  --aside-gap: 3rem;
+  --shell: 68rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --paper: #1B1F19;
+    --paper-deep: #14170F;
+    --card: #242A22;
+    --reading: rgba(127, 161, 137, 0.20);
+    --kpi-own: #C29A57;
+    --kpi-hand: #B06B4C;
+    --kpi-dec: #93A45C;
+    --kpi-learn: #5E9483;
+    --kpi-value: #A8788A;
+    --ink: #EDE9DA;
+    --moss: #7FA189;
+    --bark: #A6957C;
+    --gold: #D2A768;
+    --mist: #333829;
+  }
+}
+
+:root[data-theme='dark'] {
+  --paper: #1B1F19;
+  --paper-deep: #14170F;
+  --card: #242A22;
+  --reading: rgba(127, 161, 137, 0.20);
+  --kpi-own: #C29A57;
+  --kpi-hand: #B06B4C;
+  --kpi-dec: #93A45C;
+  --kpi-learn: #5E9483;
+  --kpi-value: #A8788A;
+  --ink: #EDE9DA;
+  --moss: #7FA189;
+  --bark: #A6957C;
+  --gold: #D2A768;
+  --mist: #333829;
+}
+
+:root[data-theme='light'] {
+  --paper: #F1EFE2;
+  --paper-deep: #ECE9D9;
+  --card: #FBFAF3;
+  --reading: rgba(75, 100, 85, 0.14);
+  --kpi-own: #A67C3D;
+  --kpi-hand: #9C5A3C;
+  --kpi-dec: #6F7F42;
+  --kpi-learn: #3F7568;
+  --kpi-value: #7A4A5E;
+  --ink: #20281F;
+  --moss: #4B6455;
+  --bark: #8A7458;
+  --gold: #B4884A;
+  --mist: #DCDACB;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: light dark;
+  /* Reserve the scrollbar always. A page short enough not to scroll is
+     otherwise wider than one that does, and the centred nav shifts between
+     them as you move around the site. */
+  scrollbar-gutter: stable;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 18px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color .2s ease, color .2s ease;
+}
+
+a {
+  color: inherit;
+}
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--moss);
+  outline-offset: 3px;
+}
+
+/* ---------- Header ---------- */
+/* Three tracks so the nav sits centred in the header rather than crowded
+   against the theme button. The outer tracks are equal, so the centre stays
+   centred on the page regardless of how wide the wordmark or button get. */
+.site-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 1.5rem;
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 2.2rem 1.5rem 1.6rem;
+}
+
+.site-header .theme-toggle {
+  justify-self: end;
+}
+
+.wordmark {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 1.15rem;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+}
+
+/* As a grid item the link is blockified and fills its track, which would
+   drag the underline the full width of the header. */
+.site-header .wordmark {
+  justify-self: start;
+}
+
+/* The wordmark is the only way home now that Home has left the nav, so it
+   carries the same you-are-here rule the nav links do. */
+.wordmark[aria-current='page'] {
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 0.1rem;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.site-nav a {
+  text-decoration: none;
+  color: var(--bark);
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;
+  transition: color .2s ease, border-color .2s ease;
+}
+.site-nav a[aria-current='page'],
+.site-nav a:hover {
+  color: var(--ink);
+  border-color: var(--moss);
+}
+
+.nav-short {
+  display: none;
+}
+
+@media (max-width: 680px) {
+  .nav-full {
+    display: none;
+  }
+  .nav-short {
+    display: inline;
+  }
+  /* Too narrow for three tracks: wordmark and toggle share the first row and
+     the nav takes its own, still centred. */
+  .site-header {
+    grid-template-columns: 1fr auto;
+    row-gap: 1rem;
+    padding-bottom: 1.2rem;
+  }
+  .site-nav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-content: center;
+    gap: 1.4rem;
+  }
+}
+
+.skip-link {
+  position: absolute;
+  top: -3rem;
+  left: 1rem;
+  z-index: 100;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  padding: 0.6rem 1rem;
+  border-radius: 4px;
+  border: 1px solid var(--moss);
+  text-decoration: none;
+  transition: top .15s ease;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+.theme-toggle {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bark);
+  background: none;
+  border: 1px solid var(--bark);
+  border-radius: 20px;
+  padding: 0.35rem 0.8rem;
+  cursor: pointer;
+  transition: color .2s ease, border-color .2s ease;
+}
+.theme-toggle:hover {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 3.5rem 1.5rem 4.5rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: -40%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120%;
+  height: 140%;
+  background: radial-gradient(ellipse at top, rgba(180, 136, 74, 0.14), transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+.kicker {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--moss);
+  margin: 0 0 1rem;
+}
+
+.draft-tag {
+  color: var(--gold);
+  opacity: 0.85;
+}
+
+.hero h1 {
+  font-family: 'Fraunces', serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-size: clamp(2.2rem, 5.4vw, 3.6rem);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  margin: 0 auto 0.7rem;
+  max-width: 38rem;
+  text-wrap: balance;
+}
+
+/* Always its own line. Set inline it wrapped mid-phrase at most widths —
+   "Friction — The / Silent Killer" — which reads as a mistake rather than as a
+   title. Two lines is the same lockup the print cover uses. */
+.hero h1 .hero-sub {
+  display: block;
+  margin-top: 0.15em;
+  color: var(--bark);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.62em;
+  line-height: 1.15;
+  letter-spacing: -0.005em;
+}
+
+.hero-tagline {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  color: var(--moss);
+  max-width: 34rem;
+  margin: 0 auto 1.6rem;
+}
+
+.hero .lede {
+  max-width: 34rem;
+  margin: 0 auto;
+  color: var(--bark);
+  font-size: 1.05rem;
+}
+
+/* The hero runs to more than one lede now; without this they collide. */
+.hero .lede + .lede {
+  margin-top: 1.1rem;
+}
+
+/* The axiom — set apart from the ledes above it with a rule, since it is the
+   one sentence in the hero meant to be quoted rather than read past. */
+.hero-axiom {
+  max-width: 34rem;
+  margin: 1.6rem auto 0;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--mist);
+  font-style: italic;
+  color: var(--bark);
+  font-size: 1.02rem;
+  line-height: 1.6;
+}
+
+.horizon {
+  width: 3rem;
+  height: 1px;
+  background: var(--bark);
+  opacity: .5;
+  margin: 2.4rem auto 0;
+}
+
+/* ---------- Reading column ---------- */
+main.reading {
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 0 1.5rem 6rem;
+}
+
+.block {
+  max-width: var(--max);
+  margin: 0 auto 3.4rem;
+}
+
+.block p {
+  margin: 0 0 1.15em;
+}
+.block p:last-child {
+  margin-bottom: 0;
+}
+
+.block blockquote {
+  margin: 1.8em 0;
+  padding-left: 1.4rem;
+  border-left: 2px solid var(--moss);
+  font-family: 'Fraunces', serif;
+  font-size: 1.3rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--ink);
+}
+.block blockquote p {
+  margin: 0 0 0.3em;
+}
+.block blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+.chapter-divider {
+  border: none;
+  border-top: 1px solid var(--mist);
+  max-width: var(--max);
+  margin: 3.6rem auto;
+}
+
+/* The chapter title named in a closing bridge line — "Cultivating this: X,
+   in Part III." — is a real link to that chapter. */
+.chapter-ref {
+  text-decoration: underline;
+  text-decoration-color: var(--mist);
+  text-underline-offset: 2px;
+  transition: color .2s ease, text-decoration-color .2s ease;
+}
+.chapter-ref:hover {
+  color: var(--moss);
+  text-decoration-color: var(--moss);
+}
+
+.chapter h2 {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 1.9rem;
+  margin: 0.2rem 0 1.4rem;
+  text-wrap: balance;
+}
+
+/* The subject noun, carried above the title. Part II titles are written to
+   raise curiosity rather than to announce a subject, so this is what a reader
+   scans for when they have been sent to "the ownership chapter". */
+.chapter-topic {
+  display: inline-block;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bark);
+  border: 1px solid var(--mist);
+  border-radius: 3px;
+  padding: 0.22rem 0.5rem;
+  margin: 0 0 0.7rem;
+}
+
+.chapter-dek {
+  font-family: 'Fraunces', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--bark);
+  margin: -0.8rem 0 1.8rem;
+  max-width: var(--max);
+  text-wrap: balance;
+}
+
+.chapter-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  max-width: var(--max);
+  margin: 3.4rem auto 0;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--mist);
+}
+.chapter-nav a {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  text-decoration: none;
+  color: var(--ink);
+  max-width: 48%;
+}
+.chapter-nav-next {
+  text-align: right;
+  margin-left: auto;
+}
+.chapter-nav-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--bark);
+}
+.chapter-nav-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1rem;
+}
+.chapter-nav a:hover .chapter-nav-title {
+  color: var(--moss);
+}
+
+@media (max-width: 480px) {
+  .chapter-nav a {
+    max-width: 100%;
+  }
+}
+
+/* ---------- Grid row: body + marginalia ---------- */
+.grid-row {
+  display: grid;
+  grid-template-columns: minmax(0, var(--max)) var(--aside);
+  column-gap: var(--aside-gap);
+  align-items: start;
+}
+
+/* Where there is room, a chapter carrying an Insight widens to hold the text
+   column and the margin beside it, and everything inside stays flush left
+   against the text. Without this the Insight takes its width out of the
+   measure: the same prose reads at 48 characters with a note beside it and 85
+   without one. */
+@media (min-width: 1100px) {
+  .chapter.has-aside,
+  .preface {
+    max-width: calc(var(--max) + var(--aside-gap) + var(--aside));
+  }
+  .chapter.has-aside > *:not(.grid-row),
+  .preface > *:not(.grid-row) {
+    max-width: var(--max);
+    margin-left: 0;
+    margin-right: auto;
+  }
+}
+
+.marginalia {
+  position: relative;
+  padding-top: 0.3rem;
+  margin-top: 0.4rem;
+}
+
+.marginalia + .marginalia {
+  margin-top: 2rem;
+}
+
+@media (min-width: 721px) {
+  .grid-row .marginalia-col {
+    position: sticky;
+    top: 6rem;
+    align-self: start;
+  }
+}
+
+.marginalia::before {
+  content: "";
+  position: absolute;
+  top: 0.85rem;
+  left: -3rem;
+  width: 2.6rem;
+  height: 1px;
+  background: var(--bark);
+  opacity: .55;
+}
+
+.marginalia-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 0.35rem;
+}
+
+.marginalia-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 1.02rem;
+  line-height: 1.35;
+  margin: 0 0 0.5rem;
+}
+
+.marginalia-title a {
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+.marginalia-title a:hover {
+  border-color: var(--gold);
+}
+
+.marginalia-text {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--bark);
+  margin: 0;
+}
+
+/* Names which of the four indicators the chapter works on. What Friction Costs
+   promises the four are the spine of the paper; this is what lets a reader see
+   that from inside a chapter instead of reconstructing it. */
+/* ---------- Chapter tags ----------
+   Two chips under the dek: which half of the proposition the chapter works on,
+   and which of the four indicators it moves. The indicator colours are the same
+   tokens the self-assessment radar uses, so the reader meets one colour for one
+   idea across the whole site. */
+.chapter-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  max-width: var(--max);
+  margin: -0.6rem 0 2rem;
+}
+
+.chapter-tags .tag {
+  --tone: var(--bark);
+  display: inline-block;
+  padding: 0.28rem 0.7rem;
+  border: 1px solid color-mix(in srgb, var(--tone) 40%, transparent);
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--tone) 8%, transparent);
+  color: var(--tone);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  line-height: 1.4;
+  transition: background-color .15s ease, border-color .15s ease;
+}
+
+.chapter-tags .tag:hover {
+  background: color-mix(in srgb, var(--tone) 16%, transparent);
+  border-color: color-mix(in srgb, var(--tone) 70%, transparent);
+}
+
+/* Which half. */
+.tone-friction { --tone: var(--moss); }
+.tone-value    { --tone: var(--kpi-value); }
+.tone-both     { --tone: var(--gold); }
+
+/* Which indicator — shared with the self-assessment. */
+.tone-own   { --tone: var(--kpi-own); }
+.tone-hand  { --tone: var(--kpi-hand); }
+.tone-dec   { --tone: var(--kpi-dec); }
+.tone-learn { --tone: var(--kpi-learn); }
+.tone-all   { --tone: var(--bark); }
+
+/* ---------- Editor's Notes: quiet per-chapter research annotations ---------- */
+.editor-notes {
+  max-width: var(--max);
+  margin: 2.6rem auto 0;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--mist);
+}
+
+.editor-notes-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 0.7rem;
+}
+
+.editor-note {
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: var(--bark);
+  margin: 0 0 0.7rem;
+}
+
+.editor-note:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- Table of contents (Preface landing) ----------
+   Two columns, and wide enough to hold them: thirty chapters in a single
+   column is a long scroll for something whose whole job is letting a reader
+   see the shape of the paper at once. The per-chapter draft status came out
+   with the second column — it read the same on every row, and the edition is
+   already stated on the cover above. */
+.toc-part {
+  margin: 0 auto 2.6rem;
+  max-width: var(--shell);
+}
+.toc-part .kicker {
+  margin-bottom: 0.5rem;
+}
+.toc-part ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.toc-cols {
+  columns: 2;
+  column-gap: 3rem;
+  /* Closes the list under both columns at once — with border-top on every
+     row, the last row of each column would otherwise hang open. */
+  border-bottom: 1px solid var(--mist);
+}
+/* A row must not split across the column break, and the rules that separate
+   rows have to survive being the first item in a column. */
+.toc-part li {
+  break-inside: avoid;
+  border-top: 1px solid var(--mist);
+}
+.toc-chapter {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.62rem 0;
+  text-decoration: none;
+  color: var(--ink);
+  font-family: 'Fraunces', serif;
+  font-size: 1rem;
+}
+.toc-chapter.is-upcoming {
+  color: var(--bark);
+  cursor: default;
+}
+.toc-status {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--bark);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 2.2rem 1.5rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  border-top: 1px solid var(--mist);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--bark);
+  letter-spacing: 0.04em;
+}
+
+.site-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.1rem;
+}
+
+.site-footer a {
+  text-decoration: none;
+  color: var(--bark);
+}
+.site-footer a:hover {
+  color: var(--ink);
+}
+
+.site-footer-legal {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.site-footer-legal a {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  color: var(--bark);
+  text-decoration: none;
+}
+.site-footer-legal a:hover { color: var(--ink); }
+
+/* Reads as one of the legal-row links rather than a button, because it is an
+   offer rather than a call to action down here. */
+.site-footer-buy {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  color: var(--bark);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+.site-footer-buy:hover { color: var(--ink); }
+
+/* Sits among the links in the hero list, so it takes their exact treatment —
+   ink rather than the list's bark, and the same moss underline. */
+.friction-buy {
+  font: inherit;
+  color: var(--ink);
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--moss);
+  padding: 0;
+  cursor: pointer;
+  text-decoration: none;
+}
+.friction-buy:hover { color: var(--moss); }
+
+/* The copyright line doubles as the way to the printable book. It must not
+   look like a link — that is the entire point of it. */
+.site-footer-egg,
+.site-footer-egg:hover {
+  color: var(--bark);
+  text-decoration: none;
+  cursor: default;
+}
+
+.folio {
+  color: var(--bark);
+  opacity: .7;
+}
+
+/* ---------- Insight standalone page ---------- */
+.insight-page .kicker {
+  margin-bottom: 0.6rem;
+}
+.insight-page h1 {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: clamp(1.8rem, 3.4vw, 2.4rem);
+  margin: 0 0 1.6rem;
+  text-wrap: balance;
+}
+.insight-page .related {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--mist);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bark);
+}
+.insight-page .related a {
+  color: var(--moss);
+  text-decoration: none;
+  border-bottom: 1px solid var(--moss);
+}
+
+.insight-page h2 {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 1.4rem;
+  margin: 2.4rem 0 1rem;
+  text-wrap: balance;
+}
+.insight-page h2:first-child {
+  margin-top: 0;
+}
+.insight-page ul,
+.insight-page ol {
+  margin: 0 0 1.15em;
+  padding-left: 1.3rem;
+}
+.insight-page li {
+  margin-bottom: 0.5em;
+}
+.insight-page li p {
+  margin: 0 0 0.4em;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 720px) {
+  .grid-row {
+    grid-template-columns: 1fr;
+    row-gap: 1.4rem;
+  }
+  .marginalia {
+    border-top: 1px solid var(--mist);
+    padding-top: 1rem;
+  }
+  .marginalia::before {
+    display: none;
+  }
+  body {
+    font-size: 17px;
+  }
+  .site-nav {
+    gap: 1.2rem;
+  }
+  .toc-chapter {
+    font-size: 0.98rem;
+  }
+  /* Two columns of chapter titles at phone width would set about four words
+     to the line. */
+  .toc-cols {
+    columns: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ---------- Print (any page reached with Cmd/Ctrl+P directly, rather than
+   through the dedicated /organizational-flow/print/ edition, which has its
+   own complete print stylesheet and isn't affected by this block) ----------
+   Without this, chrome and apparatus print along with the reading, and the
+   sticky Insight column freezes mid-page instead of flowing with the text —
+   both render as content overlapping content. */
+@media print {
+  .no-print, .site-header, .site-footer, .skip-link, .theme-toggle,
+  .chapter-jump, .chapter-nav {
+    display: none !important;
+  }
+
+  .grid-row {
+    display: block;
+  }
+  .grid-row .marginalia-col {
+    position: static;
+    margin-top: 1.6rem;
+  }
+  .chapter.has-aside,
+  .preface {
+    max-width: var(--max);
+  }
+  .marginalia {
+    border-top: 1px solid var(--mist);
+    padding-top: 1rem;
+    break-inside: avoid;
+  }
+  .marginalia::before {
+    display: none;
+  }
+
+  html, body {
+    background: #fff !important;
+    color: #1a1a1a !important;
+  }
+}

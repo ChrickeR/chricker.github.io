@@ -1,0 +1,72 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Footer from '../../components/Footer.astro';
+import { findChapterLocation, isFrontMatter, frontMatter } from '../../data/book-structure';
+
+export async function getStaticPaths() {
+  function datePath(date: Date) {
+    const yyyy = date.getUTCFullYear();
+    const mm = String(date.getUTCMonth() + 1).padStart(2, '0');
+    const dd = String(date.getUTCDate()).padStart(2, '0');
+    return `${yyyy}/${mm}/${dd}`;
+  }
+
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: `${datePath(post.data.date)}/${post.id}` },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const formattedDate = post.data.date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC',
+});
+
+// The forward-link's wording is resolved from the paper's structure rather than
+// stored beside the post. These labels were written once and then named
+// chapters that had since been retitled or moved to another part — a reader
+// clicked "Part II · People" and landed on The Wait Nobody Logged. Derived
+// here, a retitle updates the archive on the next build and cannot drift.
+const dev = post.data.developedIn;
+const devLocation = dev ? findChapterLocation(dev.chapterSlug) : null;
+const devFront = dev && isFrontMatter(dev.chapterSlug)
+  ? frontMatter.find((f) => f.slug === dev.chapterSlug)
+  : null;
+const devLabel = devLocation
+  ? `Part ${devLocation.part.id} · ${devLocation.chapter.title}`
+  : devFront
+    ? devFront.title
+    : (dev?.label ?? null);
+---
+
+<BaseLayout title={post.data.title} description={post.data.title}>
+  <main class="reading" id="main">
+    <section class="block insight-page">
+      <p class="kicker">
+        {formattedDate}
+        {post.data.category && ` — ${post.data.category}`}
+      </p>
+      <h1>{post.data.title}</h1>
+      <Content />
+
+      {post.data.tags.length > 0 && (
+        <p class="related">{post.data.tags.join(' · ')}</p>
+      )}
+
+      {dev && devLabel && (
+        <p class="related">
+          <em>This idea is developed further in <a href={`/organizational-flow/${dev.chapterSlug}/`}>{devLabel}</a>.</em>
+        </p>
+      )}
+    </section>
+  </main>
+
+  <Footer label="TROi — blog archive" />
+</BaseLayout>

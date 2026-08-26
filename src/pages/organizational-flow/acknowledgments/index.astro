@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Footer from '../../../components/Footer.astro';
+import { credits, acknowledgmentsIntro } from '../../../data/acknowledgments';
+import { findChapterLocation } from '../../../data/book-structure';
+import PaperNav from '../../../components/PaperNav.astro';
+
+// Resolved from the slug rather than stored alongside it — the titles here
+// went stale the last time chapters were renamed, and pointed readers at
+// chapters that no longer existed under that name.
+const titleOf = (slug?: string) =>
+  slug ? findChapterLocation(slug)?.chapter.title ?? slug : null;
+---
+
+<BaseLayout title="Acknowledgments" description="The people and books whose thinking shaped specific ideas in Organizational Flow.">
+  <main class="reading" id="main">
+    <section class="block insight-page">
+      <p class="kicker">Organizational Flow</p>
+      <h1>Ideas rarely arrive alone.</h1>
+      {acknowledgmentsIntro.map((para) => <p class="ack-intro">{para}</p>)}
+
+      <ul style="list-style:none; padding:0; margin:2.2rem 0 0;">
+        {credits.map((person) => (
+          <li style="padding:1.2rem 0; border-top:1px solid var(--mist);">
+            <p style="margin:0; font-family:'Fraunces', serif; font-size:1.1rem;">{person.name}</p>
+            <p style="margin:0.3rem 0 0.7rem; font-family:'Space Mono', monospace; font-size:0.68rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--bark);">{person.relation}</p>
+            <p style="margin:0; font-size:0.95rem;">{person.note}</p>
+            {person.chapterSlug && (
+              <p style="margin:0.6rem 0 0;">
+                <a href={`/organizational-flow/${person.chapterSlug}/`} style="font-size:0.85rem;">
+                  Read in {titleOf(person.chapterSlug)} →
+                </a>
+              </p>
+            )}
+          </li>
+        ))}
+      </ul>
+          <PaperNav current="acknowledgments" />
+    </section>
+  </main>
+
+  <Footer label="Organizational Flow — an ongoing work" />
+</BaseLayout>
+
+<style>
+  .ack-intro { margin: 0 0 1rem; }
+  .ack-intro:last-of-type {
+    color: var(--bark);
+    font-size: 0.95rem;
+    margin-top: 1.6rem;
+  }
+</style>

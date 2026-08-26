@@ -1,0 +1,319 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Footer from '../../../components/Footer.astro';
+import ToolVote from '../../../components/ToolVote.astro';
+---
+
+<BaseLayout
+  title="Cambium"
+  description="Most architecture tools draw what an organization has. Cambium draws what it costs to get something through it — and then helps you settle the things that make it cost. Working prototype."
+>
+  <main class="reading" id="main">
+    <section class="block insight-page">
+      <p class="kicker"><a href="/tools/">Tools</a></p>
+      <h1>Cambium</h1>
+
+      <p class="lede">
+        Most architecture tools draw what an organization has: systems, teams, boxes, lines. Cambium draws
+        what it costs to get something through it — and then helps you settle the things that make it cost.
+        It is a model of an organization in motion rather than a picture of one at rest.
+      </p>
+
+      <h2>The name</h2>
+
+      <p>
+        The cambium is the thin living layer just under a tree's bark. It carries sap from the roots to the
+        canopy, and it is the layer a girdling cut severs. Cut it and the tree stays green from the road for
+        weeks while it dies standing up. Circulation is the part that matters and the part you cannot see from
+        outside — which is a fair description of most organizations too.
+      </p>
+
+      <h2>What it does</h2>
+
+      <p>
+        You model an organization once — what it must always be able to do, who does it, what it runs on —
+        and the tool reads that model for the places work will get stuck. Nothing is typed in by hand; it is already implied by
+        the model, and a tool that knows the vocabulary can say so out loud.
+      </p>
+
+      <p>
+        That is the first half. A list of what is wrong can only ever repeat itself, so the second half is
+        about closing them.
+      </p>
+
+      <ul class="feature-list">
+        <li>
+          <strong>It finds.</strong> Capabilities with no owner, one with two claimed owners, work owned by
+          one team and built by another, a role resting on a single person, a word four systems each hold
+          their own version of. Each names the people who disagree.
+        </li>
+        <li>
+          <strong>It offers options, never recommendations.</strong> Open a finding and you get the available
+          moves with what each buys and what each costs, side by side. Every one costs something, and which
+          trade is right depends on things the map does not hold.
+        </li>
+        <li>
+          <strong>It settles.</strong> An agreement is about one thing and needs the parties to sign it. A
+          guideline is a rule about a class of things, signed once and then checked against everything new —
+          the signature that scales, because two hundred people each negotiating three agreements is six
+          hundred signatures, and a control that expensive is one somebody eventually removes.
+        </li>
+        <li>
+          <strong>A decision applies itself.</strong> Recording one does not only write it down: the rule it
+          announces becomes a guideline, the meaning it settles becomes an agreement, the competence it
+          requires attaches to the capability that needs it, the address it lands on is written on the thing.
+          Everything it creates arrives unsigned. A decision is somebody choosing; a rule is the organization
+          agreeing to be held to it, and the distance between those two is usually larger than anybody
+          expects.
+        </li>
+        <li>
+          <strong>No score.</strong> Nobody has measured enough organizations for a number to mean anything,
+          and a number invites comparison with other people instead of with your own reading of the same place
+          in six months. The four indicators are reported separately and never summed — a single
+          organizational number acquires a target, a target acquires a bonus, and a measure with a bonus
+          attached stops measuring anything.
+        </li>
+      </ul>
+
+      <h2>Why it changed</h2>
+
+      <p>
+        An AI agent that writes code can produce more in an afternoon than a team can decide about in a month.
+        The constraint stops being competence and becomes <em>decidedness</em> — what the organization has
+        actually settled, in writing, that work can proceed from. Which is the thing this tool was already
+        measuring.
+      </p>
+
+      <p>
+        So agents are on the map beside the people. They hold competence, sit in teams, work in repositories,
+        and count toward the load. The one thing they may not do is sign: a signature records that somebody
+        would stand behind a sentence afterwards, in front of the people it lands on, and that cannot be
+        delegated to something a vendor can switch off on a Tuesday.
+      </p>
+
+      <p>
+        What an agent may do is never a setting. It comes from the rules in force where it is working — act
+        where a signed rule already decided the matter, prepare and stop where a judgement remains, ask where
+        no rule reaches. There is deliberately no switch that grants autonomy. An organization whose agents
+        ask less is one that has decided more things out loud, and the tool turns each answer into a rule so
+        the same question is not asked twice.
+      </p>
+
+      <h2>What comes out</h2>
+
+      <p>
+        Guardrails in prose for whoever is about to do the work, ordered so somebody skimming can stop after
+        the first section and still not do anything they would have to undo. A machine-readable policy for an
+        agent platform to gate on — deny by default, a reason on every verdict, a fingerprint so it can tell
+        when it is holding a stale one. A pre-commit hook that blocks exactly one thing: breaking a signed
+        rule without saying why.
+      </p>
+
+      <p>
+        The model is YAML in git rather than a database. Diffs, history for free, code review on
+        organizational change, and a map that survives this tool being replaced — which is the last thing it
+        asserts: a model is only worth having if the organization it describes can argue with it in the open,
+        one commit at a time.
+      </p>
+
+      <h2>The metamodel</h2>
+
+      <p>
+        Twenty-two entity types in four bands: what is durable, how the place is arranged this decade, what it
+        currently runs on — and the band most models leave out, which records how a decision was made, who may
+        act on it without asking, and what anybody actually went and measured. The first three can be read off
+        things an organization already keeps. The fourth cannot, and it is the one that makes the others tell
+        you how fast the organization moves rather than only what it contains.
+      </p>
+
+      <p>
+        Small enough to hold in your head, because a notation you can hold in your head is one people keep
+        current, and a model nobody updates is worse than no model at all.
+      </p>
+
+      <p class="demo-open">
+        <a class="demo-button" href="/tools/cambium-metamodel.html">Read the metamodel →</a>
+        <span class="demo-hint">Twenty-two entities, 29 relations, one loop that closes.</span>
+      </p>
+
+      <h2>The walkthrough</h2>
+
+      <p>
+        Sixteen stops through the prototype, captured running against a made-up insurer with a few problems
+        planted in it. The guided demo walks the same stops inside the running tool; the prototype is the
+        tool on its own, where things can be changed.
+      </p>
+
+      <p class="demo-open">
+        <a class="demo-button" href="/tools/cambium-demo.html">Open the guided demo →</a>
+        <a class="demo-button" href="/tools/cambium-app.html">Open the prototype →</a>
+        <span class="demo-hint">Both are applications. A big screen suits them.</span>
+      </p>
+    </section>
+
+    <div class="demo-wide">
+      <iframe
+        id="cambium-demo"
+        src="/tools/cambium-walkthrough.html"
+        title="Cambium walkthrough"
+        loading="lazy"
+        scrolling="no"
+      ></iframe>
+      <p class="demo-fallback">
+        <a href="/tools/cambium-walkthrough.html">Open the walkthrough on its own</a>
+      </p>
+    </div>
+
+    <section class="block insight-page">
+      <h2>Where it is</h2>
+
+      <p>
+        A prototype on my own machine, running against organizations I made up to carry every problem the tool
+        is meant to catch. No date, no beta, no waiting list. If you work somewhere this would have to
+        survive, <a href="/contact/">write to me</a>.
+      </p>
+
+      <p class="tool-foot">
+        The vocabulary behind it — capability, structural friction, the interface ladder — comes from
+        <a href="/organizational-flow/">Organizational Flow</a>.
+      </p>
+
+      <ToolVote tool="cambium" />
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .insight-page h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.3rem;
+    margin: 2.6rem 0 0.7rem;
+  }
+  .feature-list {
+    margin: 1.4rem 0 0;
+    padding-left: 1.1rem;
+  }
+  .feature-list li {
+    margin-bottom: 0.9rem;
+  }
+  .feature-list strong {
+    font-weight: 600;
+  }
+  /* The walkthrough is wider than the reading measure, so it steps out of the
+     column to the shell width the rest of the site uses. */
+  .demo-wide {
+    width: min(65rem, calc(100vw - 3rem));
+    margin: 2rem 0 3.4rem 50%;
+    transform: translateX(-50%);
+  }
+  @media (max-width: 40rem) {
+    .demo-wide {
+      width: 100vw;
+    }
+  }
+  .demo-wide iframe {
+    display: block;
+    width: 100%;
+    height: 1100px;
+    border: 0;
+  }
+  .demo-open {
+    margin: 1.6rem 0 0;
+  }
+  .demo-hint {
+    display: inline-block;
+    margin-left: 0.8rem;
+    font-size: 0.88rem;
+    color: var(--bark);
+  }
+  @media (max-width: 30rem) {
+    .demo-hint {
+      display: block;
+      margin: 0.5rem 0 0;
+    }
+  }
+  .demo-button {
+    display: inline-block;
+    padding: 0.6rem 1.1rem;
+    border: 1px solid var(--moss);
+    border-radius: 2px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--moss);
+    background: none;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .demo-button + .demo-button {
+    margin: 0.5rem 0 0 0.6rem;
+  }
+  .demo-button:hover {
+    background: var(--moss);
+    color: var(--paper);
+  }
+  .demo-fallback {
+    margin: 0.6rem 0 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  @media (max-width: 40rem) {
+    .demo-fallback {
+      padding: 0 1.5rem;
+    }
+  }
+  .tool-foot {
+    margin-top: 2.8rem;
+    padding-top: 1.3rem;
+    border-top: 1px solid var(--mist);
+    font-size: 0.95rem;
+    color: var(--bark);
+  }
+</style>
+
+<script>
+  // Same-origin, so the height can be measured directly rather than posted
+  // across, and the site's theme toggle can be handed through to the frame.
+  const frame = document.getElementById('cambium-demo') as HTMLIFrameElement | null;
+
+  if (frame) {
+    const syncTheme = () => {
+      const doc = frame.contentDocument;
+      if (!doc) return;
+      const theme = document.documentElement.dataset.theme;
+      if (theme) doc.documentElement.dataset.theme = theme;
+      else delete doc.documentElement.dataset.theme;
+    };
+
+    const syncHeight = () => {
+      const doc = frame.contentDocument;
+      if (!doc?.body) return;
+      frame.style.height = `${doc.body.scrollHeight + 8}px`;
+    };
+
+    const wire = () => {
+      syncTheme();
+      syncHeight();
+      const doc = frame.contentDocument;
+      if (doc?.body && 'ResizeObserver' in window) {
+        new ResizeObserver(syncHeight).observe(doc.body);
+      }
+    };
+
+    frame.addEventListener('load', wire);
+    // A lazy frame can finish before this script runs, in which case the load
+    // event has already been and gone.
+    if (frame.contentDocument?.readyState === 'complete') wire();
+
+    new MutationObserver(syncTheme).observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+    });
+  }
+</script>

@@ -1,0 +1,26 @@
+---
+// The back cover — last page of the continuous document today, left-hand panel
+// of a future wraparound cover PDF. Pairs with BookCover: same rule, same
+// typographic weights, no illustration, so the two read as one object.
+//
+// The barcode well is a reserved empty area, not a drawn placeholder. There is
+// no ISBN yet and nothing here pretends otherwise.
+import { paper } from '../../data/book-structure';
+import { backCoverBlurb, backCoverAuthorLine } from '../../data/back-cover';
+import { canonicalUrlShort } from '../../data/print-edition';
+---
+
+<section class="book-page book-back-cover book-only">
+  <div class="back-top">
+    <p class="back-eyebrow">{paper.eyebrow}</p>
+    <div class="back-rule"></div>
+    {backCoverBlurb.map((para) => <p class="back-blurb">{para}</p>)}
+  </div>
+
+  <div class="back-foot">
+    <p class="back-author-line">{backCoverAuthorLine}</p>
+    <p class="back-url">{canonicalUrlShort}</p>
+    <!-- Reserved for a future ISBN/EAN block. Deliberately empty. -->
+    <div class="back-barcode-well" aria-hidden="true"></div>
+  </div>
+</section>

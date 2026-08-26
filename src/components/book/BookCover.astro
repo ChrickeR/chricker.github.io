@@ -1,0 +1,27 @@
+---
+// The interior's own title page — page 2, after the binding leaf. Distinct
+// from the physical cover artwork, which is supplied to the printer
+// separately and never embedded in this file.
+//
+// Hierarchy is the paper's own and deliberately unchanged: the theory's name
+// above, the title, and the tagline that appears everywhere else it appears.
+import { paper } from '../../data/book-structure';
+import PartOpener from '../PartOpener.astro';
+---
+
+<section class="cover book-page book-cover">
+  <div class="cover-top">
+    <p class="cover-eyebrow">{paper.eyebrow}</p>
+    <h1 class="cover-title">{paper.title}</h1>
+    <p class="cover-subtitle">{paper.subtitle}</p>
+    <p class="cover-sub">{paper.tagline}</p>
+  </div>
+
+  <div class="cover-mark"><PartOpener family="Hillside" /></div>
+
+  <div class="cover-foot-block">
+    <div class="cover-rule"></div>
+    <p class="cover-author">{paper.author}</p>
+    <p class="cover-meta">{paper.imprint}</p>
+  </div>
+</section>

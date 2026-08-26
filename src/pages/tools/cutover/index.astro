@@ -1,0 +1,217 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Footer from '../../../components/Footer.astro';
+import ToolVote from '../../../components/ToolVote.astro';
+---
+
+<BaseLayout
+  title="Cutover Control Center"
+  description="Hundreds of moving parts, and a plan that can start anywhere — typed in here or dropped in from a spreadsheet. It answers what is running, what is late and who is waiting. Working prototype."
+>
+  <main class="reading" id="main">
+    <section class="block insight-page">
+      <p class="kicker"><a href="/tools/">Tools</a></p>
+      <h1>Cutover Control Center</h1>
+
+      <p class="lede">
+        A large migration has hundreds of moving parts, and the plan usually lives in a spreadsheet. Fair
+        enough — that is where plans get written, argued over and pasted around. What a spreadsheet cannot do
+        is answer, at three in the morning, what is running right now, what is late, and who is waiting for
+        whom.
+      </p>
+
+      <p>
+        So the plan can start anywhere. Build it here and drop an export on top later, or import first and add
+        the rest by hand — it is a simple interface on top of a simple database, and that alone takes a
+        surprising amount of friction out of a cutover weekend.
+      </p>
+
+      <h2>What it does</h2>
+
+      <ul class="feature-list">
+        <li>
+          <strong>Start with an empty screen.</strong> One button makes the first activity and opens it; after
+          that you type a name, press Enter, and keep going. Quick entry inherits the filters you are looking
+          through, so narrow to one system and one stream and what you type lands there. Duplicate gives the
+          next one its starting point — the run-book and the criteria come along, the status, the actual times,
+          the blocking and the comments do not. Delete says what depends on the activity before it goes.
+        </li>
+        <li>
+          <strong>Or drop the spreadsheet in.</strong> Excel, CSV or a Google Sheet: map the columns once, and
+          add as many as you like — a master document, a run-book, one system's own view. What you built by
+          hand collects under a source called <em>Built in the tool</em> and filters, groups and merges exactly
+          like an imported one, so the order is free in both directions. Nothing is merged or linked
+          automatically unless the identifiers matched exactly; where they did not, it proposes a relationship
+          and waits for you to confirm or reject it.
+        </li>
+        <li>
+          <strong>The questions a spreadsheet cannot answer.</strong> Running now, starting soon, late,
+          blocked, critical at risk — as counts you can press, on one screen, against a clock. A blocked line
+          says who it is waiting for rather than that it is red.
+        </li>
+        <li>
+          <strong>Several ways into the same plan.</strong> A timeline, a dependency graph, the run-book, the
+          teams, and an execution view built for the night itself: bigger type, fewer things, the next
+          milestone and how far off it is.
+        </li>
+      </ul>
+
+      <h2>The prototype</h2>
+
+      <p>
+        Loaded with an example cutover — 444 activities from three files, and a clock you can move.
+      </p>
+
+      <p class="demo-open">
+        <a class="demo-button" href="/tools/cutover-app.html">Open the clickable prototype →</a>
+        <span class="demo-hint">It is an application. A big screen suits it.</span>
+      </p>
+    </section>
+
+    <div class="demo-wide">
+      <iframe
+        id="cutover-demo"
+        src="/tools/cutover-app.html"
+        title="Cutover Control Center prototype"
+        loading="lazy"
+      ></iframe>
+      <p class="demo-fallback">
+        <a href="/tools/cutover-app.html">Open the prototype full-screen</a>
+      </p>
+      <p class="demo-narrow">
+        The prototype is a control room and wants a wider screen than this one.
+        <a href="/tools/cutover-app.html">Open it</a> on something larger.
+      </p>
+    </div>
+
+    <section class="block insight-page">
+      <h2>Where it is</h2>
+
+      <p>
+        A working prototype with a bundled example plan, and no server behind it — everything you do stays in
+        the browser. If you run cutovers and want to try it against a real plan,
+        <a href="/contact/">write to me</a>.
+      </p>
+
+      <ToolVote tool="cutover" />
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .insight-page h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.3rem;
+    margin: 2.6rem 0 0.7rem;
+  }
+  .feature-list {
+    margin: 1.4rem 0 0;
+    padding-left: 1.1rem;
+  }
+  .feature-list li {
+    margin-bottom: 0.9rem;
+  }
+  .feature-list strong {
+    font-weight: 600;
+  }
+  .demo-open {
+    margin: 1.6rem 0 0;
+  }
+  .demo-hint {
+    display: inline-block;
+    margin-left: 0.8rem;
+    font-size: 0.88rem;
+    color: var(--bark);
+  }
+  @media (max-width: 30rem) {
+    .demo-hint {
+      display: block;
+      margin: 0.5rem 0 0;
+    }
+  }
+  .demo-button {
+    display: inline-block;
+    padding: 0.6rem 1.1rem;
+    border: 1px solid var(--moss);
+    border-radius: 2px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--moss);
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .demo-button:hover {
+    background: var(--moss);
+    color: var(--paper);
+  }
+  /* A control room wants a viewport of its own, so it steps out of the reading
+     column and keeps a fixed one. */
+  .demo-wide {
+    width: min(65rem, calc(100vw - 3rem));
+    margin: 2rem 0 3.4rem 50%;
+    transform: translateX(-50%);
+  }
+  .demo-wide iframe {
+    display: block;
+    width: 100%;
+    height: min(46rem, 82vh);
+    border: 1px solid var(--mist);
+    border-radius: 2px;
+    background: var(--card);
+  }
+  .demo-fallback {
+    margin: 0.6rem 0 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .demo-narrow {
+    display: none;
+    margin: 0;
+    padding: 0 1.5rem;
+    font-size: 0.88rem;
+    color: var(--bark);
+  }
+  /* Below this the panels stack into a column and stop being a control room. */
+  @media (max-width: 52rem) {
+    .demo-wide {
+      width: 100vw;
+    }
+    .demo-wide iframe,
+    .demo-fallback {
+      display: none;
+    }
+    .demo-narrow {
+      display: block;
+    }
+  }
+</style>
+
+<script>
+  // Same-origin, so the site's theme toggle can be handed through to the frame.
+  const frame = document.getElementById('cutover-demo') as HTMLIFrameElement | null;
+
+  if (frame) {
+    const syncTheme = () => {
+      const doc = frame.contentDocument;
+      if (!doc) return;
+      const theme = document.documentElement.dataset.theme;
+      if (theme) doc.documentElement.dataset.theme = theme;
+      else delete doc.documentElement.dataset.theme;
+    };
+
+    frame.addEventListener('load', syncTheme);
+    if (frame.contentDocument?.readyState === 'complete') syncTheme();
+
+    new MutationObserver(syncTheme).observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+    });
+  }
+</script>

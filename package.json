@@ -1,0 +1,33 @@
+{
+  "name": "troi",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Source of troi.se and of Organizational Flow — a working theory of how organizations create value.",
+  "author": "Christoffer Råsten <christoffer.rasten@troi.se>",
+  "homepage": "https://troi.se/organizational-flow/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ChrickeR/chricker.github.io.git"
+  },
+  "license": "UNLICENSED",
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "node scripts/check.mjs && astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "check": "node scripts/check.mjs"
+  },
+  "dependencies": {
+    "@astrojs/markdown-remark": "^7.2.1",
+    "@astrojs/sitemap": "^3.7.3",
+    "astro": "^7.1.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "typescript": "^6.0.3"
+  }
+}

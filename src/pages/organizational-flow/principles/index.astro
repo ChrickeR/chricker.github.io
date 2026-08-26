@@ -1,0 +1,255 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Footer from '../../../components/Footer.astro';
+import { findChapterLocation } from '../../../data/book-structure';
+import PaperNav from '../../../components/PaperNav.astro';
+
+interface Group {
+  theme: string;
+  chapterSlug: string | null;
+  principles: string[];
+}
+
+const groups: Group[] = [
+  {
+    theme: 'Purpose',
+    chapterSlug: 'ownership',
+    principles: [
+      'Purpose gives direction.',
+      'Focus is what creates speed. Purpose is what creates focus.',
+      'Purpose gives a person a reason. Conditions let that reason turn into something that stands.',
+    ],
+  },
+  {
+    theme: 'Flow',
+    chapterSlug: 'what-is-organizational-flow',
+    principles: [
+      'Technology is rarely the bottleneck. Friction is.',
+      'Flow over friction.',
+      'Flow is an organizational capability.',
+      'Flow has a human dependency.',
+      'You cannot run a machine organization and expect it to produce living things.',
+    ],
+  },
+  {
+    theme: 'Friction',
+    chapterSlug: 'what-friction-costs',
+    principles: [
+      'Friction never announces itself as failure. It arrives as everyone being busy.',
+      'Friction lives between people\'s work, which is why it belongs to no one.',
+      'Remove friction before adding more.',
+      'Everything is either flow or friction.',
+    ],
+  },
+  {
+    theme: 'Ownership',
+    chapterSlug: 'ownership',
+    principles: [
+      'Ownership before governance.',
+      'The goal is not maximum autonomy or maximum control. It is the minimum structure needed to preserve coherence while value is created with as little friction as possible.',
+      'Share what is genuinely common. Separate where the requirements meaningfully differ.',
+      'Governance grows where ownership is unclear.',
+      "Ownership isn't about control. It's about accountability.",
+      "Ownership creates progress when it's taken.",
+      "Clear ownership is one of the strongest predictors of an organization's ability to adapt.",
+      'Ownership is knowing, without asking, what\'s yours to decide.',
+      'A control that people avoid isn\'t a control.',
+    ],
+  },
+  {
+    theme: 'People',
+    chapterSlug: 'people',
+    principles: [
+      'Contribution creates flow.',
+      "People create the conditions for each other's success.",
+      'Trust grows when people consistently help others move.',
+      "Organizations are different. Interdependence isn't.",
+      'People own. AI amplifies. Organizations learn.',
+      'AI should amplify capability — not replace accountability.',
+    ],
+  },
+  {
+    theme: 'Information',
+    chapterSlug: 'the-loop',
+    principles: [
+      'Information should move, not accumulate.',
+      "Information creates value when it's shared.",
+      'Information should be captured once and used many times.',
+      'Copying and reconciling information creates friction.',
+      'The question is never whether we have the information. It is whose decision it reaches, and when.',
+    ],
+  },
+  {
+    theme: 'Decisions',
+    chapterSlug: 'the-loop',
+    principles: [
+      'Decisions create momentum.',
+      'Slow decisions slow organizations.',
+      'A good decision made early beats a perfect decision made too late.',
+      'Move the decision to the information, not the information to the decision.',
+      'Delay is rarely caused by the difficulty of the decision. It is caused by uncertainty about who makes it.',
+    ],
+  },
+  {
+    theme: 'Execution',
+    chapterSlug: 'the-loop',
+    principles: [
+      'Execution is where strategy learns.',
+      "Strategy is a hypothesis until it's executed.",
+      'Execution creates learning.',
+      'Flow breaks at the joints, not inside the stages.',
+    ],
+  },
+  {
+    theme: 'Learning',
+    chapterSlug: 'learning',
+    principles: [
+      'Experience is automatic. Learning is a choice.',
+      'Organizations learn through execution.',
+      'Learning compounds over time.',
+      'Learning that produces an artefact has an obvious place to stop.',
+      "An organization that doesn't learn isn't slow. It's starting over, continuously.",
+    ],
+  },
+  {
+    theme: 'Capabilities',
+    chapterSlug: 'capabilities',
+    principles: [
+      'Capabilities endure.',
+      "Technology enables capabilities. It doesn't define them.",
+      'Organizations create value through capabilities — not technology.',
+    ],
+  },
+  {
+    theme: 'Architecture',
+    chapterSlug: 'architecture',
+    principles: [
+      'Architecture should make the organization easier to change.',
+      'Architecture creates the conditions for adaptation.',
+      'Architecture exists to improve flow.',
+      'Architecture is cultivation.',
+      'Architecture is about conditions, not control.',
+      'Architecture is a competence, not a role.',
+      'Most bad architecture is not wrong so much as premature.',
+    ],
+  },
+  {
+    theme: 'Teams',
+    chapterSlug: 'teams',
+    principles: [
+      'Draw the team boundary around the capability.',
+      'Size a team by cognitive load, not by headcount.',
+      'Collaboration is a handover you have chosen to keep. A service is one you have removed.',
+      'Representation is the problem, not the solution.',
+      'A team you have to interrupt someone else to run is a queue with a name.',
+    ],
+  },
+  {
+    theme: 'Interfaces',
+    chapterSlug: 'interfaces',
+    principles: [
+      "An interface nobody can find isn't an interface. It's a person you have to know.",
+      'Automate it, then make it self-service, then run a proper queue — and only then, a person you have to know.',
+      'A form is not self-service. If the request lands in somebody\'s list, it is a queue.',
+      'Undocumented interfaces become complicated because they were undocumented.',
+      'Publish internally as though you were publishing externally.',
+      'Synchronous couples availability. Asynchronous trades certainty for independence.',
+      'Asking someone who knows is the most reliable friction generator in any organization.',
+    ],
+  },
+  {
+    theme: 'Guardrails',
+    chapterSlug: 'settling-the-few-things',
+    principles: [
+      'Do what is best for the company.',
+      'Guardrails are a short list of decisions everyone else no longer has to make.',
+      'Standardise where variation costs more than it buys.',
+      'A guardrail that makes the organization harder to change has failed.',
+      'Making the decision is the job. Writing it down takes ten minutes.',
+      'A decision record nobody can find is the same as no decision record.',
+    ],
+  },
+  {
+    theme: 'Leadership',
+    chapterSlug: 'leadership',
+    principles: [
+      'Leaders create conditions. People create flow.',
+      'Expectations create responsibility.',
+      'Leadership is about cultivating, not controlling.',
+      'Reorganizations are architecture, whether or not anyone reviews them as design.',
+      'Fund capabilities, not only projects.',
+    ],
+  },
+  {
+    theme: 'Technology & AI',
+    chapterSlug: 'technology',
+    principles: [
+      'Technology scales capability. People scale judgement.',
+      "Technology multiplies whatever is already there. It doesn't repair it.",
+      'Every tool encodes an assumption about who decides what.',
+      'AI amplifies organizations. It does not repair them.',
+      'AI amplifies human skills — it does not replace human accountability.',
+    ],
+  },
+  {
+    theme: 'Organizational Design',
+    chapterSlug: 'growing-the-team',
+    principles: [
+      "Cultivate, don't control.",
+      'Organizations should be designed to learn.',
+      'Organizations are living systems, not machines.',
+      'Change is a capability, not a project.',
+      'Whatever an organization builds takes the shape of the organization that built it.',
+      'A team of only builders can build anything and decide nothing.',
+      'Distribute the competence and the guardrails together.',
+    ],
+  },
+];
+---
+
+<BaseLayout title="Principles" description="Every principle behind Organizational Flow, gathered in one place.">
+  <main class="reading" id="main">
+    <section class="block insight-page">
+      <p class="kicker">Organizational Flow — Appendix</p>
+      <h1>Principles</h1>
+      <p>
+        Not rules — observations, developed across the chapters of this paper and gathered here for reference.
+        Each one is argued for in full in the chapter it's tagged to; this page is the index, not a replacement
+        for reading them.
+      </p>
+
+      {groups.map((group) => {
+        const location = group.chapterSlug ? findChapterLocation(group.chapterSlug) : null;
+        return (
+          <div style="margin-top:2.4rem;">
+            <p class="marginalia-title" style="font-size:1.1rem; margin:0 0 0.2rem;">
+              {location ? (
+                <a href={`/organizational-flow/${group.chapterSlug}/`}>{group.theme}</a>
+              ) : (
+                group.theme
+              )}
+            </p>
+            {location && (
+              <p style="margin:0 0 0.7rem; font-family:'Space Mono', monospace; font-size:0.62rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--bark);">
+                Part {location.part.id} · {location.chapter.title}
+              </p>
+            )}
+            {!location && (
+              <p style="margin:0 0 0.7rem; font-family:'Space Mono', monospace; font-size:0.62rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--bark);">
+                Chapter coming
+              </p>
+            )}
+            <ul style="list-style:none; padding:0; margin:0;">
+              {group.principles.map((principle) => (
+                <li style="padding:0.5rem 0; border-top:1px solid var(--mist); font-size:0.95rem;">{principle}</li>
+              ))}
+            </ul>
+          </div>
+        );
+      })}
+          <PaperNav current="principles" />
+    </section>
+  </main>
+
+  <Footer label="Organizational Flow — an ongoing work" />
+</BaseLayout>

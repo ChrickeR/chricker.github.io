@@ -1,0 +1,162 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Footer from '../../components/Footer.astro';
+import Marginalia from '../../components/Marginalia.astro';
+import FlowModel from '../../components/FlowModel.astro';
+import GirdledTree from '../../components/GirdledTree.astro';
+import { readerNote } from '../../data/reader-note';
+import PartOpener from '../../components/PartOpener.astro';
+import ChapterJump from '../../components/ChapterJump.astro';
+import AudioPlayer from '../../components/AudioPlayer.astro';
+import { findChapterLocation, adjacentPublishedChapters, chapterNumber, frontMatter, paper, audioChapters as getAudioChapters } from '../../data/book-structure';
+import { partOpener } from '../../data/illustrations';
+import { effectTone, indicatorTone, effectLabels, indicatorLabels } from '../../data/tags';
+import audioDurations from '../../data/audio-durations.json';
+
+export async function getStaticPaths() {
+  const chapters = await getCollection('chapters', (entry) => entry.id !== 'preface');
+  return chapters.map((chapter) => ({
+    params: { slug: chapter.id },
+    props: { chapter },
+  }));
+}
+
+const { chapter } = Astro.props;
+// Front matter (the Executive Summary) is a manuscript page that belongs to no
+// Part and takes no chapter number, but is otherwise a chapter in every way.
+const front = frontMatter.find((f) => f.slug === chapter.id) ?? null;
+const location = front ? null : findChapterLocation(chapter.id);
+if (!front && !location) throw new Error(`Chapter "${chapter.id}" is not placed in the book structure`);
+const part = location?.part ?? null;
+
+const { Content } = await render(chapter);
+
+const allInsights = await getCollection('insights');
+const relatedMarginalia = allInsights.filter((insight) =>
+  insight.data.relatedChapters.includes(chapter.id)
+);
+
+const chapterIndexInPart = part ? part.chapters.findIndex((c) => c.slug === chapter.id) + 1 : 0;
+const isPartOpener = chapterIndexInPart === 1;
+const { prev, next } = adjacentPublishedChapters(chapter.id);
+
+const durations: Record<string, number> = audioDurations;
+const audioChapters = getAudioChapters().map((c) => ({ ...c, duration: durations[c.slug] }));
+
+// 200 words/minute is the usual estimate for reading prose silently — a
+// rough guide next to the chapter number, not a promise.
+const wordCount = chapter.body?.trim().split(/\s+/).filter(Boolean).length ?? 0;
+const readingMinutes = Math.max(1, Math.round(wordCount / 200));
+---
+
+<BaseLayout title={chapter.data.title} description={chapter.data.dek}>
+  <main class="reading" id="main">
+    <section class:list={['block', 'chapter', relatedMarginalia.length > 0 && 'has-aside']}>
+      {part && isPartOpener && partOpener[part.id] && (
+        <PartOpener family={partOpener[part.id]!} caption={`Part ${part.id} — ${part.title}`} />
+      )}
+
+      {part ? (
+        <p class="kicker">
+          Part {part.id} — {part.title} · Chapter {chapterNumber(chapter.id)} · {readingMinutes} min read
+          {location!.chapter.draft && <span class="draft-tag"> · {paper.editionShort}</span>}
+        </p>
+      ) : (
+        <p class="kicker">
+          {/* Every front-matter page said "Preface", including the two that
+              aren't it. These sit between the Preface and Part I, outside the
+              chapter numbering — which is what the label should say. */}
+          Organizational Flow · Front matter · {readingMinutes} min read
+          {front!.draft && <span class="draft-tag"> · {paper.editionShort}</span>}
+        </p>
+      )}
+      {chapter.data.topic && <p class="chapter-topic">{chapter.data.topic}</p>}
+      <h2>{chapter.data.title}</h2>
+      {chapter.data.dek && <p class="chapter-dek">{chapter.data.dek}</p>}
+
+      {(chapter.data.effect || chapter.data.indicator) && (
+        <p class="chapter-tags">
+          {effectLabels(chapter.data.effect).map((label) => (
+            <a
+              class:list={['tag', effectTone[label] ?? effectTone[chapter.data.effect!]]}
+              href="/organizational-flow/what-is-organizational-flow/#two-halves-and-most-organizations-work-on-one"
+              title="Which half of the proposition this chapter works on"
+            >{label}</a>
+          ))}
+          {indicatorLabels(chapter.data.indicator).map((label) => (
+            <a
+              class:list={['tag', indicatorTone[label] ?? indicatorTone[chapter.data.indicator!]]}
+              href="/organizational-flow/what-friction-costs/"
+              title="Which of the four indicators this chapter moves"
+            >{label}</a>
+          ))}
+        </p>
+      )}
+
+      <AudioPlayer chapters={audioChapters} initialSlug={chapter.id} label="Listen to this chapter" />
+
+      {chapter.id === 'the-picture-i-keep-coming-back-to' && <FlowModel />}
+
+      {relatedMarginalia.length > 0 ? (
+        <div class="grid-row">
+          <div class="body-col">
+            <Content />
+          </div>
+          <div class="marginalia-col">
+            {relatedMarginalia.map((entry) => (
+              <Marginalia entry={entry} />
+            ))}
+          </div>
+        </div>
+      ) : (
+        <Content />
+      )}
+
+      {chapter.id === 'the-picture-i-keep-coming-back-to' && <GirdledTree />}
+
+      {/* The disclaimer sits with the Introduction rather than on the landing
+          page: it is about how to read what follows, so it belongs where the
+          reading starts rather than in front of it. */}
+      {chapter.id === 'introduction' && (
+        <div class="reader-note">
+          <p class="reader-note-label">A Note to the Reader</p>
+          {readerNote.map((para) => <p>{para}</p>)}
+        </div>
+      )}
+
+      {chapter.data.editorNotes && chapter.data.editorNotes.length > 0 && (
+        <div class="editor-notes">
+          <p class="editor-notes-label">Editor's Notes</p>
+          {chapter.data.editorNotes.map((note) => (
+            <p class="editor-note">{note}</p>
+          ))}
+        </div>
+      )}
+
+      {/* Open by default only here — the one chapter meant to catch readers
+          arriving cold from an outside link, who want the map immediately
+          rather than a click to find it. */}
+      <ChapterJump current={chapter.id} openByDefault={chapter.id === 'the-ten-minute-version'} />
+
+      {(prev || next) && (
+        <nav class="chapter-nav" aria-label="Chapter">
+          {prev ? (
+            <a href={`/organizational-flow/${prev.slug}/`} class="chapter-nav-prev">
+              <span class="chapter-nav-label">Previous</span>
+              <span class="chapter-nav-title">{prev.title}</span>
+            </a>
+          ) : <span />}
+          {next ? (
+            <a href={`/organizational-flow/${next.slug}/`} class="chapter-nav-next">
+              <span class="chapter-nav-label">Next</span>
+              <span class="chapter-nav-title">{next.title}</span>
+            </a>
+          ) : <span />}
+        </nav>
+      )}
+    </section>
+  </main>
+
+  <Footer label="Organizational Flow — an ongoing work" folio={part ? `Part ${part.id} · ${String(chapterIndexInPart).padStart(2, '0')}` : 'Front Matter'} />
+</BaseLayout>

@@ -1,0 +1,101 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+<BaseLayout
+  title="Privacy"
+  description="What this site collects, what it doesn't, and why there is no cookie banner."
+>
+  <main class="reading" id="main">
+    <section class="block insight-page">
+      <p class="kicker">TROi</p>
+      <h1>Privacy</h1>
+
+      <p class="privacy-lede">
+        Short version: this site sets no cookies, builds no profile of you, and there is nothing here to
+        consent to. The longer version is below, because saying so without showing the working is exactly
+        the kind of thing nobody should take at face value.
+      </p>
+
+      <h2>No cookies</h2>
+      <p>
+        The site sets no cookies at all — not for analytics, not for preferences, not for anything else.
+        That is why you are not being asked to accept any. A banner asking permission to do nothing would be
+        theatre.
+      </p>
+
+      <h2>What is stored on your device</h2>
+      <p>
+        One thing: if you use the theme toggle, your light or dark preference is kept in your browser's local
+        storage so the site remembers it next time. It never leaves your device, it identifies nothing, and
+        clearing your browser data removes it.
+      </p>
+
+      <h2>Traffic statistics</h2>
+      <p>
+        I use <a href="https://cronitor.io/" rel="noopener">Cronitor</a> to see roughly how many people read
+        what. It sets no cookies, stores no identifier on your device, does no fingerprinting, and respects
+        your browser's Do Not Track setting — if you have that on, it collects nothing at all.
+      </p>
+      <p>
+        What it does see, server-side, is the page you visited, a referrer if there was one, and your IP
+        address. An IP address is personal data under GDPR, which is the reason this page exists. It is used
+        to derive an approximate country and to tell one visit from another. It is not used to identify you,
+        not combined with anything else, and not sold or shared.
+      </p>
+      <p>
+        I also record two anonymous events: when someone downloads the paper, and when someone finishes the
+        self-assessment. They are counts, attached to no one.
+      </p>
+
+      <h2>The self-assessment</h2>
+      <p>
+        Your answers never reach a server. The
+        <a href="/organizational-flow/self-assessment/">self-assessment</a> runs entirely in your browser, and
+        the result is encoded into the page address so you can bookmark or share it if you want to. Close the
+        tab without copying the link and it is gone. Nothing is stored, and I never see your answers.
+      </p>
+
+      <h2>If you get in touch</h2>
+      <p>
+        Email and phone go directly to me. I keep what you send for as long as the conversation is useful and
+        no longer, and it goes nowhere else — no CRM, no mailing list, no newsletter to unsubscribe from,
+        because there isn't one.
+      </p>
+
+      <h2>Your rights</h2>
+      <p>
+        Under GDPR you can ask what data relates to you, ask for it to be corrected or deleted, and object to
+        it being processed. Given the above there is unlikely to be much to hand over, but the right stands
+        and the answer will be honest. Write to
+        <a href="mailto:christoffer.rasten@troi.se">christoffer.rasten@troi.se</a>.
+      </p>
+      <p>
+        If you think I've handled something badly and I haven't put it right, you can complain to
+        <a href="https://www.imy.se/" rel="noopener">Integritetsskyddsmyndigheten</a>, the Swedish data
+        protection authority. Or just contact me and we can settle it.
+      </p>
+
+      <p class="privacy-foot">
+        Christoffer Råsten · TROi · <a href="mailto:christoffer.rasten@troi.se">christoffer.rasten@troi.se</a>
+      </p>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .privacy-lede { color: var(--bark); font-size: 1.05rem; }
+  .insight-page h2 { margin-top: 2.4rem; }
+  .privacy-foot {
+    margin-top: 3rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--mist);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    color: var(--bark);
+  }
+</style>
