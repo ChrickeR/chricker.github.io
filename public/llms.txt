@@ -1,0 +1,43 @@
+# TROi
+
+> TROi is the independent practice of Christoffer Råsten, an enterprise and solution architect based in Stockholm, Sweden (TROi Arkitektur AB). It is also the home of Organizational Flow, a working theory of organizational friction: why organizations become slower than they need to be, and what to do about it.
+
+Christoffer Råsten has more than twenty years of experience where business, technology and organization meet — in insurance, media, advertising and digital services — as developer, solution architect, domain architect, chief architect, head of architecture and senior advisor. He works in Swedish and English.
+
+## TROi
+
+- [Services](https://troi.se/services/): enterprise architecture and strategy validation, capability and domain design, architecture enablement, interim chief architect and senior advisor, solution architecture, Organizational Flow diagnostics
+- [Architecture methods and measures](https://troi.se/services/architecture-methods/): architecture guardrails, architecture decision records, tech radar, domain logic placement, architecture enablement; flow metrics (decision latency, handoff loss) and how they relate to DORA
+- [Tjänster (svenska)](https://troi.se/tjanster/): the same offer in Swedish
+- [About](https://troi.se/about/): background and recent assignments
+- [Contact](https://troi.se/contact/)
+
+## Organizational Flow
+
+- [Organizational Flow — the book](https://troi.se/organizational-flow/): "Friction: The Silent Killer", free to read online, as audio, PDF and in print (CC BY-NC-ND 4.0)
+- [The Ten-Minute Version](https://troi.se/organizational-flow/the-ten-minute-version/): the whole argument in short
+- [Key concepts](https://troi.se/organizational-flow/concepts/): organizational friction, the four indicators (ownership clarity, handoff loss, decision latency, learning cycle time), capability, team cognitive load, decision rights, work harness
+- [Begrepp (svenska)](https://troi.se/organizational-flow/begrepp/): the key concepts in Swedish — organisatorisk friktion, förmågor, förmågekarta, teamgränser, ägarskap och mandat, arkitekturstyrning, kontext och artificiell intelligens
+- [What is Organizational Flow?](https://troi.se/organizational-flow/what-is-organizational-flow/)
+- [The Cost of Value Never Created](https://troi.se/organizational-flow/what-friction-costs/): what friction costs, and the four indicators
+- [What a Capability Is, and Is Not](https://troi.se/organizational-flow/what-a-capability-is/)
+- [How Much Can One Team Hold](https://troi.se/organizational-flow/how-much-can-one-team-hold/): team cognitive load as a sizing rule
+- [Observing Organizations](https://troi.se/organizational-flow/observing-organizations/): how to read the four indicators
+- [Self-assessment](https://troi.se/organizational-flow/self-assessment/)
+- [Principles](https://troi.se/organizational-flow/principles/)
+
+## In context
+
+- [Team boundaries, cognitive load and capabilities](https://troi.se/organizational-flow/team-boundaries/): what team boundaries should follow, how much a team can hold, Conway's law, sociotechnical architecture, platform teams, and teams with people and AI agents
+- [Everyday friction — the grit in the machinery](https://troi.se/organizational-flow/everyday-friction/): the ordinary moments where organizational friction shows up on a working day, each linked to the mechanism behind it
+- [People and AI agents in the organization](https://troi.se/organizational-flow/people-and-agents/): ownership, agent decision rights and the work harness
+- [The Meter Was Always Running](https://troi.se/organizational-flow/the-meter-was-always-running/): why AI makes the cost of navigating an organization visible
+- [What AI Lands In](https://troi.se/organizational-flow/artificial-intelligence/)
+- [Cambium](https://troi.se/tools/cambium/): a working prototype that models an organization of people and agents and finds where work will get stuck
+
+## Optional
+
+- [Blog](https://troi.se/blog/): observations from consulting work since 2021
+- [IT-avdelningen finns för att någon måste översätta](https://troi.se/blog/2026/09/17/it-avdelningen-finns-for-att-nagon-maste-oversatta/): Swedish version of the post on the IT department and AI
+- [Insights](https://troi.se/organizational-flow/insights/)
+- [Version history](https://troi.se/organizational-flow/version-history/)

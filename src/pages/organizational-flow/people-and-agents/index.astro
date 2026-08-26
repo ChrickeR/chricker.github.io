@@ -1,0 +1,153 @@
+---
+import ShareLinks from '../../../components/ShareLinks.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Footer from '../../../components/Footer.astro';
+import { author, personRef, BOOK_ID, SITE_URL, breadcrumbs } from '../../../data/site';
+
+// A way in for readers arriving with a question about AI agents. It points at
+// what the paper, the blog and Cambium already say; it does not restate them.
+const threads = [
+  {
+    heading: 'AI amplifies the organization it lands in',
+    text: 'The same AI pilot succeeds in one organization and stalls in another, and the technology explains none of it. What decides the outcome is whether ownership is clear, whether capabilities can be named, and whether decisions are made close to the work. Removing technical friction does not remove complexity; it relocates it into ownership, interfaces, information and decisions.',
+    links: [
+      { href: '/organizational-flow/artificial-intelligence/', label: 'What AI Lands In' },
+      { href: '/organizational-flow/multiplying-whats-there/', label: "Multiplying What's There" },
+    ],
+  },
+  {
+    heading: 'Execution can be delegated; ownership cannot',
+    text: 'An agent can execute a decision. It cannot be accountable for having made it. Every outcome needs a named person who can explain it and decide to stop it — which matters more, not less, as agents become more capable.',
+    links: [
+      { href: '/organizational-flow/owning-what-ai-cant/', label: "Owning What AI Can't" },
+    ],
+  },
+  {
+    heading: 'Decision rights are read from rules, not switched on',
+    text: 'What an agent may do should follow from what the organization has actually settled: act where a signed rule already decided the matter, prepare and stop where judgement remains, ask where no rule reaches. An organization whose agents ask less is one that has decided more things out loud.',
+    links: [
+      { href: '/tools/cambium/', label: 'Cambium' },
+      { href: '/tools/cambium-metamodel.html', label: 'The Cambium metamodel' },
+    ],
+  },
+  {
+    heading: 'The work harness, and why it should be thin',
+    text: 'People and agents need the same structure to act with confidence: an outcome, context, boundaries, decision rights, tools and feedback. Its purpose is to reduce the cost of navigating the organization. So the question is not how much context an agent can be given, but how little anyone needs to make a good decision — and AI has made that cost visible for the first time.',
+    links: [
+      { href: '/organizational-flow/the-meter-was-always-running/', label: 'The Meter Was Always Running' },
+      { href: '/organizational-flow/concepts/#work-harness', label: 'Work harness (concept)' },
+    ],
+  },
+  {
+    heading: 'When translation stops being scarce',
+    text: 'The boundary between IT and the business exists because turning intent into working systems needed scarce specialist competence. As AI makes that translation cheap, business and development move closer together, core IT becomes a platform, and small teams can begin to carry whole capabilities — provided ownership is distributed along with the ability to build.',
+    links: [
+      { href: '/blog/2026/09/12/the-it-department-exists-because-someone-has-to-translate/', label: 'The IT Department Exists Because Someone Has to Translate' },
+      { href: '/blog/2026/04/29/cheap-code-gets-expensive-fast/', label: 'Cheap code gets expensive fast' },
+    ],
+  },
+];
+
+const pagePath = '/organizational-flow/people-and-agents/';
+const description =
+  'Organizational design with people and AI agents: accountability, agent decision rights, the work harness and why AI makes friction visible.';
+
+const jsonLd = [
+  {
+    '@type': 'CollectionPage',
+    '@id': `${SITE_URL}${pagePath}#page`,
+    name: 'People and AI agents in the organization',
+    description,
+    url: `${SITE_URL}${pagePath}`,
+    author: personRef,
+    isPartOf: { '@id': BOOK_ID },
+    about: ['AI agents', 'AI operating model', 'Decision rights', 'Accountability', 'Organizational design', 'Work harness'],
+    inLanguage: 'en',
+    datePublished: '2026-09-17',
+  },
+  {
+    '@type': 'Quotation',
+    '@id': `${SITE_URL}${pagePath}#quote`,
+    text: 'AI gives us a motorway for execution, while the organization still routes decisions through a four-way intersection.',
+    creator: personRef,
+    isPartOf: { '@id': `${SITE_URL}${pagePath}#page` },
+  },
+  breadcrumbs([
+    { name: 'TROi', path: '/' },
+    { name: 'Organizational Flow', path: '/organizational-flow/' },
+    { name: 'People and AI agents', path: pagePath },
+  ]),
+];
+---
+
+<BaseLayout
+  title="People and AI agents"
+  fullTitle="People and AI agents in organizations · TROi"
+  description={description}
+  jsonLd={jsonLd}
+>
+  <main class="reading" id="main">
+    <section class="block insight-page">
+      <p class="kicker"><a href="/organizational-flow/">Organizational Flow</a> · In context</p>
+      <h1>People and AI agents in the organization</h1>
+
+      <p class="lede">
+        What changes in architecture and organizational design when AI agents do part of the work — and what does
+        not. A guide to what I have already written on the subject in{' '}
+        <a href="/organizational-flow/">Organizational Flow</a>, on the blog and in the Cambium prototype.
+      </p>
+
+      <figure class="agent-quote">
+        <blockquote>
+          <p>AI gives us a motorway for execution, while the organization still routes decisions through a four-way intersection.</p>
+        </blockquote>
+        <figcaption>— <a href="/about/">{author.name}</a></figcaption>
+      </figure>
+
+      {threads.map((t) => (
+        <section class="agent-thread">
+          <h2>{t.heading}</h2>
+          <p>{t.text}</p>
+          <p class="agent-links">
+            Read:{' '}
+            {t.links.map((l, i) => (
+              <>{i > 0 && ' · '}<a href={l.href}>{l.label}</a></>
+            ))}
+          </p>
+        </section>
+      ))}
+
+      <ShareLinks title="People and AI agents in the organization" />
+
+      <p class="related">
+        See also — <a href="/organizational-flow/concepts/">Key concepts</a>,{' '}
+        <a href="/organizational-flow/team-boundaries/">Team boundaries and cognitive load</a>,{' '}
+        <a href="/services/">Working with TROi</a>
+      </p>
+    </section>
+  </main>
+  <Footer label="Organizational Flow — an ongoing work" />
+</BaseLayout>
+
+<style>
+  .agent-quote {
+    margin: 2rem 0 2.4rem;
+  }
+  .agent-quote blockquote {
+    margin: 0 !important;
+  }
+  .agent-quote figcaption {
+    margin-top: 0.6rem;
+    padding-left: 1.4rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    color: var(--bark);
+  }
+  .agent-links {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--bark);
+  }
+</style>

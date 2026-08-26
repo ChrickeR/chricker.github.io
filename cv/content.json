@@ -1,0 +1,336 @@
+{
+  "en": {
+    "doc_title": "Christoffer Råsten — CV",
+    "name": "Christoffer Råsten",
+    "title": "Chief Architect · Enterprise Architect · Independent Consultant",
+    "tagline": "Business · Technology · Transformation",
+    "contact": [
+      "Stockholm / Nacka",
+      "+46 708 93 95 51",
+      "christoffer.rasten@troi.se",
+      "linkedin.com/in/christofferrasten",
+      "troi.se"
+    ],
+    "headings": {
+      "profile": "Profile",
+      "competencies": "Core competencies",
+      "results": "Selected results",
+      "experience": "Experience",
+      "published": "Published work",
+      "industries": "Industries & domains",
+      "flows": "Business & technology flows",
+      "education": "Education & certifications",
+      "other": "Languages & other"
+    },
+    "profile": [
+      "Senior architect and technical leader who connects business, technology and organisational change, and sees it through — equally at home in leadership teams and development teams, from strategy and operating models through enterprise, business, information and solution architecture. Long experience of complex end-to-end flows across team, system and organisational boundaries, mainly in insurance, media and digital services.",
+      "Independent consultant since 2021 through my own company, TROi. Available for consulting and interim engagements — from chief architect and CTO to enterprise and solution architecture."
+    ],
+    "competencies": [
+      "Digital transformation",
+      "Business & technology strategy",
+      "Business development",
+      "Leadership & agile transformation",
+      "Operating models",
+      "Enterprise Architecture",
+      "Business Architecture",
+      "Information architecture & information flows",
+      "Solution Architecture",
+      "Capability & Domain Design",
+      "Architecture Enablement",
+      "Integration & APIs"
+    ],
+    "results": [
+      "Built an enterprise architecture capability and led a team of six architects — as part of the IT leadership team.",
+      "Developed integration strategy, ways of working and guidelines that created alignment and direction across team and system boundaries.",
+      "Brought clarity to structure and delivery in complex landscapes — from strategy to concrete execution.",
+      "Acted as a sounding board to development teams and raised architectural maturity.",
+      "Delivered new solutions for a digital ad inventory, new ad sales formats, sales tooling and marketing automation — supporting a Nordic media house’s advertising shift from broadcast to digital.",
+      "Led an ERP migration and the modernisation of revenue and finance flows."
+    ],
+    "experience": [
+      {
+        "role": "Founder & Independent Consultant",
+        "org": "TROi Arkitektur AB",
+        "when": "2021–Present",
+        "text": "Independent consultant in digital transformation, business and technology strategy, enterprise, business, information and solution architecture, and technical leadership. Validation of strategy and architecture, capability and domain design, solution design and architecture enablement.",
+        "engagements_label": "Engagements via TROi:",
+        "roles": [
+          {
+            "role": "IT Architect",
+            "org": "TV4 / TVM / MTV, Nordics",
+            "when": "2023–Present",
+            "text": "Broad work between business and technology in a complex Nordic media landscape (Sweden and Finland), with development teams in Sweden and across Europe. Customer and CRM, order management, revenue and finance/ERP flows, marketing automation, data and integrations — including modernisation, migrations, solution design, integration strategy and architecture enablement."
+          },
+          {
+            "role": "Senior Advisor",
+            "org": "Raise Gruppen",
+            "when": "2024–2026",
+            "text": "Senior advisory to management on digital strategy and architecture, connecting business direction, organisational design and technical execution."
+          },
+          {
+            "role": "Solution Architect",
+            "org": "Telia / C More / Telia Play",
+            "when": "2022–2023",
+            "text": "Customer and subscription journeys: onboarding, checkout, payments and PSP integrations, CRM and surrounding integrations."
+          },
+          {
+            "role": "Solution Architect",
+            "org": "TV4 / C More",
+            "when": "2021–2022",
+            "text": "Digital customer journeys with checkout, onboarding, subscriptions, payments and CRM integrations — including PSP integrations, PCI-related matters and migration."
+          }
+        ]
+      },
+      {
+        "role": "AFA Försäkring",
+        "when": "2001–2021",
+        "text": "From developer to Chief Architect at one of Sweden’s leading insurance companies.",
+        "roles": [
+          {
+            "role": "Chief Architect / Head of Architecture",
+            "when": "2018–2021",
+            "text": "Built and led the enterprise architecture capability and a team of six architects. Part of the IT leadership team (IT approx. 120 people) working on digital transformation, IT strategy, operating model and modernisation — with a focus on architecture, operational leadership and evolving the IT strategy in line with the company’s vision and goals."
+          },
+          {
+            "role": "Domain Architect",
+            "when": "2013–2018",
+            "text": "Digitalisation initiatives and ongoing work across business, information, solution and technology."
+          },
+          {
+            "role": "Solution Architect",
+            "when": "2008–2013",
+            "text": "Solution architecture and business development focused on e-services, customer and claims flows, and streamlining of internal processes."
+          },
+          {
+            "role": "System Architect & Developer",
+            "when": "2001–2008",
+            "text": "System architecture and development focused on claims handling, information flows and the digitalisation of customer dialogue."
+          }
+        ]
+      },
+      {
+        "role": "Operations & Support Technician",
+        "org": "X-Source / Datametrix",
+        "when": "2000–2001",
+        "text": "Operations and support, primarily for the MTG group, including on-site support for Metro."
+      }
+    ],
+    "published": {
+      "name": "Organizational Flow",
+      "text": "Published, practice-based work on structural friction and organisations’ ability to continuously create value."
+    },
+    "industries": [
+      "Insurance",
+      "Media, streaming & advertising",
+      "Subscription businesses"
+    ],
+    "flows": [
+      "Customer & CRM",
+      "Sales & order",
+      "Subscription & checkout",
+      "Payments & PSP",
+      "Invoicing, revenue & ERP",
+      "Marketing Automation",
+      "Data & integrations"
+    ],
+    "education": [
+      [
+        "Certified Chief Architect",
+        "Dataföreningen / DF Kompetens, 2017"
+      ],
+      [
+        "UX Certified",
+        "Nielsen Norman Group, 2015"
+      ],
+      [
+        "Elements of AI",
+        "Linköping University, 2019"
+      ],
+      [
+        "IASA",
+        "architecture training"
+      ],
+      [
+        "Data & Telecommunications",
+        "Nackademin, 1999–2001"
+      ]
+    ],
+    "other": [
+      "Swedish",
+      "English",
+      "Former professional goalkeeper (Superettan, Sweden’s second tier)"
+    ],
+    "footer": [
+      "Christoffer Råsten · CV",
+      "christoffer.rasten@troi.se · troi.se"
+    ]
+  },
+  "sv": {
+    "doc_title": "Christoffer Råsten — CV",
+    "name": "Christoffer Råsten",
+    "title": "Chief Architect · Enterprise Architect · Oberoende konsult",
+    "tagline": "Verksamhet · Teknik · Transformation",
+    "contact": [
+      "Stockholm / Nacka",
+      "+46 708 93 95 51",
+      "christoffer.rasten@troi.se",
+      "linkedin.com/in/christofferrasten",
+      "troi.se"
+    ],
+    "headings": {
+      "profile": "Profil",
+      "competencies": "Kärnkompetenser",
+      "results": "Utvalda resultat",
+      "experience": "Erfarenhet",
+      "published": "Publicerat arbete",
+      "industries": "Branscher & domäner",
+      "flows": "Verksamhets- & teknikflöden",
+      "education": "Utbildning & certifieringar",
+      "other": "Språk & övrigt"
+    },
+    "profile": [
+      "Senior arkitekt och teknisk ledare som kopplar samman verksamhet, teknik och organisatorisk förändring, och driver det hela vägen — lika hemma i ledningsgruppen som ute i utvecklingsteamen, från strategi och operating models via enterprise-, verksamhets-, informations- och lösningsarkitektur. Stor vana vid komplexa end-to-end-flöden över team-, system- och organisationsgränser, främst inom försäkring, media och digitala tjänster.",
+      "Sedan 2021 oberoende konsult under eget bolag, TROi. Tillgänglig för konsult- och interimsuppdrag — från chefsarkitekt och CTO till enterprise- och lösningsarkitektur."
+    ],
+    "competencies": [
+      "Digital transformation",
+      "Verksamhets- & teknikstrategi",
+      "Verksamhetsutveckling",
+      "Ledarskap & agil transformation",
+      "Operating models",
+      "Enterprise Architecture",
+      "Verksamhetsarkitektur",
+      "Informationsarkitektur & informationsflöden",
+      "Lösningsarkitektur",
+      "Capability & Domain Design",
+      "Architecture Enablement",
+      "Integration & API:er"
+    ],
+    "results": [
+      "Byggt upp enterprise architecture-förmåga och lett ett arkitektteam om sex personer — som del av IT-ledningsgruppen.",
+      "Tagit fram integrationsstrategi, arbetssätt och guidelines som skapat samsyn och riktning över team- och systemgränser.",
+      "Tydliggjort struktur och genomförande i komplexa landskap — från strategi till konkret leverans.",
+      "Agerat bollplank till utvecklingsteam och höjt den arkitekturella mognaden.",
+      "Levererat nya lösningar för digitalt annonslager, nya säljformat för annonser, försäljningsverktyg och marketing automation — som stöd för ett nordiskt mediehus omställning från broadcast till digitalt.",
+      "Lett ERP-migrering och modernisering av intäkts- och finansflöden."
+    ],
+    "experience": [
+      {
+        "role": "Grundare & oberoende konsult",
+        "org": "TROi Arkitektur AB",
+        "when": "2021–Nu",
+        "text": "Oberoende konsult inom digital transformation, verksamhets- och teknikstrategi, enterprise-, verksamhets-, informations- och lösningsarkitektur samt tekniskt ledarskap. Validering av strategi och arkitektur, capability- och domändesign, lösningsdesign och architecture enablement.",
+        "engagements_label": "Uppdrag via TROi:",
+        "roles": [
+          {
+            "role": "IT Architect",
+            "org": "TV4 / TVM / MTV, Norden",
+            "when": "2023–Nu",
+            "text": "Brett arbete mellan verksamhet och teknik i ett komplext nordiskt medielandskap (Sverige och Finland), med utvecklingsteam i Sverige och övriga Europa. Kund och CRM, orderhantering, intäkts- och finans-/ERP-flöden, marketing automation, data och integrationer — inklusive modernisering, migreringar, lösningsdesign, integrationsstrategi och architecture enablement."
+          },
+          {
+            "role": "Senior Advisor",
+            "org": "Raise Gruppen",
+            "when": "2024–2026",
+            "text": "Senior rådgivning till ledning inom digital strategi och arkitektur, med koppling mellan verksamhetsriktning, organisationsdesign och tekniskt genomförande."
+          },
+          {
+            "role": "Solution Architect",
+            "org": "Telia / C More / Telia Play",
+            "when": "2022–2023",
+            "text": "Kund- och prenumerationsresor: onboarding, checkout, betalningar och PSP-integrationer, CRM och kringliggande integrationer."
+          },
+          {
+            "role": "Solution Architect",
+            "org": "TV4 / C More",
+            "when": "2021–2022",
+            "text": "Digitala kundresor med checkout, onboarding, prenumerationer, betalningar och CRM-integrationer — inklusive PSP-integrationer, PCI-relaterade frågor och migrering."
+          }
+        ]
+      },
+      {
+        "role": "AFA Försäkring",
+        "when": "2001–2021",
+        "text": "Från utvecklare till Chief Architect på ett av Sveriges ledande försäkringsbolag.",
+        "roles": [
+          {
+            "role": "Chief Architect / Head of Architecture",
+            "when": "2018–2021",
+            "text": "Byggde upp och ledde enterprise architecture-förmågan och ett team om sex arkitekter. Del av IT-ledningsgruppen (IT ca 120 personer) med arbete inom digital transformation, IT-strategi, operating model och modernisering — med fokus på arkitektur, operativ ledning och utveckling av IT-strategi i linje med bolagets målbild och vision."
+          },
+          {
+            "role": "Domain Architect",
+            "when": "2013–2018",
+            "text": "Digitaliseringsinitiativ och löpande frågor inom verksamhet, information, lösning och teknik."
+          },
+          {
+            "role": "Solution Architect",
+            "when": "2008–2013",
+            "text": "Lösningsarkitektur och verksamhetsutveckling med fokus på e-tjänster, kund- och skadeflöden samt effektivisering av interna processer."
+          },
+          {
+            "role": "System Architect & Developer",
+            "when": "2001–2008",
+            "text": "Systemarkitektur och utveckling med fokus på skadehantering, informationsflöden och digitalisering av kunddialogen."
+          }
+        ]
+      },
+      {
+        "role": "Drift- & supporttekniker",
+        "org": "X-Source / Datametrix",
+        "when": "2000–2001",
+        "text": "Drift och support, främst för MTG-koncernen, inklusive on-site support för Metro."
+      }
+    ],
+    "published": {
+      "name": "Organizational Flow",
+      "text": "Publicerat, praktikbaserat arbete om strukturell friktion och organisationers förmåga att kontinuerligt skapa värde."
+    },
+    "industries": [
+      "Försäkring",
+      "Media, streaming & annonsering",
+      "Subscription businesses"
+    ],
+    "flows": [
+      "Kund & CRM",
+      "Försäljning & order",
+      "Subscription & checkout",
+      "Betalningar & PSP",
+      "Fakturering, intäkt & ERP",
+      "Marketing Automation",
+      "Data & integrationer"
+    ],
+    "education": [
+      [
+        "Certified Chief Architect",
+        "Dataföreningen / DF Kompetens, 2017"
+      ],
+      [
+        "UX Certified",
+        "Nielsen Norman Group, 2015"
+      ],
+      [
+        "Elements of AI",
+        "Linköpings universitet, 2019"
+      ],
+      [
+        "IASA",
+        "arkitekturutbildningar"
+      ],
+      [
+        "Data & Telekommunikation",
+        "Nackademin, 1999–2001"
+      ]
+    ],
+    "other": [
+      "Svenska",
+      "Engelska",
+      "Tidigare professionell målvakt (Superettan)"
+    ],
+    "footer": [
+      "Christoffer Råsten · CV",
+      "christoffer.rasten@troi.se · troi.se"
+    ]
+  }
+}

@@ -1,0 +1,66 @@
+---
+import ShareLinks from '../../../components/ShareLinks.astro';
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Footer from '../../../components/Footer.astro';
+import { findChapterLocation } from '../../../data/book-structure';
+
+export async function getStaticPaths() {
+  const insights = await getCollection('insights');
+  return insights.map((insight) => ({
+    params: { slug: insight.id },
+    props: { insight },
+  }));
+}
+
+const { insight } = Astro.props;
+const { Content } = await render(insight);
+
+// The summary is part of the insight; the meta tag only needs the part of it
+// that fits a search result, cut at a sentence.
+function fit(text: string, max = 150) {
+  if (text.length <= max) return text;
+  const sentences = text.match(/[^.!?]+[.!?]+/g) ?? [text];
+  let out = '';
+  for (const s of sentences) {
+    if ((out + s).trim().length > max) break;
+    out += s;
+  }
+  out = out.trim();
+  if (out.length >= 90) return out;
+  return text.slice(0, max - 1).replace(/\s+\S*$/, '') + '…';
+}
+const metaDescription = fit(insight.data.summary);
+
+const relatedChapters = insight.data.relatedChapters
+  .map((slug) => findChapterLocation(slug))
+  .filter((location): location is NonNullable<typeof location> => location !== null);
+---
+
+<BaseLayout title={insight.data.title} description={metaDescription}>
+  <main class="reading" id="main">
+    <section class="block insight-page">
+      <p class="kicker">{insight.data.label}</p>
+      <h1>{insight.data.title}</h1>
+      <Content />
+
+      {relatedChapters.length > 0 && (
+        <p class="related">
+          {'Related reading — '}
+          {relatedChapters.map((location, i) => (
+            <>
+              {i > 0 && ', '}
+              <a href={`/organizational-flow/${location.chapter.slug}/`}>
+                Part {location.part.id} · {location.chapter.title}
+              </a>
+            </>
+          ))}
+        </p>
+      )}
+
+      <ShareLinks title={insight.data.title} />
+    </section>
+  </main>
+
+  <Footer label="Organizational Flow — an ongoing work" />
+</BaseLayout>

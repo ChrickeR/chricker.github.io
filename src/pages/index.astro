@@ -1,0 +1,183 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Footer from '../components/Footer.astro';
+import { getCollection } from 'astro:content';
+import { author, company, personRef, orgRef, SITE_URL } from '../data/site';
+
+// The three most recent posts, so the home page always points at current work.
+const recent = (await getCollection('blog'))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3)
+  .map((post) => {
+    const d = post.data.date;
+    const path = `/blog/${d.getUTCFullYear()}/${String(d.getUTCMonth() + 1).padStart(2, '0')}/${String(d.getUTCDate()).padStart(2, '0')}/${post.id}/`;
+    return { path, title: post.data.title, description: post.data.description, date: d, lang: post.data.lang };
+  });
+
+const fmt = (d: Date) => d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+
+const jsonLd = [
+  {
+    '@type': 'WebPage',
+    '@id': `${SITE_URL}/#webpage`,
+    url: `${SITE_URL}/`,
+    name: 'TROi — Architecture and organizational design, Stockholm',
+    inLanguage: 'en',
+    author: personRef,
+    publisher: orgRef,
+    about: ['Enterprise architecture', 'Organizational design', 'Organizational friction', 'Organizational Flow'],
+    dateModified: recent[0]?.date.toISOString().slice(0, 10),
+  },
+];
+---
+
+<BaseLayout title="Home" fullTitle="TROi — Architecture and organizational design, Stockholm"
+  description="Christoffer Råsten, enterprise architect in Stockholm. Architecture, organizational design and a book on organizational friction."
+  jsonLd={jsonLd}>
+  <section class="hero">
+    <p class="kicker">TROi</p>
+    <h1>Practice creates insight. Insight develops perspective. Perspective improves practice.</h1>
+    <p class="lede">
+      I am {author.name}, an independent enterprise and solution architect based in {author.city}, {author.country}.
+      Through {company.name} I help organizations improve how they create value through technology, architecture and
+      organizational design — see <a href="/services/">what I offer</a>. Over time that work evolved into an ongoing
+      body of thought I call Organizational Flow.
+    </p>
+    <div class="horizon"></div>
+  </section>
+
+  <main class="reading" id="main">
+    <section class="block">
+      <p>
+        The blog captures observations from that work as they happen. <a href="/organizational-flow/">Organizational Flow</a> develops those observations into a coherent perspective — an evolving answer to how organizations create value.
+      </p>
+      <p>
+        Its starting point is <a href="/organizational-flow/concepts/#organizational-friction">organizational friction</a>:
+        organizations rarely become slow because people work slowly, but because friction — unclear ownership,
+        handoffs, decisions that wait — accumulates faster than value is created. Good places to begin are the
+        <a href="/organizational-flow/the-ten-minute-version/">ten-minute version</a>, the
+        <a href="/organizational-flow/concepts/">key concepts</a>, or how the thinking applies to
+        <a href="/organizational-flow/team-boundaries/">team boundaries and cognitive load</a> and to
+        <a href="/organizational-flow/people-and-agents/">organizations with AI agents</a>.
+      </p>
+    </section>
+
+    <section class="block home-section">
+      <h2>Practice, insight and perspective</h2>
+      <p>
+        The heading above is how this site is organized. <strong>Practice</strong> is the work itself: architecture
+        and organizational design inside real organizations, with real deadlines and real constraints. It produces
+        <strong>insight</strong> — the things you only notice from inside an assignment, written down as they happen on
+        the <a href="/blog/">blog</a>. Enough insight, looked at together, develops into a
+        <strong>perspective</strong>: <a href="/organizational-flow/">Organizational Flow</a>, a working theory of why
+        organizations become slower than they need to be. And the perspective goes back into practice, where it is
+        tested again, which is why the book is published as a working draft rather than a finished one.
+      </p>
+      <p>
+        In short: practice creates insight, insight develops perspective, and perspective improves practice — in
+        architecture, in organizational design, and in the organizations I work with.
+      </p>
+    </section>
+
+    <section class="block home-section">
+      <h2>Organizational Flow in brief</h2>
+      <p>
+        Organizational Flow is an organization's ability to keep moving information, decisions, execution and
+        learning through the capabilities it depends on, so that value actually reaches customers and users.
+        It falls when structural friction builds up — a capability nobody can say they own, context rebuilt at every
+        handoff, decisions that wait for weeks, outcomes that never travel back to whoever chose. The book describes
+        four indicators for seeing it: <a href="/organizational-flow/concepts/#ownership-clarity">ownership clarity</a>,
+        <a href="/organizational-flow/concepts/#handoff-loss">handoff loss</a>,
+        <a href="/organizational-flow/concepts/#decision-latency">decision latency</a> and
+        <a href="/organizational-flow/concepts/#learning-cycle-time">learning cycle time</a>.
+      </p>
+      <p>
+        It is free to read online, to listen to, to download as a PDF, or to order as a printed copy. The
+        <a href="/organizational-flow/self-assessment/">self-assessment</a> takes about fifteen minutes and points at
+        the chapters that match whatever is currently creaking in your own organization. The same ideas are put to
+        work in <a href="/tools/cambium/">Cambium</a>, a prototype that models an organization of people and AI agents
+        and shows where work will get stuck.
+      </p>
+    </section>
+
+    <section class="block home-section">
+      <h2>What I work on</h2>
+      <p>
+        More than twenty years where business, technology and organization meet — in insurance, media, advertising
+        and digital services — as developer, solution architect, chief architect, head of architecture and senior
+        advisor. Today that means a handful of things organizations bring me in for:
+      </p>
+      <ul>
+        <li><a href="/services/#enterprise-architecture">Enterprise architecture and strategy validation</a> — testing direction before more money is committed.</li>
+        <li><a href="/services/#capability-and-domain-design">Capability and domain design</a> — drawing the boundaries teams can actually own.</li>
+        <li><a href="/services/#architecture-enablement">Architecture enablement</a> — guardrails that let teams decide without waiting.</li>
+        <li><a href="/services/#interim-chief-architect">Interim chief architect and senior advisor</a> — for a transformation or a leadership gap.</li>
+        <li><a href="/services/#solution-design">Solution architecture</a> — complex flows across CRM, subscriptions, payments, orders and ERP.</li>
+        <li><a href="/services/#organizational-flow-diagnostic">Organizational Flow diagnostic</a> — finding where the friction actually sits.</li>
+      </ul>
+      <p>
+        I work in Swedish and English, in the Stockholm area and remotely. <a href="/contact/">Get in touch</a>, or{' '}
+        <a href="/tjanster/" lang="sv">läs på svenska</a>.
+      </p>
+    </section>
+
+    <section class="block home-section">
+      <h2>Recent writing</h2>
+      <ul class="home-recent">
+        {recent.map((post) => (
+          <li lang={post.lang === 'sv' ? 'sv' : undefined}>
+            <a href={post.path}>{post.title}</a>{' '}
+            <time class="home-date" datetime={post.date.toISOString().slice(0, 10)}>{fmt(post.date)}</time>
+            {post.description && <p>{post.description}</p>}
+          </li>
+        ))}
+        <li>
+          <a href="/organizational-flow/the-meter-was-always-running/">The Meter Was Always Running</a>
+          <p>The newest chapter of Organizational Flow: why AI makes the cost of navigating an organization visible for the first time.</p>
+        </li>
+      </ul>
+      <p><a href="/blog/">All posts</a> · <a href="/organizational-flow/">The book</a></p>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .home-section h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.35rem;
+    margin: 0 0 0.8rem;
+  }
+  .home-section ul {
+    padding-left: 1.1rem;
+  }
+  .home-date {
+    display: block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    color: var(--bark);
+  }
+  .home-section li {
+    margin-bottom: 0.5rem;
+  }
+  .home-recent {
+    list-style: none;
+    padding: 0 !important;
+  }
+  .home-recent li {
+    padding: 0.7rem 0;
+    border-top: 1px solid var(--mist);
+  }
+  .home-recent a {
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem;
+  }
+  .home-recent p {
+    margin: 0.25rem 0 0;
+    font-size: 0.92rem;
+    color: var(--bark);
+  }
+</style>

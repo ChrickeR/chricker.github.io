@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="{{lang}}">
+<head>
+<meta charset="utf-8">
+<title>{{title}}</title>
+<style>
+  @page { size: A4; margin: 57px 60px 50px 61px; }
+  :root {
+    --ink: #1a1a1a;
+    --body: #3a3a3a;
+    --muted: #565656;
+    --faint: #8a8a8a;
+    --rule: #e2e2e2;
+    --accent: #2f4a6d;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: Arial, "Liberation Sans", Helvetica, sans-serif;
+    font-size: 12.8px;
+    line-height: 1.432;
+    color: var(--ink);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  p { margin: 0; }
+
+  header { padding-bottom: 12px; border-bottom: 2px solid var(--accent); }
+  h1 {
+    margin: 0;
+    font-size: 30.66px;
+    line-height: 1.425;
+    letter-spacing: 0.055em;
+    text-transform: uppercase;
+  }
+  .title { margin-top: 2px; font-size: 13.33px; font-weight: 700; color: var(--accent); letter-spacing: 0.02em; }
+  .tagline { margin-top: 2px; font-size: 11.2px; color: var(--faint); letter-spacing: 0.16em; text-transform: uppercase; }
+  .contact { margin-top: 8px; font-size: 11.06px; letter-spacing: 0.01em; color: var(--muted); }
+
+  section { margin-top: 14px; }
+  header + section { margin-top: 15px; }
+  section > ul { margin-top: -1px; }
+  h2 {
+    margin: 0 0 6px;
+    padding-bottom: 5.4px;
+    border-bottom: 1px solid var(--rule);
+    font-size: 10.4px;
+    line-height: 1.2;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  section > p:not(.edu) + p { margin-top: 6.6px; }
+  .list { font-size: 11.86px; line-height: 1.56; color: var(--muted); }
+
+  ul { margin: 0; padding: 0; list-style: none; }
+  li { position: relative; padding-left: 12px; margin-bottom: 3.3px; }
+  li::before { content: "•"; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+
+  .job .role { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .job h3 { margin: 0; font-size: 12.26px; line-height: 18.33px; }
+  h2 + .job.top { margin-top: 1px; }
+  .job.top h3 { font-size: 13.06px; }
+  .job .org { font-size: 12.8px; color: var(--accent); }
+  .job .when { font-size: 11.06px; color: var(--faint); white-space: nowrap; }
+  .job p { margin-top: 1.7px; color: var(--muted); }
+  .job.top + .job.top, .nested + .job.top, .via + .job.top { margin-top: 12px; }
+  .via { margin-top: 6.6px; font-weight: 700; color: var(--body); }
+  .via + .nested { margin-top: 6px; }
+  .nested { margin: 7px 0 0 12px; padding-left: 12px; border-left: 2px solid var(--rule); }
+  .nested .job + .job { margin-top: 9px; }
+  .nested + .job.top { margin-top: 13px; }
+
+  .pub { margin-top: 1px; padding: 3px 0 3px 11px; border-left: 3px solid var(--accent); }
+  .other { color: var(--muted); }
+  .edu { color: var(--muted); line-height: 18.33px; margin-bottom: 2.2px; }
+  .edu b { color: var(--ink); }
+
+  footer {
+    display: flex; justify-content: space-between;
+    margin-top: 18px; padding-top: 8px;
+    border-top: 1px solid var(--rule);
+    font-size: 10.13px; color: var(--faint);
+  }
+  .job, li, .edu, .pub { break-inside: avoid; }
+  h2 { break-after: avoid; }
+</style>
+</head>
+<body>
+{{body}}
+</body>
+</html>

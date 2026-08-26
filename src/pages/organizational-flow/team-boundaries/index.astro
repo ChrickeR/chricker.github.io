@@ -1,0 +1,225 @@
+---
+import ShareLinks from '../../../components/ShareLinks.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Footer from '../../../components/Footer.astro';
+import { author, personRef, BOOK_ID, SITE_URL, breadcrumbs } from '../../../data/site';
+
+// A context page beside the book about team boundaries. It builds on ideas
+// from Team Topologies and says so inside the page, with the credit where it
+// is due — but the page is about the subject, not about that book, so the
+// title, address and description do not carry its name.
+const meetings = [
+  {
+    id: 'cognitive-load',
+    heading: 'Cognitive load as the sizing rule',
+    tt: 'Team Topologies names cognitive load as the constraint that should shape a team.',
+    of: 'Organizational Flow takes that as its sizing rule and makes it countable: count the separate domains a team must understand, not the people in it. Adding people to an overloaded team usually adds coordination rather than capacity; moving one domain out often does more.',
+    chapters: [
+      { slug: 'how-much-can-one-team-hold', title: 'How Much Can One Team Hold' },
+      { slug: 'drawing-the-line-around-a-team', title: 'Drawing the Line Around a Team' },
+    ],
+  },
+  {
+    id: 'boundaries',
+    heading: 'What the boundary should follow',
+    tt: 'Team Topologies argues for boundaries drawn on purpose, around a stream of value.',
+    of: 'Organizational Flow answers what to draw them around: the capability — an enduring business area, a bounded context that owns an outcome. A capability is coherent by definition, so cognitive load gets a natural edge. Draw the team around a system, a technology or a reporting line instead, and it inherits whatever unrelated concerns happened to land in that box.',
+    chapters: [
+      { slug: 'what-a-capability-is', title: 'What a Capability Is, and Is Not' },
+      { slug: 'capabilities', title: 'What Survives the Reorg' },
+    ],
+  },
+  {
+    id: 'interactions',
+    heading: 'Interactions as friction',
+    tt: 'Team Topologies describes team types and a small set of interaction modes, chosen deliberately.',
+    of: 'Organizational Flow reads the same choice in terms of friction: collaboration is a handover you have chosen to keep, ideally for a stated period; consuming something as a service is a handover you have removed. The common failure is not choosing wrongly but never noticing there was a choice.',
+    chapters: [
+      { slug: 'how-much-can-one-team-hold', title: 'How Much Can One Team Hold' },
+      { slug: 'interfaces', title: 'You Have to Know a Guy' },
+      { slug: 'an-interface-nobody-can-find', title: 'An Interface Nobody Can Find' },
+    ],
+  },
+  {
+    id: 'dependencies',
+    heading: 'Dependencies, ownership and decisions',
+    tt: 'A team diagram shows who works with whom, but not who may decide.',
+    of: 'Organizational Flow looks at exactly that. A team can have every competence it needs in the room and still wait weeks, because the decision sits somewhere else. Ownership clarity, handoff loss and decision latency are the three indicators that make that visible.',
+    chapters: [
+      { slug: 'teams', title: 'The Team That Has to Ask' },
+      { slug: 'ownership', title: 'A Meeting Grew Here' },
+      { slug: 'observing-organizations', title: 'Observing Organizations' },
+    ],
+  },
+  {
+    id: 'platforms',
+    heading: 'Platforms and shared infrastructure',
+    tt: 'Team Topologies treats a platform as something other teams consume to reduce their load.',
+    of: 'Organizational Flow looks at what happens when shared infrastructure turns into shared friction — and at the freedom to change that an organization gives away when it forgets to plan the exit.',
+    chapters: [
+      { slug: 'shared-infrastructure-shared-friction', title: 'When Shared Infrastructure Becomes Shared Friction' },
+      { slug: 'funding-what-doesnt-end', title: "Funding What Doesn't End" },
+    ],
+  },
+  {
+    id: 'agents',
+    heading: 'Teams with people and AI agents',
+    tt: 'Most writing on team design assumes a team made only of people.',
+    of: 'Organizational Flow extends the same questions to teams where agents do part of the work: agents hold competence and add to a team’s load, what they may do follows from rules the organization has actually settled, and every outcome still needs a person who answers for it. The work harness — the structure people and agents both need to act — exists to make the organization cheaper to navigate, not to add more of it.',
+    chapters: [
+      { slug: 'the-meter-was-always-running', title: 'The Meter Was Always Running' },
+      { slug: 'owning-what-ai-cant', title: "Owning What AI Can't" },
+    ],
+  },
+];
+
+const pagePath = '/organizational-flow/team-boundaries/';
+const description =
+  'What team boundaries should follow: cognitive load, capabilities, Conway’s law, sociotechnical architecture, platform teams and teams with AI agents.';
+
+const jsonLd = [
+  {
+    '@type': 'Article',
+    '@id': `${SITE_URL}${pagePath}#article`,
+    headline: 'Team boundaries, cognitive load and capabilities',
+    description,
+    url: `${SITE_URL}${pagePath}`,
+    author: personRef,
+    isPartOf: { '@id': BOOK_ID },
+    about: ['Team boundaries', 'Team cognitive load', 'Business capabilities', 'Organizational design', 'Organizational friction', "Conway's law", 'Sociotechnical architecture', 'Platform teams'],
+    mentions: {
+      '@type': 'Book',
+      name: 'Team Topologies',
+      author: [
+        { '@type': 'Person', name: 'Matthew Skelton' },
+        { '@type': 'Person', name: 'Manuel Pais' },
+      ],
+    },
+    inLanguage: 'en',
+    datePublished: '2026-09-17',
+  },
+  breadcrumbs([
+    { name: 'TROi', path: '/' },
+    { name: 'Organizational Flow', path: '/organizational-flow/' },
+    { name: 'Team boundaries and cognitive load', path: pagePath },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Team boundaries and cognitive load"
+  fullTitle="Team boundaries and cognitive load · TROi"
+  description={description}
+  ogType="article"
+  jsonLd={jsonLd}
+  published="2026-09-17"
+>
+  <main class="reading" id="main">
+    <section class="block insight-page">
+      <p class="kicker"><a href="/organizational-flow/">Organizational Flow</a> · In context</p>
+      <h1>Team boundaries, cognitive load and capabilities</h1>
+
+      <p class="lede">
+        Where a team boundary goes decides how much the team has to hold, how often it has to ask, and whether
+        anybody chose any of it. This page gathers what <a href="/organizational-flow/">Organizational Flow</a> — a
+        working theory of organizational friction — says about team
+        boundaries. Much of it builds on <a href="https://teamtopologies.com/book"><em>Team Topologies</em></a> by Matthew Skelton and Manuel Pais, the clearest
+        published treatment of how to shape teams and the ways they interact; anyone designing team boundaries
+        should read the original.
+      </p>
+      <p class="tt-note">
+        Where an idea comes from Team Topologies, it says so below. I have no affiliation with Team Topologies or
+        its authors, and nothing here speaks for them.
+      </p>
+
+      {meetings.map((m) => (
+        <section class="tt-meeting" id={m.id}>
+          <h2>{m.heading}</h2>
+          <p class="tt-theirs">{m.tt}</p>
+          <p>{m.of}</p>
+          <p class="tt-chapters">
+            In the paper:{' '}
+            {m.chapters.map((c, i) => (
+              <>{i > 0 && ' · '}<a href={`/organizational-flow/${c.slug}/`}>{c.title}</a></>
+            ))}
+          </p>
+        </section>
+      ))}
+
+      <section class="tt-meeting" id="conways-law">
+        <h2>Conway’s law and sociotechnical architecture</h2>
+        <p>
+          In 1968 Melvin Conway <a href="https://www.melconway.com/Home/Committees_Paper.html">observed</a> that
+          organizations design systems that copy their own communication structure. More than fifty years later it still holds, and it works in both directions: the systems an
+          organization runs also shape how its people have to talk to each other. A team boundary is therefore an
+          architecture decision, and an architecture decision is also a decision about teams — whether or not anybody
+          made it on purpose.
+        </p>
+        <p>
+          That is what sociotechnical architecture means in practice: designing the organization and the systems as one
+          thing. Draw a boundary through the middle of a capability and the system will grow an interface there, with
+          a handover and a queue attached. Draw the boundary around the capability and the system has a reason to keep
+          its logic in one place. The reverse move — changing the teams first so that the architecture follows — only
+          works when the new boundaries follow something that lasts longer than the reorganization.
+        </p>
+        <h3 id="platform-teams">Platform teams</h3>
+        <p>
+          A platform team is Conway’s law used deliberately: a team that owns something many others depend on, offered
+          so that they can consume it without asking. It reduces load when the platform is a clear service with an
+          owner who may decide. It adds friction when it becomes a queue — when every team has to wait for the platform
+          team, and the platform team has to wait for a decision nobody owns. The test is the same as for any
+          boundary: can the teams on either side finish their work without a meeting?
+        </p>
+        <p class="tt-chapters">
+          In the paper:{' '}
+          <a href="/organizational-flow/organizations-as-systems/">It Grew Like That</a> ·{' '}
+          <a href="/organizational-flow/shared-infrastructure-shared-friction/">When Shared Infrastructure Becomes Shared Friction</a> ·{' '}
+          <a href="/organizational-flow/architecture/">The Long Way to a Yes</a>
+        </p>
+      </section>
+
+      <h2>In short</h2>
+      <p>
+        Draw team boundaries around capabilities, size them by what a team must understand rather than by headcount,
+        choose how teams interact instead of inheriting it, and make sure the teams inside the boundaries may
+        actually decide. Otherwise the friction shows up as waiting, rebuilt context and value that is never
+        created.
+      </p>
+
+      <ShareLinks title="Team boundaries, cognitive load and capabilities" />
+
+      <p class="related">
+        See also — <a href="/organizational-flow/concepts/">Key concepts</a>,{' '}
+        <a href="/organizational-flow/people-and-agents/">People and AI agents</a>,{' '}
+        <a href="/organizational-flow/further-reading/">Further reading</a>,{' '}
+        <a href="/services/#capability-and-domain-design">Capability and domain design</a>
+      </p>
+    </section>
+  </main>
+  <Footer label="Organizational Flow — an ongoing work" />
+</BaseLayout>
+
+<style>
+  .tt-note {
+    font-size: 0.88rem;
+    font-style: italic;
+    color: var(--bark);
+    border-left: 2px solid var(--mist);
+    padding-left: 0.9rem;
+  }
+  .tt-meeting {
+    padding-top: 0.4rem;
+    scroll-margin-top: 5rem;
+  }
+  .tt-theirs {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--bark);
+  }
+  .tt-chapters {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--bark);
+  }
+</style>

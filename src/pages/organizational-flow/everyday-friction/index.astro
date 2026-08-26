@@ -1,0 +1,233 @@
+---
+import ShareLinks from '../../../components/ShareLinks.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Footer from '../../../components/Footer.astro';
+import { personRef, BOOK_ID, SITE_URL, breadcrumbs } from '../../../data/site';
+
+// The grit in the machinery: the small, ordinary moments where friction shows
+// up on a working day. Each points at the chapter where the mechanism behind it
+// is described. A page beside the book, not a chapter of it.
+const moments = [
+  {
+    heading: 'The decision that waits for the next meeting',
+    text: 'A small question needs a yes from a forum that meets once a month. The work waits nine days for a five-minute answer, and nobody thinks of it as waiting, because the meeting is in the calendar.',
+    indicator: 'Decision latency',
+    links: [
+      { slug: 'architecture', title: 'The Long Way to a Yes' },
+      { slug: 'leading-without-deciding', title: 'Leading Without Deciding' },
+    ],
+  },
+  {
+    heading: 'The meeting that exists to coordinate',
+    text: 'An hour a week where seven people check what everyone else is doing, so the work does not collide. It feels responsible. But the coordination is only needed because the boundaries between the teams sit in the wrong places. Where ownership and interfaces are clear, nobody has to check in, and the work can go on without asking.',
+    indicator: 'Handoff loss',
+    links: [
+      { slug: 'the-meter-was-always-running', title: 'The Meter Was Always Running' },
+      { slug: 'teams', title: 'The Team That Has to Ask' },
+    ],
+  },
+  {
+    heading: '“Who owns this?”',
+    text: 'Asked in a meeting, answered with a pause, then three different names. Nobody is being evasive. The thing was never given an owner, so people compensate around it, and the compensation becomes permanent.',
+    indicator: 'Ownership clarity',
+    links: [
+      { slug: 'ownership', title: 'A Meeting Grew Here' },
+      { slug: 'what-a-capability-is', title: 'What a Capability Is, and Is Not' },
+    ],
+  },
+  {
+    heading: 'Information in the wrong place',
+    text: 'The information we depend on is, in practice, owned by whichever team happens to run the system it is stored in. They do not know what it means to us, and yet they are both its source and its distributor. Every question about what a field means, and every change we need, goes through a team with no reason to understand it. The information has a keeper, but no owner.',
+    indicator: 'Ownership clarity',
+    links: [
+      { slug: 'we-have-a-data-model', title: 'Agreeing on What Things Mean' },
+      { slug: 'what-a-capability-is', title: 'What a Capability Is, and Is Not' },
+    ],
+  },
+  {
+    heading: 'You have to know a guy',
+    text: 'The way into an API, a function or a capability is a person rather than a door. There is no self-service. And once you have found it, the questions remain: how is it used, and what does what comes out of it actually mean? The answers usually take knowing one more person. All of it works well for whoever has the right numbers, and quietly stops working for everyone who joined after those people did.',
+    indicator: 'Handoff loss',
+    links: [{ slug: 'interfaces', title: 'You Have to Know a Guy' }],
+  },
+  {
+    heading: 'Everyone left agreeing',
+    text: 'The meeting ended well. A week later it turns out everyone left with a slightly different picture of what was agreed, and the same word meant three different things in three different rooms.',
+    indicator: 'Handoff loss',
+    links: [
+      { slug: 'everyone-left-agreeing', title: 'Everyone Left Agreeing' },
+      { slug: 'we-have-a-data-model', title: 'Agreeing on What Things Mean' },
+    ],
+  },
+  {
+    heading: 'The detective work before anything starts',
+    text: 'Every new initiative spends its first weeks finding out how things actually work today: which system holds what, who decides, why it is built the way it is. The findings are never kept, so the next initiative starts the investigation again.',
+    indicator: 'Learning cycle time',
+    links: [{ slug: 'the-detective-work', title: 'The Detective Work at the Front of Everything' }],
+  },
+  {
+    heading: 'The rule that belongs to someone else',
+    text: 'A requirement that exists for one part of the organization ends up applying to all of it. The access request that takes two weeks, the approval step on something that carries no risk, the template nobody in this team needs.',
+    indicator: 'Decision latency',
+    links: [{ slug: 'everyone-carries-the-strictest-requirement', title: 'Everyone Carries the Strictest Requirement' }],
+  },
+  {
+    heading: 'The form that made the waiting tidier',
+    text: 'Somebody noticed the queue and introduced a process for it. The queue is now numbered, tracked and reported on, and exactly as long as before.',
+    indicator: 'Decision latency',
+    links: [
+      { slug: 'an-interface-nobody-can-find', title: 'An Interface Nobody Can Find' },
+      { slug: 'a-tollbooth-on-a-road-with-a-bypass', title: 'A Tollbooth on a Road With a Bypass' },
+    ],
+  },
+  {
+    heading: 'Everything was green',
+    text: 'Every report on time, every status green. The team closed 52 tasks this sprint, and nobody can say what they did for a customer. Green is often simply the safest thing to report, because saying that something is not working costs more than letting it pass. But what nobody dares to say, nobody can learn from. A year later a great deal has been done, and nothing the organization can do is any better.',
+    indicator: 'Learning cycle time',
+    links: [
+      { slug: 'value', title: 'Everything Was Green' },
+      { slug: 'nobody-writes-down-the-cost-of-not-trusting', title: 'Nobody Writes Down the Cost of Not Trusting' },
+      { slug: 'learning', title: 'We Have Solved This Before' },
+    ],
+  },
+  {
+    heading: '“Let’s go back to what we usually do”',
+    text: 'Something new is tried. It gets a little worse first, as it nearly always does when an old workaround is taken away, and someone says it seems like hard work. So everyone goes back. What the attempt taught goes with it, and the next time someone suggests the same thing there is already an answer: we tried that.',
+    indicator: 'Learning cycle time',
+    links: [
+      { slug: 'tending-what-grew', title: 'Tending What Grew' },
+      { slug: 'what-goes-wrong', title: 'What Goes Wrong' },
+    ],
+  },
+  {
+    heading: '“These things take time”',
+    text: 'The sentence people say when they have stopped expecting anything to move faster. Friction shows up in how people sound long before it shows up in a number.',
+    indicator: 'All four',
+    links: [
+      { slug: 'it-shows-up-in-people-first', title: 'It Shows Up in People First' },
+      { slug: 'people', title: 'The Wait Nobody Logged' },
+    ],
+  },
+];
+
+const pagePath = '/organizational-flow/everyday-friction/';
+const title = 'Everyday friction: the grit in the machinery';
+const description =
+  'The small, ordinary moments where organizational friction shows up on a working day, and the mechanism behind each one.';
+
+const jsonLd = [
+  {
+    '@type': 'Article',
+    '@id': `${SITE_URL}${pagePath}#article`,
+    headline: title,
+    description,
+    url: `${SITE_URL}${pagePath}`,
+    author: personRef,
+    isPartOf: { '@id': BOOK_ID },
+    about: ['Organizational friction', 'Decision latency', 'Handoff loss', 'Ownership clarity', 'Learning cycle time'],
+    inLanguage: 'en',
+    datePublished: '2026-09-18',
+  },
+  breadcrumbs([
+    { name: 'TROi', path: '/' },
+    { name: 'Organizational Flow', path: '/organizational-flow/' },
+    { name: 'Everyday friction', path: pagePath },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Everyday friction"
+  fullTitle="Everyday friction — the grit in the machinery · TROi"
+  description={description}
+  ogType="article"
+  jsonLd={jsonLd}
+  published="2026-09-18"
+>
+  <main class="reading" id="main">
+    <section class="block insight-page">
+      <p class="kicker"><a href="/organizational-flow/">Organizational Flow</a> · In context</p>
+      <h1>Everyday friction</h1>
+      <p class="grit-sub">— the grit in the machinery</p>
+
+      <p class="lede">
+        Organizational friction rarely looks like a crisis. It looks like an ordinary Tuesday: a question that waits,
+        a meeting that coordinates, a form that tidies the queue without shortening it. None of these moments is
+        dramatic on its own, and that is exactly why they survive. Here are the ones I meet most often, each with the
+        mechanism behind it in <a href="/organizational-flow/">Organizational Flow</a>.
+      </p>
+
+      <p>
+        Read the list with one ordinary week in mind, and count how many of these you met in it.
+      </p>
+
+      {moments.map((m) => (
+        <section class="grit-moment">
+          <h2>{m.heading}</h2>
+          <p>{m.text}</p>
+          <p class="grit-links">
+            <span class="grit-indicator">{m.indicator}</span>
+            {m.links.map((l) => (
+              <>{' · '}<a href={`/organizational-flow/${l.slug}/`}>{l.title}</a></>
+            ))}
+          </p>
+        </section>
+      ))}
+
+      <h2 class="grit-close">The pattern behind the moments</h2>
+      <p>
+        Each of these is small enough to shrug off, which is why they are rarely fixed one by one. Together they are
+        the four indicators the paper uses: whether people can name who owns a thing, how much context is lost at
+        each handoff, how long decisions wait, and how long it takes before an outcome reaches whoever chose the
+        work. <a href="/organizational-flow/observing-organizations/">Observing Organizations</a> describes how to
+        read them, and <a href="/organizational-flow/reducing-friction/">Reducing Friction</a> describes the order in
+        which to work on them.
+      </p>
+      <p>
+        The grit is not the problem itself. It is a symptom of what was never made clear: who owns a thing, who may decide, and what the words mean.
+      </p>
+
+      <ShareLinks title="Everyday friction — the grit in the machinery" />
+
+      <p class="related">
+        See also — <a href="/organizational-flow/concepts/">Key concepts</a>,{' '}
+        <a href="/organizational-flow/team-boundaries/">Team boundaries and cognitive load</a>,{' '}
+        <a href="/organizational-flow/people-and-agents/">People and AI agents</a>,{' '}
+        <a href="/organizational-flow/self-assessment/">Self-assessment</a>
+      </p>
+    </section>
+  </main>
+  <Footer label="Organizational Flow — an ongoing work" />
+</BaseLayout>
+
+<style>
+  .grit-sub {
+    margin: -1.2rem 0 1.6rem;
+    font-family: 'Fraunces', serif;
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--bark);
+  }
+  .grit-moment {
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--mist);
+  }
+  .grit-moment h2 {
+    margin: 0 0 0.5rem !important;
+    font-size: 1.2rem !important;
+  }
+  .grit-links {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--bark);
+  }
+  .grit-indicator {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--moss);
+  }
+  .grit-close {
+    margin-top: 2.6rem !important;
+  }
+</style>

@@ -1,0 +1,601 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Flow Metamodel — Cambium</title>
+<meta name="description" content="The Cambium metamodel by Christoffer Råsten: twenty-two entities and one closed loop for modelling an organization of people and AI agents — capabilities, competence, decision rights, guidelines, asks and the work harness.">
+<meta name="author" content="Christoffer Råsten">
+<link rel="canonical" href="https://troi.se/tools/cambium-metamodel.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,300..600&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --ground:#F4F2EE; --surface:#FFFFFF; --raised:#FBFAF7; --ink:#1C1A17; --muted:#6B6459; --faint:#938B7E;
+    --rule:#DCD8D0; --hair:#EAE7E1; --accent:#B26A0A; --accent-wash:#FBF3E6;
+    --f-display:"Newsreader",ui-serif,Georgia,serif;
+    --f-body:"IBM Plex Sans",ui-sans-serif,system-ui,sans-serif;
+    --f-data:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+    --ground:#141210; --surface:#1D1B17; --raised:#232019; --ink:#EDEAE3; --muted:#9A9284; --faint:#776F63;
+    --rule:#35312B; --hair:#2B2822; --accent:#E09A3C; --accent-wash:#2A2216; } }
+  :root[data-theme="dark"]{
+    --ground:#141210; --surface:#1D1B17; --raised:#232019; --ink:#EDEAE3; --muted:#9A9284; --faint:#776F63;
+    --rule:#35312B; --hair:#2B2822; --accent:#E09A3C; --accent-wash:#2A2216; }
+  body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--f-body);font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .page{max-width:1240px;margin:0 auto;padding:48px 28px 80px}
+  .eyebrow{font-family:var(--f-data);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);margin:0 0 8px}
+  h1{font-family:var(--f-display);font-weight:500;font-size:40px;line-height:1.06;letter-spacing:-.018em;margin:0 0 18px;text-wrap:balance;max-width:19ch}
+  .lede{font-size:15.5px;line-height:1.68;color:var(--muted);max-width:70ch;margin:0 0 10px}
+  .lede b{color:var(--ink);font-weight:600}
+  h2{font-family:var(--f-display);font-weight:500;font-size:25px;line-height:1.2;margin:56px 0 6px;letter-spacing:-.01em;text-wrap:balance}
+  .sub{font-size:13px;color:var(--faint);margin:0 0 20px;max-width:70ch;line-height:1.6}
+  figure{margin:28px 0 0}
+  .figwrap{background:var(--surface);border:1px solid var(--hair);border-radius:10px;padding:24px;overflow-x:auto}
+  .figwrap svg{display:block;width:100%;min-width:900px;height:auto}
+  figcaption{font-size:12.5px;color:var(--muted);line-height:1.62;max-width:84ch;margin-top:14px;padding-top:12px;border-top:1px solid var(--hair)}
+  figcaption b{color:var(--ink);font-weight:600}
+  .band{display:grid;margin-top:22px;grid-template-columns:minmax(11rem,13rem) 1fr;border-top:1px solid var(--rule)}
+  .bandname{padding:18px 20px 18px 0;font-family:var(--f-data);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+  .band[data-band="movement"] .bandname{color:var(--accent)}
+  .bandname em{display:block;font-style:normal;font-family:var(--f-body);font-size:12px;letter-spacing:0;text-transform:none;color:var(--faint);margin-top:6px;line-height:1.5}
+  .ent{padding:16px 0;border-bottom:1px solid var(--hair);display:flex;gap:18px;flex-wrap:wrap}
+  .ent:last-child{border-bottom:none}
+  .who{flex:0 0 12rem}
+  .who b{font-size:14px;font-weight:600;display:block}
+  .who code{font-family:var(--f-data);font-size:10.5px;color:var(--faint);display:block;margin-top:3px;line-height:1.5}
+  .why{flex:1 1 22rem;font-size:13px;color:var(--muted);line-height:1.6}
+  .links{display:flex;flex-direction:column;margin-top:8px;font-size:12px}
+  .links i{font-style:normal;font-family:var(--f-data);font-size:11px;color:var(--accent)}
+  .links b{color:var(--ink);font-weight:600}
+  .cycle{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(13.5rem,1fr))}
+  .cycle li{background:var(--surface);border:1px solid var(--hair);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+  .cycle .n{width:22px;height:22px;border-radius:50%;background:var(--accent);color:var(--surface);display:grid;place-items:center;font-family:var(--f-data);font-size:11px}
+  .cycle b{font-size:14px;font-weight:600}
+  .cycle p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.55}
+  .cycle em{font-style:normal;font-family:var(--f-data);font-size:11px;color:var(--accent);margin-top:auto;padding-top:4px}
+  .tablewrap{overflow-x:auto;margin-top:18px}
+  table{border-collapse:collapse;width:100%;min-width:720px;font-size:13px}
+  th{font-family:var(--f-data);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);text-align:left;font-weight:500;padding:8px 10px;border-bottom:1px solid var(--rule)}
+  td{padding:8px 10px;border-bottom:1px solid var(--hair);vertical-align:top}
+  td.card{font-family:var(--f-data);font-size:11.5px;color:var(--accent);white-space:nowrap;font-variant-numeric:tabular-nums}
+  td.where{font-family:var(--f-data);font-size:11px;color:var(--faint)}
+  tr.group td{font-family:var(--f-data);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding-top:18px;border-bottom:1px solid var(--rule)}
+  .rules{display:grid;gap:2px;margin-top:22px;grid-template-columns:repeat(auto-fit,minmax(20rem,1fr))}
+  .rule{background:var(--surface);border:1px solid var(--hair);padding:18px 20px;display:flex;flex-direction:column;gap:6px}
+  .rule b{font-family:var(--f-display);font-size:16px;font-weight:500;line-height:1.3}
+  .rule p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.62}
+  .lede.working{color:var(--ink)}
+  .byline{font-family:var(--f-data);font-size:11px;letter-spacing:.06em;color:var(--faint);margin:0 0 24px}
+  .moved{display:flex;flex-direction:column;border-top:1px solid var(--rule);margin-top:18px}
+  .moved-day{display:grid;grid-template-columns:8rem 1fr;gap:16px;padding:12px 0;border-bottom:1px solid var(--hair)}
+  .moved-day time{font-family:var(--f-data);font-size:11.5px;color:var(--accent);font-variant-numeric:tabular-nums;padding-top:2px}
+  .moved-day ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:3px;font-size:13px;color:var(--muted)}
+  .moved-day li.more{color:var(--faint)}
+  @media (max-width:640px){.moved-day{grid-template-columns:1fr;gap:4px}}
+  .close{margin-top:56px;padding:24px 28px;background:var(--accent-wash);border-left:3px solid var(--accent);border-radius:6px;max-width:78ch}
+  .close p{margin:0;font-size:15px;line-height:1.68}
+  .close p + p{margin-top:12px}
+  @media (max-width:40rem){.page{padding:32px 16px 56px}.band{grid-template-columns:1fr}.bandname{padding:16px 0 0}.who{flex:1 1 100%}.why{flex-basis:100%}}
+</style>
+
+</head>
+<body>
+<div class="page">
+  <p class="eyebrow">Cambium · a working model</p>
+  <h1>A metamodel of organizational flow</h1>
+  <p class="lede working"><b>This is the model I am iterating on</b> — a working theory of organizational flow, not a finished standard. It changes as I use it and learn from it, day by day. What follows is where it stands today.</p>
+  <p class="byline">Christoffer Råsten · TROi</p>
+  <p class="lede">
+    What an organization can do, who is arranged against that today, what it runs on — and how it
+    decides, who may act without asking, and what anybody has gone and measured. <b>Twenty-two entities,
+    33 relations, and one loop that closes</b>: from a capability, through the people and agents who
+    hold the competence to perform it, through the work and what it teaches, back to a changed capability.
+  </p>
+
+  <h2>Structure</h2>
+  <p class="sub">Three bands, read by how long they last. Every relation carries its multiplicity at both ends, in amber. The heavier lines are the spine: a capability speaks its contexts, and competence — held by a person or an agent — is what makes it theirs to perform.</p>
+  <figure>
+    <div class="figwrap"><svg viewBox="0 0 1240 590" role="img" aria-label="Structure of the flow metamodel with multiplicities. A capability speaks one or more bounded contexts; competence staffs capabilities and is held by actors, people or agents, which is what makes a capability theirs to perform; organizational units are responsible for capabilities and operate in a legal entity; systems realize capabilities, expose interfaces that carry information objects, run on infrastructure and are built with technology.">
+  <defs>
+    <marker id="mf" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--faint)"/></marker>
+    <marker id="mk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--ink)"/></marker>
+  </defs>
+  <text x="0" y="24" text-anchor="start" font-family="var(--f-data)" font-size="9.5" fill="var(--faint)">DURABLE · SURVIVES THE REORGANIZATION</text><line x1="0" y1="32" x2="1240" y2="32" stroke="var(--hair)"/>
+  <text x="0" y="254" text-anchor="start" font-family="var(--f-data)" font-size="9.5" fill="var(--faint)">ARRANGED · THIS YEAR’S ANSWER</text><line x1="0" y1="262" x2="1240" y2="262" stroke="var(--hair)"/>
+  <text x="0" y="394" text-anchor="start" font-family="var(--f-data)" font-size="9.5" fill="var(--faint)">REALIZED · WHAT IT RUNS ON</text><line x1="0" y1="402" x2="1240" y2="402" stroke="var(--hair)"/>
+  <path d="M440,162 H418 V136 H452 V146" fill="none" stroke="var(--faint)" stroke-width="1.2" marker-end="url(#mf)"/>
+  <text x="412" y="140" text-anchor="end" font-family="var(--f-data)" font-size="9.5" fill="var(--muted)">nests under</text>
+  <text x="412" y="152" text-anchor="end" font-family="var(--f-data)" font-size="9" fill="var(--accent)">0..* : 0..1</text>
+  <path d="M590,169 H650" fill="none" stroke="var(--ink)" stroke-width="1.6" marker-end="url(#mk)"/>
+  <text x="620" y="163" text-anchor="middle" font-family="var(--f-data)" font-size="9.5" fill="var(--muted)">speaks</text>
+  <text x="594" y="184" text-anchor="start" font-family="var(--f-data)" font-size="9" fill="var(--accent)">1..*</text>
+  <text x="646" y="184" text-anchor="end" font-family="var(--f-data)" font-size="9" fill="var(--accent)">1..*</text>
+  <path d="M800,169 H860" fill="none" stroke="var(--faint)" stroke-width="1.2" marker-end="url(#mf)"/>
+  <text x="830" y="163" text-anchor="middle" font-family="var(--f-data)" font-size="9.5" fill="var(--muted)">masters</text>
+  <text x="804" y="184" text-anchor="start" font-family="var(--f-data)" font-size="9" fill="var(--accent)">1</text>
+  <text x="856" y="184" text-anchor="end" font-family="var(--f-data)" font-size="9" fill="var(--accent)">0..*</text>
+  <path d="M515,92 V146" fill="none" stroke="var(--faint)" stroke-width="1.2" marker-end="url(#mf)"/>
+  <text x="508" y="124" text-anchor="end" font-family="var(--f-data)" font-size="9.5" fill="var(--muted)">delivered through</text>
+  <text x="522" y="106" text-anchor="start" font-family="var(--f-data)" font-size="9" fill="var(--accent)">0..*</text>
+  <text x="522" y="140" text-anchor="start" font-family="var(--f-data)" font-size="9" fill="var(--accent)">1..*</text>
+  <path d="M170,180 H440" fill="none" stroke="var(--faint)" stroke-width="1.2" marker-end="url(#mf)"/>
+  <text x="305" y="174" text-anchor="middle" font-family="var(--f-data)" font-size="9.5" fill="var(--muted)">passes through</text>
+  <text x="176" y="194" text-anchor="start" font-family="var(--f-data)" font-size="9" fill="var(--accent)">0..*</text>
+  <text x="434" y="194" text-anchor="end" font-family="var(--f-data)" font-size="9" fill="var(--accent)">1..*</text>
+  <path d="M1145,286 V92" fill="none" stroke="var(--faint)" stroke-width="1.2" marker-end="url(#mf)"/>
+  <text x="1152" y="196" text-anchor="start" font-family="var(--f-data)" font-size="9.5" fill="var(--muted)">operates in</text>
+  <text x="1152" y="278" text-anchor="start" font-family="var(--f-data)" font-size="9" fill="var(--accent)">0..*</text>
+  <text x="1152" y="106" text-anchor="start" font-family="var(--f-data)" font-size="9" fill="var(--accent)">1</text>
+  <path d="M1090,286 V118 H560 V146" fill="none" stroke="var(--faint)" stroke-width="1.2" marker-end="url(#mf)"/>
+  <text x="820" y="112" text-anchor="middle" font-family="var(--f-data)" font-size="9.5" fill="var(--muted)">is responsible for · owns · builds · uses</text>
+  <text x="1084" y="278" text-anchor="end" font-family="var(--f-data)" font-size="9" fill="var(--accent)">1</text>
+  <text x="566" y="132" text-anchor="start" font-family="var(--f-data)" font-size="9" fill="var(--accent)">0..*</text>
+  <path d="M800,309 H1070" fill="none" stroke="var(--faint)" stroke-width="1.2" marker-end="url(#mf)"/>
+  <text x="935" y="303" text-anchor="middle" font-family="var(--f-data)" font-size="9.5" fill="var(--muted)">works in</text>
+  <text x="806" y="324" text-anchor="start" font-family="var(--f-data)" font-size="9" fill="var(--accent)">0..*</text>
+  <text x="1064" y="324" text-anchor="end" font-family="var(--f-data)" font-size="9" fill="var(--accent)">1..*</text>
+  <path d="M650,309 H590" fill="none" stroke="var(--ink)" stroke-width="1.6" marker-end="url(#mk)"/>
+  <text x="620" y="303" text-anchor="middle" font-family="var(--f-data)" font-size="9.5" fill="var(--muted)">holds</text>
+  <text x="646" y="324" text-anchor="end" font-family="var(--f-data)" font-size="9" fill="var(--accent)">1..*</text>
+  <text x="594" y="324" text-anchor="start" font-family="var(--f-data)" font-size="9" fill="var(--accent)">0..*</text>
+  <path d="M515,286 V192" fill="none" stroke="var(--ink)" stroke-width="1.6" marker-end="url(#mk)"/>
+  <text x="522" y="244" text-anchor="start" font-family="var(--f-data)" font-size="9.5" fill="var(--muted)">staffs</text>
+  <text x="508" y="280" text-anchor="end" font-family="var(--f-data)" font-size="9" fill="var(--accent)">1..*</text>
+  <text x="508" y="206" text-anchor="end" font-family="var(--f-data)" font-size="9" fill="var(--accent)">1..*</text>
+  <path d="M700,286 V232 H560 V192" fill="none" stroke="var(--faint)" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#mf)"/>
+  <text x="630" y="226" text-anchor="middle" font-family="var(--f-data)" font-size="9.5" fill="var(--muted)">performs</text>
+  <text x="706" y="280" text-anchor="start" font-family="var(--f-data)" font-size="9" fill="var(--accent)">0..*</text>
+  <text x="566" y="206" text-anchor="start" font-family="var(--f-data)" font-size="9" fill="var(--accent)">0..*</text>
+  <path d="M700,332 V354 H750 V332" fill="none" stroke="var(--faint)" stroke-width="1.2" marker-end="url(#mf)"/>
+  <text x="725" y="372" text-anchor="middle" font-family="var(--f-data)" font-size="9.5" fill="var(--muted)">1 person accountable for 0..* agents</text>
+  <path d="M95,286 V192" fill="none" stroke="var(--faint)" stroke-width="1.2" marker-end="url(#mf)"/>
+  <text x="102" y="244" text-anchor="start" font-family="var(--f-data)" font-size="9.5" fill="var(--muted)">holds up</text>
+  <text x="102" y="280" text-anchor="start" font-family="var(--f-data)" font-size="9" fill="var(--accent)">0..*</text>
+  <text x="102" y="206" text-anchor="start" font-family="var(--f-data)" font-size="9" fill="var(--accent)">0..*</text>
+  <path d="M305,426 V252 H460 V192" fill="none" stroke="var(--faint)" stroke-width="1.2" marker-end="url(#mf)"/>
+  <text x="312" y="346" text-anchor="start" font-family="var(--f-data)" font-size="9.5" fill="var(--muted)">realizes</text>
+  <text x="312" y="420" text-anchor="start" font-family="var(--f-data)" font-size="9" fill="var(--accent)">1..*</text>
+  <text x="454" y="206" text-anchor="end" font-family="var(--f-data)" font-size="9" fill="var(--accent)">1..*</text>
+  <path d="M380,449 H860" fill="none" stroke="var(--faint)" stroke-width="1.2" marker-end="url(#mf)"/>
+  <text x="620" y="443" text-anchor="middle" font-family="var(--f-data)" font-size="9.5" fill="var(--muted)">exposes</text>
+  <text x="386" y="464" text-anchor="start" font-family="var(--f-data)" font-size="9" fill="var(--accent)">1</text>
+  <text x="854" y="464" text-anchor="end" font-family="var(--f-data)" font-size="9" fill="var(--accent)">0..*</text>
+  <path d="M935,426 V192" fill="none" stroke="var(--faint)" stroke-width="1.2" marker-end="url(#mf)"/>
+  <text x="942" y="380" text-anchor="start" font-family="var(--f-data)" font-size="9.5" fill="var(--muted)">carries</text>
+  <text x="942" y="420" text-anchor="start" font-family="var(--f-data)" font-size="9" fill="var(--accent)">0..*</text>
+  <text x="942" y="206" text-anchor="start" font-family="var(--f-data)" font-size="9" fill="var(--accent)">1..*</text>
+  <path d="M305,472 V526" fill="none" stroke="var(--faint)" stroke-width="1.2" marker-end="url(#mf)"/>
+  <text x="312" y="503" text-anchor="start" font-family="var(--f-data)" font-size="9.5" fill="var(--muted)">runs on</text>
+  <text x="298" y="486" text-anchor="end" font-family="var(--f-data)" font-size="9" fill="var(--accent)">0..*</text>
+  <text x="298" y="520" text-anchor="end" font-family="var(--f-data)" font-size="9" fill="var(--accent)">1..*</text>
+  <path d="M230,449 H170" fill="none" stroke="var(--faint)" stroke-width="1.2" marker-end="url(#mf)"/>
+  <text x="200" y="443" text-anchor="middle" font-family="var(--f-data)" font-size="9.5" fill="var(--muted)">built with</text>
+  <text x="226" y="464" text-anchor="end" font-family="var(--f-data)" font-size="9" fill="var(--accent)">0..*</text>
+  <text x="174" y="464" text-anchor="start" font-family="var(--f-data)" font-size="9" fill="var(--accent)">0..*</text>
+  
+  <g>
+    <rect x="440" y="46" width="150" height="46" rx="5" fill="var(--surface)"
+      stroke="var(--rule)" stroke-width="1.4"/>
+    
+    <text x="452" y="65" font-family="var(--f-body)" font-size="12.5" fill="var(--ink)" font-weight="400">Offering</text>
+    <text x="452" y="80" font-family="var(--f-data)" font-size="9.5" font-size-adjust="none" fill="var(--faint)">audience · stage</text>
+  </g>
+  <g>
+    <rect x="1070" y="46" width="150" height="46" rx="5" fill="var(--surface)"
+      stroke="var(--rule)" stroke-width="1.4"/>
+    
+    <text x="1082" y="65" font-family="var(--f-body)" font-size="12.5" fill="var(--ink)" font-weight="400">Legal entity</text>
+    <text x="1082" y="80" font-family="var(--f-data)" font-size="9.5" font-size-adjust="none" fill="var(--faint)">country · form</text>
+  </g>
+  <g>
+    <rect x="20" y="146" width="150" height="46" rx="5" fill="var(--surface)"
+      stroke="var(--rule)" stroke-width="1.4"/>
+    
+    <text x="32" y="165" font-family="var(--f-body)" font-size="12.5" fill="var(--ink)" font-weight="400">Flow</text>
+    <text x="32" y="180" font-family="var(--f-data)" font-size="9.5" font-size-adjust="none" fill="var(--faint)">value · returns to</text>
+  </g>
+  <g>
+    <rect x="440" y="146" width="150" height="46" rx="5" fill="var(--surface)"
+      stroke="var(--ink)" stroke-width="2"/>
+    
+    <text x="452" y="165" font-family="var(--f-body)" font-size="12.5" fill="var(--ink)" font-weight="600">Capability</text>
+    <text x="452" y="180" font-family="var(--f-data)" font-size="9.5" font-size-adjust="none" fill="var(--accent)">core / supporting / generic</text>
+  </g>
+  <g>
+    <rect x="650" y="146" width="150" height="46" rx="5" fill="var(--surface)"
+      stroke="var(--rule)" stroke-width="1.4"/>
+    
+    <text x="662" y="165" font-family="var(--f-body)" font-size="12.5" fill="var(--ink)" font-weight="400">Bounded context</text>
+    <text x="662" y="180" font-family="var(--f-data)" font-size="9.5" font-size-adjust="none" fill="var(--faint)">one meaning per word</text>
+  </g>
+  <g>
+    <rect x="860" y="146" width="150" height="46" rx="5" fill="var(--surface)"
+      stroke="var(--rule)" stroke-width="1.4"/>
+    
+    <text x="872" y="165" font-family="var(--f-body)" font-size="12.5" fill="var(--ink)" font-weight="400">Information object</text>
+    <text x="872" y="180" font-family="var(--f-data)" font-size="9.5" font-size-adjust="none" fill="var(--faint)">a reading per context</text>
+  </g>
+  <g>
+    <rect x="20" y="286" width="150" height="46" rx="5" fill="var(--surface)"
+      stroke="var(--rule)" stroke-width="1.4"/>
+    
+    <text x="32" y="305" font-family="var(--f-body)" font-size="12.5" fill="var(--ink)" font-weight="400">Decision gate</text>
+    <text x="32" y="320" font-family="var(--f-data)" font-size="9.5" font-size-adjust="none" fill="var(--faint)">authority · cadence</text>
+  </g>
+  <g>
+    <rect x="440" y="286" width="150" height="46" rx="5" fill="var(--surface)"
+      stroke="var(--rule)" stroke-width="1.4"/>
+    
+    <text x="452" y="305" font-family="var(--f-body)" font-size="12.5" fill="var(--ink)" font-weight="400">Competence</text>
+    <text x="452" y="320" font-family="var(--f-data)" font-size="9.5" font-size-adjust="none" fill="var(--faint)">what somebody can do</text>
+  </g>
+  <g>
+    <rect x="650" y="286" width="150" height="46" rx="5" fill="var(--surface)"
+      stroke="var(--rule)" stroke-width="1.4"/>
+    
+    <text x="662" y="305" font-family="var(--f-body)" font-size="12.5" fill="var(--ink)" font-weight="400">Actor</text>
+    <text x="662" y="320" font-family="var(--f-data)" font-size="9.5" font-size-adjust="none" fill="var(--accent)">person · agent · team</text>
+  </g>
+  <g>
+    <rect x="1070" y="286" width="150" height="46" rx="5" fill="var(--surface)"
+      stroke="var(--rule)" stroke-width="1.4"/>
+    
+    <text x="1082" y="305" font-family="var(--f-body)" font-size="12.5" fill="var(--ink)" font-weight="400">Organizational unit</text>
+    <text x="1082" y="320" font-family="var(--f-data)" font-size="9.5" font-size-adjust="none" fill="var(--accent)">mandate</text>
+  </g>
+  <g>
+    <rect x="20" y="426" width="150" height="46" rx="5" fill="var(--surface)"
+      stroke="var(--rule)" stroke-width="1.4"/>
+    
+    <text x="32" y="445" font-family="var(--f-body)" font-size="12.5" fill="var(--ink)" font-weight="400">Technology</text>
+    <text x="32" y="460" font-family="var(--f-data)" font-size="9.5" font-size-adjust="none" fill="var(--faint)">ring · suited to</text>
+  </g>
+  <g>
+    <rect x="230" y="426" width="150" height="46" rx="5" fill="var(--surface)"
+      stroke="var(--rule)" stroke-width="1.4"/>
+    
+    <text x="242" y="445" font-family="var(--f-body)" font-size="12.5" fill="var(--ink)" font-weight="400">System</text>
+    <text x="242" y="460" font-family="var(--f-data)" font-size="9.5" font-size-adjust="none" fill="var(--faint)">vendor · CIA · exit</text>
+  </g>
+  <g>
+    <rect x="860" y="426" width="150" height="46" rx="5" fill="var(--surface)"
+      stroke="var(--rule)" stroke-width="1.4"/>
+    
+    <text x="872" y="445" font-family="var(--f-body)" font-size="12.5" fill="var(--ink)" font-weight="400">Interface</text>
+    <text x="872" y="460" font-family="var(--f-data)" font-size="9.5" font-size-adjust="none" fill="var(--faint)">pattern · queue · fields</text>
+  </g>
+  <g>
+    <rect x="230" y="526" width="150" height="46" rx="5" fill="var(--surface)"
+      stroke="var(--rule)" stroke-width="1.4"/>
+    
+    <text x="242" y="545" font-family="var(--f-body)" font-size="12.5" fill="var(--ink)" font-weight="400">Infrastructure</text>
+    <text x="242" y="560" font-family="var(--f-data)" font-size="9.5" font-size-adjust="none" fill="var(--faint)">region · environment</text>
+  </g>
+</svg></div>
+    <figcaption>
+      <b>A capability speaks one or more bounded contexts</b>, and a context is spoken by one or more capabilities; the translation between two contexts lives inside the capability that speaks both.
+      <b>Competence staffs capabilities and is held by actors</b> — people, agents and agent teams alike — which is how a capability comes to belong to whoever performs it, while responsibility stays with the organizational unit and accountability with one named person.
+    </figcaption>
+  </figure>
+
+  <h2>The loop, closed</h2>
+  <p class="sub">The movement band is not a list of records beside the structure. It is what turns the structure round: every step hands to the next, and the last changes the first. The actor sits in the middle because it is in almost every hop.</p>
+  <figure>
+    <div class="figwrap"><svg viewBox="0 0 1290 640" role="img" aria-label="Tags under the boxes mark where a turn of the work harness reads or writes that step. The loop, closed: capability is staffed by competence, held by a person or agent, who works under the guidelines in force, does the activity, which is measured by observation; where it sticks an ask is raised, answered by one accountable person as a decision, which produces agreements and guidelines signed by the parties, which change the structure and return to capability.">
+  <defs>
+    <marker id="ma" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--accent)"/></marker>
+    <marker id="mm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker>
+  </defs>
+  <path d="M771.1,102.0 L774.3,102.6 L777.4,103.2 L780.6,103.8 L783.7,104.4 L786.8,105.1 L790.0,105.8 L793.1,106.4 L796.2,107.1 L799.3,107.9 L802.4,108.6 L805.4,109.4 L808.5,110.1 L811.5,110.9 L814.6,111.7 L817.6,112.5 L820.6,113.4 L823.6,114.2 L826.6,115.1 L829.6,116.0 L832.5,116.9 L835.5,117.8 L838.4,118.7 L841.3,119.6 L844.2,120.6 L847.1,121.6 L850.0,122.5" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-linejoin="round" marker-end="url(#ma)"/>
+  <text x="820.0" y="88.3" text-anchor="start" font-family="var(--f-data)" font-size="10" fill="var(--accent)">staffed by</text>
+  <path d="M978.7,195.8 L980.5,197.5 L982.3,199.2 L984.0,200.9 L985.7,202.6 L987.4,204.3 L989.1,206.0 L990.7,207.7 L992.4,209.5 L994.0,211.2 L995.5,213.0 L997.1,214.7 L998.6,216.5 L1000.1,218.3 L1001.5,220.1 L1003.0,221.8 L1004.4,223.6 L1005.8,225.4 L1007.1,227.3 L1008.5,229.1 L1009.8,230.9 L1011.1,232.7 L1012.3,234.6 L1013.6,236.4 L1014.8,238.3 L1015.9,240.2 L1017.1,242.0 L1018.2,243.9 L1019.3,245.8 L1020.4,247.7 L1021.4,249.5 L1022.4,251.4 L1023.4,253.3 L1024.4,255.2 L1025.3,257.2 L1026.2,259.1 L1027.1,261.0 L1027.9,262.9 L1028.7,264.8 L1029.5,266.8 L1030.3,268.7 L1031.0,270.7 L1031.7,272.6 L1032.4,274.5 L1033.0,276.5 L1033.6,278.5 L1034.2,280.4 L1034.8,282.4" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-linejoin="round" marker-end="url(#ma)"/>
+  <text x="1046.2" y="224.0" text-anchor="start" font-family="var(--f-data)" font-size="10" fill="var(--accent)">held under</text>
+  <path d="M1034.8,357.6 L1034.2,359.6 L1033.6,361.5 L1033.0,363.5 L1032.4,365.5 L1031.7,367.4 L1031.0,369.3 L1030.3,371.3 L1029.5,373.2 L1028.7,375.2 L1027.9,377.1 L1027.1,379.0 L1026.2,380.9 L1025.3,382.8 L1024.4,384.8 L1023.4,386.7 L1022.4,388.6 L1021.4,390.5 L1020.4,392.3 L1019.3,394.2 L1018.2,396.1 L1017.1,398.0 L1015.9,399.8 L1014.8,401.7 L1013.6,403.6 L1012.3,405.4 L1011.1,407.3 L1009.8,409.1 L1008.5,410.9 L1007.1,412.7 L1005.8,414.6 L1004.4,416.4 L1003.0,418.2 L1001.5,419.9 L1000.1,421.7 L998.6,423.5 L997.1,425.3 L995.5,427.0 L994.0,428.8 L992.4,430.5 L990.7,432.3 L989.1,434.0 L987.4,435.7 L985.7,437.4 L984.0,439.1 L982.3,440.8 L980.5,442.5 L978.7,444.2" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-linejoin="round" marker-end="url(#ma)"/>
+  <text x="1046.2" y="416.0" text-anchor="start" font-family="var(--f-data)" font-size="10" fill="var(--accent)">acted on</text>
+  <path d="M850.0,517.5 L847.1,518.4 L844.2,519.4 L841.3,520.4 L838.4,521.3 L835.5,522.2 L832.5,523.1 L829.6,524.0 L826.6,524.9 L823.6,525.8 L820.6,526.6 L817.6,527.5 L814.6,528.3 L811.5,529.1 L808.5,529.9 L805.4,530.6 L802.4,531.4 L799.3,532.1 L796.2,532.9 L793.1,533.6 L790.0,534.2 L786.8,534.9 L783.7,535.6 L780.6,536.2 L777.4,536.8 L774.3,537.4 L771.1,538.0" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-linejoin="round" marker-end="url(#ma)"/>
+  <text x="820.0" y="551.7" text-anchor="start" font-family="var(--f-data)" font-size="10" fill="var(--accent)">measured by</text>
+  <path d="M548.9,538.0 L545.7,537.4 L542.6,536.8 L539.4,536.2 L536.3,535.6 L533.2,534.9 L530.0,534.2 L526.9,533.6 L523.8,532.9 L520.7,532.1 L517.6,531.4 L514.6,530.6 L511.5,529.9 L508.5,529.1 L505.4,528.3 L502.4,527.5 L499.4,526.6 L496.4,525.8 L493.4,524.9 L490.4,524.0 L487.5,523.1 L484.5,522.2 L481.6,521.3 L478.7,520.4 L475.8,519.4 L472.9,518.4 L470.0,517.5" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-linejoin="round" marker-end="url(#ma)"/>
+  <text x="500.0" y="551.7" text-anchor="end" font-family="var(--f-data)" font-size="10" fill="var(--accent)">where it sticks, raises</text>
+  <path d="M341.3,444.2 L339.5,442.5 L337.7,440.8 L336.0,439.1 L334.3,437.4 L332.6,435.7 L330.9,434.0 L329.3,432.3 L327.6,430.5 L326.0,428.8 L324.5,427.0 L322.9,425.3 L321.4,423.5 L319.9,421.7 L318.5,419.9 L317.0,418.2 L315.6,416.4 L314.2,414.6 L312.9,412.7 L311.5,410.9 L310.2,409.1 L308.9,407.3 L307.7,405.4 L306.4,403.6 L305.2,401.7 L304.1,399.8 L302.9,398.0 L301.8,396.1 L300.7,394.2 L299.6,392.3 L298.6,390.5 L297.6,388.6 L296.6,386.7 L295.6,384.8 L294.7,382.8 L293.8,380.9 L292.9,379.0 L292.1,377.1 L291.3,375.2 L290.5,373.2 L289.7,371.3 L289.0,369.3 L288.3,367.4 L287.6,365.5 L287.0,363.5 L286.4,361.5 L285.8,359.6 L285.2,357.6" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-linejoin="round" marker-end="url(#ma)"/>
+  <text x="273.8" y="416.0" text-anchor="end" font-family="var(--f-data)" font-size="10" fill="var(--accent)">answered as</text>
+  <path d="M285.2,282.4 L285.8,280.4 L286.4,278.5 L287.0,276.5 L287.6,274.5 L288.3,272.6 L289.0,270.7 L289.7,268.7 L290.5,266.8 L291.3,264.8 L292.1,262.9 L292.9,261.0 L293.8,259.1 L294.7,257.2 L295.6,255.2 L296.6,253.3 L297.6,251.4 L298.6,249.5 L299.6,247.7 L300.7,245.8 L301.8,243.9 L302.9,242.0 L304.1,240.2 L305.2,238.3 L306.4,236.4 L307.7,234.6 L308.9,232.7 L310.2,230.9 L311.5,229.1 L312.9,227.3 L314.2,225.4 L315.6,223.6 L317.0,221.8 L318.5,220.1 L319.9,218.3 L321.4,216.5 L322.9,214.7 L324.5,213.0 L326.0,211.2 L327.6,209.5 L329.3,207.7 L330.9,206.0 L332.6,204.3 L334.3,202.6 L336.0,200.9 L337.7,199.2 L339.5,197.5 L341.3,195.8" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-linejoin="round" marker-end="url(#ma)"/>
+  <text x="273.8" y="224.0" text-anchor="end" font-family="var(--f-data)" font-size="10" fill="var(--accent)">produces</text>
+  <path d="M470.0,122.5 L472.9,121.6 L475.8,120.6 L478.7,119.6 L481.6,118.7 L484.5,117.8 L487.5,116.9 L490.4,116.0 L493.4,115.1 L496.4,114.2 L499.4,113.4 L502.4,112.5 L505.4,111.7 L508.5,110.9 L511.5,110.1 L514.6,109.4 L517.6,108.6 L520.7,107.9 L523.8,107.1 L526.9,106.4 L530.0,105.8 L533.2,105.1 L536.3,104.4 L539.4,103.8 L542.6,103.2 L545.7,102.6 L548.9,102.0" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linejoin="round" marker-end="url(#ma)"/>
+  <text x="500.0" y="88.3" text-anchor="end" font-family="var(--f-data)" font-size="10.5" fill="var(--accent)">changes, and back to the start ↺</text>
+  <line x1="713.4" y1="287.9" x2="875.2" y2="190.9" stroke="var(--muted)" stroke-width="1.1" stroke-dasharray="3 3" marker-end="url(#mm)"/>
+  <text x="789.2" y="233.8" text-anchor="middle" font-family="var(--f-data)" font-size="9.5" fill="var(--muted)">holds</text>
+  <line x1="759.0" y1="320.0" x2="932.0" y2="320.0" stroke="var(--muted)" stroke-width="1.1" stroke-dasharray="3 3" marker-end="url(#mm)"/>
+  <text x="845.5" y="313.0" text-anchor="middle" font-family="var(--f-data)" font-size="9.5" fill="var(--muted)">works under</text>
+  <line x1="713.4" y1="352.1" x2="875.2" y2="449.1" stroke="var(--muted)" stroke-width="1.1" stroke-dasharray="3 3" marker-end="url(#mm)"/>
+  <text x="799.5" y="395.0" text-anchor="middle" font-family="var(--f-data)" font-size="9.5" fill="var(--muted)">does</text>
+  <line x1="606.6" y1="352.1" x2="444.8" y2="449.1" stroke="var(--muted)" stroke-width="1.1" stroke-dasharray="3 3" marker-end="url(#mm)"/>
+  <text x="530.8" y="412.2" text-anchor="middle" font-family="var(--f-data)" font-size="9.5" fill="var(--muted)">raises</text>
+  <line x1="561.0" y1="320.0" x2="388.0" y2="320.0" stroke="var(--muted)" stroke-width="1.1" stroke-dasharray="3 3" marker-end="url(#mm)"/>
+  <text x="474.5" y="333.0" text-anchor="middle" font-family="var(--f-data)" font-size="9.5" fill="var(--muted)">decides</text>
+  <rect x="566.0" y="124.0" width="40.0" height="16" rx="8" fill="var(--surface)" stroke="var(--muted)" stroke-width="0.8"/>
+  <text x="586.0" y="135.5" text-anchor="middle" font-family="var(--f-data)" font-size="9" fill="var(--muted)">H1</text>
+  <rect x="834.7" y="190.8" width="40.0" height="16" rx="8" fill="var(--surface)" stroke="var(--muted)" stroke-width="0.8"/>
+  <text x="854.7" y="202.3" text-anchor="middle" font-family="var(--f-data)" font-size="9" fill="var(--muted)">H3</text>
+  <rect x="946.0" y="352.0" width="40.0" height="16" rx="8" fill="var(--surface)" stroke="var(--muted)" stroke-width="0.8"/>
+  <text x="966.0" y="363.5" text-anchor="middle" font-family="var(--f-data)" font-size="9" fill="var(--muted)">H5</text>
+  <rect x="834.7" y="513.2" width="40.0" height="16" rx="8" fill="var(--surface)" stroke="var(--muted)" stroke-width="0.8"/>
+  <text x="854.7" y="524.7" text-anchor="middle" font-family="var(--f-data)" font-size="9" fill="var(--muted)">H6</text>
+  <rect x="566.0" y="580.0" width="40.0" height="16" rx="8" fill="var(--surface)" stroke="var(--muted)" stroke-width="0.8"/>
+  <text x="586.0" y="591.5" text-anchor="middle" font-family="var(--f-data)" font-size="9" fill="var(--muted)">H7</text>
+  <rect x="297.3" y="513.2" width="51.2" height="16" rx="8" fill="var(--surface)" stroke="var(--muted)" stroke-width="0.8"/>
+  <text x="322.9" y="524.7" text-anchor="middle" font-family="var(--f-data)" font-size="9" fill="var(--muted)">Review</text>
+  <rect x="186.0" y="352.0" width="40.0" height="16" rx="8" fill="var(--surface)" stroke="var(--muted)" stroke-width="0.8"/>
+  <text x="206.0" y="363.5" text-anchor="middle" font-family="var(--f-data)" font-size="9" fill="var(--muted)">H8</text>
+  <rect x="297.3" y="190.8" width="156.6" height="16" rx="8" fill="var(--surface)" stroke="var(--muted)" stroke-width="0.8"/>
+  <text x="375.6" y="202.3" text-anchor="middle" font-family="var(--f-data)" font-size="9" fill="var(--muted)">Memory · Evals → policy</text>
+  <rect x="620.0" y="353.0" width="57.4" height="16" rx="8" fill="var(--surface)" stroke="var(--muted)" stroke-width="0.8"/>
+  <text x="648.7" y="364.5" text-anchor="middle" font-family="var(--f-data)" font-size="9" fill="var(--muted)">H2 · H4</text>
+  <rect x="8.0" y="275.0" width="82.2" height="16" rx="8" fill="var(--surface)" stroke="var(--muted)" stroke-width="0.8"/>
+  <text x="49.1" y="286.5" text-anchor="middle" font-family="var(--f-data)" font-size="9" fill="var(--muted)">Fail safely</text>
+  
+  <g>
+    <rect x="558" y="63" width="204" height="58" rx="5" fill="var(--surface)"
+      stroke="var(--ink)" stroke-width="2"/>
+    <circle cx="574" cy="92" r="9" fill="var(--accent)"/><text x="574" y="95.5" text-anchor="middle" font-family="var(--f-data)" font-size="10" fill="var(--surface)">1</text>
+    <text x="590" y="82" font-family="var(--f-body)" font-size="12.5" fill="var(--ink)" font-weight="600">Capability</text>
+    <text x="590" y="97" font-family="var(--f-data)" font-size="9.5" font-size-adjust="none" fill="var(--faint)">must be performable</text>
+  </g>
+  
+  <g>
+    <rect x="827" y="130" width="204" height="58" rx="5" fill="var(--surface)"
+      stroke="var(--rule)" stroke-width="1.4"/>
+    <circle cx="843" cy="159" r="9" fill="var(--accent)"/><text x="843" y="162.5" text-anchor="middle" font-family="var(--f-data)" font-size="10" fill="var(--surface)">2</text>
+    <text x="859" y="149" font-family="var(--f-body)" font-size="12.5" fill="var(--ink)" font-weight="400">Competence</text>
+    <text x="859" y="164" font-family="var(--f-data)" font-size="9.5" font-size-adjust="none" fill="var(--faint)">held by a person or an agent</text>
+  </g>
+  
+  <g>
+    <rect x="938" y="291" width="204" height="58" rx="5" fill="var(--accent-wash)"
+      stroke="var(--accent)" stroke-width="1.4"/>
+    <circle cx="954" cy="320" r="9" fill="var(--accent)"/><text x="954" y="323.5" text-anchor="middle" font-family="var(--f-data)" font-size="10" fill="var(--surface)">3</text>
+    <text x="970" y="310" font-family="var(--f-body)" font-size="12.5" fill="var(--ink)" font-weight="400">Guideline</text>
+    <text x="970" y="325" font-family="var(--f-data)" font-size="9.5" font-size-adjust="none" fill="var(--faint)">in force: act · prepare · ask</text>
+  </g>
+  
+  <g>
+    <rect x="827" y="452" width="204" height="58" rx="5" fill="var(--accent-wash)"
+      stroke="var(--accent)" stroke-width="1.4"/>
+    <circle cx="843" cy="481" r="9" fill="var(--accent)"/><text x="843" y="484.5" text-anchor="middle" font-family="var(--f-data)" font-size="10" fill="var(--surface)">4</text>
+    <text x="859" y="471" font-family="var(--f-body)" font-size="12.5" fill="var(--ink)" font-weight="400">Activity</text>
+    <text x="859" y="486" font-family="var(--f-data)" font-size="9.5" font-size-adjust="none" fill="var(--faint)">the work actually done</text>
+  </g>
+  
+  <g>
+    <rect x="558" y="519" width="204" height="58" rx="5" fill="var(--accent-wash)"
+      stroke="var(--accent)" stroke-width="1.4"/>
+    <circle cx="574" cy="548" r="9" fill="var(--accent)"/><text x="574" y="551.5" text-anchor="middle" font-family="var(--f-data)" font-size="10" fill="var(--surface)">5</text>
+    <text x="590" y="538" font-family="var(--f-body)" font-size="12.5" fill="var(--ink)" font-weight="400">Observation</text>
+    <text x="590" y="553" font-family="var(--f-data)" font-size="9.5" font-size-adjust="none" fill="var(--faint)">delivery + four indicators</text>
+  </g>
+  
+  <g>
+    <rect x="289" y="452" width="204" height="58" rx="5" fill="var(--accent-wash)"
+      stroke="var(--accent)" stroke-width="1.4"/>
+    <circle cx="305" cy="481" r="9" fill="var(--accent)"/><text x="305" y="484.5" text-anchor="middle" font-family="var(--f-data)" font-size="10" fill="var(--surface)">6</text>
+    <text x="321" y="471" font-family="var(--f-body)" font-size="12.5" fill="var(--ink)" font-weight="400">Ask</text>
+    <text x="321" y="486" font-family="var(--f-data)" font-size="9.5" font-size-adjust="none" fill="var(--faint)">no rule reaches, or friction</text>
+  </g>
+  
+  <g>
+    <rect x="178" y="291" width="204" height="58" rx="5" fill="var(--accent-wash)"
+      stroke="var(--accent)" stroke-width="1.4"/>
+    <circle cx="194" cy="320" r="9" fill="var(--accent)"/><text x="194" y="323.5" text-anchor="middle" font-family="var(--f-data)" font-size="10" fill="var(--surface)">7</text>
+    <text x="210" y="310" font-family="var(--f-body)" font-size="12.5" fill="var(--ink)" font-weight="400">Decision</text>
+    <text x="210" y="325" font-family="var(--f-data)" font-size="9.5" font-size-adjust="none" fill="var(--faint)">by an actor · a person answers</text>
+  </g>
+  
+  <g>
+    <rect x="289" y="130" width="204" height="58" rx="5" fill="var(--accent-wash)"
+      stroke="var(--accent)" stroke-width="1.4"/>
+    <circle cx="305" cy="159" r="9" fill="var(--accent)"/><text x="305" y="162.5" text-anchor="middle" font-family="var(--f-data)" font-size="10" fill="var(--surface)">8</text>
+    <text x="321" y="149" font-family="var(--f-body)" font-size="12.5" fill="var(--ink)" font-weight="400">Agreement</text>
+    <text x="321" y="164" font-family="var(--f-data)" font-size="9.5" font-size-adjust="none" fill="var(--faint)">signed by the parties</text>
+  </g>
+  
+  <g>
+    <rect x="565" y="290" width="190" height="60" rx="5" fill="var(--surface)"
+      stroke="var(--ink)" stroke-width="2"/>
+    
+    <text x="577" y="309" font-family="var(--f-body)" font-size="12.5" fill="var(--ink)" font-weight="600">Actor</text>
+    <text x="577" y="324" font-family="var(--f-data)" font-size="9.5" font-size-adjust="none" fill="var(--accent)">person · agent · agent team</text>
+  </g>
+  
+  <g>
+    <rect x="1100" y="140" width="172" height="46" rx="5" fill="var(--accent-wash)"
+      stroke="var(--accent)" stroke-width="1.4"/>
+    
+    <text x="1112" y="159" font-family="var(--f-body)" font-size="12.5" fill="var(--ink)" font-weight="400">Assessment</text>
+    <text x="1112" y="174" font-family="var(--f-data)" font-size="9.5" font-size-adjust="none" fill="var(--faint)">bounds what may be automated</text>
+  </g>
+  <path d="M1150,186 L1112.0,287.0" fill="none" stroke="var(--accent)" stroke-dasharray="4 3" stroke-width="1.2" marker-end="url(#ma)"/>
+  
+  <g>
+    <rect x="0" y="226" width="172" height="46" rx="5" fill="var(--accent-wash)"
+      stroke="var(--accent)" stroke-width="1.4"/>
+    
+    <text x="12" y="245" font-family="var(--f-body)" font-size="12.5" fill="var(--ink)" font-weight="400">Override</text>
+    <text x="12" y="260" font-family="var(--f-data)" font-size="9.5" font-size-adjust="none" fill="var(--faint)">a rule broken, with a why</text>
+  </g>
+  <path d="M120,272 L218.0,287.0" fill="none" stroke="var(--accent)" stroke-dasharray="4 3" stroke-width="1.2" marker-end="url(#ma)"/>
+</svg></div>
+    <figcaption>
+      Where a signed guideline reaches, the actor <b>acts</b>; where judgement remains, it prepares and stops; where nothing reaches, it <b>asks</b>. An answered ask becomes a decision — made by whichever actor may make it, a person or an agent the rules have delegated it to, and always answered for by one named person — the decision produces a rule the parties sign, and the rule changes what is staffed, owned and in force — so the next time round, the same actor may act.
+      <b>Autonomy is never set.</b> Assessment bounds what may be automated at all; an override enters at the decision, because breaking a rule on purpose is itself something one person has to answer for.
+    </figcaption>
+  </figure>
+  <ol class="cycle">
+    <li><span class="n">1</span><b>Capability</b><p>Something the organization must be able to do.</p><em>staffed by →</em></li>
+    <li><span class="n">2</span><b>Competence</b><p>Held by a person or an agent, which is what makes the capability theirs to perform.</p><em>held under →</em></li>
+    <li><span class="n">3</span><b>Guideline</b><p>The rules in force where the actor works decide: act, prepare, or ask.</p><em>acted on →</em></li>
+    <li><span class="n">4</span><b>Activity</b><p>Commits, deploys, runs, incidents — what was actually done.</p><em>measured by →</em></li>
+    <li><span class="n">5</span><b>Observation</b><p>Delivery and the four indicators, read from the work.</p><em>where it sticks, raises →</em></li>
+    <li><span class="n">6</span><b>Ask</b><p>No rule reaches, or friction shows. Routed by mandate to the accountable person.</p><em>answered as →</em></li>
+    <li><span class="n">7</span><b>Decision</b><p>An actor chooses — a person, or an agent where a guideline delegates it — and one named person answers for it.</p><em>produces →</em></li>
+    <li><span class="n">8</span><b>Agreement</b><p>Signed by the parties. New rules, new meanings, a new owner, a competence needed.</p><em>changes, and back to the start ↺ 1</em></li>
+  </ol>
+
+  <h2>The loop, run once: the work harness</h2>
+  <p class="lede"><b>The organization is the work harness — for people and agents alike.</b> People and agents need the same thing: context, boundaries, authority and feedback to act with confidence.</p>
+  <p class="lede"><b>The work harness is the bridge between organizational intent and execution — in both directions, whether the actor is human or artificial.</b> Its purpose is to make crossing it cheap: to reduce the cost of navigating the organization — for people and agents alike.</p>
+  <p class="lede">Not “how much context can we give the agent?” but: how little context does someone need to make a good decision?</p>
+  <p class="sub">Organizations build process, governance, handoffs, coordination, meetings and controls to help people work — until a large share of their capacity goes to navigating the organization instead of creating value. AI only makes that cost easier to see: organizational friction suddenly has something close to a meter.</p>
+  <div class="tablewrap"><table>
+    <tbody>
+      <tr><td><b>A person pays in</b></td><td>extra handoff → meeting → waiting → question → coordination</td></tr>
+      <tr><td><b>An agent pays in</b></td><td>extra handoff → context → tool call → reasoning → tokens</td></tr>
+    </tbody>
+  </table></div>
+  <p class="lede"><b>The point is not to build more harness. It is to need less of it.</b></p>
+  <p class="sub">People and agents do not need two organization models. Both need the same surrounding structure to act; the difference is in how each consumes it, not in what the organization has to define.</p>
+  <table class="rel">
+    <thead><tr><th>Both need</th><th>Stage · entity</th><th>A person</th><th>An agent</th></tr></thead>
+    <tbody>
+    <tr><td><b>A clear outcome</b></td><td>H1 · Capability</td><td>knows what the work is for, and can argue with it</td><td>is judged against it on every task</td></tr>
+    <tr><td><b>The right context and information</b></td><td>H3 · Competence · meanings</td><td>learns it, asks, and remembers</td><td>has it only if it is handed over before the task</td></tr>
+    <tr><td><b>Clear boundaries</b></td><td>H5 · Guideline · Assessment</td><td>may go around a rule, and says why</td><td>stops where a rule says so</td></tr>
+    <tr><td><b>Decision rights</b></td><td>H5 · Review · Mandate · Decision · Ask</td><td>decides within the team’s mandate and escalates beyond it</td><td>decides only where a guideline delegates it — a person still answers</td></tr>
+    <tr><td><b>The right tools and capabilities</b></td><td>H6 · System · Interface</td><td>uses what the team can change, or asks for it</td><td>calls only what it may, through an interface somebody owns</td></tr>
+    <tr><td><b>Feedback on what actually happened</b></td><td>H7 · Evals · Activity · Observation · Agreement</td><td>sees the heartbeat and the rings, and changes how the work is done</td><td>is changed by the rules the answers become</td></tr>
+    </tbody>
+  </table>
+  <p class="sub">A work harness takes one task — by a person or an agent — from intent to a verified outcome. It is the inner loop: one actor, one task, fast. The loop above is the outer one: the whole organization, slowly changing what the harness reads next time. The tags in the figure mark where they meet.</p>
+  <table class="rel">
+    <thead><tr><th>Harness stage</th><th>Does</th><th>Entity</th><th>What</th></tr></thead>
+    <tbody>
+    <tr><td><b>H1</b> intent</td><td>reads</td><td>Capability</td><td>the outcome the task serves</td></tr>
+    <tr><td><b>H2</b> identity</td><td>reads</td><td>Actor</td><td>who acts, in which team, and the person who answers</td></tr>
+    <tr><td><b>H3</b> context</td><td>reads</td><td>Competence</td><td>what the actor can do, and what words mean where it works</td></tr>
+    <tr><td><b>H4</b> plan</td><td>reads</td><td>Actor</td><td>how much the actor already carries, and who works beside it</td></tr>
+    <tr><td><b>H5</b> policy</td><td>reads</td><td>Guideline</td><td>act, prepare or ask</td></tr>
+    <tr><td><b>H6</b> tools</td><td>writes</td><td>Activity</td><td>the work actually done, by whom and with which agent</td></tr>
+    <tr><td><b>H7</b> verify</td><td>writes</td><td>Observation</td><td>what the result says about delivery and the four indicators</td></tr>
+    <tr><td><b>H8</b> outcome</td><td>writes</td><td>Decision</td><td>what was chosen, and the person who answers for it</td></tr>
+    <tr><td><b>Review</b> review</td><td>writes</td><td>Ask</td><td>the question no rule answers, routed by mandate</td></tr>
+    <tr><td><b>Fail safely</b> failsafe</td><td>writes</td><td>Override</td><td>the rule gone around, and why</td></tr>
+    <tr><td><b>Memory</b> memory</td><td>reads</td><td>Agreement</td><td>what the organization has already settled</td></tr>
+    <tr><td><b>Evals → policy</b> observe</td><td>writes</td><td>Agreement</td><td>the policy update: a rule the parties sign</td></tr>
+    </tbody>
+  </table>
+  <p class="sub">6 stages read the model and 6 write to it. Planning and routing a task is the runtime’s own job and has no entity; everything else the harness has to ask, the model answers — and what the harness writes back is how the model learns. A person is not stopped at the policy gate: they decide, and an override records why.</p>
+
+  <h2>The entities</h2>
+  <p class="sub">Grouped by how long they last, each with the question it lets the model answer and the relations it starts.</p>
+  
+  <div class="band" data-band="durable">
+    <div class="bandname">Durable<em>Still true after replacing every system and reorganizing every team.</em></div>
+    <div>
+      <div class="ent"><div class="who"><b>Legal entity</b><code>country · form · parent</code></div>
+        <div class="why">The company that signs things, and a boundary no mandate crosses. A decision binding one entity does not bind another.</div></div>
+      <div class="ent"><div class="who"><b>Capability</b><code>outcome · core | supporting | generic · four levels</code></div>
+        <div class="why">Something the organization is able to do. The classification makes every finding readable: neglect in a core capability is the advantage going, in a generic one it is something that should have been bought.<span class="links"><span><i>0..*</i> nests under <i>0..1</i> <b>Capability</b></span><span><i>1..*</i> speaks <i>1..*</i> <b>Bounded context</b></span></span></div></div>
+      <div class="ent"><div class="who"><b>Bounded context</b><code>owner · classification</code></div>
+        <div class="why">The boundary inside which a word means one thing. A capability speaks one or more of them, and the translation between two lives inside the capability. It outlives the team that speaks it.<span class="links"><span><i>1</i> masters <i>0..*</i> <b>Information object</b></span></span></div></div>
+      <div class="ent"><div class="who"><b>Information object</b><code>agreed · a reading per context</code></div>
+        <div class="why">A business concept, and what each context calls it and takes it to mean. Two teams can hold identical definitions and still misunderstand each other.</div></div>
+      <div class="ent"><div class="who"><b>Offering</b><code>kind · audience · stage</code></div>
+        <div class="why">What the organization actually hands somebody. Everything else is an input, and an organization can have its inputs in order and still not say what it delivers.<span class="links"><span><i>0..*</i> is delivered through <i>1..*</i> <b>Capability</b></span></span></div></div>
+      <div class="ent"><div class="who"><b>Flow</b><code>steps · value per month · returns to</code></div>
+        <div class="why">A piece of work end to end, through the capabilities it passes. Where it returns to is nullable, and null is the finding.<span class="links"><span><i>0..*</i> passes through <i>1..*</i> <b>Capability</b></span></span></div></div>
+    </div>
+  </div>
+  <div class="band" data-band="arranged">
+    <div class="bandname">Arranged<em>True this year. Expected to change, and the model expects it.</em></div>
+    <div>
+      <div class="ent"><div class="who"><b>Organizational unit</b><code>mandate: business · technical · spend</code></div>
+        <div class="why">A team, and what it may settle without asking. Mandate decides whether work moves or travels, and it is never visible on an org chart.<span class="links"><span><i>0..*</i> operates in <i>1</i> <b>Legal entity</b></span><span><i>1</i> is responsible for <i>0..*</i> <b>Capability</b></span></span></div></div>
+      <div class="ent"><div class="who"><b>Actor</b><code>person | agent | agent team · runs on · accountable to</code></div>
+        <div class="why">Whoever does the work, which no longer means a person. An agent cannot sign, and answers to one named human: responsibility divides between people, accountability does not.<span class="links"><span><i>0..*</i> works in <i>1..*</i> <b>Organizational unit</b></span><span><i>1..*</i> holds <i>0..*</i> <b>Competence</b></span><span><i>0..*</i> performs <i>0..*</i> <b>Capability</b></span><span><i>1</i> is accountable for <i>0..*</i> <b>Actor</b></span><span><i>0..*</i> amplifies <i>0..*</i> <b>Actor</b></span></span></div></div>
+      <div class="ent"><div class="who"><b>Competence</b><code>held by · staffs</code></div>
+        <div class="why">What a person or an agent can do. Competence staffs a capability, and holding it is what makes the capability an actor's to perform. The capability belongs to the organization; the competence belongs to whoever holds it — people resign, agents get switched off.<span class="links"><span><i>1..*</i> staffs <i>1..*</i> <b>Capability</b></span></span></div></div>
+      <div class="ent"><div class="who"><b>Decision gate</b><code>authority · cadence</code></div>
+        <div class="why">Where work waits for somebody. A fortnightly gate on a daily flow is thirteen days of waiting, and the cadence makes that arithmetic rather than opinion.<span class="links"><span><i>0..*</i> holds up <i>0..*</i> <b>Flow</b></span></span></div></div>
+    </div>
+  </div>
+  <div class="band" data-band="realized">
+    <div class="bandname">Realized<em>What the durable half is currently made of.</em></div>
+    <div>
+      <div class="ent"><div class="who"><b>System</b><code>vendor · cost · phase · CIA · exit</code></div>
+        <div class="why">A system realizes a capability and is not one. Replacing it should not change what the organization can do — and its exit says when leaving was last proved.<span class="links"><span><i>1..*</i> realizes <i>1..*</i> <b>Capability</b></span><span><i>1</i> exposes <i>0..*</i> <b>Interface</b></span><span><i>0..*</i> runs on <i>1..*</i> <b>Infrastructure</b></span><span><i>0..*</i> is built with <i>0..*</i> <b>Technology</b></span></span></div></div>
+      <div class="ent"><div class="who"><b>Interface</b><code>pattern · rung · queue · fields</code></div>
+        <div class="why">How something is reached. The pattern decides what a change costs: an API can be versioned, a nightly file cannot be changed without finding everybody who parses it. The queue is drawn, because to whoever stands in it that is not a detail.<span class="links"><span><i>0..*</i> carries <i>1..*</i> <b>Information object</b></span></span></div></div>
+      <div class="ent"><div class="who"><b>Infrastructure</b><code>provider · region · environment</code></div>
+        <div class="why">Where things run. Coarse on purpose: what earns a place is something whose failure would be an organizational event.</div></div>
+      <div class="ent"><div class="who"><b>Technology</b><code>ring · suited to · unsuited to</code></div>
+        <div class="why">What you build with, including how you work. A ring says whether something new may start here; suitability says what for.</div></div>
+    </div>
+  </div>
+  <div class="band" data-band="movement">
+    <div class="bandname">Movement<em>None of this can be read off a repository. All of it is why the rest moves or does not.</em></div>
+    <div>
+      <div class="ent"><div class="who"><b>Agreement</b><code>parties · signatures · bears</code></div>
+        <div class="why">A statement about one thing, and who has put their name to it. The only honest evidence something is shared rather than asserted.<span class="links"><span><i>0..*</i> is signed by <i>1..*</i> <b>Organizational unit</b></span></span></div></div>
+      <div class="ent"><div class="who"><b>Guideline</b><code>level · autonomy · check · derogates</code></div>
+        <div class="why">A rule about a class of things, signed once and checked against everything new — the signature that scales. What an agent may do is read from these, never set.<span class="links"><span><i>0..*</i> governs <i>0..*</i> <b>Capability</b></span><span><i>0..*</i> sets what may be done by <i>0..*</i> <b>Actor</b></span></span></div></div>
+      <div class="ent"><div class="who"><b>Decision</b><code>produces · settles · needs · affects</code></div>
+        <div class="why">What was decided, by which actor, and what it changed. An agent may decide where a signed guideline delegates it; a person still answers for every decision, and everything it creates arrives unsigned.<span class="links"><span><i>0..*</i> is made by <i>1</i> <b>Actor</b></span><span><i>0..*</i> is answered for by <i>1</i> <b>Actor</b></span><span><i>0..1</i> answers <i>0..*</i> <b>Ask</b></span><span><i>1</i> produces <i>0..*</i> <b>Guideline</b></span><span><i>1</i> produces <i>0..*</i> <b>Agreement</b></span></span></div></div>
+      <div class="ent"><div class="who"><b>Ask</b><code>kind · advancement · options · became a rule</code></div>
+        <div class="why">An actor stopped and needs a person. An answer promoted to a rule is asked once; one that is not gets asked again next week in different words.<span class="links"><span><i>0..*</i> is raised by <i>1</i> <b>Actor</b></span></span></div></div>
+      <div class="ent"><div class="who"><b>Observation</b><code>indicator · reading · who looked</code></div>
+        <div class="why">What somebody went and measured: four organizational indicators, and delivery beside them. Append-only, and never summed.<span class="links"><span><i>0..*</i> reads <i>1</i> <b>Capability</b></span></span></div></div>
+      <div class="ent"><div class="who"><b>Assessment</b><code>risk · compliance · security · continuity</code></div>
+        <div class="why">The answers a repository cannot give. Unknown is a first-class answer — a compliance field defaulting to none is a claim nobody made.<span class="links"><span><i>0..*</i> bounds <i>1</i> <b>Capability</b></span></span></div></div>
+      <div class="ent"><div class="who"><b>Override</b><code>why · until · raised to</code></div>
+        <div class="why">Going against a rule on purpose, in writing — or accepting friction knowingly. Cheap, and impossible without saying why.<span class="links"><span><i>0..*</i> breaks, on purpose, <i>1</i> <b>Guideline</b></span></span></div></div>
+      <div class="ent"><div class="who"><b>Activity</b><code>commit · deploy · run · incident · by · with</code></div>
+        <div class="why">What was actually done, by whom, and with which agent beside them. The one thing that has to be written back by whatever did it.<span class="links"><span><i>0..*</i> is done by <i>1</i> <b>Actor</b></span><span><i>0..*</i> is done with <i>0..1</i> <b>Actor</b></span></span></div></div>
+    </div>
+  </div>
+
+  <h2>Every relation</h2>
+  <p class="sub">Read each row as a sentence. The last column is where the schema records it.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>From</th><th></th><th>Relation</th><th></th><th>To</th><th>Recorded as</th></tr></thead>
+    <tbody>
+    <tr class="group"><td colspan="6">Durable</td></tr><tr><td><b>Capability</b></td><td class="card">0..*</td><td>nests under</td><td class="card">0..1</td><td><b>Capability</b></td><td class="where">parent · four levels at most</td></tr><tr><td><b>Capability</b></td><td class="card">1..*</td><td>speaks</td><td class="card">1..*</td><td><b>Bounded context</b></td><td class="where">contexts</td></tr><tr><td><b>Bounded context</b></td><td class="card">1</td><td>masters</td><td class="card">0..*</td><td><b>Information object</b></td><td class="where">reading per context</td></tr><tr><td><b>Offering</b></td><td class="card">0..*</td><td>is delivered through</td><td class="card">1..*</td><td><b>Capability</b></td><td class="where">products · capabilities</td></tr><tr><td><b>Flow</b></td><td class="card">0..*</td><td>passes through</td><td class="card">1..*</td><td><b>Capability</b></td><td class="where">steps · returns_to</td></tr>
+    <tr class="group"><td colspan="6">Arranged</td></tr><tr><td><b>Organizational unit</b></td><td class="card">0..*</td><td>operates in</td><td class="card">1</td><td><b>Legal entity</b></td><td class="where">entity</td></tr><tr><td><b>Organizational unit</b></td><td class="card">1</td><td>is responsible for</td><td class="card">0..*</td><td><b>Capability</b></td><td class="where">owns · develops · uses</td></tr><tr><td><b>Actor</b></td><td class="card">0..*</td><td>works in</td><td class="card">1..*</td><td><b>Organizational unit</b></td><td class="where">teams · works_in</td></tr><tr><td><b>Actor</b></td><td class="card">1..*</td><td>holds</td><td class="card">0..*</td><td><b>Competence</b></td><td class="where">holds</td></tr><tr><td><b>Competence</b></td><td class="card">1..*</td><td>staffs</td><td class="card">1..*</td><td><b>Capability</b></td><td class="where">staffs</td></tr><tr><td><b>Actor</b></td><td class="card">0..*</td><td>performs</td><td class="card">0..*</td><td><b>Capability</b></td><td class="where">performs · or held competence</td></tr><tr><td><b>Actor</b></td><td class="card">1</td><td>is accountable for</td><td class="card">0..*</td><td><b>Actor</b></td><td class="where">owner · a person, for each agent</td></tr><tr><td><b>Actor</b></td><td class="card">0..*</td><td>amplifies</td><td class="card">0..*</td><td><b>Actor</b></td><td class="where">assists · an agent beside a person, to build or to use, in a capability</td></tr><tr><td><b>Decision gate</b></td><td class="card">0..*</td><td>holds up</td><td class="card">0..*</td><td><b>Flow</b></td><td class="where">gates</td></tr>
+    <tr class="group"><td colspan="6">Realized</td></tr><tr><td><b>System</b></td><td class="card">1..*</td><td>realizes</td><td class="card">1..*</td><td><b>Capability</b></td><td class="where">realizes</td></tr><tr><td><b>System</b></td><td class="card">1</td><td>exposes</td><td class="card">0..*</td><td><b>Interface</b></td><td class="where">interfaces</td></tr><tr><td><b>Interface</b></td><td class="card">0..*</td><td>carries</td><td class="card">1..*</td><td><b>Information object</b></td><td class="where">carries · fields</td></tr><tr><td><b>System</b></td><td class="card">0..*</td><td>runs on</td><td class="card">1..*</td><td><b>Infrastructure</b></td><td class="where">hosted_on</td></tr><tr><td><b>System</b></td><td class="card">0..*</td><td>is built with</td><td class="card">0..*</td><td><b>Technology</b></td><td class="where">technology</td></tr>
+    <tr class="group"><td colspan="6">Movement</td></tr><tr><td><b>Guideline</b></td><td class="card">0..*</td><td>governs</td><td class="card">0..*</td><td><b>Capability</b></td><td class="where">applies to a capability, context or technology</td></tr><tr><td><b>Guideline</b></td><td class="card">0..*</td><td>sets what may be done by</td><td class="card">0..*</td><td><b>Actor</b></td><td class="where">autonomy · in force where the actor works</td></tr><tr><td><b>Activity</b></td><td class="card">0..*</td><td>is done by</td><td class="card">1</td><td><b>Actor</b></td><td class="where">by</td></tr><tr><td><b>Activity</b></td><td class="card">0..*</td><td>is done with</td><td class="card">0..1</td><td><b>Actor</b></td><td class="where">with · the agent beside the person who did it</td></tr><tr><td><b>Observation</b></td><td class="card">0..*</td><td>reads</td><td class="card">1</td><td><b>Capability</b></td><td class="where">subject · indicator</td></tr><tr><td><b>Ask</b></td><td class="card">0..*</td><td>is raised by</td><td class="card">1</td><td><b>Actor</b></td><td class="where">by · routed to the accountable person</td></tr><tr><td><b>Decision</b></td><td class="card">0..*</td><td>is made by</td><td class="card">1</td><td><b>Actor</b></td><td class="where">by · a person, or an agent where a guideline delegates it</td></tr><tr><td><b>Decision</b></td><td class="card">0..*</td><td>is answered for by</td><td class="card">1</td><td><b>Actor</b></td><td class="where">a person · the agent's owner when an agent decided</td></tr><tr><td><b>Decision</b></td><td class="card">0..1</td><td>answers</td><td class="card">0..*</td><td><b>Ask</b></td><td class="where">became a rule</td></tr><tr><td><b>Decision</b></td><td class="card">1</td><td>produces</td><td class="card">0..*</td><td><b>Guideline</b></td><td class="where">produces</td></tr><tr><td><b>Decision</b></td><td class="card">1</td><td>produces</td><td class="card">0..*</td><td><b>Agreement</b></td><td class="where">produces</td></tr><tr><td><b>Agreement</b></td><td class="card">0..*</td><td>is signed by</td><td class="card">1..*</td><td><b>Organizational unit</b></td><td class="where">signatures</td></tr><tr><td><b>Assessment</b></td><td class="card">0..*</td><td>bounds</td><td class="card">1</td><td><b>Capability</b></td><td class="where">risk · compliance · security</td></tr><tr><td><b>Override</b></td><td class="card">0..*</td><td>breaks, on purpose,</td><td class="card">1</td><td><b>Guideline</b></td><td class="where">why · until · raised to</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>What the model asserts</h2>
+  <p class="sub">Six rules, each true because of the model’s shape rather than attached to it as advice.</p>
+  <div class="rules">
+    <div class="rule"><b>What you can do outlives how you are arranged to do it</b><p>Durable and arranged sit in separate bands, so the map does not go stale at every reorganization and "who owns this" is a relationship rather than a property.</p></div>
+    <div class="rule"><b>Nothing is shared until somebody signs it</b><p>A statement carries its parties. Two groups both claiming something is expressible, and an unsigned statement stays visibly unsigned.</p></div>
+    <div class="rule"><b>Autonomy is derived, never set</b><p>Act where a signed rule decided it, prepare where judgement remains, ask where no rule reaches. Giving agents more room and deciding more out loud are the same act.</p></div>
+    <div class="rule"><b>Accountability does not divide</b><p>A team can be responsible. A thing that acts on its own needs one named person who explains it and decides to stop it.</p></div>
+    <div class="rule"><b>Structure is read; movement is observed</b><p>Three bands can be derived from what an organization already keeps. The fourth cannot, and a model with no place for it asserts structure is enough.</p></div>
+    <div class="rule"><b>Nothing is summed</b><p>Indicators, risks and delivery figures are reported apart. A single number acquires a target, and a measure with a bonus attached stops measuring.</p></div>
+  </div>
+
+  <h2>How the model has moved</h2>
+  <p class="sub">Every change to the model is a commit, so its learning has dates. Read from git when this page was generated — the entities, relations, loop and schema, newest first.</p>
+  <div class="moved">
+    <div class="moved-day"><time>2026-09-18</time><ul><li>A control cockpit: the same six questions at three altitudes</li></ul></div>
+    <div class="moved-day"><time>2026-09-17</time><ul><li>The harness defined, names as links, handoffs in the demo, fresh walkthrough</li><li>The work harness is for navigating less</li></ul></div>
+    <div class="moved-day"><time>2026-09-16</time><ul><li>The organization is the work harness — for people and agents alike</li></ul></div>
+    <div class="moved-day"><time>2026-09-15</time><ul><li>Pilot kit: the pulse in CI, and what it cannot place said out loud</li><li>Decisions follow the lightweight ADR format</li></ul></div>
+    <div class="moved-day"><time>2026-09-14</time><ul><li>Signatures that are somebody; capabilities with their own pulse</li><li>People with AI: human owns, AI amplifies</li><li>Questions as files: the hook asks, Cambium answers, the answer goes back</li><li>Any actor may decide; a person answers for every decision</li><li>Close the metamodel's loop: relations, multiplicities, and a walkthrough</li><li>The model underneath, in the tool, and a guided tour for the demo</li></ul></div>
+    <div class="moved-day"><time>2026-09-11</time><ul><li>Legal entity: the boundary mandate cannot cross</li><li>Three ideas from the metamodel, and the twenty it does not need</li><li>The infrastructure layer, and three things it sees that nothing else could</li><li>Precedent, escalation that admits what it is, and metrics by capability</li><li>The radar goes back to technology, and information gets its own bridge</li><li>Information in and out, and the pattern carrying it</li><li>The whole estate, and responsible is not accountable</li><li>What we deliver, who executes, and a person answering for every agent</li><li class="more">+7 more</li></ul></div>
+    <div class="moved-day"><time>2026-09-10</time><ul><li>A radar where a ring is a decision, and guardrails written to be read</li><li>Things that fire, rules that can be checked, and a page that says what this is</li><li>Coworkers who are not people, and decisions that change the map</li><li>Levels that compose, and the line an agent may not cross</li><li>Guidelines: the signature that scales, and drift from it</li><li>Agreements: the half of the tool that builds rather than reports</li></ul></div>
+    <div class="moved-day"><time>2026-09-04</time><ul><li>Accept friction, with the reason on the record</li></ul></div>
+    <div class="moved-day"><time>2026-09-01</time><ul><li>Containment, and what sharing costs</li><li>A connections graph, system attributes, and removal scenarios</li></ul></div>
+    <div class="moved-day"><time>2026-08-26</time><ul><li>Teams: Team Topologies types, cognitive load, mandate and leadership distance</li><li>Capability CRUD, four levels, team roles, system map and information model</li><li>v0.1 + v0.2 — the map, and the findings computed from it</li><li>Cambium — design specification and Vite scaffold</li></ul></div>
+  </div>
+
+  <div class="close">
+    <p>The model is <b>YAML in git</b>, not a database: diffs, history for free, code review on organizational change, and a map that survives the tool that drew it.</p>
+    <p>This page is generated from the same module the app renders and the schema is tested against. If the model changes, so does this — and nothing here is final. It is a model to argue with, and the history above is how it got here.</p>
+  </div>
+</div>
+</body>
+</html>

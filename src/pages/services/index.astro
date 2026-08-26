@@ -1,0 +1,216 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Footer from '../../components/Footer.astro';
+import { author, company, orgRef, personRef, SITE_URL, breadcrumbs } from '../../data/site';
+
+// What can be hired, said plainly. The About page tells the story; this page
+// answers the question someone arriving from a search actually has.
+const services = [
+  {
+    id: 'organizational-flow-diagnostic',
+    name: 'Organizational Flow diagnostic',
+    summary:
+      'Finding where the friction actually sits before recommending anything — which is rarely where the budget already is.',
+    body:
+      'A short, structured look at ownership, handoffs, decision latency and learning in one part of the organization. The result is a map of where work waits and why, and the few changes most likely to move it.',
+  },
+  {
+    id: 'enterprise-architecture',
+    name: 'Enterprise architecture and strategy validation',
+    summary:
+      'Reviewing architecture and strategic direction against where the organization actually needs to go — before committing further investment to either.',
+    body:
+      'Target architecture, capability maps, roadmaps and the decisions behind them, checked against the business they are meant to serve. Useful before a large programme, a platform choice, or a reorganization.',
+  },
+  {
+    id: 'capability-and-domain-design',
+    name: 'Capability and domain design',
+    summary:
+      'Mapping what the organization actually does, and drawing the boundaries that let teams own it.',
+    body:
+      'Business capabilities, bounded contexts and the information that crosses between them — the structure team boundaries, ownership and systems are then built on. This is where team design and architecture meet.',
+  },
+  {
+    id: 'architecture-enablement',
+    name: 'Architecture enablement',
+    summary:
+      'Guardrails — principles, decision records and coaching — that let architects and teams decide faster and more safely without an architect in the room.',
+    body:
+      'Setting up the few rules worth agreeing on, the decision records that keep them honest, and the practice that lets teams move within them. Architecture as a competence the organization holds, not a queue it waits in.',
+  },
+  {
+    id: 'interim-chief-architect',
+    name: 'Interim chief architect and senior advisor',
+    summary:
+      'Stepping into a chief architect or senior advisor role during a transformation, a leadership gap, or a period that needs an outside perspective leadership can trust.',
+    body:
+      'Leading an architecture function, sitting with IT and business leadership, and connecting direction, organizational design and technology execution — for a defined period.',
+  },
+  {
+    id: 'solution-design',
+    name: 'Solution architecture',
+    summary:
+      'Designing the systems and integrations that make a capability real — target architecture, data flows and the platform decisions underneath them.',
+    body:
+      'Hands-on solution architecture in complex end-to-end flows: customer and CRM, subscriptions and checkout, payments, orders, billing and ERP, advertising, marketing automation and integrations.',
+  },
+];
+
+const description = `Enterprise and solution architecture in ${author.city}: strategy validation, capability design, architecture enablement and interim chief architect roles.`;
+
+const jsonLd = [
+  {
+    '@type': 'ProfessionalService',
+    '@id': `${SITE_URL}/services/#service`,
+    name: `${company.name} — architecture and organizational design`,
+    url: `${SITE_URL}/services/`,
+    description,
+    provider: orgRef,
+    founder: personRef,
+    areaServed: [{ '@type': 'City', name: author.city }, { '@type': 'Country', name: author.country }, 'Europe'],
+    availableLanguage: author.languages,
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Services',
+      itemListElement: services.map((s) => ({
+        '@type': 'Offer',
+        itemOffered: { '@type': 'Service', name: s.name, description: s.summary, url: `${SITE_URL}/services/#${s.id}` },
+      })),
+    },
+  },
+  breadcrumbs([
+    { name: 'TROi', path: '/' },
+    { name: 'Services', path: '/services/' },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Services"
+  fullTitle="Architecture and organizational design consulting · TROi"
+  description={description}
+  alternates={{ en: '/services/', sv: '/tjanster/', 'x-default': '/services/' }}
+  jsonLd={jsonLd}
+>
+  <main class="reading" id="main">
+    <section class="block insight-page">
+      <p class="kicker">Services</p>
+      <h1>Architecture and organizational design</h1>
+      <p class="service-sub">— where the friction actually is</p>
+
+      <p class="lede">
+        I am <a href="/about/">{author.name}</a>, an independent enterprise and solution architect based in{' '}
+        {author.city}, {author.country}, working through my company, {company.legalName}. I bring more than twenty
+        years in insurance, media, advertising and digital services, where subscriptions, payments and customer data
+        run through everything.
+      </p>
+      <p>
+        I work at every level the problem needs. In the boardroom on direction, investment and organizational design,
+        and down with the teams, in the details of the data, the integrations and the solution, when that is where the answer is. Architecture that only
+        exists on slides helps nobody, and neither does detail nobody has connected to where the business is going.
+      </p>
+      <p>
+        I work in Swedish and English, on site in the Stockholm area and remotely. Most assignments are either a
+        defined piece of work — a diagnostic, a validation, a capability map — or a role for a period.{' '}
+        <span lang="sv"><a href="/tjanster/">Läs på svenska</a>.</span>
+      </p>
+
+      <ul class="service-list">
+        {services.map((s) => (
+          <li id={s.id}>
+            <h2>{s.name}</h2>
+            <p class="service-summary">{s.summary}</p>
+            <p>{s.body}</p>
+          </li>
+        ))}
+      </ul>
+
+      <h2>Methods and measures</h2>
+      <p>
+        The working tools behind these assignments — architecture guardrails, decision records, a tech radar, deciding
+        where domain logic belongs, and the measures that show whether flow is improving — are described on{' '}
+        <a href="/services/architecture-methods/">Architecture methods and measures</a>.
+      </p>
+
+      <h2>When this is relevant</h2>
+      <ul>
+        <li>Decisions wait for weeks, and nobody can say exactly where.</li>
+        <li>Teams keep having to ask other teams before they can finish anything.</li>
+        <li>A transformation or platform programme is about to commit serious money, and the direction has not been tested.</li>
+        <li>Nobody can say, by name, who owns a capability the business depends on.</li>
+        <li>An AI pilot works in the demo and then stalls on data ownership or on who may approve the output.</li>
+        <li>The architecture function has become a queue rather than a competence the organization holds.</li>
+        <li>An insurer, a media house or a subscription business is changing its core platforms — policy, claims, advertising, checkout or billing.</li>
+      </ul>
+
+      <h2>Where the thinking comes from</h2>
+      <p>
+        The approach behind this work is written up, openly, as <a href="/organizational-flow/">Organizational Flow</a> —
+        a working theory of organizational friction: the patterns that repeat from one organization to the next, how
+        information, decisions and work <a href="/organizational-flow/what-is-organizational-flow/">flow</a> through the
+        capabilities a business depends on, and how that flow turns into <a href="/organizational-flow/measuring-value/">value</a>,
+        or fails to. The <a href="/organizational-flow/concepts/">key concepts</a> are
+        a quicker way in, and the <a href="/organizational-flow/self-assessment/">self-assessment</a> gives us something
+        concrete to talk about. Past assignments are listed on the <a href="/about/">About</a> page.
+      </p>
+
+      <p class="service-contact">
+        <a class="service-button" href="/contact/">Get in touch →</a>
+        <span><a href={`mailto:${author.email}`}>{author.email}</a></span>
+      </p>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .service-sub {
+    margin: -1.2rem 0 1.6rem;
+    font-family: 'Fraunces', serif;
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--bark);
+  }
+  .service-list {
+    list-style: none;
+    padding: 0 !important;
+    margin: 2.4rem 0 0 !important;
+  }
+  .service-list li {
+    padding: 1.3rem 0 0.4rem;
+    border-top: 1px solid var(--mist);
+    scroll-margin-top: 5rem;
+  }
+  .service-list h2 {
+    margin: 0 0 0.5rem !important;
+    font-size: 1.25rem !important;
+  }
+  .service-summary {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--bark);
+  }
+  .service-contact {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.8rem 1.4rem;
+    margin-top: 2.6rem;
+  }
+  .service-button {
+    display: inline-block;
+    padding: 0.6rem 1.1rem;
+    border: 1px solid var(--moss);
+    border-radius: 2px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--moss);
+  }
+  .service-button:hover {
+    background: var(--moss);
+    color: var(--paper);
+  }
+</style>

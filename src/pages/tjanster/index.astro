@@ -1,0 +1,144 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Footer from '../../components/Footer.astro';
+import { author, company, orgRef, personRef, SITE_URL, breadcrumbs } from '../../data/site';
+
+// Den svenska ingången till samma erbjudande som /services/. Kort med flit:
+// den som söker på svenska ska förstå vad som går att anlita och hitta vidare.
+const tjanster = [
+  { id: 'organizational-flow-diagnostic', namn: 'Diagnos av organisatorisk friktion', text: 'Var arbetet faktiskt står still — ägarskap, överlämningar, beslutsväntan och lärande — innan något rekommenderas.' },
+  { id: 'enterprise-architecture', namn: 'Verksamhetsarkitektur och validering av strategi', text: 'Målarkitektur, förmågekartor och vägval prövade mot vad verksamheten faktiskt behöver, innan fler pengar binds.' },
+  { id: 'capability-and-domain-design', namn: 'Förmågor och domäner', text: 'Vad organisationen faktiskt gör, och gränserna som låter team äga det — där teamdesign och arkitektur möts.' },
+  { id: 'architecture-enablement', namn: 'Arkitekturstöd till team', text: 'Principer, beslutsloggar och coachning som låter team fatta snabbare och säkrare beslut utan att vänta på en arkitekt.' },
+  { id: 'interim-chief-architect', namn: 'Interimistisk chefsarkitekt och senior rådgivare', text: 'En tidsbegränsad roll under en förändring, ett ledarskapsglapp eller när ledningen behöver ett utomstående perspektiv.' },
+  { id: 'solution-design', namn: 'Lösningsarkitektur', text: 'System och integrationer i komplexa flöden: kund och CRM, abonnemang, betalningar, order, fakturering, ERP och annonsering.' },
+];
+
+const description = `Fristående IT-arkitekt i ${author.city}, konsult inom verksamhetsarkitektur: strategi, förmågor och domäner, arkitekturstöd och interimistisk chefsarkitekt.`;
+
+const jsonLd = [
+  {
+    '@type': 'ProfessionalService',
+    '@id': `${SITE_URL}/tjanster/#service`,
+    name: `${company.name} — arkitektur och organisationsdesign`,
+    url: `${SITE_URL}/tjanster/`,
+    description,
+    inLanguage: 'sv',
+    provider: orgRef,
+    founder: personRef,
+    areaServed: [{ '@type': 'City', name: author.city }, { '@type': 'Country', name: 'Sverige' }],
+    availableLanguage: author.languages,
+  },
+  breadcrumbs([
+    { name: 'TROi', path: '/' },
+    { name: 'Tjänster', path: '/tjanster/' },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Tjänster"
+  fullTitle="Arkitektur och organisationsdesign, Stockholm · TROi"
+  description={description}
+  lang="sv"
+  alternates={{ sv: '/tjanster/', en: '/services/', 'x-default': '/services/' }}
+  jsonLd={jsonLd}
+>
+  <main class="reading" id="main">
+    <section class="block insight-page">
+      <p class="kicker">Tjänster</p>
+      <h1>Arkitektur och organisationsdesign</h1>
+      <p class="tjanst-sub">— där friktionen faktiskt sitter</p>
+
+      <p class="tjanst-motto">Arbetet formar idéerna. Idéerna formar arbetet.</p>
+
+      <p class="lede">
+        Jag heter {author.name} och är fristående IT-arkitekt i {author.city} — verksamhetsarkitekt och lösningsarkitekt med eget
+        bolag, {company.legalName}. I mer än tjugo år har jag arbetat där verksamhet, teknik och organisation möts — inom
+        försäkring och försäkringsbolag, media och annonsering, abonnemang och betalningar samt digitala tjänster — som utvecklare, lösningsarkitekt, chefsarkitekt,
+        arkitekturchef och senior rådgivare.
+      </p>
+      <p>
+        Jag arbetar på den nivå problemet kräver. I ledningsrummet när det gäller riktning, investeringar och
+        organisationsdesign, och ute i teamen, i detaljerna kring data, integrationer och lösning, när det är där svaret finns. Arkitektur som
+        bara finns på bilder hjälper ingen, och det gör inte heller detaljer som ingen har kopplat till vart
+        verksamheten är på väg.
+      </p>
+      <p>
+        Som konsult inom verksamhetsarkitektur och lösningsarkitektur är uppdragen oftast antingen ett avgränsat arbete — en diagnos, en validering, en förmågekarta — eller en roll
+        under en period. Jag arbetar på svenska och engelska, på plats i Stockholmsområdet och på distans.
+      </p>
+
+      <ul class="tjanst-lista">
+        {tjanster.map((t) => (
+          <li>
+            <h2>{t.namn}</h2>
+            <p>{t.text} <a href={`/services/#${t.id}`} lang="en">Mer (engelska)</a></p>
+          </li>
+        ))}
+      </ul>
+
+      <h2>När det är aktuellt</h2>
+      <ul>
+        <li>Beslut väntar i veckor, och ingen kan säga exakt var.</li>
+        <li>Team måste hela tiden fråga andra team innan de kan bli klara.</li>
+        <li>Ett förändrings- eller plattformsprogram ska binda stora pengar, och riktningen är inte prövad.</li>
+        <li>Ingen kan säga vem som äger en förmåga som verksamheten är beroende av.</li>
+        <li>Ett pilotprojekt med artificiell intelligens fungerar i demon men fastnar på vem som äger datan, vem som får godkänna resultatet och vilken kontext AI:n ska få.</li>
+        <li>Ett försäkringsbolag, ett mediehus eller ett abonnemangsföretag byter kärnsystem — försäkring och skador, annonsering, kassa eller fakturering.</li>
+      </ul>
+
+      <h2>Metoder och mått</h2>
+      <p>
+        Arkitekturstyrning som gör team snabbare: några få överenskomna principer och ramar (guardrails),
+        beslutsloggar (architecture decision records), en teknikradar och tydliga beslut om var affärslogiken ska
+        ligga. Och mått som visar om flödet blir bättre — beslutsväntan, överlämningsförlust och hur de förhåller sig
+        till DORA-måtten. <a href="/services/architecture-methods/" lang="en">Architecture methods and measures</a>
+        (engelska).
+      </p>
+
+      <h2>Tankarna bakom</h2>
+      <p>
+        Synsättet bakom arbetet finns öppet beskrivet i <a href="/organizational-flow/">Organizational Flow</a>, en
+        arbetsteori om organisatorisk friktion, skriven på engelska: mönstren som återkommer från en organisation
+        till nästa, hur information, beslut och arbete flödar genom de förmågor verksamheten vilar på, och hur det
+        flödet blir värde, eller inte. <a href="/organizational-flow/sv/">Tiominutersversionen
+        finns på svenska</a>, liksom <a href="/organizational-flow/begrepp/">begreppen</a> — förmågor, förmågekarta,
+        teamgränser, ägarskap och mandat samt arkitekturstyrning — och tidigare uppdrag finns på sidan <a href="/about/">About</a>.
+      </p>
+
+      <p>
+        <a href="/contact/">Kontakta mig</a> · <a href={`mailto:${author.email}`}>{author.email}</a>
+      </p>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .tjanst-sub {
+    margin: -1.2rem 0 1.6rem;
+    font-family: 'Fraunces', serif;
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--bark);
+  }
+  .tjanst-motto {
+    font-family: 'Fraunces', serif;
+    font-size: 1.3rem;
+    margin: 0 0 1rem;
+  }
+  .tjanst-lista {
+    list-style: none;
+    padding: 0 !important;
+    margin: 2.2rem 0 0 !important;
+  }
+  .tjanst-lista li {
+    padding: 1.1rem 0 0.2rem;
+    border-top: 1px solid var(--mist);
+  }
+  .tjanst-lista h2 {
+    margin: 0 0 0.4rem !important;
+    font-size: 1.2rem !important;
+  }
+</style>

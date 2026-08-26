@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Footer from '../../components/Footer.astro';
+import { author, company, SITE_URL, breadcrumbs, personRef } from '../../data/site';
+
+const jsonLd = [
+  { '@type': 'ProfilePage', '@id': `${SITE_URL}/about/#page`, url: `${SITE_URL}/about/`, mainEntity: personRef, name: `About ${author.name}` },
+  breadcrumbs([{ name: 'TROi', path: '/' }, { name: 'About', path: '/about/' }]),
+];
+---
+
+<BaseLayout title="About" fullTitle="About Christoffer Råsten, enterprise architect · TROi" description="Christoffer Råsten, enterprise architect in Stockholm: twenty years in insurance and media, former chief architect, author of Organizational Flow." ogType="profile" jsonLd={jsonLd}>
+  <main class="reading" id="main">
+    <section class="block insight-page">
+      <p class="kicker">About</p>
+      <h1>Practice shapes ideas. Ideas shape practice.</h1>
+      <p>
+        I am {author.name}, an independent enterprise and solution architect based in {author.city}, {author.country}.
+        Through my company, {company.legalName}, I help organizations improve how they create value through
+        technology, architecture and organizational design. I have spent more than twenty years where business,
+        technology and organization meet — in insurance, media, advertising and digital services — as developer,
+        solution architect, domain architect, chief architect, head of architecture and senior advisor.
+      </p>
+      <p>
+        Over time that work evolved into an ongoing body of thought I call <a href="/organizational-flow/">Organizational Flow</a>.
+      </p>
+      <p>
+        Through TROi I share both practical experience and the ideas that emerge from it. The <a href="/blog/">blog</a> captures observations. The paper develops those observations into a coherent perspective.
+      </p>
+
+      <p id="what-i-offer">
+        What I work on today — enterprise and solution architecture, capability and domain design, architecture
+        enablement, interim chief architect roles and Organizational Flow diagnostics — is described on
+        <a href="/services/">Services</a>.
+      </p>
+      <p class="kicker" style="margin-top:2.6rem;">Recent Assignments</p>
+      <ul style="list-style:none; padding:0; margin:0;">
+        {[
+          {
+            client: 'TV4',
+            role: 'Architect — Engineering Competence & Architecture Enablement',
+            dates: 'Jun 2023 – present',
+            description: 'Strengthening architectural capability across domains: ERP migration, digital advertising platform, and marketing automation.',
+          },
+          {
+            client: 'Telia',
+            role: 'Solution Architect — C More / Telia Play',
+            dates: 'Dec 2022 – Jun 2023',
+            description: 'Payments, subscriptions, CRM, and checkout flows.',
+          },
+          {
+            client: 'Raise',
+            role: 'Senior Advisor — Raise Gruppen',
+            dates: 'Dec 2024 – Apr 2026',
+            description: 'Trusted advisor to leadership on architecture and digital strategy, bridging business and technology.',
+          },
+          {
+            client: 'AFA Försäkring',
+            role: 'Chief Architect & Head of Architecture',
+            dates: '2019 – 2021',
+            description: 'Built and led the enterprise architecture function; member of the IT leadership team.',
+          },
+        ].map((item) => (
+          <li style="padding:0.9rem 0; border-top:1px solid var(--mist);">
+            <p style="margin:0; font-family:'Fraunces', serif; font-size:1.05rem;">{item.client}</p>
+            <p style="margin:0.3rem 0 0; color:var(--bark); font-size:0.9rem;">{item.role}</p>
+            <p style="margin:0.15rem 0 0; font-family:'Space Mono', monospace; font-size:0.68rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--bark);">{item.dates}</p>
+            <p style="margin:0.5rem 0 0; font-size:0.92rem;">{item.description}</p>
+          </li>
+        ))}
+      </ul>
+
+      <p style="margin-top:1.6rem; font-size:0.88rem; color:var(--bark); font-style:italic;">
+        The views and observations on this site, including in the writing and the paper, are my own — not those
+        of any client or employer, past or present, named here or not.
+      </p>
+
+      <p style="margin-top:2rem;">
+        Download the full CV: <a href="/cv/christoffer-rasten-cv-en.pdf">English (PDF)</a>&nbsp;· <a href="/cv/christoffer-rasten-cv-sv.pdf" lang="sv" hreflang="sv">Svenska (PDF)</a>
+      </p>
+
+      <p class="kicker" style="margin-top:2.6rem;">About the name</p>
+      <p>
+        TROi stands for Total Return of Investment — what the work is meant to create. It is also the initials of my
+        family, every letter of it, the small i included.
+      </p>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>

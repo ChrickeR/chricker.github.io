@@ -1,0 +1,256 @@
+---
+import ShareLinks from '../../components/ShareLinks.astro';
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Footer from '../../components/Footer.astro';
+import Marginalia from '../../components/Marginalia.astro';
+import FlowModel from '../../components/FlowModel.astro';
+import GirdledTree from '../../components/GirdledTree.astro';
+import { readerNote } from '../../data/reader-note';
+import PartOpener from '../../components/PartOpener.astro';
+import ChapterJump from '../../components/ChapterJump.astro';
+import AudioPlayer from '../../components/AudioPlayer.astro';
+import { findChapterLocation, adjacentPublishedChapters, chapterNumber, frontMatter, paper, audioChapters as getAudioChapters } from '../../data/book-structure';
+import { partOpener } from '../../data/illustrations';
+import { effectTone, indicatorTone, effectLabels, indicatorLabels } from '../../data/tags';
+import audioDurations from '../../data/audio-durations.json';
+import { versionHistory } from '../../data/version-history';
+import { author, personRef, orgRef, BOOK_ID, SITE_URL, breadcrumbs } from '../../data/site';
+
+export async function getStaticPaths() {
+  const chapters = await getCollection('chapters', (entry) => entry.id !== 'preface');
+  return chapters.map((chapter) => ({
+    params: { slug: chapter.id },
+    props: { chapter },
+  }));
+}
+
+const { chapter } = Astro.props;
+// Front matter (the Executive Summary) is a manuscript page that belongs to no
+// Part and takes no chapter number, but is otherwise a chapter in every way.
+const front = frontMatter.find((f) => f.slug === chapter.id) ?? null;
+const location = front ? null : findChapterLocation(chapter.id);
+if (!front && !location) throw new Error(`Chapter "${chapter.id}" is not placed in the book structure`);
+const part = location?.part ?? null;
+
+const { Content } = await render(chapter);
+
+const allInsights = await getCollection('insights');
+const relatedMarginalia = allInsights.filter((insight) =>
+  insight.data.relatedChapters.includes(chapter.id)
+);
+
+const chapterIndexInPart = part ? part.chapters.findIndex((c) => c.slug === chapter.id) + 1 : 0;
+const isPartOpener = chapterIndexInPart === 1;
+const { prev, next } = adjacentPublishedChapters(chapter.id);
+
+const durations: Record<string, number> = audioDurations;
+const audioChapters = getAudioChapters().map((c) => ({ ...c, duration: durations[c.slug] }));
+
+// 200 words/minute is the usual estimate for reading prose silently — a
+// rough guide next to the chapter number, not a promise.
+const wordCount = chapter.body?.trim().split(/\s+/).filter(Boolean).length ?? 0;
+const readingMinutes = Math.max(1, Math.round(wordCount / 200));
+
+// Dates come from the version history rather than from git: the repository
+// keeps a single squashed commit, so file history says nothing. A chapter the
+// history never names carries the paper's first public date.
+const PAPER_STARTED = '2026-06-30';
+const mentions = versionHistory
+  .flatMap((v) => (v.chapters ?? []).filter((c) => c.slug === chapter.id).map((c) => ({ date: v.date, whole: !c.anchor })))
+  .sort((a, b) => a.date.localeCompare(b.date));
+const touched = mentions.map((m) => m.date);
+// A history entry that links the whole chapter rather than a section of it is
+// the one that introduced it.
+const datePublished = mentions[0]?.whole ? mentions[0].date : PAPER_STARTED;
+const dateModified = touched.length ? touched[touched.length - 1] : undefined;
+const modifiedLabel = dateModified
+  ? new Date(`${dateModified}T00:00:00Z`).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })
+  : null;
+
+// The subject goes into the page title because Part II titles are written to
+// make a reader curious, and a search result has no room for curiosity.
+const topic = chapter.data.topic;
+// Longest form that still fits the roughly sixty characters a result shows.
+const titleOptions = [
+  topic && topic !== chapter.data.title ? `${chapter.data.title} — ${topic} · TROi` : null,
+  `${chapter.data.title} · Organizational Flow`,
+  `${chapter.data.title} · TROi`,
+  chapter.data.title,
+].filter((t): t is string => !!t);
+const fullTitle = titleOptions.find((t) => t.length <= 60) ?? chapter.data.title;
+// Aim for 110–160 characters: the dek, with the subject in front when it fits,
+// and a line about the book when the dek alone is short.
+const dek = chapter.data.dek ?? `${chapter.data.title}.`;
+const withTopic = topic ? `${topic}: ${dek}` : dek;
+const base = withTopic.length <= 150 ? withTopic : dek;
+const suffix = ` A chapter of Organizational Flow by ${author.name}.`;
+const description = base.length < 100 && (base + suffix).length <= 150 ? base + suffix : base;
+
+// Blog posts that name this chapter as where their idea is developed further.
+const relatedPosts = (await getCollection('blog'))
+  .filter((post) => post.data.developedIn?.chapterSlug === chapter.id)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const postPath = (post: { id: string; data: { date: Date } }) => {
+  const d = post.data.date;
+  return `/blog/${d.getUTCFullYear()}/${String(d.getUTCMonth() + 1).padStart(2, '0')}/${String(d.getUTCDate()).padStart(2, '0')}/${post.id}/`;
+};
+
+const pagePath = `/organizational-flow/${chapter.id}/`;
+const jsonLd = [
+  {
+    '@type': 'Chapter',
+    '@id': `${SITE_URL}${pagePath}#chapter`,
+    name: chapter.data.title,
+    headline: chapter.data.title,
+    description: chapter.data.dek,
+    about: topic,
+    url: `${SITE_URL}${pagePath}`,
+    isPartOf: { '@id': BOOK_ID },
+    ...(part && location ? { position: chapterNumber(chapter.id) } : {}),
+    author: personRef,
+    publisher: orgRef,
+    inLanguage: 'en',
+    datePublished,
+    ...(dateModified ? { dateModified } : {}),
+    wordCount,
+    license: 'https://creativecommons.org/licenses/by-nc-nd/4.0/',
+    ...(durations[chapter.id] ? {
+      audio: { '@type': 'AudioObject', contentUrl: `${SITE_URL}/audio/${chapter.id}.mp3`, encodingFormat: 'audio/mpeg', duration: `PT${durations[chapter.id]}S` },
+    } : {}),
+  },
+  breadcrumbs([
+    { name: 'TROi', path: '/' },
+    { name: 'Organizational Flow', path: '/organizational-flow/' },
+    { name: chapter.data.title, path: pagePath },
+  ]),
+];
+---
+
+<BaseLayout title={chapter.data.title} fullTitle={fullTitle} description={description} ogType="article" jsonLd={jsonLd} published={datePublished} modified={dateModified} alternates={chapter.id === 'the-ten-minute-version' ? { en: pagePath, sv: '/organizational-flow/sv/' } : undefined}>
+  <main class="reading" id="main">
+    <section class:list={['block', 'chapter', relatedMarginalia.length > 0 && 'has-aside']}>
+      {part && isPartOpener && partOpener[part.id] && (
+        <PartOpener family={partOpener[part.id]!} caption={`Part ${part.id} — ${part.title}`} />
+      )}
+
+      {part ? (
+        <p class="kicker">
+          Part {part.id} — {part.title} · Chapter {chapterNumber(chapter.id)} · {readingMinutes} min read
+          {location!.chapter.draft && <span class="draft-tag"> · {paper.editionShort}</span>}
+        </p>
+      ) : (
+        <p class="kicker">
+          {/* Every front-matter page said "Preface", including the two that
+              aren't it. These sit between the Preface and Part I, outside the
+              chapter numbering — which is what the label should say. */}
+          Organizational Flow · Front matter · {readingMinutes} min read
+          {front!.draft && <span class="draft-tag"> · {paper.editionShort}</span>}
+        </p>
+      )}
+      {chapter.data.topic && <p class="chapter-topic">{chapter.data.topic}</p>}
+      <h1 class="chapter-title">{chapter.data.title}</h1>
+      {chapter.data.dek && <p class="chapter-dek">{chapter.data.dek}</p>}
+      <p class="chapter-byline">
+        <a href="/about/" rel="author">{author.name}</a>
+        {modifiedLabel && dateModified && <> · {dateModified === datePublished ? 'Published' : 'Revised'} <time datetime={dateModified}>{modifiedLabel}</time></>}
+      </p>
+
+      {(chapter.data.effect || chapter.data.indicator) && (
+        <p class="chapter-tags">
+          {effectLabels(chapter.data.effect).map((label) => (
+            <a
+              class:list={['tag', effectTone[label] ?? effectTone[chapter.data.effect!]]}
+              href="/organizational-flow/what-is-organizational-flow/#two-halves-and-most-organizations-work-on-one"
+              title="Which half of the proposition this chapter works on"
+            >{label}</a>
+          ))}
+          {indicatorLabels(chapter.data.indicator).map((label) => (
+            <a
+              class:list={['tag', indicatorTone[label] ?? indicatorTone[chapter.data.indicator!]]}
+              href="/organizational-flow/what-friction-costs/"
+              title="Which of the four indicators this chapter moves"
+            >{label}</a>
+          ))}
+        </p>
+      )}
+
+      <AudioPlayer chapters={audioChapters} initialSlug={chapter.id} label="Listen to this chapter" />
+
+      {chapter.id === 'the-picture-i-keep-coming-back-to' && <FlowModel />}
+
+      {relatedMarginalia.length > 0 ? (
+        <div class="grid-row">
+          <div class="body-col">
+            <Content />
+          </div>
+          <div class="marginalia-col">
+            {relatedMarginalia.map((entry) => (
+              <Marginalia entry={entry} />
+            ))}
+          </div>
+        </div>
+      ) : (
+        <Content />
+      )}
+
+      {chapter.id === 'the-picture-i-keep-coming-back-to' && <GirdledTree />}
+
+      {/* The disclaimer sits with the Introduction rather than on the landing
+          page: it is about how to read what follows, so it belongs where the
+          reading starts rather than in front of it. */}
+      {chapter.id === 'introduction' && (
+        <div class="reader-note">
+          <p class="reader-note-label">A Note to the Reader</p>
+          {readerNote.map((para) => <p>{para}</p>)}
+        </div>
+      )}
+
+      {chapter.data.editorNotes && chapter.data.editorNotes.length > 0 && (
+        <div class="editor-notes">
+          <p class="editor-notes-label">Editor's Notes</p>
+          {chapter.data.editorNotes.map((note) => (
+            <p class="editor-note">{note}</p>
+          ))}
+        </div>
+      )}
+
+      {/* Open by default only here — the one chapter meant to catch readers
+          arriving cold from an outside link, who want the map immediately
+          rather than a click to find it. */}
+      <ShareLinks title={chapter.data.title} label="Share this chapter" />
+
+      {relatedPosts.length > 0 && (
+        <aside class="related-posts" aria-label="Related articles">
+          <p class="related-posts-label">Related articles</p>
+          <ul>
+            {relatedPosts.map((post) => (
+              <li><a href={postPath(post)}>{post.data.title}</a></li>
+            ))}
+          </ul>
+        </aside>
+      )}
+
+      <ChapterJump current={chapter.id} openByDefault={chapter.id === 'the-ten-minute-version'} />
+
+      {(prev || next) && (
+        <nav class="chapter-nav" aria-label="Chapter">
+          {prev ? (
+            <a href={`/organizational-flow/${prev.slug}/`} class="chapter-nav-prev">
+              <span class="chapter-nav-label">Previous</span>
+              <span class="chapter-nav-title">{prev.title}</span>
+            </a>
+          ) : <span />}
+          {next ? (
+            <a href={`/organizational-flow/${next.slug}/`} class="chapter-nav-next">
+              <span class="chapter-nav-label">Next</span>
+              <span class="chapter-nav-title">{next.title}</span>
+            </a>
+          ) : <span />}
+        </nav>
+      )}
+    </section>
+  </main>
+
+  <Footer label="Organizational Flow — an ongoing work" folio={part ? `Part ${part.id} · ${String(chapterIndexInPart).padStart(2, '0')}` : 'Front Matter'} />
+</BaseLayout>

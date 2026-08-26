@@ -1,0 +1,228 @@
+---
+import ShareLinks from '../../../components/ShareLinks.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Footer from '../../../components/Footer.astro';
+import { author, personRef, BOOK_ID, SITE_URL, breadcrumbs } from '../../../data/site';
+
+// A short reference to the paper's vocabulary. The definitions are the
+// paper's own, compressed; the chapters stay the place where each is argued.
+// This page sits beside the book and changes none of it.
+const concepts = [
+  {
+    id: 'organizational-flow',
+    term: 'Organizational Flow',
+    definition:
+      "An organization's ability to continuously move information, decisions, execution and learning through enduring capabilities, so that value gets created for customers and users. Every organization has it to some degree; it is a property you hold a position on, not a state you arrive at, and not a framework or a methodology.",
+    developed: [
+      { slug: 'what-is-organizational-flow', title: 'What is Organizational Flow?' },
+      { slug: 'the-ten-minute-version', title: 'The Ten-Minute Version' },
+    ],
+  },
+  {
+    id: 'organizational-friction',
+    term: 'Organizational friction (structural friction)',
+    definition:
+      'Whatever the structure of an organization adds between a piece of work and its value: unclear ownership, context rebuilt at every boundary, decisions that wait, and outcomes that never travel back to whoever chose. Its real cost is not effort or time but the value those hours would otherwise have created. Organizations become slow when friction accumulates faster than value is created.',
+    developed: [
+      { slug: 'what-friction-costs', title: 'The Cost of Value Never Created' },
+      { slug: 'reducing-friction', title: 'Reducing Friction' },
+    ],
+  },
+  {
+    id: 'ownership-clarity',
+    term: 'Ownership clarity',
+    definition:
+      'The first of the four indicators: whether responsibility for a capability is unambiguous to the people around it. A quick test is to ask five people, separately, who owns it — and compare the answers.',
+    developed: [
+      { slug: 'ownership', title: 'A Meeting Grew Here' },
+      { slug: 'observing-organizations', title: 'Observing Organizations' },
+    ],
+  },
+  {
+    id: 'handoff-loss',
+    term: 'Handoff loss',
+    definition:
+      'The second indicator: effort spent rebuilding context that already existed, each time work crosses a boundary between groups. It is a restatement of flow efficiency from Lean, applied to the boundaries an organization draws.',
+    developed: [
+      { slug: 'interfaces', title: 'You Have to Know a Guy' },
+      { slug: 'observing-organizations', title: 'Observing Organizations' },
+    ],
+  },
+  {
+    id: 'decision-latency',
+    term: 'Decision latency',
+    definition:
+      'The third indicator: the gap between a decision becoming necessary and being made. It is lead time applied to decisions rather than to work, and in most organizations the deliberation takes minutes while the waiting takes weeks.',
+    developed: [
+      { slug: 'architecture', title: 'The Long Way to a Yes' },
+      { slug: 'observing-organizations', title: 'Observing Organizations' },
+    ],
+  },
+  {
+    id: 'learning-cycle-time',
+    term: 'Learning cycle time',
+    definition:
+      'The fourth indicator: how long it takes for the outcome of a decision to travel back to whoever made it — if it ever does.',
+    developed: [
+      { slug: 'learning', title: 'We Have Solved This Before' },
+      { slug: 'closing-the-loop', title: 'Closing the Loop' },
+    ],
+  },
+  {
+    id: 'capability',
+    term: 'Capability',
+    definition:
+      'An enduring business area — a bounded context that owns an outcome. Enduring, because it outlives the systems, suppliers and reorganizations that deliver it; bounded, because you can say what is inside it and what is not. The nearest relative is the bounded context from Domain-Driven Design.',
+    developed: [
+      { slug: 'what-a-capability-is', title: 'What a Capability Is, and Is Not' },
+      { slug: 'capabilities', title: 'What Survives the Reorg' },
+    ],
+  },
+  {
+    id: 'capability-and-competence',
+    term: 'Capability and competence',
+    definition:
+      'Capability belongs to the organization; competence belongs to people — and, increasingly, to agents. A capability that rests on the competence of a few named people is one resignation away from disappearing.',
+    developed: [
+      { slug: 'what-a-capability-is', title: 'What a Capability Is, and Is Not' },
+      { slug: 'people', title: 'The Wait Nobody Logged' },
+    ],
+  },
+  {
+    id: 'cognitive-load',
+    term: 'Team cognitive load',
+    definition:
+      'The limit on how much a team can hold. The paper borrows the idea from Team Topologies (Skelton and Pais) and applies it as a sizing rule: count the separate domains a team must understand, not the people in it.',
+    developed: [
+      { slug: 'how-much-can-one-team-hold', title: 'How Much Can One Team Hold' },
+      { slug: 'drawing-the-line-around-a-team', title: 'Drawing the Line Around a Team' },
+    ],
+  },
+  {
+    id: 'decision-rights',
+    term: 'Decision rights and autonomy',
+    definition:
+      'Who may decide what without asking. Friction falls when the decision moves to the information rather than the information to the decision — and when delegated authority survives its first bad outcome.',
+    developed: [
+      { slug: 'reducing-friction', title: 'Reducing Friction' },
+      { slug: 'leading-without-deciding', title: 'Leading Without Deciding' },
+    ],
+  },
+  {
+    id: 'work-harness',
+    term: 'Work harness',
+    definition:
+      'The structure people and AI agents both need to act with confidence: a clear outcome, the right context, boundaries, decision rights, tools and feedback. Its purpose is to reduce the cost of navigating the organization — so the useful question is how little context someone needs to make a good decision, and the aim is a thinner harness, not a larger one.',
+    developed: [
+      { slug: 'the-meter-was-always-running', title: 'The Meter Was Always Running' },
+      { slug: 'owning-what-ai-cant', title: "Owning What AI Can't" },
+    ],
+  },
+];
+
+const pagePath = '/organizational-flow/concepts/';
+const description =
+  'Organizational friction, the four indicators, capabilities, team cognitive load, decision rights and the work harness, in short.';
+
+const jsonLd = [
+  {
+    '@type': 'DefinedTermSet',
+    '@id': `${SITE_URL}${pagePath}#terms`,
+    name: 'Organizational Flow — key concepts',
+    url: `${SITE_URL}${pagePath}`,
+    description,
+    author: personRef,
+    isPartOf: { '@id': BOOK_ID },
+    hasDefinedTerm: concepts.map((c) => ({
+      '@type': 'DefinedTerm',
+      '@id': `${SITE_URL}${pagePath}#${c.id}`,
+      name: c.term,
+      description: c.definition,
+      url: `${SITE_URL}${pagePath}#${c.id}`,
+      inDefinedTermSet: { '@id': `${SITE_URL}${pagePath}#terms` },
+    })),
+  },
+  breadcrumbs([
+    { name: 'TROi', path: '/' },
+    { name: 'Organizational Flow', path: '/organizational-flow/' },
+    { name: 'Key concepts', path: pagePath },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Key concepts"
+  fullTitle="Organizational friction and key concepts · TROi"
+  description={description}
+  alternates={{ en: '/organizational-flow/concepts/', sv: '/organizational-flow/begrepp/' }}
+  jsonLd={jsonLd}
+>
+  <main class="reading" id="main">
+    <section class="block insight-page">
+      <p class="kicker"><a href="/organizational-flow/">Organizational Flow</a> · Key concepts</p>
+      <h1>Key concepts</h1>
+      <p class="lede">
+        The vocabulary of <a href="/organizational-flow/">Organizational Flow</a>, my working theory of why
+        organizations become slower than they need to be. Each entry is a
+        short version; the chapters linked under it are where the idea is actually argued.
+      </p>
+
+      <nav class="concept-toc" aria-label="Concepts">
+        {concepts.map((c, i) => <>{i > 0 && ' · '}<a href={`#${c.id}`}>{c.term}</a></>)}
+      </nav>
+
+      <div class="concept-list">
+        {concepts.map((c) => (
+          <div class="concept" id={c.id}>
+            <h2>{c.term}</h2>
+            <div class="concept-body">
+              <p>{c.definition}</p>
+              <p class="concept-developed">
+                Developed in:{' '}
+                {c.developed.map((d, i) => (
+                  <>{i > 0 && ' · '}<a href={`/organizational-flow/${d.slug}/`}>{d.title}</a></>
+                ))}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <ShareLinks title="Organizational Flow — key concepts" />
+
+      <p class="related">
+        More around the paper — <a href="/organizational-flow/team-boundaries/">Team boundaries and cognitive load</a>,{' '}
+        <a href="/organizational-flow/people-and-agents/">People and AI agents</a>,{' '}
+        <a href="/organizational-flow/insights/">Insights</a>
+      </p>
+    </section>
+  </main>
+  <Footer label="Organizational Flow — an ongoing work" />
+</BaseLayout>
+
+<style>
+  .concept-toc {
+    margin: 0 0 2rem;
+    font-size: 0.92rem;
+    line-height: 1.8;
+    color: var(--bark);
+  }
+  .concept-list {
+    margin: 0;
+  }
+  .concept {
+    padding: 1.2rem 0 0.2rem;
+    border-top: 1px solid var(--mist);
+    scroll-margin-top: 5rem;
+  }
+  .concept h2 {
+    margin: 0 0 0.5rem !important;
+    font-size: 1.25rem !important;
+  }
+  .concept-developed {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--bark);
+  }
+</style>

@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cambium — walkthrough</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,300..600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --ground:#F4F2EE; --surface:#FFFFFF; --plate:#EFEDE7; --ink:#1C1A17; --muted:#6B6459; --faint:#938B7E;
+  --rule:#DCD8D0; --hair:#EAE7E1; --accent:#B26A0A; --accent-wash:#FBF3E6; --shadow:rgba(28,26,23,.16);
+  --f-display:"Newsreader",ui-serif,Georgia,serif;
+  --f-body:"IBM Plex Sans",ui-sans-serif,system-ui,sans-serif;
+  --f-data:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+  --ground:#141210; --surface:#1D1B17; --plate:#272420; --ink:#EDEAE3; --muted:#9A9284; --faint:#776F63;
+  --rule:#35312B; --hair:#2B2822; --accent:#E09A3C; --accent-wash:#2A2216; --shadow:rgba(0,0,0,.6); } }
+:root[data-theme="dark"]{
+  --ground:#141210; --surface:#1D1B17; --plate:#272420; --ink:#EDEAE3; --muted:#9A9284; --faint:#776F63;
+  --rule:#35312B; --hair:#2B2822; --accent:#E09A3C; --accent-wash:#2A2216; --shadow:rgba(0,0,0,.6); }
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--f-body);font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1320px;margin:0 auto;padding:44px 28px 64px}
+.kicker{font-family:var(--f-data);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);margin:0 0 8px}
+h1{font-family:var(--f-display);font-weight:500;font-size:38px;line-height:1.08;letter-spacing:-.015em;margin:0 0 12px;text-wrap:balance;max-width:22ch}
+.lede{color:var(--muted);font-size:15.5px;line-height:1.65;max-width:66ch;margin:0}
+.head{display:flex;gap:24px;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;margin-bottom:28px}
+.open{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:var(--surface);text-decoration:none;font-weight:500;padding:10px 16px;border-radius:7px;white-space:nowrap}
+.open:hover{filter:brightness(1.06)}
+.open:focus-visible,.btn:focus-visible,.chap:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.stage{display:grid;grid-template-columns:minmax(0,1fr) 22rem;gap:28px;align-items:start}
+@media (max-width:980px){.stage{grid-template-columns:1fr}}
+.screen{background:var(--surface);border:1px solid var(--rule);border-radius:10px;overflow:hidden;box-shadow:0 18px 40px -24px var(--shadow)}
+.bar{display:flex;align-items:center;gap:6px;padding:8px 12px;background:var(--plate);border-bottom:1px solid var(--rule)}
+.bar i{width:9px;height:9px;border-radius:50%;background:var(--rule)}
+.bar span{margin-left:10px;font-family:var(--f-data);font-size:11px;color:var(--faint)}
+.shot{display:block;width:100%;height:auto;aspect-ratio:1440/900;background:var(--plate)}
+.controls{display:flex;align-items:center;gap:8px;margin-top:14px}
+.btn{font:inherit;font-size:13px;border:1px solid var(--rule);background:var(--surface);color:var(--ink);border-radius:7px;padding:6px 12px;cursor:pointer}
+.btn:hover{border-color:var(--accent)}
+.btn:disabled{opacity:.45;cursor:default}
+.count{font-family:var(--f-data);font-size:11.5px;color:var(--faint);margin-left:auto;font-variant-numeric:tabular-nums}
+.read{position:sticky;top:24px}
+.chapter{font-family:var(--f-data);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--accent)}
+.read h2{font-family:var(--f-display);font-weight:500;font-size:26px;line-height:1.2;margin:6px 0 10px;text-wrap:balance}
+.read p{color:var(--muted);font-size:14px;line-height:1.65;margin:0 0 22px}
+.chaps{display:flex;flex-direction:column;border-top:1px solid var(--hair)}
+.chap{display:flex;gap:10px;align-items:baseline;text-align:left;font:inherit;font-size:13px;color:var(--muted);background:none;border:0;border-bottom:1px solid var(--hair);padding:7px 2px;cursor:pointer}
+.chap b{font-family:var(--f-data);font-size:10.5px;font-weight:500;color:var(--faint);min-width:1.6rem;font-variant-numeric:tabular-nums}
+.chap:hover{color:var(--ink)}
+.chap[aria-current]{color:var(--ink);font-weight:500}
+.chap[aria-current] b{color:var(--accent)}
+.foot{margin-top:40px;padding-top:16px;border-top:1px solid var(--hair);font-size:12.5px;color:var(--faint);max-width:80ch}
+.foot a{color:var(--muted)}
+@media (prefers-reduced-motion:no-preference){.shot{transition:opacity .25s}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header class="head">
+    <div>
+      <p class="kicker">Cambium · walkthrough</p>
+      <h1>Seventeen stops through a map of how an organization moves</h1>
+      <p class="lede">Every screen is the real prototype, captured running against Nordvik Mutual — a made-up insurer with a few problems planted in it. The words are the same ones the tour inside the tool uses.</p>
+    </div>
+    <a class="open" href="/tools/cambium-demo.html" target="_top">Open the guided demo →</a>
+  </header>
+
+  <div class="stage">
+    <div>
+      <div class="screen">
+        <div class="bar"><i></i><i></i><i></i><span id="where">cambium · nordvik mutual</span></div>
+        <img class="shot" id="shot" alt="" width="1440" height="900">
+      </div>
+      <div class="controls">
+        <button class="btn" id="prev" type="button">← Back</button>
+        <button class="btn" id="next" type="button">Next →</button>
+        <button class="btn" id="play" type="button" aria-pressed="false">Play</button>
+        <span class="count" id="count"></span>
+      </div>
+    </div>
+    <aside class="read" aria-live="polite">
+      <span class="chapter" id="chapter"></span>
+      <h2 id="title"></h2>
+      <p id="body"></p>
+      <nav class="chaps" id="chaps" aria-label="Stops"></nav>
+    </aside>
+  </div>
+
+  <p class="foot">Use ← and → to step. Append <code>#5</code> to link straight to a stop. Vocabulary from <i>Friction: The Silent Killer</i>, a working theory of organizational flow, at <a href="/organizational-flow/" target="_top">troi.se/organizational-flow</a>.</p>
+</div>
+
+<script>
+(function(){
+  var STEPS = [{"to":"now","chapter":"Now","title":"What matters this morning","body":"The tool reads the organization and says it in a sentence: who is at work, what the agents act on, and what stops them. Under that, the whole organization as eight figures — what it carries, how fast it moves, what waits on a person, what hurts — and every one of them opens the view that shows its working. Then only the things a person has to do, and a box to ask anything.","img":"/tools/cambium-walkthrough/1.webp"},{"to":"field","chapter":"Now","title":"What moves, and where it stops","body":"Between capabilities it is information. Point at a lane for what passes, as what, and which decisions sit on it. Locks are decision paths, tethered to every capability they hold. Under each capability runs its heartbeat — how often it delivers, with incidents as marks on the trace.","img":"/tools/cambium-walkthrough/2.webp"},{"to":"field","open":"cap.receive","chapter":"Capability","title":"A capability’s room","body":"Everything about one capability in one place, opening on the same six figures read at this altitude — and a strip saying where it is really watched, the board and the runbook and the person you ring. Below: why it exists, what it must understand, who carries it, what it runs on, how it moves, and what is decided. A year of growth rings shows whether the loop closes — released and learned from. Every finding inside can be solved from here.","img":"/tools/cambium-walkthrough/3.webp"},{"to":"crew","chapter":"Now","title":"The crew: people and agents at work","body":"One roster. Each agent shows live whether it may act, must prepare and stop, or has to ask — read from the rules in force, never set. The middle is what was done; the right is what needs a person.","img":"/tools/cambium-walkthrough/4.webp"},{"to":"amplify","chapter":"People","title":"People with AI: human owns, AI amplifies","body":"Who works with an agent beside them, who works alone, and which agents work on their own — per capability, for building software and for doing the work. Worth amplifying: where people carry friction alone.","img":"/tools/cambium-walkthrough/5.webp"},{"to":"team-list","chapter":"People","title":"Teams, and the load they carry","body":"Cognitive load as a count of things to understand, never an index: domains held against what is comfortable for the team type, and the part it cannot reduce. Step into a team and the same six figures read for it alone, next to the instruments it already watches — its Grafana board, its backlog, its runbook, its stand-up. Below, the capabilities each team answers for, builds and depends on.","img":"/tools/cambium-walkthrough/6.webp"},{"to":"metamodel","chapter":"The model","title":"What is modelled, and why","body":"Four bands. Three are structure and can be read off what an organization already keeps. The fourth — agreements, rules, decisions, asks, observations — is how it moves, and is where the findings come from.","img":"/tools/cambium-walkthrough/7.webp"},{"to":"language","chapter":"Meaning","title":"Information, in each domain’s own words","body":"One concept, the name each context uses for it, and who masters it. Customer is a lead in sales, a policyholder in underwriting and a claimant in claims.","img":"/tools/cambium-walkthrough/8.webp"},{"to":"radar","chapter":"Build","title":"The radar: what we build with, and how we work","body":"Practices sit beside languages. Every ring move is a decision, and every decision becomes guidance for whoever — or whatever — builds next.","img":"/tools/cambium-walkthrough/9.webp"},{"to":"execution","chapter":"Execution","title":"Agents beside people, and a person answering for each","body":"Agents that build and agents that operate. What each may do is read from the rules in force where it works — act, prepare, or ask. No switch grants it.","img":"/tools/cambium-walkthrough/10.webp"},{"to":"harness","chapter":"Execution","title":"The organization is the work harness","body":"Its purpose is to reduce the cost of navigating the organization. A person pays in handoffs, meetings and waiting; an agent in context, tool calls and tokens — so the question is how little context a good decision needs. People and agents need the same thing to act with confidence: an outcome, context, boundaries, decision rights, tools and feedback — one structure, used differently. The loop runs from intent to verified outcome, read for people and for agents. Each stage says what Cambium governs — identity, mandates and rules, load, review, going around safely, the record — and what it only partly holds. A person is not stopped at the gate, and nothing measures how well they perform.","img":"/tools/cambium-walkthrough/11.webp"},{"to":"help","chapter":"Execution","title":"Where an agent stopped and needs a person","body":"Each ask carries what the agent worked out and what it would do. Answer it once and promote the answer to a rule, and the question is not asked again.","img":"/tools/cambium-walkthrough/12.webp"},{"to":"decisions","chapter":"Decide","title":"Decisions as a log of lightweight ADRs","body":"Title, status, context, options, decision, consequences. Status is not typed in: a record is proposed until what it wrote is signed, then accepted, and superseded when a later record says so. Each exports as markdown for the repo.","img":"/tools/cambium-walkthrough/13.webp"},{"to":"shared","chapter":"Settle","title":"What is actually settled","body":"Agreements need a signature from each party. Guidelines are signed once and checked against everything new — the signature that scales.","img":"/tools/cambium-walkthrough/14.webp"},{"to":"delivery","chapter":"Measure","title":"Delivery beside organizational flow","body":"The four DORA figures and the four flow indicators, side by side and never added. Point at any number for what it is, how it was arrived at, and what good looks like. Fast delivery into slow decisions is still slow.","img":"/tools/cambium-walkthrough/15.webp"},{"to":"grill","chapter":"Ask","title":"What a repository cannot tell you","body":"Risk, compliance, security, continuity — one question at a time, with unknown as a real answer rather than a silent default.","img":"/tools/cambium-walkthrough/16.webp"},{"to":"start","chapter":"Your turn","title":"Bring your own organization","body":"Start from a reference model, paste your capability list, or be asked one question at a time. It saves in this browser and exports as YAML for git.","img":"/tools/cambium-walkthrough/17.webp"}];
+  var i = 0, timer = null;
+  var $ = function(id){ return document.getElementById(id); };
+  var chaps = $('chaps');
+  STEPS.forEach(function(s, n){
+    var b = document.createElement('button');
+    b.className = 'chap'; b.type = 'button';
+    b.innerHTML = '<b>' + String(n + 1).padStart(2, '0') + '</b><span></span>';
+    b.lastChild.textContent = s.title;
+    b.onclick = function(){ stop(); go(n); };
+    chaps.appendChild(b);
+  });
+  STEPS.forEach(function(s){ var im = new Image(); im.src = s.img; });
+  function go(n){
+    i = Math.max(0, Math.min(STEPS.length - 1, n));
+    var s = STEPS[i];
+    $('shot').src = s.img; $('shot').alt = 'Cambium — ' + s.title;
+    $('chapter').textContent = s.chapter; $('title').textContent = s.title; $('body').textContent = s.body;
+    $('count').textContent = (i + 1) + ' / ' + STEPS.length;
+    $('prev').disabled = i === 0;
+    $('next').textContent = i === STEPS.length - 1 ? 'Start again' : 'Next →';
+    Array.prototype.forEach.call(chaps.children, function(c, k){ if (k === i) c.setAttribute('aria-current', 'step'); else c.removeAttribute('aria-current'); });
+    try { history.replaceState(null, '', '#' + (i + 1)); } catch (e) {}
+  }
+  function stop(){ if (timer) { clearInterval(timer); timer = null; } $('play').textContent = 'Play'; $('play').setAttribute('aria-pressed', 'false'); }
+  $('prev').onclick = function(){ stop(); go(i - 1); };
+  $('next').onclick = function(){ stop(); go(i === STEPS.length - 1 ? 0 : i + 1); };
+  $('play').onclick = function(){
+    if (timer) return stop();
+    $('play').textContent = 'Pause'; $('play').setAttribute('aria-pressed', 'true');
+    timer = setInterval(function(){ go(i === STEPS.length - 1 ? 0 : i + 1); }, 7000);
+  };
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowRight') { stop(); go(i + 1); }
+    if (e.key === 'ArrowLeft') { stop(); go(i - 1); }
+  });
+  var h = parseInt((location.hash || '').slice(1), 10);
+  go(isNaN(h) ? 0 : h - 1);
+})();
+</script>
+</body>
+</html>
