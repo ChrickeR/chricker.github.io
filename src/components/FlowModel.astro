@@ -1,0 +1,194 @@
+---
+// The flow model, drawn once: the five named layers of the tree — one tree,
+// one organization, per It Grew Like That.
+// and the circulation that connects them. Same ink-line language as the
+// part openers (docs/07-illustration-style-guide.md).
+interface Props {
+  caption?: string;
+}
+const { caption = 'The flow model — layers, and the circulation between them' } = Astro.props;
+---
+
+<figure class="flow-model">
+  <svg
+    viewBox="0 -120 900 660"
+    role="img"
+    aria-label="A tree in six named layers: light as purpose above it, roots as capabilities, soil as culture, trunk as structure, branches as collaboration, canopy as value. Information, decisions and execution rise through the trunk; learning returns to the soil."
+  >
+    <!-- light: purpose. The only part of the drawing outside the tree, which
+         is the whole point of it — you cannot instruct it, only orient to it. -->
+    <g class="light">
+      <circle cx="330" cy="-56" r="19" />
+      <line x1="330" y1="-90" x2="330" y2="-102" />
+      <line x1="356" y1="-79" x2="365" y2="-88" />
+      <line x1="371" y1="-56" x2="384" y2="-56" />
+      <line x1="304" y1="-79" x2="295" y2="-88" />
+      <line x1="289" y1="-56" x2="276" y2="-56" />
+      <line x1="356" y1="-33" x2="365" y2="-24" />
+      <line x1="304" y1="-33" x2="295" y2="-24" />
+    </g>
+    <!-- and the canopy reaching for it -->
+    <path class="light-reach" d="M318,14 C320,-4 322,-14 326,-30" />
+    <path class="light-reach" d="M386,22 C372,4 356,-8 344,-28" />
+
+    <!-- soil line -->
+    <line x1="40" y1="352" x2="860" y2="352" class="soil-line" />
+
+    <!-- canopy -->
+    <path class="stroke" d="M340,196 C250,196 196,150 210,110 C220,74 268,52 320,58 C338,26 402,20 430,48 C482,36 526,64 526,104 C534,146 476,196 400,196 Z" />
+
+    <!-- branches -->
+    <path class="stroke" d="M366,214 C366,190 340,176 316,164" />
+    <path class="stroke" d="M370,206 C376,186 404,172 430,164" />
+    <path class="stroke" d="M368,232 C356,214 330,208 306,204" />
+    <path class="stroke" d="M372,228 C388,212 414,208 436,206" />
+
+    <!-- trunk -->
+    <path class="stroke" d="M356,352 C356,300 360,258 362,196" />
+    <path class="stroke" d="M382,352 C380,300 376,258 374,196" />
+
+    <!-- roots -->
+    <path class="stroke root" d="M360,352 C352,384 322,398 296,428" />
+    <path class="stroke root" d="M296,428 C282,442 268,446 252,462" />
+    <path class="stroke root" d="M368,352 C366,392 364,414 358,450" />
+    <path class="stroke root" d="M358,450 C354,466 344,472 334,488" />
+    <path class="stroke root" d="M378,352 C388,384 418,396 444,424" />
+    <path class="stroke root" d="M444,424 C458,438 470,442 486,456" />
+
+    <!-- circulation: up through the trunk -->
+    <path class="flow-up" d="M369,336 L369,214" />
+    <path class="flow-up-head" d="M362,224 L369,210 L376,224" />
+
+    <!-- circulation: learning returning to the soil -->
+    <path class="flow-back" d="M528,120 C596,168 606,268 566,330 C548,356 528,362 506,360" />
+    <path class="flow-back-head" d="M518,352 L502,360 L518,368" />
+
+    <!-- labels -->
+    <g class="label">
+      <line class="leader" x1="404" y1="-56" x2="640" y2="-56" />
+      <text x="652" y="-60">Light</text>
+      <text x="652" y="-42" class="sub">purpose</text>
+
+      <line class="leader" x1="614" y1="96" x2="640" y2="96" />
+      <text x="652" y="92">Canopy</text>
+      <text x="652" y="110" class="sub">value</text>
+
+      <line class="leader" x1="614" y1="196" x2="640" y2="196" />
+      <text x="652" y="192">Branches</text>
+      <text x="652" y="210" class="sub">collaboration</text>
+
+      <line class="leader" x1="614" y1="284" x2="640" y2="284" />
+      <text x="652" y="280">Trunk</text>
+      <text x="652" y="298" class="sub">structure</text>
+
+      <line class="leader" x1="614" y1="352" x2="640" y2="352" />
+      <text x="652" y="348">Soil</text>
+      <text x="652" y="366" class="sub">culture</text>
+
+      <line class="leader" x1="614" y1="440" x2="640" y2="440" />
+      <text x="652" y="436">Roots</text>
+      <text x="652" y="454" class="sub">capabilities</text>
+    </g>
+
+    <!-- circulation labels -->
+    <g class="label flow-label">
+      <text x="252" y="268" text-anchor="end">Information</text>
+      <text x="252" y="286" text-anchor="end">Decisions</text>
+      <text x="252" y="304" text-anchor="end">Execution</text>
+      <line class="leader" x1="264" y1="286" x2="352" y2="286" />
+
+      <text x="556" y="152" class="return">Learning</text>
+    </g>
+  </svg>
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>
+
+<style>
+  .flow-model {
+    margin: 2.4rem auto 2.8rem;
+    max-width: var(--max);
+  }
+  .flow-model svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    overflow: visible;
+  }
+  .soil-line { stroke: var(--mist); stroke-width: 1; }
+  .stroke {
+    fill: none;
+    stroke: var(--moss);
+    stroke-width: 2.25;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .stroke.root { stroke: var(--bark); stroke-width: 1.75; opacity: 0.75; }
+
+  .flow-up, .flow-up-head {
+    fill: none;
+    stroke: var(--gold);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .flow-up { stroke-dasharray: 7 6; }
+
+  .flow-back, .flow-back-head {
+    fill: none;
+    stroke: var(--bark);
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0.85;
+  }
+  .flow-back { stroke-dasharray: 5 7; }
+
+  .leader { stroke: var(--mist); stroke-width: 1; }
+
+  .light {
+    fill: none;
+    stroke: var(--gold);
+    stroke-width: 2;
+    stroke-linecap: round;
+  }
+  .light-reach {
+    fill: none;
+    stroke: var(--gold);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-dasharray: 3 6;
+    opacity: 0.7;
+  }
+
+  .label text {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    fill: var(--ink);
+  }
+  .label text.sub {
+    font-size: 11.5px;
+    letter-spacing: 0.06em;
+    text-transform: none;
+    fill: var(--bark);
+  }
+  .flow-label text { font-size: 11.5px; fill: var(--gold); letter-spacing: 0.08em; }
+  .flow-label text.return { fill: var(--bark); }
+
+  .flow-model figcaption {
+    margin-top: 1rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--bark);
+    text-align: center;
+  }
+
+  @media (max-width: 620px) {
+    .label text { font-size: 15px; }
+    .label text.sub { font-size: 13px; }
+    .flow-label text { font-size: 13px; }
+  }
+</style>

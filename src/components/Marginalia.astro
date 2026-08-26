@@ -1,0 +1,16 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'insights'>;
+}
+const { entry } = Astro.props;
+---
+
+<aside class="marginalia">
+  <p class="marginalia-label">{entry.data.label}</p>
+  <p class="marginalia-title">
+    <a href={`/organizational-flow/insights/${entry.id}/`}>{entry.data.title}</a>
+  </p>
+  <p class="marginalia-text">{entry.data.summary}</p>
+</aside>

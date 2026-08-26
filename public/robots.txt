@@ -1,0 +1,6 @@
+# troi.se — everything public is meant to be read, by people, search engines and AI tools alike.
+# Working pages that should not appear in search carry their own noindex.
+User-agent: *
+Allow: /
+
+Sitemap: https://troi.se/sitemap-index.xml

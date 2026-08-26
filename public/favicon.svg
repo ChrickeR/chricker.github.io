@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="TROi">
+  <title>TROi</title>
+  <defs>
+    <!-- The gold from the wordmark: a bright highlight across the upper left,
+         warm mid tone, falling to a deeper shade at the lower right. -->
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#EBD293" />
+      <stop offset="0.38" stop-color="#C9A227" />
+      <stop offset="0.7" stop-color="#F2E0A6" />
+      <stop offset="1" stop-color="#9A7714" />
+    </linearGradient>
+  </defs>
+
+  <!-- Dark tile, so the gold keeps its value against browser chrome in either
+       theme. Rounded to sit comfortably beside app icons. -->
+  <rect width="64" height="64" rx="14" fill="#1B1F1A" />
+
+  <!-- A single T with the thick/thin contrast of the wordmark rather than a
+       plain glyph: flat bar, tapered stem, and the tail curving right the way
+       the logo's letterforms do. -->
+  <path
+    fill="url(#gold)"
+    d="M13.6 17.6c0-.8.6-1.4 1.4-1.4h34c.8 0 1.4.6 1.4 1.4v4.4c0 .8-.6 1.4-1.4 1.4H37.4c-.6 0-1.1.5-1.1 1.1v18.4c0 2.7.4 4.4 1.2 5.4.7.9 1.8 1.5 3.2 1.8.6.1 1 .5.9 1.1-.1.5-.6.9-1.1.8-3.2-.5-5.6-1.5-7.2-3.1-1.8-1.8-2.6-4.4-2.6-8V24.5c0-.6-.5-1.1-1.1-1.1H15c-.8 0-1.4-.6-1.4-1.4z"
+  />
+
+  <!-- The dot from the lowercase i — the one detail that keeps the mark
+       recognizable at 16 pixels. -->
+  <circle cx="47.5" cy="38.5" r="4" fill="url(#gold)" />
+</svg>

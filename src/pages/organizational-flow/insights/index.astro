@@ -1,0 +1,74 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Footer from '../../../components/Footer.astro';
+import { SITE_URL, breadcrumbs, BOOK_ID } from '../../../data/site';
+
+// Every insight in one place. They were only reachable from the margin of the
+// chapter they belong to, which left each with two links in.
+const insights = (await getCollection('insights')).sort((a, b) => a.data.title.localeCompare(b.data.title));
+
+const pagePath = '/organizational-flow/insights/';
+const description = 'Short insights from Organizational Flow: single observations about ownership, capabilities, handoffs and decisions, each linked to its chapters.';
+const jsonLd = [
+  {
+    '@type': 'CollectionPage',
+    '@id': `${SITE_URL}${pagePath}#page`,
+    name: 'Organizational Flow — insights',
+    description,
+    url: `${SITE_URL}${pagePath}`,
+    isPartOf: { '@id': BOOK_ID },
+    hasPart: insights.map((i) => ({ '@type': 'CreativeWork', name: i.data.title, url: `${SITE_URL}${pagePath}${i.id}/` })),
+  },
+  breadcrumbs([
+    { name: 'TROi', path: '/' },
+    { name: 'Organizational Flow', path: '/organizational-flow/' },
+    { name: 'Insights', path: pagePath },
+  ]),
+];
+---
+
+<BaseLayout title="Insights — Organizational Flow" description={description} jsonLd={jsonLd}>
+  <main class="reading" id="main">
+    <section class="block insight-page">
+      <p class="kicker"><a href="/organizational-flow/">Organizational Flow</a> · Insights</p>
+      <h1>Insights</h1>
+      <p class="lede">
+        Single observations that sit in the margin of the chapters. Each stands on its own and links back to where the
+        idea is argued in full.
+      </p>
+      <ul class="insight-index">
+        {insights.map((i) => (
+          <li>
+            <a href={`${pagePath}${i.id}/`}>{i.data.title}</a>
+            <p>{i.data.summary}</p>
+          </li>
+        ))}
+      </ul>
+      <p class="related">
+        See also — <a href="/organizational-flow/concepts/">Key concepts</a>
+      </p>
+    </section>
+  </main>
+  <Footer label="Organizational Flow — an ongoing work" />
+</BaseLayout>
+
+<style>
+  .insight-index {
+    list-style: none;
+    padding: 0 !important;
+  }
+  .insight-index li {
+    padding: 0.9rem 0;
+    border-top: 1px solid var(--mist);
+  }
+  .insight-index a {
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+  }
+  .insight-index p {
+    margin: 0.3rem 0 0;
+    font-size: 0.92rem;
+    color: var(--bark);
+  }
+</style>

@@ -1,0 +1,974 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { parts, frontMatter, paper, chapterNumber, findChapterLocation, audioChapters as getAudioChapters } from '../../../data/book-structure';
+import AudioPlayer from '../../../components/AudioPlayer.astro';
+import FlowModel from '../../../components/FlowModel.astro';
+import PartOpener from '../../../components/PartOpener.astro';
+import GirdledTree from '../../../components/GirdledTree.astro';
+import { partOpener } from '../../../data/illustrations';
+import { effectLabels, indicatorLabels } from '../../../data/tags';
+import { credits, acknowledgmentsIntro } from '../../../data/acknowledgments';
+import { readerNote } from '../../../data/reader-note';
+import { versionHistory } from '../../../data/version-history';
+import { aboutTheAuthor } from '../../../data/about-the-author';
+import {
+  aiTransparencyLede,
+  aiTransparencyHeading,
+  aiTransparencyBody,
+} from '../../../data/ai-transparency';
+import {
+  printEditionLabel,
+  snapshotDate,
+  livingPaperNote,
+  canonicalUrl,
+  canonicalUrlShort,
+} from '../../../data/print-edition';
+import BookCover from '../../../components/book/BookCover.astro';
+import BookEditionPage from '../../../components/book/BookEditionPage.astro';
+import BookBackCover from '../../../components/book/BookBackCover.astro';
+import audioDurations from '../../../data/audio-durations.json';
+import bookPages from '../../../data/book-pages.json';
+
+const chapters = await getCollection('chapters');
+const byId = new Map(chapters.map((entry) => [entry.id, entry]));
+
+const preface = byId.get('preface');
+const PrefaceContent = preface ? (await render(preface)).Content : null;
+
+// Front matter renders between the Preface and Part I, exactly where it sits
+// in the reading order — the one-page edition is the whole paper, in order.
+type FrontRendered = {
+  entry: (typeof chapters)[number];
+  item: (typeof frontMatter)[number];
+  Content: Awaited<ReturnType<typeof render>>['Content'];
+};
+const front: FrontRendered[] = [];
+for (const item of frontMatter) {
+  const entry = byId.get(item.slug);
+  if (!entry) continue;
+  front.push({ entry, item, Content: (await render(entry)).Content });
+}
+
+// Render every published chapter in reading order, keeping its Part with it.
+const rendered = [];
+for (const part of parts) {
+  const published = part.chapters.filter((c) => c.status === 'published');
+  const items = [];
+  for (const chapter of published) {
+    const entry = byId.get(chapter.slug);
+    if (!entry) continue;
+    const { Content } = await render(entry);
+    items.push({ entry, chapter, Content });
+  }
+  if (items.length) rendered.push({ part, items });
+}
+
+// The snapshot line, generated from the build clock rather than written down —
+// the online text keeps moving, so the only honest thing a printed copy can
+// say is which day it froze.
+const generated = snapshotDate();
+
+// Where each heading actually falls in the printed book. Written by
+// scripts/make-book.py from a rendered PDF, because no browser can tell you
+// this before it has laid the pages out. Empty until that script has run, in
+// which case the contents simply prints without numbers.
+const folios: Record<string, number> = (bookPages as { pages?: Record<string, number> }).pages ?? {};
+const folio = (key: string) => folios[key];
+
+const durations: Record<string, number> = audioDurations;
+const audioChapters = getAudioChapters().map((c) => ({ ...c, duration: durations[c.slug] }));
+---
+
+<BaseLayout title={`${paper.title} — ${paper.subtitle} · Print Edition`} description="The complete paper, formatted for print and PDF." noindex={true}>
+  <main class="print-doc" id="main">
+    <AudioPlayer chapters={audioChapters} />
+
+    <div class="print-line no-print">
+      <button id="printBtn" class="print-link">Print it</button>
+      <span class="print-hint">— choose Save as PDF as the destination, and set paper size to 135 × 215 mm (or A5 if that is all your dialog offers) with margins off; the book supplies its own.</span>
+    </div>
+
+    <!-- Blank verso, so the title page falls recto — the arrangement a bound
+         copy expects. -->
+    <div class="book-page book-blank book-only" aria-hidden="true"></div>
+
+    <!-- The interior's own title page. Distinct from the physical cover
+         artwork, which is supplied to the printer separately and never
+         embedded in this file. -->
+    <BookCover />
+    <BookEditionPage />
+
+    <!-- Contents -->
+    <section class="page no-read">
+      <h2 class="front-h">Contents</h2>
+      <ol class="toc">
+        <li class="toc-line"><a href="#sec-preface">Preface<span class="toc-folio">{folio('section-Preface')}</span></a></li>
+        <li class="toc-line"><a href="#sec-reader-note">A Note to the Reader<span class="toc-folio">{folio('section-A Note to the Reader')}</span></a></li>
+        {front.map(({ entry }) => (
+          <li class="toc-line">
+            <a href={`#sec-${entry.id}`}>
+              {entry.data.title}
+              <span class="toc-folio">{folio(`section-${entry.data.title}`)}</span>
+            </a>
+          </li>
+        ))}
+        {rendered.map(({ part, items }) => (
+          <li class="toc-group">
+            <p class="toc-part-title">
+              <a href={`#sec-part-${part.id}`}>Part {part.id} — {part.title}</a>
+            </p>
+            <ol>
+              {items.map(({ entry }) => (
+                <li class="toc-line">
+                  <a href={`#sec-${entry.id}`}>
+                    <span class="toc-num">{chapterNumber(entry.id)}</span>{entry.data.title}
+                    {entry.data.topic && <span class="toc-topic">{entry.data.topic}</span>}
+                    <span class="toc-folio">{folio(`chapter-${chapterNumber(entry.id)}`)}</span>
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </li>
+        ))}
+        <li class="toc-line"><a href="#sec-about-the-author">About the Author<span class="toc-folio">{folio('section-About the Author')}</span></a></li>
+        <li class="toc-line"><a href="#sec-acknowledgments">Acknowledgments<span class="toc-folio">{folio('section-Acknowledgments')}</span></a></li>
+        <li class="toc-line"><a href="#sec-version-history">Version History<span class="toc-folio">{folio('section-Version History')}</span></a></li>
+        <li class="toc-line"><a href="#sec-appendix">Also Online<span class="toc-folio">{folio('section-Also Online')}</span></a></li>
+        <li class="toc-line"><a href="#sec-ai-transparency">AI Transparency<span class="toc-folio">{folio('section-AI Transparency')}</span></a></li>
+      </ol>
+    </section>
+
+    <!-- Preface -->
+    {PrefaceContent && (
+      <section class="page" id="sec-preface">
+        <h2 class="front-h">Preface</h2>
+        <div class="prose"><PrefaceContent /></div>
+      </section>
+    )}
+
+    <!-- A Note to the Reader -->
+    <section class="page" id="sec-reader-note">
+      <h2 class="front-h">A Note to the Reader</h2>
+      {readerNote.map((para) => <p class="thanks-body">{para}</p>)}
+    </section>
+
+    <!-- How the argument came about -->
+    {front.map(({ entry, Content }) => (
+      <section class="page" id={`sec-${entry.id}`}>
+        <h2 class="front-h">{entry.data.title}</h2>
+        {entry.data.dek && <p class="front-lede">{entry.data.dek}</p>}
+        <div class="prose"><Content /></div>
+      </section>
+    ))}
+
+    <!-- The paper -->
+    {rendered.map(({ part, items }) => (
+      <>
+        <section class="part-divider" id={`sec-part-${part.id}`}>
+          {partOpener[part.id] && <PartOpener family={partOpener[part.id]!} />}
+          <p class="part-eyebrow">Part {part.id}</p>
+          <h2 class="part-title">{part.title}</h2>
+          <p class="part-question">{part.question}</p>
+          <div class="part-intro">
+            {part.intro.map((line) => <p>{line}</p>)}
+          </div>
+        </section>
+        {items.map(({ entry, Content }) => (
+          <section class="chapter-print" id={`sec-${entry.id}`}>
+            <p class="chapter-print-num">
+              Chapter {chapterNumber(entry.id)}
+              {entry.data.topic && <> · {entry.data.topic}</>}
+            </p>
+            <h3 class="chapter-print-title">{entry.data.title}</h3>
+            {entry.data.dek && <p class="chapter-print-dek">{entry.data.dek}</p>}
+            {(entry.data.effect || entry.data.indicator) && (
+              <p class="chapter-print-indicator">
+                {[...effectLabels(entry.data.effect), ...indicatorLabels(entry.data.indicator)].join(' · ')}
+              </p>
+            )}
+            {entry.id === 'the-picture-i-keep-coming-back-to' && <FlowModel />}
+            <div class="prose"><Content /></div>
+            {entry.id === 'the-picture-i-keep-coming-back-to' && <GirdledTree />}
+            {entry.data.editorNotes && entry.data.editorNotes.length > 0 && (
+              <div class="print-notes">
+                <p class="print-notes-label">Editor's Notes</p>
+                {entry.data.editorNotes.map((note) => <p class="print-note">{note}</p>)}
+              </div>
+            )}
+          </section>
+        ))}
+      </>
+    ))}
+
+    <!-- About the Author -->
+    <section class="page" id="sec-about-the-author">
+      <h2 class="front-h">About the Author</h2>
+      {aboutTheAuthor.map((para) => <p class="thanks-body">{para}</p>)}
+    </section>
+
+    <!-- Acknowledgments (back) -->
+    <section class="page" id="sec-acknowledgments">
+      <h2 class="front-h">Acknowledgments</h2>
+      <p class="front-lede">Ideas rarely arrive alone.</p>
+      {acknowledgmentsIntro.map((para) => <p class="thanks-body">{para}</p>)}
+      {credits.map((person) => (
+        <div class="credit">
+          <p class="credit-name">{person.name}</p>
+          <p class="credit-relation">{person.relation}</p>
+          <p class="credit-note">{person.note}</p>
+          {person.chapterSlug && (
+            <p class="credit-where">Appears in: {findChapterLocation(person.chapterSlug)?.chapter.title ?? person.chapterSlug}.</p>
+          )}
+        </div>
+      ))}
+    </section>
+
+    <!-- Version history -->
+    <section class="page" id="sec-version-history">
+      <h2 class="front-h">Version History</h2>
+      <p class="front-lede">This paper is not finished, and it isn't meant to be.</p>
+      {versionHistory.map((entry) => (
+        <div class="credit">
+          <p class="credit-relation">{entry.date}</p>
+          <p class="credit-note">{entry.note}</p>
+          {entry.chapters && entry.chapters.length > 0 && (
+            <p class="credit-note">{entry.chapters.map((c) => c.title).join(' · ')}</p>
+          )}
+        </div>
+      ))}
+    </section>
+
+    <!-- Appendix links -->
+    <section class="page no-read" id="sec-appendix">
+      <h2 class="front-h">Also Online</h2>
+      <p class="front-lede">
+        Some of this paper does not belong in a book, and is better where it can
+        keep changing. It is all at {canonicalUrlShort}, free.
+      </p>
+      <ul class="appendix-list">
+        <li>
+          <strong>A Closer Look</strong> — eighteen questions about what you can
+          observe where you work, which then points you at the chapters that
+          match. It needs a browser to do its arithmetic, so it is not in these
+          pages. {canonicalUrlShort}/self-assessment/
+        </li>
+        <li>
+          <strong>The narration</strong> — every chapter read aloud, and the
+          whole paper end to end, for a run or a drive.{' '}
+          {canonicalUrlShort}/print/
+        </li>
+        <li>
+          <strong>Principles</strong> — {canonicalUrlShort}/principles/
+        </li>
+        <li>
+          <strong>Further Reading</strong> — {canonicalUrlShort}/further-reading/
+        </li>
+      </ul>
+      <p class="colophon">
+        {printEditionLabel}. Based on the online edition as of {generated}.{' '}
+        {livingPaperNote} The current edition is at {canonicalUrl}.
+      </p>
+    </section>
+
+    <!-- AI Transparency: the last thing in the book, because a paper with a
+         chapter on what AI does to an organization owes the reader an account
+         of its own use of it. Same words as the page, one source. -->
+    <section class="page" id="sec-ai-transparency">
+      <h2 class="front-h">AI Transparency</h2>
+      <p class="front-lede">{aiTransparencyLede}</p>
+      <h3 class="ai-print-h">{aiTransparencyHeading}</h3>
+      {aiTransparencyBody.map((para) => <p class="thanks-body">{para}</p>)}
+    </section>
+
+    <!-- Back cover: last page of the continuous document, left-hand panel of a
+         future wraparound cover. -->
+    <BookBackCover />
+  </main>
+</BaseLayout>
+
+<script is:inline>
+  // scripts/make-book.py renders this page with ?folios=1 and then merges a
+  // page-number layer into the PDF. Nothing else does, so nothing else shows
+  // page numbers in the contents.
+  if (new URLSearchParams(location.search).has('folios')) {
+    document.documentElement.classList.add('has-folios');
+  }
+</script>
+
+<script>
+  // The browser's own print engine lays this out as A4 via the @page rule
+  // below — no numbered running heads, but nothing that can get stuck
+  // mid-layout either. A4 print previously ran through Paged.js for numbered
+  // pages; it was removed after the polyfill corrupted its own output on a
+  // document this long (the chapter list fragmenting across a page boundary
+  // came out half-rendered, and cancelling the print dialog left that broken
+  // state on screen instead of restoring the page).
+  declare global {
+    interface Window {
+      cronitor?: (...args: unknown[]) => void;
+    }
+  }
+
+  async function printPaper(source: string) {
+    if (typeof window.cronitor === 'function') window.cronitor('track', source);
+    // Measured in the real face, or the page breaks land in the wrong places.
+    if (document.fonts?.ready) await document.fonts.ready;
+    window.print();
+  }
+
+  document.getElementById('printBtn')?.addEventListener('click', () => {
+    void printPaper('Print Paper');
+  });
+
+  // Arriving with ?pdf means the reader pressed Download rather than Read.
+  if (new URLSearchParams(location.search).has('pdf')) {
+    window.addEventListener('load', () => void printPaper('Download PDF'));
+  }
+</script>
+
+<style is:global>
+  /* ---------- Page geometry ----------
+     135 × 215 mm — the printer's interior spec, not A5 — with mirrored
+     margins: the inner edge is 18mm to survive binding, the outer 14mm. Text
+     area is therefore 103mm, around 60 characters at 10.5pt, which is a
+     comfortable book measure rather than a printed web column. The cover is a
+     separate sheet at the printer's own size; see docs/print-edition.md.
+
+     What a browser cannot do, and what a real print run still needs: page
+     numbers, running heads, forced recto chapter openings and automatic
+     blank-page insertion. Chrome and Safari don't implement the @page margin
+     boxes those require, and Paged.js — the polyfill that used to fill the
+     gap — corrupted its own output on a document this long, so it was
+     removed. Everything below is arranged so a paged pipeline can be dropped
+     in later without touching the markup: see docs/print-edition.md. */
+  @page {
+    size: 135mm 215mm;
+    margin: 16mm 14mm 18mm 18mm;
+  }
+  /* Verso: binding on the right, so the right margin is the inner one. */
+  @page :left {
+    margin: 16mm 18mm 18mm 14mm;
+  }
+  /* Recto: binding on the left. */
+  @page :right {
+    margin: 16mm 14mm 18mm 18mm;
+  }
+  /* The covers carry their own, tighter frame. */
+  @page cover {
+    margin: 14mm;
+  }
+
+  .print-doc {
+    max-width: 40rem;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 5rem;
+  }
+
+  /* Printing is the secondary path now that the page opens with audio — a
+     small line, not a card competing with the player for attention. */
+  .print-line {
+    max-width: var(--max);
+    margin: 0 auto 3.2rem;
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.7rem;
+  }
+  .print-link {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--bark);
+    background: none;
+    border: none;
+    padding: 0;
+    text-decoration: underline;
+    text-decoration-color: var(--mist);
+    text-underline-offset: 0.15em;
+    cursor: pointer;
+  }
+  .print-link:hover { color: var(--moss); text-decoration-color: var(--moss); }
+  .print-hint {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.02em;
+    color: var(--bark);
+    opacity: 0.8;
+  }
+
+  .cover {
+    text-align: center;
+    padding: 5rem 0 6rem;
+  }
+  .cover-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    line-height: 1.9;
+    text-transform: uppercase;
+    color: var(--moss);
+    margin: 0 auto 2.5rem;
+    max-width: 26rem;
+    text-wrap: balance;
+  }
+  .cover-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(2.6rem, 11vw, 5rem);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    margin: 0;
+  }
+  .cover-subtitle {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1.2rem, 5vw, 2rem);
+    line-height: 1.2;
+    color: var(--bark);
+    margin: 0.2rem 0 1.4rem;
+  }
+  .cover-sub {
+    font-family: 'Fraunces', serif;
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--bark);
+    margin: 0 auto;
+    max-width: 24rem;
+    line-height: 1.4;
+  }
+  .cover-rule {
+    width: 3rem; height: 1px;
+    background: var(--bark); opacity: 0.5;
+    margin: 3rem auto;
+  }
+  .cover-author {
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    margin: 0 0 0.5rem;
+  }
+  .cover-meta, .cover-foot {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    color: var(--bark);
+    margin: 0 0 0.3rem;
+  }
+  .cover-foot { margin-top: 2.5rem; }
+
+  /* The hillside closes the cover: one tree per organization, no two alike,
+     which is the whole model before a word of it has been read. */
+  .cover-mark {
+    max-width: 27rem;
+    margin: 3.6rem auto 0;
+    opacity: 0.9;
+  }
+  .cover-mark .part-opener {
+    margin: 0;
+    max-width: none;
+  }
+
+  /* ---------- Front matter ---------- */
+  .page { margin: 0 0 4rem; }
+  .front-h {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.7rem;
+    margin: 0 0 1rem;
+  }
+  .front-lede { color: var(--bark); margin: 0 0 1.6rem; }
+
+  .toc { list-style: none; padding: 0; margin: 0; }
+  .toc ol { list-style: none; padding: 0; margin: 0; }
+  .toc-line {
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--mist);
+    font-family: 'Fraunces', serif;
+    font-size: 1rem;
+  }
+  /* On screen the Contents is navigation — the one-page edition is long
+     enough that a reader should be able to jump rather than scroll. */
+  .toc-line a,
+  .toc-part-title a {
+    color: inherit;
+    text-decoration: none;
+    display: block;
+    border-bottom: 1px solid transparent;
+    transition: color .15s ease, border-color .15s ease;
+  }
+  .toc-line a:hover,
+  .toc-part-title a:hover {
+    color: var(--moss);
+    border-bottom-color: var(--moss);
+  }
+  .toc-num {
+    display: inline-block;
+    min-width: 2rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--bark);
+  }
+  .chapter-print-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--moss);
+    margin: 0 0 0.5rem;
+  }
+  /* The mechanism a chapter works on, the way the online contents shows it —
+     so somebody scanning the printed contents can find the one that matches
+     whatever is currently creaking. */
+  .toc-topic {
+    display: inline-block;
+    margin-left: 0.5rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--bark);
+    opacity: 0.85;
+  }
+
+  /* The page number, pushed to the outer edge of the line. Print only: a page
+     number means nothing in a browser, where this page is one long scroll. It
+     appears in the printed book and in the exported PDF, and nowhere else. */
+  .toc-folio {
+    display: none;
+    float: right;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--bark);
+  }
+  .toc-line a { overflow: hidden; }
+
+  .toc-group { margin: 1.6rem 0 0; }
+  .toc-part-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--moss);
+    margin: 0 0 0.4rem;
+  }
+
+  .ai-print-h {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.15rem;
+    margin: 1.8rem 0 0.8rem;
+  }
+  .thanks-body { font-size: 1.02rem; line-height: 1.7; margin: 0 0 1rem; }
+  .thanks-pointer { color: var(--bark); font-size: 0.92rem; font-style: italic; margin: 1.6rem 0 0; }
+  .credit { padding: 1rem 0; border-top: 1px solid var(--mist); }
+  .credit-name { font-family: 'Fraunces', serif; font-size: 1.05rem; margin: 0; }
+  .credit-relation {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--bark); margin: 0.2rem 0 0.5rem;
+  }
+  .credit-note { margin: 0; font-size: 0.95rem; }
+  .credit-where {
+    margin: 0.4rem 0 0; font-size: 0.85rem; color: var(--bark); font-style: italic;
+  }
+
+  /* ---------- Parts and chapters ---------- */
+  .part-divider {
+    text-align: center;
+    padding: 3.5rem 0 2.5rem;
+    border-top: 1px solid var(--mist);
+    margin-top: 3rem;
+  }
+  .part-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--moss); margin: 0 0 0.6rem;
+  }
+  .part-title {
+    font-family: 'Fraunces', serif; font-weight: 500; font-size: 2rem; margin: 0;
+  }
+  .part-question {
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem; font-style: italic; line-height: 1.5;
+    color: var(--moss);
+    max-width: 26rem; margin: 1.2rem auto 0; text-wrap: balance;
+  }
+  .part-intro {
+    max-width: 26rem; margin: 1rem auto 0;
+  }
+  .part-intro p {
+    font-size: 0.94rem; line-height: 1.65; color: var(--bark); margin: 0 0 0.5rem;
+  }
+
+  .chapter-print { margin: 0 0 3.2rem; }
+  .chapter-print-title {
+    font-family: 'Fraunces', serif; font-weight: 500; font-size: 1.5rem; margin: 0 0 0.4rem;
+  }
+  .chapter-print-dek {
+    color: var(--bark); font-style: italic; margin: 0 0 0.6rem;
+  }
+  .chapter-print-indicator {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--moss);
+    margin: 0 0 1.4rem;
+  }
+
+  .prose p { margin: 0 0 1.1em; }
+  .prose blockquote {
+    margin: 1.5em 0; padding-left: 1.2rem;
+    border-left: 2px solid var(--moss);
+    font-family: 'Fraunces', serif; font-size: 1.15rem; font-weight: 500; line-height: 1.4;
+  }
+  .prose ul, .prose ol { margin: 0 0 1.1em; padding-left: 1.3rem; }
+  .prose li { margin-bottom: 0.4em; }
+
+  .print-notes {
+    margin: 1.6rem 0 0; padding-top: 1rem; border-top: 1px solid var(--mist);
+  }
+  .print-notes-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--gold); margin: 0 0 0.6rem;
+  }
+  .print-note { font-size: 0.86rem; line-height: 1.6; color: var(--bark); margin: 0 0 0.6rem; }
+
+  .appendix-list {
+    list-style: none; padding: 0; margin: 0 0 2rem;
+    font-size: 0.95rem; line-height: 1.6;
+    color: var(--bark);
+  }
+  .appendix-list li { margin: 0 0 1rem; }
+  .appendix-list strong { color: var(--ink); font-weight: 500; }
+  .colophon {
+    font-family: 'Space Mono', monospace; font-size: 0.68rem;
+    color: var(--bark); border-top: 1px solid var(--mist); padding-top: 1rem;
+  }
+
+  /* ---------- The book's own pages ----------
+     Title page, edition page and back cover exist only in the printed object.
+     On screen this page is still the one-page reading edition it has always
+     been, so they stay hidden and nothing about the web experience moves. */
+  .book-only { display: none; }
+  .book-blank { display: none; }
+
+  .book-edition-page,
+  .book-back-cover {
+    text-align: center;
+  }
+
+  /* The edition page sits low on the leaf, the way a copyright page does. */
+  .edition-block {
+    text-align: left;
+    max-width: 26rem;
+  }
+  .edition-line {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    line-height: 1.9;
+    color: var(--bark);
+    margin: 0;
+  }
+  .edition-gap { margin-top: 1.4rem; }
+  .edition-url {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    line-height: 1.9;
+    margin: 0;
+  }
+  /* Publisher and printer sit at the very foot of the leaf, below everything
+     the author is responsible for. */
+  .edition-imprint {
+    margin-top: 1.4rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid var(--mist);
+  }
+  /* The edition page is set in one face throughout. This paragraph was the
+     only thing on it inheriting the body serif, which read as a stray. */
+  .edition-note {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    line-height: 1.8;
+    color: var(--bark);
+    margin: 1.4rem 0 0;
+    max-width: 24rem;
+  }
+
+  /* ---------- Back cover ----------
+     Same rule and weights as the front, no illustration, so the two read as
+     one object when they eventually meet around a spine. */
+  .back-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--moss);
+    margin: 0;
+  }
+  .back-rule {
+    width: 3rem; height: 1px;
+    background: var(--bark); opacity: 0.5;
+    margin: 1.6rem auto 2rem;
+  }
+  .back-blurb {
+    font-size: 0.95rem;
+    line-height: 1.62;
+    margin: 0 0 0.9em;
+    text-align: left;
+  }
+  .back-author-line {
+    font-size: 0.82rem;
+    line-height: 1.55;
+    color: var(--bark);
+    font-style: italic;
+    margin: 0 0 1.4rem;
+    text-align: left;
+  }
+  .back-url {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    color: var(--bark);
+    margin: 0;
+    text-align: left;
+  }
+  /* Deliberately empty: somewhere for an ISBN/EAN block to go, once one
+     exists. Nothing is drawn here — a fake barcode is worse than a gap. */
+  .back-barcode-well {
+    height: 22mm;
+    margin-top: 1.2rem;
+  }
+
+  /* ---------- Print ---------- */
+  @media print {
+    .no-print, .site-header, .site-footer, .skip-link, .theme-toggle { display: none !important; }
+
+    /* ---------- Book typography ----------
+       10.5pt on 1.5 across a 112mm measure. Smaller than the A4 setting this
+       replaced, because the page is smaller and the measure narrower — the
+       ratio is what makes it read as a book rather than as a website that
+       happened to be printed. */
+    /* ---------- Grayscale palette ----------
+       The book prints in black and white, and the site's colours are
+       differentiated mostly by hue (moss vs bark vs gold read as clearly
+       different to the eye but land within about ten points of each other
+       once desaturated). This ramp replaces every printed colour with a
+       lightness step wide enough to still tell roles apart with the hue
+       gone — trunk darker than root, root darker than the sap/light accent,
+       accent darker than the soil line, so what read as green/brown/gold
+       reads as dark/mid/light gray instead. */
+    html {
+      --pr-ink: #1a1a1a;    /* body text, the cut in the girdled tree, primary labels */
+      --pr-strong: #3d3d3d; /* eyebrows, kickers, trunk and canopy strokes */
+      --pr-label: #595959;  /* the flow model's readable circulation words */
+      --pr-muted: #555555;  /* meta text — captions, edition lines, sub-labels */
+      --pr-soft: #6b6b6b;   /* root strokes — lightens further via their own opacity */
+      --pr-accent: #767676; /* sap and light — decorative circulation cues */
+      --pr-line: #a3a3a3;   /* soil line, leader lines — kept subtle but visible */
+      --pr-border: #cccccc; /* hairline rules between entries */
+    }
+    html, body {
+      background: #fff !important;
+      color: var(--pr-ink) !important;
+      /* 10.5 / 14 pt — letters 10.5pt, baseline to baseline 14pt. Source
+         Serif 4 is classical without being antique: clear serifs, calm over
+         long stretches, and it reads as editorial rather than as a document. */
+      font-size: 10.5pt;
+      line-height: 1.3333;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .print-doc { max-width: none; padding: 0; margin: 0; }
+
+    /* Paragraphs are set with space rather than indents: this manuscript
+       leans on bold signpost lines between paragraphs, and first-line indents
+       fight them. Hyphenation on, because a narrow measure without it leaves
+       rivers. */
+    .prose p, .thanks-body, .back-blurb {
+      margin: 0 0 0.62em;
+      hyphens: auto;
+      -webkit-hyphens: auto;
+    }
+    .prose { text-align: left; }
+
+    /* ---------- The book's own pages ---------- */
+    .book-only { display: block; }
+    .book-page { break-after: page; page-break-after: always; }
+    /* The back cover is the last leaf of the document — forcing a break
+       after it, same as every other book-page, prints a genuinely blank page
+       behind it, which then confuses which page is really last. */
+    .book-back-cover { break-after: avoid; page-break-after: avoid; }
+    .book-blank { display: block; height: 1px; }
+
+    .book-cover,
+    .book-back-cover {
+      page: cover;
+    }
+    .book-cover,
+    .book-edition-page,
+    .book-back-cover {
+      display: flex;
+      flex-direction: column;
+      min-height: 181mm;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Front cover: title block high, mark in the middle, name at the foot. */
+    .cover { text-align: center; }
+    .book-cover { min-height: 181mm; justify-content: space-between; }
+    .cover-top { padding-top: 8mm; }
+    .cover-title { font-size: 44pt; line-height: 1; }
+    .cover-subtitle { font-size: 19pt; margin-top: 2mm; }
+    .cover-sub { font-size: 11pt; max-width: 80mm; margin: 6mm auto 0; }
+    .cover-eyebrow { font-size: 8pt; letter-spacing: 0.16em; margin-bottom: 8mm; }
+    /* The hillside sits a little below the optical centre and takes most of
+       the measure — one tree per organization, no two alike, which is the
+       whole model before a word of it has been read. */
+    .cover-mark {
+      max-width: 116mm;
+      margin: 0 auto;
+      padding-bottom: 4mm;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    /* The generic .part-opener cap below is for part openers; the cover mark
+       takes the full measure. The drawing carries its own margin inside the
+       viewBox, so it still reads as a small mark rather than a banner. */
+    .cover-mark .part-opener { max-width: none; margin: 0; }
+    .cover-foot-block { padding-bottom: 4mm; }
+    .cover-rule { margin: 0 auto 5mm; }
+    .cover-author { font-size: 12pt; }
+    .cover-meta { font-size: 7.5pt; }
+
+    /* Edition page: everything sits at the foot of the leaf. */
+    .book-edition-page { justify-content: flex-end; text-align: left; }
+    .edition-block { max-width: 100mm; }
+
+    /* Back cover. */
+    .book-back-cover { min-height: 181mm; justify-content: space-between; text-align: center; }
+    .back-top { padding-top: 10mm; }
+    .back-blurb { font-size: 9.5pt; line-height: 1.55; }
+    .back-foot { padding-bottom: 2mm; }
+
+    /* ---------- Sections and openings ---------- */
+    .page { page-break-before: always; break-before: page; margin: 0 0 1.5rem; }
+    .part-divider {
+      page-break-before: always; break-before: page;
+      border-top: none; padding: 18mm 0 0; margin: 0;
+      break-inside: avoid; page-break-inside: avoid;
+    }
+    /* An opener needs the height the empty quarter-page was using. */
+    .part-divider:has(.part-opener) { padding-top: 8mm; }
+    .part-title { font-size: 22pt; }
+    .part-question { font-size: 11pt; max-width: 92mm; }
+    .part-intro { max-width: 92mm; }
+    .part-intro p { font-size: 9.5pt; }
+
+    /* Chapters open on a fresh page with a sink at the head, which is most of
+       what makes a page turn feel like a chapter rather than a scroll. */
+    .chapter-print {
+      page-break-before: always; break-before: page;
+      margin: 0; padding-top: 14mm;
+    }
+    .chapter-print-title { font-size: 17pt; line-height: 1.15; }
+    .chapter-print-dek { font-size: 10.5pt; }
+    .front-h { font-size: 17pt; }
+
+    /* ---------- Breaking rules ---------- */
+    /* don't strand headings or split short blocks */
+    h1, h2, h3, h4 { page-break-after: avoid; break-after: avoid; }
+    .prose h2, .prose h3 { margin-top: 1.4em; page-break-after: avoid; break-after: avoid; }
+    .chapter-print-dek, .chapter-print-indicator,
+    .part-eyebrow, .cover-eyebrow, .front-lede { page-break-after: avoid; break-after: avoid; }
+    blockquote, .print-notes, .credit,
+    figure, .prose li { page-break-inside: avoid; break-inside: avoid; }
+    p { orphans: 3; widows: 3; }
+    /* A list that starts three lines before a page end reads as a fragment. */
+    .prose ul, .prose ol { page-break-before: avoid; break-before: avoid; }
+
+    /* Links print as text. No href tails: this is a book, and a reader cannot
+       click anything in it. */
+    a { color: inherit; text-decoration: none; }
+    a::after { content: none !important; }
+
+    /* Except here. The Ten-Minute Version ends by handing the reader the ways
+       in, and in a printed book none of them are clickable — so the address
+       has to be on the page. */
+    #sec-the-ten-minute-version .prose a::after {
+      content: "  troi.se" attr(href) !important;
+      font-family: 'Space Mono', monospace;
+      font-size: 7pt;
+      color: var(--pr-muted);
+      white-space: nowrap;
+    }
+
+    /* Without this a Part group or a single chapter row can fragment across
+       a page boundary, which is what produced the misnumbered/overlapping
+       look in the Contents — a row's number and title landing on different
+       pages, redrawn on top of whatever followed. */
+    .toc-line, .toc-group { page-break-inside: avoid; break-inside: avoid; }
+
+    .cover-eyebrow, .part-eyebrow, .toc-part-title,
+    .back-eyebrow { color: var(--pr-strong) !important; }
+    .part-question { color: var(--pr-strong) !important; }
+    .cover-sub, .front-lede, .chapter-print-dek, .credit-relation, .credit-where, .part-intro p,
+    .cover-meta, .cover-foot, .print-note, .appendix-list, .colophon,
+    .edition-line, .edition-note, .back-author-line, .back-url { color: var(--pr-muted) !important; }
+    .edition-imprint { border-color: var(--pr-border) !important; }
+    .edition-imprint .edition-line { font-size: 6.5pt; line-height: 1.7; }
+    .cover-rule, .back-rule { background: var(--pr-muted) !important; }
+    .print-notes-label { color: var(--pr-strong) !important; }
+    .toc-line, .credit, .print-notes, .colophon { border-color: var(--pr-border) !important; }
+    /* The contents is a lookup table, not reading matter — it can sit a step
+       below the body size without costing anything. */
+    .toc-line { font-size: 9pt; padding: 0.3rem 0; }
+    .toc-part-title { font-size: 6.5pt; }
+    .toc-num { font-size: 6.5pt; min-width: 1.6rem; }
+    .toc-topic { color: var(--pr-muted) !important; font-size: 6pt; }
+    /* Only when scripts/make-book.py is driving, because only that run adds
+       the folios to the pages. A browser print has no page numbers on the
+       pages, so numbers in the contents would point at nothing. */
+    html.has-folios .toc-folio { display: inline; color: var(--pr-muted) !important; font-size: 6.5pt; }
+    .prose blockquote { border-color: var(--pr-strong) !important; }
+
+    .flow-model,
+    .part-opener,
+    .girdled { page-break-inside: avoid; break-inside: avoid; }
+    .girdled .stroke { stroke: var(--pr-strong) !important; }
+    .girdled .stroke.root { stroke: var(--pr-soft) !important; }
+    .girdled .soil-line { stroke: var(--pr-line) !important; }
+    .girdled .sap, .girdled .sap-head, .girdled .sap-spent { stroke: var(--pr-accent) !important; }
+    .girdled .cut, .girdled .cut-hatch, .girdled .sap-stop { stroke: var(--pr-ink) !important; }
+    .girdled .label text { fill: var(--pr-ink) !important; }
+    .girdled .label text.sub { fill: var(--pr-muted) !important; }
+    .girdled figcaption { color: var(--pr-muted) !important; }
+    .part-opener { max-width: 26rem; margin-bottom: 2rem; }
+    .flow-model .stroke,
+    .part-opener .stroke { stroke: var(--pr-strong) !important; }
+    .part-opener .stroke.root { stroke: var(--pr-soft) !important; }
+    .part-opener .soil-line { stroke: var(--pr-line) !important; }
+    .flow-model .stroke.root,
+    .flow-model .flow-back,
+    .flow-model .flow-back-head { stroke: var(--pr-soft) !important; }
+    .flow-model .flow-up,
+    .flow-model .flow-up-head,
+    .flow-model .light,
+    .flow-model .light-reach { stroke: var(--pr-accent) !important; }
+    .flow-model .soil-line,
+    .flow-model .leader { stroke: var(--pr-line) !important; }
+    .flow-model .label text { fill: var(--pr-ink) !important; }
+    .flow-model .label text.sub,
+    .flow-model .flow-label text.return { fill: var(--pr-muted) !important; }
+    /* These are read as words — Information, Decisions, Execution — not
+       decoration, so they get the darker of the two accent tones even though
+       the arrow they sit beside stays lighter. */
+    .flow-model .flow-label text { fill: var(--pr-label) !important; }
+    .flow-model figcaption { color: var(--pr-muted) !important; }
+  }
+</style>
