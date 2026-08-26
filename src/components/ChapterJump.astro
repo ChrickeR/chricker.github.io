@@ -1,0 +1,172 @@
+---
+import { parts, chapterNumber, frontMatter, appendix } from '../data/book-structure';
+
+interface Props {
+  current: string;
+  /** Open on load rather than needing a click. Used only where a reader is
+   * expected to arrive cold and want the map immediately — the Ten-Minute
+   * Version, linked from outside the site — everywhere else stays folded. */
+  openByDefault?: boolean;
+}
+const { current, openByDefault = false } = Astro.props;
+
+// Counted over chapters only — the appendix is listed but not numbered, so
+// "12 of 27" keeps meaning what a reader expects it to mean.
+const published = parts.flatMap((p) => p.chapters.filter((c) => c.status === 'published'));
+const total = published.length;
+const position = published.findIndex((c) => c.slug === current) + 1;
+---
+
+<details class="chapter-jump" open={openByDefault}>
+  <summary>
+    <span class="chapter-jump-label">All chapters</span>
+    {position > 0 && <span class="chapter-jump-count">{position} of {total}</span>}
+  </summary>
+  <nav class="chapter-jump-panel" aria-label="All chapters">
+    <div class="chapter-jump-part">
+      <p class="chapter-jump-part-title">Preface</p>
+      <ol>
+        {frontMatter.map((item) => (
+          <li>
+            {item.slug === current ? (
+              <span class="chapter-jump-item is-current" aria-current="true">{item.title}</span>
+            ) : (
+              <a class="chapter-jump-item" href={`/organizational-flow/${item.slug}/`}>{item.title}</a>
+            )}
+          </li>
+        ))}
+      </ol>
+    </div>
+    {parts.map((part) => {
+      const published = part.chapters.filter((c) => c.status === 'published');
+      if (published.length === 0) return null;
+      return (
+        <div class="chapter-jump-part">
+          <p class="chapter-jump-part-title">Part {part.id} — {part.title}</p>
+          <p class="chapter-jump-part-q">{part.question}</p>
+          <ol>
+            {published.map((chapter) => (
+              <li>
+                {chapter.slug === current ? (
+                  <span class="chapter-jump-item is-current" aria-current="true"><span class="cj-num">{chapterNumber(chapter.slug)}</span>{chapter.title}</span>
+                ) : (
+                  <a class="chapter-jump-item" href={`/organizational-flow/${chapter.slug}/`}><span class="cj-num">{chapterNumber(chapter.slug)}</span>{chapter.title}</a>
+                )}
+              </li>
+            ))}
+          </ol>
+        </div>
+      );
+    })}
+    <div class="chapter-jump-part">
+      <p class="chapter-jump-part-title">Appendix</p>
+      <ol>
+        {appendix.map((item) => (
+          <li>
+            {item.slug === current ? (
+              <span class="chapter-jump-item is-current" aria-current="true">{item.title}</span>
+            ) : (
+              <a class="chapter-jump-item" href={`/organizational-flow/${item.slug}/`}>{item.title}</a>
+            )}
+          </li>
+        ))}
+      </ol>
+    </div>
+  </nav>
+</details>
+
+<style>
+  .chapter-jump {
+    max-width: var(--max);
+    margin: 2.6rem auto 2rem;
+    border-top: 1px solid var(--mist);
+    border-bottom: 1px solid var(--mist);
+  }
+  .chapter-jump summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.7rem 0;
+    cursor: pointer;
+    list-style: none;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--bark);
+    transition: color .2s ease;
+  }
+  .chapter-jump summary::-webkit-details-marker { display: none; }
+  .chapter-jump summary:hover { color: var(--ink); }
+  .chapter-jump-label::before {
+    content: "▸ ";
+    display: inline-block;
+    transition: transform .2s ease;
+  }
+  .chapter-jump[open] .chapter-jump-label::before { content: "▾ "; }
+  .chapter-jump-count { color: var(--bark); opacity: 0.75; }
+
+  .chapter-jump-panel { padding: 0.4rem 0 1.4rem; }
+  .chapter-jump-part + .chapter-jump-part { margin-top: 1.3rem; }
+  .chapter-jump-part-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--moss);
+    margin: 0 0 0.25rem;
+  }
+  /* The one question the Part answers — the same line the table of contents
+     carries, so a reader jumping in from a chapter gets the same orientation. */
+  .chapter-jump-part-q {
+    font-size: 0.84rem;
+    line-height: 1.45;
+    font-style: italic;
+    color: var(--bark);
+    margin: 0 0 0.5rem;
+    max-width: 34rem;
+  }
+  .chapter-jump-panel ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    columns: 2;
+    column-gap: 2rem;
+  }
+  .chapter-jump-panel li { break-inside: avoid; }
+  .chapter-jump-item {
+    display: block;
+    padding: 0.28rem 0;
+    font-family: 'Fraunces', serif;
+    font-size: 0.95rem;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .cj-num {
+    display: inline-block;
+    min-width: 1.7rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--bark);
+  }
+  a.chapter-jump-item:hover { color: var(--moss); }
+  .chapter-jump-item.is-current {
+    color: var(--gold);
+  }
+  .chapter-jump-item.is-current::after {
+    content: " — you are here";
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  @media (max-width: 640px) {
+    .chapter-jump-panel ol { columns: 1; }
+  }
+  @media print {
+    .chapter-jump { display: none; }
+  }
+</style>

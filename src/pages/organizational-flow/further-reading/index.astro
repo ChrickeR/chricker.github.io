@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Footer from '../../../components/Footer.astro';
+import PaperNav from '../../../components/PaperNav.astro';
+
+const books = [
+  {
+    title: 'Team Topologies',
+    author: 'Matthew Skelton & Manuel Pais',
+    note: "The clearest published treatment of what Cultivating Teams and Teams Around Capabilities argue for — team shapes, interaction modes, and boundaries drawn on purpose instead of by accident.",
+  },
+  {
+    title: 'Escaping the Build Trap',
+    author: 'Melissa Perri',
+    note: 'The companion to Funding What Doesn\'t End and Measuring Value — why organizations end up measuring what they built instead of what it changed, and what has to move in the funding model before that can be fixed.',
+  },
+  {
+    title: 'Thinking in Systems: A Primer',
+    author: 'Donella Meadows',
+    note: 'The systems-thinking foundation underneath It Grew Like That. If the forest metaphor in this paper resonates, this is where the underlying discipline comes from.',
+  },
+  {
+    title: 'Domain-Driven Design',
+    author: 'Eric Evans',
+    note: 'The deepest treatment available of bounded contexts and capabilities as the real unit of organizational design — the technical companion to the Capabilities chapter.',
+  },
+  {
+    title: 'Turn the Ship Around!',
+    author: 'L. David Marquet',
+    note: "A submarine captain's account of giving control away instead of hoarding it — close in spirit to the self-selecting-teams story in Direction and Ownership.",
+  },
+  {
+    title: 'Accelerate',
+    author: 'Nicole Forsgren, Jez Humble & Gene Kim',
+    note: 'The research base behind the DORA metrics that Technology and Observing Organizations both defer to — properly operationalized and statistically validated, which the four indicators in this paper are not.',
+  },
+  {
+    title: 'The Fifth Discipline',
+    author: 'Peter Senge',
+    note: 'The original case for organizations as learning systems — a longer, more academic cousin of the argument the Learning chapter makes.',
+  },
+];
+---
+
+<BaseLayout title="Further Reading" description="Books in a similar spirit to Organizational Flow — recommended, not credited as sources.">
+  <main class="reading" id="main">
+    <section class="block insight-page">
+      <p class="kicker">Organizational Flow — Appendix</p>
+      <h1>Further Reading</h1>
+      <p>
+        Different from <a href="/organizational-flow/acknowledgments/">Acknowledgments</a>, which credits the
+        people and books that shaped a specific idea in this paper. This list runs the other direction — books
+        worth reading next if something in these chapters resonated, in a similar spirit even where they weren't
+        a direct influence.
+      </p>
+
+      <ul style="list-style:none; padding:0; margin:2.2rem 0 0;">
+        {books.map((paper) => (
+          <li style="padding:1.2rem 0; border-top:1px solid var(--mist);">
+            <p style="margin:0; font-family:'Fraunces', serif; font-size:1.1rem;">{paper.title}</p>
+            <p style="margin:0.3rem 0 0.7rem; font-family:'Space Mono', monospace; font-size:0.68rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--bark);">{paper.author}</p>
+            <p style="margin:0; font-size:0.95rem;">{paper.note}</p>
+          </li>
+        ))}
+      </ul>
+          <PaperNav current="further-reading" />
+    </section>
+  </main>
+
+  <Footer label="Organizational Flow — an ongoing work" />
+</BaseLayout>

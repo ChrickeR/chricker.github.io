@@ -1,0 +1,232 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Footer from '../../../components/Footer.astro';
+import ToolVote from '../../../components/ToolVote.astro';
+---
+
+<BaseLayout
+  title="Livspusslet"
+  description="A household runs on a plan that lives in one person's head. Livspusslet puts the year on a page instead. Working prototype, in Swedish."
+>
+  <main class="reading" id="main">
+    <section class="block insight-page">
+      <p class="kicker"><a href="/tools/">Tools</a></p>
+      <h1>Livspusslet</h1>
+
+      <p class="lede">
+        Every household runs on a plan that lives in one person's head. This one puts the year on a page, so
+        it stops being one person's job to remember it.
+      </p>
+
+      <p class="demo-open">
+        <a class="demo-button" href="/tools/livspusslet-app.html">Open the clickable prototype →</a>
+        <span class="demo-hint">It is an application. A big screen suits it.</span>
+      </p>
+    </section>
+
+    <div class="demo-wide">
+      <iframe
+        id="livspusslet-demo"
+        src="/tools/livspusslet-app.html"
+        title="Livspusslet prototype"
+        loading="lazy"
+      ></iframe>
+      <figure class="demo-narrow">
+        <img
+          src="/tools/livspusslet-demo.gif"
+          alt="Livspusslet's overview: what needs attention this week, sorted by how urgent it is to act."
+          loading="lazy"
+          width="1366"
+          height="896"
+        />
+        <figcaption>
+          The prototype wants a wider screen than this one, so here it is as a recording.
+          <a href="/tools/livspusslet-app.html">Open the real one</a> on something larger.
+        </figcaption>
+      </figure>
+      <p class="demo-fallback">
+        <a href="/tools/livspusslet-app.html">Open the prototype full-screen</a>
+      </p>
+    </div>
+
+    <section class="block insight-page">
+
+      <h2>What it tries to solve</h2>
+
+      <p>
+        Nothing in a household is difficult on its own. Booking the chimney sweep is not difficult. What is
+        difficult is that there are two hundred of them a year, they have no shared list, and they are all
+        held in the same head — usually not the head that volunteered. And most of them have a window rather
+        than a date: booking the boat's winter storage in June is early, in October it is a phone call to
+        somewhere already full.
+      </p>
+
+      <h2>What it does</h2>
+
+      <ul class="feature-list">
+        <li>
+          <strong>A rolling year, drawn as windows.</strong> Each arc starts when it is worth starting and
+          ends on the last day that works, and the reminders count backwards from when preparation has to
+          begin rather than from the day itself.
+        </li>
+        <li>
+          <strong>Chores with minutes on them.</strong> Weighted by age, so the split becomes something to
+          look at together instead of argue about. The gap between what was agreed and what the log says is
+          roughly the whole agenda of a family meeting.
+        </li>
+        <li>
+          <strong>Food, holidays and money that know who lives here.</strong> Meals against each person's
+          diet and training load, holiday arithmetic ranked by how many days off each vacation day buys, and a
+          budget with a reference value, your own figure and the outcome side by side.
+        </li>
+        <li>
+          <strong>A calendar each.</strong> One feed per person that Apple, Google and Outlook subscribe to —
+          their own things plus everything shared.
+        </li>
+      </ul>
+
+      <p>
+        It runs as a single process on your own machine. No accounts, no cloud: the whole household is two
+        files you can copy to back it up.
+      </p>
+
+      <h2>Where it is</h2>
+
+      <p>
+        A working prototype my own family uses. Swedish throughout — the holidays, school terms and grocery
+        habits it knows are Swedish too, and an English version is a real translation job rather than a
+        switch.
+      </p>
+
+      <ToolVote tool="livspusslet" />
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .insight-page h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.3rem;
+    margin: 2.6rem 0 0.7rem;
+  }
+  .demo-open {
+    margin: 1.6rem 0 0;
+  }
+  .demo-hint {
+    display: inline-block;
+    margin-left: 0.8rem;
+    font-size: 0.88rem;
+    color: var(--bark);
+  }
+  @media (max-width: 30rem) {
+    .demo-hint {
+      display: block;
+      margin: 0.5rem 0 0;
+    }
+  }
+  .demo-button {
+    display: inline-block;
+    padding: 0.6rem 1.1rem;
+    border: 1px solid var(--moss);
+    border-radius: 2px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--moss);
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .demo-button:hover {
+    background: var(--moss);
+    color: var(--paper);
+  }
+  /* The prototype is an application: it steps out of the reading column and
+     keeps a viewport of its own rather than growing with its tallest tab. */
+  .demo-wide {
+    width: min(65rem, calc(100vw - 3rem));
+    margin: 2rem 0 3.4rem 50%;
+    transform: translateX(-50%);
+  }
+  .demo-wide iframe {
+    display: block;
+    width: 100%;
+    height: min(46rem, 82vh);
+    border: 1px solid var(--mist);
+    border-radius: 2px;
+    background: var(--card);
+  }
+  .demo-narrow {
+    display: none;
+    margin: 0;
+  }
+  .demo-narrow img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--mist);
+  }
+  .demo-narrow figcaption {
+    margin-top: 0.7rem;
+    padding: 0 1.5rem;
+    font-size: 0.88rem;
+    color: var(--bark);
+  }
+  .demo-fallback {
+    margin: 0.6rem 0 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  @media (max-width: 44rem) {
+    .demo-wide {
+      width: 100vw;
+    }
+    .demo-wide iframe {
+      display: none;
+    }
+    .demo-narrow {
+      display: block;
+    }
+    .demo-fallback {
+      padding: 0 1.5rem;
+    }
+  }
+  .feature-list {
+    margin: 1.4rem 0 0;
+    padding-left: 1.1rem;
+  }
+  .feature-list li {
+    margin-bottom: 0.9rem;
+  }
+  .feature-list strong {
+    font-weight: 600;
+  }
+</style>
+
+<script>
+  // Same-origin, so the site's theme toggle can be handed through to the frame.
+  const frame = document.getElementById('livspusslet-demo') as HTMLIFrameElement | null;
+
+  if (frame) {
+    const syncTheme = () => {
+      const doc = frame.contentDocument;
+      if (!doc) return;
+      const theme = document.documentElement.dataset.theme;
+      if (theme) doc.documentElement.dataset.theme = theme;
+      else delete doc.documentElement.dataset.theme;
+    };
+
+    frame.addEventListener('load', syncTheme);
+    if (frame.contentDocument?.readyState === 'complete') syncTheme();
+
+    new MutationObserver(syncTheme).observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+    });
+  }
+</script>

@@ -1,0 +1,192 @@
+---
+// Part-opener illustration — ink-line, single color, one of the four
+// forest-metaphor families (docs/07-illustration-style-guide.md).
+// One family per Part: Garden, Root System, Canopy, Hillside.
+interface Props {
+  family: 'Garden' | 'Root System' | 'Canopy' | 'Hillside';
+  caption?: string;
+}
+const { family, caption } = Astro.props;
+---
+
+{family === 'Root System' && (
+  <figure class="part-opener" aria-hidden={caption ? undefined : 'true'}>
+    <svg viewBox="0 0 900 220" role="img" aria-label={caption ?? 'Root systems reaching underground, only stubs of trunk breaking the soil line'}>
+      <line x1="0" y1="70" x2="900" y2="70" class="soil-line" />
+
+      <!-- root cluster 1 -->
+      <path class="stroke" d="M190,70 L190,50" />
+      <path class="stroke root" d="M190,70 C186,90 170,96 156,116" />
+      <path class="stroke root" d="M156,116 C148,124 140,126 130,138" />
+      <path class="stroke root" d="M190,70 C192,94 202,104 198,128" />
+      <path class="stroke root" d="M190,70 C196,88 214,92 224,110" />
+      <path class="stroke root" d="M224,110 C232,118 240,120 250,132" />
+
+      <!-- root cluster 2, center, deepest -->
+      <path class="stroke" d="M440,70 L440,42" />
+      <path class="stroke root" d="M440,70 C434,98 412,106 394,132" />
+      <path class="stroke root" d="M394,132 C382,142 372,144 360,160" />
+      <path class="stroke root" d="M440,70 C440,100 440,116 434,146" />
+      <path class="stroke root" d="M434,146 C430,158 422,162 414,176" />
+      <path class="stroke root" d="M440,70 C448,96 470,104 488,130" />
+      <path class="stroke root" d="M488,130 C500,140 510,142 522,156" />
+
+      <!-- root cluster 3 -->
+      <path class="stroke" d="M690,70 L690,52" />
+      <path class="stroke root" d="M690,70 C694,92 710,98 722,116" />
+      <path class="stroke root" d="M690,70 C686,92 670,98 658,114" />
+      <path class="stroke root" d="M658,114 C650,122 642,124 632,136" />
+    </svg>
+    {caption && <figcaption>{caption}</figcaption>}
+  </figure>
+)}
+
+{family === 'Garden' && (
+  <figure class="part-opener" aria-hidden={caption ? undefined : 'true'}>
+    <svg viewBox="0 0 900 220" role="img" aria-label={caption ?? 'A row of young trees, roots visible beneath the soil line'}>
+      <line x1="0" y1="150" x2="900" y2="150" class="soil-line" />
+
+      <!-- sapling 1 -->
+      <path class="stroke" d="M180,150 C176,120 184,90 172,58" />
+      <path class="stroke" d="M172,90 C160,80 148,84 138,74" />
+      <path class="stroke" d="M176,72 C188,64 198,66 208,56" />
+      <path class="stroke root" d="M180,150 C176,166 164,172 152,186" />
+      <path class="stroke root" d="M180,150 C184,168 196,174 202,190" />
+
+      <!-- sapling 2, tallest, center -->
+      <path class="stroke" d="M430,150 C424,110 434,70 424,28" />
+      <path class="stroke" d="M424,70 C408,58 392,62 378,50" />
+      <path class="stroke" d="M428,64 C444,52 458,56 472,44" />
+      <path class="stroke" d="M424,40 C412,30 402,32 392,24" />
+      <path class="stroke" d="M427,36 C438,26 450,28 460,18" />
+      <path class="stroke root" d="M430,150 C426,170 412,176 398,194" />
+      <path class="stroke root" d="M430,150 C432,172 420,182 412,200" />
+      <path class="stroke root" d="M430,150 C436,170 450,176 462,192" />
+
+      <!-- sapling 3 -->
+      <path class="stroke" d="M680,150 C684,126 676,102 686,76" />
+      <path class="stroke" d="M682,108 C694,100 704,102 714,94" />
+      <path class="stroke" d="M680,90 C668,82 658,84 648,76" />
+      <path class="stroke root" d="M680,150 C676,164 666,168 656,180" />
+      <path class="stroke root" d="M680,150 C684,166 696,170 704,184" />
+    </svg>
+    {caption && <figcaption>{caption}</figcaption>}
+  </figure>
+)}
+
+{family === 'Canopy' && (
+  <figure class="part-opener" aria-hidden={caption ? undefined : 'true'}>
+    <svg viewBox="0 0 900 220" role="img" aria-label={caption ?? 'Light falling through gaps in a canopy onto young growth coming up beneath them'}>
+      <!-- the canopy above, drawn only as its underside. It peaks where the
+           crowns are closed and dips where they part. -->
+      <path class="stroke" d="M56,88 C108,50 168,44 214,66" />
+      <path class="stroke" d="M214,66 C258,30 322,28 362,60" />
+      <path class="stroke" d="M362,60 C406,22 472,24 510,58" />
+      <path class="stroke" d="M510,58 C558,26 618,32 654,64" />
+      <path class="stroke" d="M654,64 C702,38 762,46 814,84" />
+
+      <!-- limbs, hung from where the canopy is closed -->
+      <path class="stroke" d="M286,36 C286,66 282,92 278,116" />
+      <path class="stroke" d="M580,36 C584,68 588,94 592,120" />
+
+      <!-- light, arriving only through the gaps -->
+      <path class="light" d="M146,0 C168,42 192,84 214,120" />
+      <path class="light" d="M294,0 C316,44 340,88 362,126" />
+      <path class="light" d="M578,0 C556,42 532,86 510,124" />
+      <path class="light" d="M722,0 C700,44 676,88 654,128" />
+
+      <line x1="0" y1="168" x2="900" y2="168" class="soil-line" />
+
+      <!-- and young growth coming up exactly where it lands -->
+      <path class="stroke" d="M214,168 C212,146 218,128 210,108" />
+      <path class="stroke" d="M212,138 C200,130 190,132 180,124" />
+      <path class="stroke" d="M215,124 C226,116 236,118 246,110" />
+
+      <path class="stroke" d="M362,168 C366,140 358,116 368,92" />
+      <path class="stroke" d="M364,124 C376,116 386,118 396,110" />
+      <path class="stroke" d="M360,142 C348,134 338,136 328,128" />
+
+      <path class="stroke" d="M510,168 C508,148 514,132 506,114" />
+      <path class="stroke" d="M509,140 C498,132 488,134 478,126" />
+
+      <path class="stroke" d="M654,168 C658,144 650,124 660,102" />
+      <path class="stroke" d="M656,132 C668,124 678,126 688,118" />
+      <path class="stroke" d="M652,148 C640,140 630,142 620,134" />
+    </svg>
+    {caption && <figcaption>{caption}</figcaption>}
+  </figure>
+)}
+
+{family === 'Hillside' && (
+  <figure class="part-opener" aria-hidden={caption ? undefined : 'true'}>
+    <svg viewBox="0 0 900 220" role="img" aria-label={caption ?? 'Several trees on a hillside, each a different shape and height, sharing one horizon'}>
+      <path class="soil-line ridge" d="M0,182 C140,166 260,190 400,176 C540,162 660,188 900,170" />
+
+      <!-- five trees, no two alike: same species, same hillside, not interchangeable -->
+      <path class="stroke" d="M118,178 C116,150 120,124 114,98" />
+      <path class="stroke" d="M60,96 C58,64 96,44 122,54 C150,42 186,62 178,94 C176,116 142,128 118,122 C94,126 62,116 60,96 Z" />
+
+      <path class="stroke" d="M292,180 C294,148 288,116 296,80" />
+      <path class="stroke" d="M250,86 C244,54 274,30 300,40 C332,26 366,52 356,84 C352,110 320,120 298,114 C276,118 254,108 250,86 Z" />
+      <path class="stroke" d="M294,124 C282,116 268,116 256,108" />
+
+      <path class="stroke" d="M470,176 C468,154 472,132 466,112" />
+      <path class="stroke" d="M428,114 C424,88 452,70 474,80 C500,72 524,92 516,114 C510,132 486,140 468,134 C450,138 430,130 428,114 Z" />
+
+      <path class="stroke" d="M644,182 C646,142 640,102 650,58" />
+      <path class="stroke" d="M600,66 C592,30 626,4 656,16 C692,2 728,32 716,66 C710,94 674,104 652,98 C628,102 604,90 600,66 Z" />
+      <path class="stroke" d="M648,110 C662,100 678,100 692,90" />
+
+      <path class="stroke" d="M812,172 C810,152 814,134 808,118" />
+      <path class="stroke" d="M780,120 C776,100 796,86 812,92 C830,86 848,100 842,120 C838,134 822,140 810,136 C796,140 782,134 780,120 Z" />
+    </svg>
+    {caption && <figcaption>{caption}</figcaption>}
+  </figure>
+)}
+
+<style>
+  .part-opener {
+    margin: 0 auto 2.6rem;
+    max-width: var(--max);
+  }
+  .part-opener svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    overflow: visible;
+  }
+  .soil-line {
+    stroke: var(--mist);
+    stroke-width: 1;
+  }
+  .ridge { fill: none; }
+  .light {
+    fill: none;
+    stroke: var(--gold);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-dasharray: 3 7;
+    opacity: 0.75;
+  }
+  .stroke {
+    fill: none;
+    stroke: var(--moss);
+    stroke-width: 2.25;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .stroke.root {
+    stroke: var(--bark);
+    stroke-width: 1.75;
+    opacity: 0.75;
+  }
+  .part-opener figcaption {
+    margin-top: 0.8rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--bark);
+    text-align: center;
+  }
+</style>

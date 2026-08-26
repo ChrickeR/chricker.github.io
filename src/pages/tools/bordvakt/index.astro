@@ -1,0 +1,207 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Footer from '../../../components/Footer.astro';
+import ToolVote from '../../../components/ToolVote.astro';
+---
+
+<BaseLayout
+  title="Bordvakt"
+  description="Some restaurants release a month of tables in one batch and lose them in minutes. This watches for the release and tells you what it opened. Working prototype."
+>
+  <main class="reading" id="main">
+    <section class="block insight-page">
+      <p class="kicker"><a href="/tools/">Tools</a></p>
+      <h1>Bordvakt</h1>
+
+      <p class="lede">
+        Some restaurants release a month of tables in one batch, and lose them in minutes. This one waits for
+        the release so you do not have to.
+      </p>
+
+      <h2>What it tries to solve</h2>
+
+      <p>
+        The good sittings exist for about as long as it takes to read the page they appeared on. What is left
+        an hour later is the late tables nobody wanted — so the useful question is not "is there a table
+        tonight" but what the next release will open, and whether it contains a night you want. The
+        alternative is refreshing a booking page for a month, which is not a plan so much as a hobby.
+      </p>
+
+      <ul class="feature-list">
+        <li>
+          <strong>It explains a nothing.</strong> "0 matches" reads like a full restaurant, when the usual
+          cause is that the times on offer fall outside the window you asked for. So it says which:
+          <em>13 on offer but none between 18:00 and 20:00 — they sit at 21:00, 21:30.</em>
+        </li>
+        <li>
+          <strong>Preferences rank, they never exclude.</strong> An ideal night decides which of several
+          acceptable tables is offered first. It never rules one out.
+        </li>
+        <li>
+          <strong>Nothing is booked without you.</strong> An alert is an alert; the booking waits for a
+          button, and changing that takes a deliberate trip into settings.
+        </li>
+      </ul>
+
+      <h2>The walkthrough</h2>
+
+      <p>
+        Ten frames from the running prototype, on one Mac watching three Stockholm restaurants that all book
+        through the same engine. The numbers in the screens came back from real sweeps.
+      </p>
+
+      <p>
+        And it is not only a recording. Switch to <em>try it yourself</em> and the window takes the full width
+        of the page, running the real matching logic over a snapshot of what was actually free: change the
+        evenings, move the window, exclude a week, and what appears, how it ranks and the sentence explaining
+        a miss are all recomputed the way the watcher computes them. Two honest limits — the availability is
+        frozen at the moment the page was built, and the booking button only pretends.
+      </p>
+
+      <p class="demo-open">
+        <a class="demo-button" href="/tools/bordvakt-demo.html?mode=try">Open the clickable prototype →</a>
+        <span class="demo-hint">It is an application. A big screen suits it.</span>
+      </p>
+    </section>
+
+    <div class="demo-wide">
+      <iframe
+        id="bordvakt-demo"
+        src="/tools/bordvakt-demo.html"
+        title="Bordvakt walkthrough"
+        loading="lazy"
+        scrolling="no"
+      ></iframe>
+      <p class="demo-fallback">
+        <a href="/tools/bordvakt-demo.html">Open the walkthrough on its own</a>
+      </p>
+    </div>
+
+    <section class="block insight-page">
+      <ToolVote tool="bordvakt" />
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .insight-page h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.3rem;
+    margin: 2.6rem 0 0.7rem;
+  }
+  .feature-list {
+    margin: 1.4rem 0 0;
+    padding-left: 1.1rem;
+  }
+  .feature-list li {
+    margin-bottom: 0.9rem;
+  }
+  .feature-list strong {
+    font-weight: 600;
+  }
+  /* The walkthrough is wider than the reading measure, so it steps out of the
+     column to the shell width the rest of the site uses. */
+  .demo-wide {
+    width: min(65rem, calc(100vw - 3rem));
+    margin: 2rem 0 3.4rem 50%;
+    transform: translateX(-50%);
+  }
+  /* On a phone the reading gutter is worth more to the walkthrough than to the
+     margin: the device mock has a floor it cannot shrink past. */
+  @media (max-width: 40rem) {
+    .demo-wide {
+      width: 100vw;
+    }
+  }
+  .demo-wide iframe {
+    display: block;
+    width: 100%;
+    height: 1400px;
+    border: 0;
+  }
+  .demo-open {
+    margin: 1.6rem 0 0;
+  }
+  .demo-hint {
+    display: inline-block;
+    margin-left: 0.8rem;
+    font-size: 0.88rem;
+    color: var(--bark);
+  }
+  @media (max-width: 30rem) {
+    .demo-hint {
+      display: block;
+      margin: 0.5rem 0 0;
+    }
+  }
+  .demo-button {
+    display: inline-block;
+    padding: 0.6rem 1.1rem;
+    border: 1px solid var(--moss);
+    border-radius: 2px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--moss);
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .demo-button:hover {
+    background: var(--moss);
+    color: var(--paper);
+  }
+  .demo-fallback {
+    margin: 0.6rem 0 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+</style>
+
+<script>
+  // Same-origin, so the height can be measured directly rather than posted
+  // across, and the site's theme toggle can be handed through to the frame.
+  const frame = document.getElementById('bordvakt-demo') as HTMLIFrameElement | null;
+
+  if (frame) {
+    const syncTheme = () => {
+      const doc = frame.contentDocument;
+      if (!doc) return;
+      const theme = document.documentElement.dataset.theme;
+      if (theme) doc.documentElement.dataset.theme = theme;
+      else delete doc.documentElement.dataset.theme;
+    };
+
+    const syncHeight = () => {
+      const doc = frame.contentDocument;
+      if (!doc?.body) return;
+      frame.style.height = `${doc.body.scrollHeight + 8}px`;
+    };
+
+    const wire = () => {
+      syncTheme();
+      syncHeight();
+      const doc = frame.contentDocument;
+      if (doc?.body && 'ResizeObserver' in window) {
+        new ResizeObserver(syncHeight).observe(doc.body);
+      }
+      // The walkthrough advances on its own, and each frame is a different height.
+      setInterval(syncHeight, 1000);
+    };
+
+    frame.addEventListener('load', wire);
+    // A lazy frame can finish before this script runs, in which case the load
+    // event has already been and gone.
+    if (frame.contentDocument?.readyState === 'complete') wire();
+
+    new MutationObserver(syncTheme).observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+    });
+  }
+</script>

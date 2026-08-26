@@ -1,0 +1,263 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Footer from '../../../components/Footer.astro';
+import ToolVote from '../../../components/ToolVote.astro';
+---
+
+<BaseLayout
+  title="Cambium"
+  description="An architecture tool that maps what it costs to get work through an organization, not just what the organization has. Working prototype, with an interactive mock-up."
+>
+  <main class="reading" id="main">
+    <section class="block insight-page">
+      <p class="kicker"><a href="/tools/">Tools</a></p>
+      <h1>Cambium</h1>
+
+      <p class="lede">
+        Most architecture tools draw what an organization has: systems, teams, boxes, lines. Cambium draws what
+        it costs to get something through it.
+      </p>
+
+      <h2>The name</h2>
+
+      <p>
+        The cambium is the thin living layer just under a tree's bark. It carries sap from the roots to the
+        canopy, and it is the layer a girdling cut severs. Cut it and the tree stays green from the road for
+        weeks while it dies standing up. Circulation is the part that matters and the part you cannot see from
+        outside — which is a fair description of most organizations too.
+      </p>
+
+      <h2>What it does</h2>
+
+      <p>
+        You model an organization once — what it can do, who does it, what it runs on — and the tool reads
+        that model for the places work will get stuck. Nothing is typed in by hand; it is already implied by
+        the model, and a tool that knows the vocabulary can say so out loud.
+      </p>
+
+      <ul class="feature-list">
+        <li>
+          <strong>Findings, not a dashboard.</strong> Capabilities with no owner, one with two claimed owners,
+          work owned by one team and built by another, a role resting on a single person. Each names the
+          people who disagree.
+        </li>
+        <li>
+          <strong>Options, never recommendations.</strong> Open a finding and you get the available moves with
+          what each buys and what each costs, side by side. Every one costs something, and which trade is
+          right depends on things the map does not hold.
+        </li>
+        <li>
+          <strong>No score.</strong> Nobody has measured enough organizations for a number to mean anything,
+          and a number invites comparison with other people instead of with your own reading of the same place
+          in six months.
+        </li>
+      </ul>
+
+      <h2>The mock-up</h2>
+
+      <p>
+        Below is a snapshot to look around in. The button opens the prototype, where things can be changed —
+        and it opens on <em>what supports what</em>: capabilities as boxes, with a team, system or person that
+        belongs to only one sitting inside it — and anything supporting several sitting outside them all,
+        ringed. Switch the layers, switch the diagram, or
+        <a href="/tools/cambium-app.html?view=graph&amp;full=1&amp;diagram=what-supports-what">open it
+        full-screen</a>. The rest of what the tool does is in there rather than described here.
+      </p>
+
+      <p class="demo-open">
+        <a class="demo-button" href="/tools/cambium-app.html?view=graph&amp;full=1&amp;diagram=what-supports-what">Open the clickable prototype →</a>
+        <span class="demo-hint">It is an application. A big screen suits it.</span>
+      </p>
+    </section>
+
+    <div class="demo-wide">
+      <iframe
+        id="cambium-demo"
+        src="/tools/cambium-snapshot.html"
+        title="Cambium mock-up"
+        loading="lazy"
+      ></iframe>
+      <figure class="demo-narrow">
+        <img
+          src="/tools/cambium-demo.gif"
+          alt="The Cambium canvas: capability cards on the left, computed ownership findings on the right."
+          loading="lazy"
+          width="1146"
+          height="941"
+        />
+        <figcaption>
+          The mock-up is an application and wants a wider screen than this one, so here it is as a recording.
+          The real thing is one tap away, and worth a bigger screen.
+        </figcaption>
+      </figure>
+      <p class="demo-fallback">
+        <a href="/tools/cambium-app.html?view=graph&amp;full=1&amp;diagram=what-supports-what">Open the mock-up full-screen</a>
+      </p>
+    </div>
+
+    <section class="block insight-page">
+      <h2>Where it is</h2>
+
+      <p>
+        A prototype on my own machine, running against organizations I made up to carry every problem the tool
+        is meant to catch. No date, no beta, no waiting list. If you work somewhere this would have to
+        survive, <a href="/contact/">write to me</a>.
+      </p>
+
+      <p class="tool-foot">
+        The vocabulary behind it — capability, structural friction, the interface ladder — comes from
+        <a href="/organizational-flow/">Organizational Flow</a>.
+      </p>
+
+      <ToolVote tool="cambium" />
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .insight-page h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.3rem;
+    margin: 2.6rem 0 0.7rem;
+  }
+  .feature-list {
+    margin: 1.4rem 0 0;
+    padding-left: 1.1rem;
+  }
+  .feature-list li {
+    margin-bottom: 0.9rem;
+  }
+  .feature-list strong {
+    font-weight: 600;
+  }
+  /* The mock-up is an application rather than a page: it wants a viewport, so it
+     steps out of the reading column and keeps a fixed one. */
+  .demo-wide {
+    width: min(65rem, calc(100vw - 3rem));
+    margin: 2rem 0 3.4rem 50%;
+    transform: translateX(-50%);
+  }
+  @media (max-width: 40rem) {
+    .demo-wide {
+      width: 100vw;
+    }
+  }
+  /* The mock-up does not reflow below about 700px — it is a desktop tool, and
+     pretending otherwise would just clip it. Phones get the recording instead. */
+  .demo-narrow {
+    display: none;
+    margin: 0;
+  }
+  .demo-narrow img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--mist);
+  }
+  .demo-narrow figcaption {
+    margin-top: 0.7rem;
+    padding: 0 1.5rem;
+    font-size: 0.88rem;
+    color: var(--bark);
+  }
+  .demo-wide iframe {
+    display: block;
+    width: 100%;
+    height: min(46rem, 82vh);
+    border: 1px solid var(--mist);
+    border-radius: 2px;
+    background: var(--card);
+  }
+  .demo-open {
+    margin: 1.6rem 0 0;
+  }
+  .demo-hint {
+    display: inline-block;
+    margin-left: 0.8rem;
+    font-size: 0.88rem;
+    color: var(--bark);
+  }
+  @media (max-width: 30rem) {
+    .demo-hint {
+      display: block;
+      margin: 0.5rem 0 0;
+    }
+  }
+  .demo-button {
+    display: inline-block;
+    padding: 0.6rem 1.1rem;
+    border: 1px solid var(--moss);
+    border-radius: 2px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--moss);
+    background: none;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .demo-button:hover {
+    background: var(--moss);
+    color: var(--paper);
+  }
+  .demo-fallback {
+    margin: 0.6rem 0 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  @media (max-width: 40rem) {
+    .demo-fallback {
+      padding: 0 1.5rem;
+    }
+  }
+  /* Last, so it wins over the base display rules above. */
+  @media (max-width: 44rem) {
+    .demo-wide iframe {
+      display: none;
+    }
+    .demo-narrow {
+      display: block;
+    }
+    .demo-fallback {
+      padding: 0 1.5rem;
+    }
+  }
+  .tool-foot {
+    margin-top: 2.8rem;
+    padding-top: 1.3rem;
+    border-top: 1px solid var(--mist);
+    font-size: 0.95rem;
+    color: var(--bark);
+  }
+</style>
+
+<script>
+  // Same-origin, so the site's theme toggle can be handed through to the frame.
+  // The height is fixed here: the mock-up is a full-viewport application and
+  // measuring its body would just report the frame back to itself.
+  const frame = document.getElementById('cambium-demo') as HTMLIFrameElement | null;
+
+  if (frame) {
+    const syncTheme = () => {
+      const doc = frame.contentDocument;
+      if (!doc) return;
+      const theme = document.documentElement.dataset.theme;
+      if (theme) doc.documentElement.dataset.theme = theme;
+      else delete doc.documentElement.dataset.theme;
+    };
+
+    frame.addEventListener('load', syncTheme);
+    if (frame.contentDocument?.readyState === 'complete') syncTheme();
+
+    new MutationObserver(syncTheme).observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+    });
+  }
+</script>

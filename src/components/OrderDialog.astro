@@ -1,0 +1,541 @@
+---
+// The order dialog: quantity, who it goes to, how they would rather pay, and a
+// running total that updates as they type.
+//
+// Deliberately serverless. Nothing here is transmitted from the page — pressing
+// the button opens the reader's own mail client with everything filled in, so
+// no name or address ever passes through this site. The dialog says so, because
+// a form asking for a delivery address should be explicit about where it goes.
+import {
+  orderEmail,
+  priceIncVat,
+  vatRate,
+  copiesPerParcel,
+  paymentMethods,
+  orderTotals,
+  kr,
+} from '../data/printed-copy';
+
+const start = orderTotals(1);
+const vatPercent = Math.round(vatRate * 100);
+---
+
+<dialog class="order-dialog" id="orderDialog" aria-labelledby="orderTitle">
+  <form method="dialog" class="order-close-form">
+    <button class="order-close" aria-label="Close">Close</button>
+  </form>
+
+  <div class="order-head">
+    {/* The cover is the point of this dialog, so it leads and it is big. The
+        front panel, cropped out of the wraparound at the book's own
+        proportions. */}
+    <img
+      class="order-cover"
+      src="/book/cover.jpg"
+      width="620"
+      height="988"
+      loading="lazy"
+      decoding="async"
+      alt="The printed edition of Friction — The Silent Killer"
+    />
+    <h2 class="order-title" id="orderTitle">A printed copy</h2>
+    <p class="order-spec">A5 · Softcover · Printed on demand</p>
+    <p class="order-lede">
+      If you prefer paper — or want to leave a copy on someone's desk where it
+      has a fighting chance of actually being read — I can send you one.
+    </p>
+    <p class="order-lede">
+      Printed copies are {kr(priceIncVat)} + postage. Each copy is printed on
+      demand, so you'll always get the latest edition. I'll confirm the total
+      before anything is ordered.
+    </p>
+  </div>
+
+  <form id="orderForm" class="order-grid">
+    <label class="order-field">
+      <span class="order-label">Copies</span>
+      <input type="number" id="orderQty" min="1" max="50" step="1" value="1" inputmode="numeric" required />
+    </label>
+
+    <label class="order-field">
+      <span class="order-label">Country</span>
+      <input type="text" id="orderCountry" autocomplete="country-name" placeholder="Sweden" required />
+    </label>
+
+    <label class="order-field order-wide">
+      <span class="order-label">Name</span>
+      <input type="text" id="orderName" autocomplete="name" placeholder="Your name" required />
+    </label>
+
+    <label class="order-field order-wide">
+      <span class="order-label">Street address</span>
+      <input type="text" id="orderAddress" autocomplete="street-address" placeholder="Street and number" required />
+    </label>
+
+    <label class="order-field">
+      <span class="order-label">Postal code</span>
+      <input type="text" id="orderPostcode" autocomplete="postal-code" inputmode="numeric" placeholder="123 45" required />
+    </label>
+
+    <label class="order-field">
+      <span class="order-label">City</span>
+      <input type="text" id="orderTown" autocomplete="address-level2" placeholder="Town or city" required />
+    </label>
+
+    {/* The options sit in their own element rather than flexing the fieldset
+        directly: a legend is not a flex item, and laying the fieldset out as
+        one left the choices stacked and indented instead of side by side. */}
+    <fieldset class="order-field order-wide order-pay">
+      <legend class="order-label">Payment</legend>
+      <div class="order-pay-options">
+        {paymentMethods.map((method, i) => (
+          <label class="order-radio">
+            <input type="radio" name="orderPayment" value={method} checked={i === 0} />
+            <span>{method}</span>
+          </label>
+        ))}
+      </div>
+    </fieldset>
+
+    {/* A company ordering on invoice — Swedish invoicing practice needs a name
+        and an organisation number to issue against, so these two are required
+        only when Invoice is selected. The reference stays optional always: it
+        exists purely for organizations that ask their own staff to quote one. */}
+    <div class="order-field order-wide order-company-heading">
+      <span class="order-label">Company (if ordering for one)</span>
+    </div>
+
+    <label class="order-field">
+      <span class="order-label">Company name</span>
+      <input type="text" id="orderCompanyName" autocomplete="organization" placeholder="Optional" />
+    </label>
+
+    <label class="order-field">
+      <span class="order-label">Organisation number</span>
+      <input type="text" id="orderOrgNumber" placeholder="Optional" />
+    </label>
+
+    <label class="order-field order-wide">
+      <span class="order-label">Reference / PO number</span>
+      <input type="text" id="orderReference" placeholder="Optional — only if your company requires one" />
+    </label>
+  </form>
+
+  <table class="order-sum">
+    <tbody>
+      <tr>
+        <th scope="row">Books — {kr(priceIncVat)} × <span data-sum-qty>1</span></th>
+        <td data-sum-books>{kr(start.books)}</td>
+      </tr>
+      <tr class="order-of-which">
+        <th scope="row">of which VAT {vatPercent}%</th>
+        <td data-sum-vat>{kr(start.vat)}</td>
+      </tr>
+      <tr>
+        <th scope="row">
+          Postage, Sweden<span data-sum-parcels></span>
+        </th>
+        <td data-sum-shipping>{kr(start.shipping)}</td>
+      </tr>
+      <tr class="order-total">
+        <th scope="row">Total</th>
+        <td data-sum-total>{kr(start.total)}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="order-fineprint">
+    Postage is the Swedish rate, per parcel — up to {copiesPerParcel} copies fit
+    in one. Outside Sweden it costs whatever it costs; write down where you are
+    and we will find a way to get one to you, and I will tell you the postage
+    before anything is sent. Nothing is charged here — the button just sends a mail
+    to {orderEmail} from your own mail app.
+  </p>
+
+  <!-- An anchor rather than a button, so the href is inspectable, the mail
+       client opens the way it does anywhere else, and the thing still works
+       with no JavaScript — just without the details filled in. -->
+  <a class="order-submit" id="orderSubmit" href={`mailto:${orderEmail}?subject=${encodeURIComponent('Organizational Flow — printed copy')}`}>
+    Request a printed copy
+  </a>
+</dialog>
+
+<script>
+  import {
+    orderEmail,
+    orderTotals,
+    kr,
+  } from '../data/printed-copy';
+
+  const dialog = document.getElementById('orderDialog') as HTMLDialogElement | null;
+  if (dialog) {
+    const form = document.getElementById('orderForm') as HTMLFormElement;
+    // The submit control lives outside this element as a plain link (see
+    // below), so nothing should ever actually submit the form — but pressing
+    // Enter in a text field can still trigger it natively. Swallow that.
+    form.addEventListener('submit', (event) => event.preventDefault());
+    const qtyInput = document.getElementById('orderQty') as HTMLInputElement;
+    const nameInput = document.getElementById('orderName') as HTMLInputElement;
+    const addressInput = document.getElementById('orderAddress') as HTMLInputElement;
+    const postcodeInput = document.getElementById('orderPostcode') as HTMLInputElement;
+    const townInput = document.getElementById('orderTown') as HTMLInputElement;
+    const countryInput = document.getElementById('orderCountry') as HTMLInputElement;
+    const companyNameInput = document.getElementById('orderCompanyName') as HTMLInputElement;
+    const orgNumberInput = document.getElementById('orderOrgNumber') as HTMLInputElement;
+    const referenceInput = document.getElementById('orderReference') as HTMLInputElement;
+
+    // Invoicing a company needs a name and an organisation number to issue
+    // against — Swish does not. So the two toggle between optional and
+    // required as the payment choice changes, rather than always being one
+    // or the other.
+    function syncCompanyRequirement() {
+      const payment =
+        (dialog.querySelector('input[name="orderPayment"]:checked') as HTMLInputElement | null)
+          ?.value ?? 'Invoice';
+      const required = payment === 'Invoice';
+      companyNameInput.required = required;
+      orgNumberInput.required = required;
+    }
+
+    const set = (sel: string, value: string) => {
+      const el = dialog.querySelector(sel);
+      if (el) el.textContent = value;
+    };
+
+    function currentTotals() {
+      return orderTotals(Number(qtyInput.value));
+    }
+
+    function refresh() {
+      const t = currentTotals();
+      set('[data-sum-qty]', String(t.quantity));
+      set('[data-sum-books]', kr(t.books));
+      set('[data-sum-vat]', kr(t.vat));
+      set('[data-sum-shipping]', kr(t.shipping));
+      // Past ten copies it is two parcels, and the reader should see why the
+      // postage went up rather than discover it in the total.
+      set('[data-sum-parcels]', t.parcels > 1 ? ` — ${t.parcels} parcels` : '');
+      set('[data-sum-total]', kr(t.total));
+    }
+
+    const submit = document.getElementById('orderSubmit') as HTMLAnchorElement | null;
+
+    // Anything the reader typed goes into their own mail client and nowhere
+    // else — no fetch, no form action, no third party. The href is rebuilt as
+    // they type so that what the link says is what it sends.
+    function buildHref() {
+      const t = currentTotals();
+      const payment =
+        (dialog.querySelector('input[name="orderPayment"]:checked') as HTMLInputElement | null)
+          ?.value ?? 'Invoice';
+
+      const body = [
+        'Hello,',
+        '',
+        `I would like to order ${t.quantity} printed ${t.quantity === 1 ? 'copy' : 'copies'} of Organizational Flow.`,
+        '',
+        `Copies: ${t.quantity}`,
+        `Name: ${nameInput?.value ?? ''}`,
+        'Delivery address:',
+        addressInput?.value ?? '',
+        [postcodeInput?.value ?? '', townInput?.value ?? ''].filter(Boolean).join(' '),
+        countryInput?.value ?? '',
+        '',
+        ...(companyNameInput?.value || orgNumberInput?.value
+          ? [
+              `Company: ${companyNameInput?.value ?? ''}`,
+              `Organisation number: ${orgNumberInput?.value ?? ''}`,
+            ]
+          : []),
+        ...(referenceInput?.value ? [`Reference / PO number: ${referenceInput.value}`] : []),
+        '',
+        `Payment: ${payment}`,
+        '',
+        `Books: ${kr(t.books)} (incl. VAT ${kr(t.vat)})`,
+        `Postage: ${kr(t.shipping)}${t.parcels > 1 ? ` (${t.parcels} parcels)` : ''}`,
+        `Total: ${kr(t.total)}`,
+        '',
+      ].join('\n');
+
+      return (
+        `mailto:${orderEmail}` +
+        `?subject=${encodeURIComponent('Organizational Flow — printed copy')}` +
+        `&body=${encodeURIComponent(body)}`
+      );
+    }
+
+    function sync() {
+      syncCompanyRequirement();
+      refresh();
+      if (submit) submit.href = buildHref();
+    }
+
+    dialog.addEventListener('input', sync);
+    dialog.addEventListener('change', sync);
+
+    submit?.addEventListener('click', (event) => {
+      // The submit control is a link so the mailto stays inspectable and works
+      // without JavaScript, but that means the browser's own required-field
+      // check never runs on it. Ask the form for that check explicitly, and
+      // stop here — with the usual native validation bubbles — if it fails.
+      if (!form.reportValidity()) {
+        event.preventDefault();
+        return;
+      }
+
+      const cronitor = (window as unknown as { cronitor?: (...a: unknown[]) => void }).cronitor;
+      if (typeof cronitor === 'function') cronitor('track', 'Order Printed Copy');
+      // The mail client takes over from here; leaving the dialog open behind it
+      // means coming back to a form with nothing left to do. Closing on the
+      // next tick so the mailto has already been handed off.
+      setTimeout(() => dialog.close(), 0);
+    });
+
+    // Clicking the backdrop closes it, the way a reader expects.
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+
+    // Close also works without the form submission. `<form method="dialog">`
+    // is the mechanism, but anything that swallows the submit — an extension,
+    // a browser that mishandles a submit button inside a grid — would leave
+    // the reader shut in with no way out. Cheap to make certain.
+    dialog.querySelector('.order-close')?.addEventListener('click', (event) => {
+      event.preventDefault();
+      dialog.close();
+    });
+
+    document.querySelectorAll('[data-open-order]').forEach((trigger) => {
+      trigger.addEventListener('click', (event) => {
+        event.preventDefault();
+        sync();
+        // showModal() on an already-open dialog throws, which would abort
+        // this handler and leave the page in a half-opened state.
+        if (!dialog.open) dialog.showModal();
+      });
+    });
+  }
+</script>
+
+<style is:global>
+  .order-dialog {
+    width: min(27rem, calc(100vw - 1.5rem));
+    border: 1px solid var(--mist);
+    border-radius: 6px;
+    background: var(--card);
+    color: var(--ink);
+    padding: 1.4rem 1.5rem 1.7rem;
+  }
+  .order-dialog::backdrop { background: rgba(20, 23, 15, 0.45); }
+
+  /* A modal dialog is hoisted into the top layer, where nothing on the page
+     can paint over it — but only where that is honoured. Where it is not, the
+     page's own hero sits on top of this and swallows clicks meant for Close.
+     Stating position and stacking explicitly costs nothing and removes the
+     failure mode. */
+  .order-dialog[open] {
+    position: fixed;
+    z-index: 1000;
+  }
+
+  /* Small and out of the way. It is an exit, not an action. */
+  .order-close-form { display: flex; justify-content: flex-end; margin: -0.6rem -0.5rem 0 0; }
+  .order-close {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--bark);
+    background: none;
+    border: none;
+    padding: 0.3rem;
+    cursor: pointer;
+    opacity: 0.7;
+  }
+  .order-close:hover { color: var(--moss); opacity: 1; }
+
+  /* ---------- The book leads ---------- */
+  .order-head { text-align: center; }
+  .order-cover {
+    width: 52%;
+    max-width: 12rem;
+    height: auto;
+    display: block;
+    margin: 0 auto 1.3rem;
+    border-radius: 2px;
+    box-shadow: 0 6px 18px rgba(20, 23, 15, 0.22), 0 1px 3px rgba(20, 23, 15, 0.18);
+  }
+  .order-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.5rem;
+    line-height: 1.15;
+    margin: 0 0 0.35rem;
+  }
+  .order-spec {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--bark);
+    margin: 0 0 1.1rem;
+  }
+  .order-lede {
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: var(--bark);
+    margin: 0 auto 0.7rem;
+    max-width: 22rem;
+    text-wrap: pretty;
+  }
+  .order-head .order-lede:last-child { margin-bottom: 1.6rem; }
+
+  /* ---------- The form, kept quiet ---------- */
+  .order-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.7rem 0.8rem;
+    border-top: 1px solid var(--mist);
+    padding-top: 1.3rem;
+  }
+  .order-field { display: flex; flex-direction: column; gap: 0.25rem; min-width: 0; }
+  .order-wide { grid-column: 1 / -1; }
+  .order-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--bark);
+    padding: 0;
+  }
+  /* A line to write on rather than a filled box — this is an order for a book,
+     not a form for an authority. */
+  .order-dialog input[type='text'],
+  .order-dialog input[type='number'] {
+    font: inherit;
+    font-size: 0.92rem;
+    color: var(--ink);
+    background: none;
+    border: none;
+    border-bottom: 1px solid var(--mist);
+    border-radius: 0;
+    padding: 0.3rem 0.1rem;
+    width: 100%;
+  }
+  .order-dialog input:focus-visible {
+    outline: none;
+    border-bottom-color: var(--moss);
+  }
+  .order-dialog input::placeholder { color: var(--bark); opacity: 0.55; }
+
+  .order-pay {
+    border: none; padding: 0; margin: 0.2rem 0 0;
+    min-inline-size: 0;
+  }
+  .order-pay-options {
+    display: flex; align-items: center; gap: 1.1rem; flex-wrap: wrap;
+    margin-top: 0.25rem;
+  }
+
+  /* A quiet divider rather than a boxed section — the company fields are an
+     extension of the same form, not a different kind of question. */
+  .order-company-heading {
+    margin-top: 0.6rem;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--mist);
+  }
+  .order-radio { display: flex; align-items: center; gap: 0.4rem; font-size: 0.9rem; }
+
+  /* ---------- The sum ---------- */
+  .order-sum {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.4rem 0 0.8rem;
+    font-size: 0.84rem;
+  }
+  .order-sum th, .order-sum td {
+    text-align: left;
+    font-weight: 400;
+    padding: 0.28rem 0;
+  }
+  .order-sum td { text-align: right; font-family: 'Space Mono', monospace; font-size: 0.76rem; }
+  .order-sum th { color: var(--bark); }
+  .order-of-which th, .order-of-which td { padding-top: 0; opacity: 0.75; }
+  .order-total th, .order-total td {
+    border-top: 1px solid var(--mist);
+    padding-top: 0.5rem;
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .order-fineprint {
+    font-size: 0.72rem;
+    line-height: 1.5;
+    color: var(--bark);
+    opacity: 0.85;
+    margin: 0 0 1.2rem;
+  }
+
+  .order-submit {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--paper);
+    background: var(--ink);
+    border: 1px solid var(--ink);
+    border-radius: 20px;
+    padding: 0.8rem 1.4rem;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .order-submit:hover { background: var(--moss); border-color: var(--moss); }
+
+  @media (max-width: 26rem) {
+    .order-dialog { padding: 1.2rem 1.2rem 1.4rem; }
+    .order-cover { width: 58%; }
+  }
+
+  /* Given room, stop being a tall column. The cover and the pitch move to
+     their own column on the left and the whole order — fields, sum, button —
+     sits beside them, so the thing fits on a screen instead of scrolling
+     past it. Below this width the single-column stack above still applies. */
+  @media (min-width: 62rem) {
+    /* Scoped to [open] deliberately. A bare `display: grid` here overrides the
+       browser's own `dialog:not([open]) { display: none }` — author styles beat
+       UA styles whatever the specificity — which leaves the dialog painted on
+       the page permanently, in normal flow, with Close appearing to do nothing
+       because closing only clears the attribute. */
+    .order-dialog[open] {
+      width: min(54rem, calc(100vw - 3rem));
+      display: grid;
+      grid-template-columns: 18rem 1fr;
+      column-gap: 2.4rem;
+      align-items: start;
+      padding: 1.2rem 1.9rem 1.6rem;
+      /* A dialog is capped by the browser's own max-height, and this layout
+         is tall enough to reach it on a laptop screen — without this the
+         submit button rendered outside the box entirely. */
+      max-height: calc(100vh - 2.5rem);
+      overflow-y: auto;
+    }
+    .order-close-form { grid-area: 1 / 1 / 2 / 3; }
+    .order-head       { grid-area: 2 / 1 / 6 / 2; text-align: left; }
+    .order-grid       { grid-area: 2 / 2 / 3 / 3; border-top: none; padding-top: 0; gap: 0.55rem 0.8rem; }
+    .order-sum        { grid-area: 3 / 2 / 4 / 3; margin: 1rem 0 0.6rem; }
+    .order-fineprint  { grid-area: 4 / 2 / 5 / 3; margin-bottom: 0.9rem; }
+    .order-submit     { grid-area: 5 / 2 / 6 / 3; }
+    .order-company-heading { margin-top: 0.4rem; padding-top: 0.7rem; }
+
+    /* The cover is the point of the dialog, so it takes the column width
+       rather than a percentage of it. */
+    .order-cover { width: 100%; max-width: none; margin: 0 0 1.3rem; }
+    .order-lede  { margin-left: 0; margin-right: 0; max-width: none; }
+    .order-head .order-lede:last-child { margin-bottom: 0; }
+  }
+
+  @media print { .order-dialog { display: none !important; } }
+</style>

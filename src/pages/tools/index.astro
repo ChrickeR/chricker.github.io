@@ -1,0 +1,104 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+<BaseLayout
+  title="Tools"
+  description="Prototypes built because the problem was in front of me and the tool was not. Put here to find out whether they are worth anything to anyone else."
+>
+  <main class="reading" id="main">
+    <section class="block insight-page">
+      <p class="kicker">TROi</p>
+      <h1>Tools</h1>
+
+      <p class="lede">
+        Working with organizations — and with a family — produces a long list of things you wish existed while
+        you were standing in front of the problem. This is where I build them.
+      </p>
+
+      <p>
+        Most of what lands here is in ideation, prototype or early beta. Several of them already run on my own
+        machine and solve my own problem every day, which is exactly the point at which it becomes impossible
+        to tell whether they are useful or merely mine.
+      </p>
+
+      <p>
+        So I put them up. If one of them is worth something to someone besides me, I would rather find out
+        now than after another six months of building. The three faces at the bottom of each page are for
+        that, and they take one press: they tell me what to take further and what to let mature a while
+        longer. If you have more to say than a face can carry, <a href="/contact/">write to me</a>.
+      </p>
+
+      <ul class="tool-list">
+        <li>
+          <p class="marginalia-label">Working prototype</p>
+          <p class="tool-name"><a href="/tools/cambium/">Cambium</a></p>
+          <p class="tool-line">
+            Most architecture tools draw what an organization has. This one draws what it costs to get
+            something through it.
+          </p>
+        </li>
+        <li>
+          <p class="marginalia-label">Part built, part specified</p>
+          <p class="tool-name"><a href="/tools/flowlens/">FlowLens</a></p>
+          <p class="tool-line">
+            Work/life balance metrics on the wrist. Four questions about the week that people already ask
+            themselves and mostly answer by guessing, answered from your own history.
+          </p>
+        </li>
+        <li>
+          <p class="marginalia-label">Built, not yet worn</p>
+          <p class="tool-name"><a href="/tools/flowmission/">FlowMission</a></p>
+          <p class="tool-line">
+            An hour in a city you don't know, or a race you have a time for. The watch works out what is
+            possible and hands back one instruction, plus a promise that you get back — and somebody who is
+            told when you don't.
+          </p>
+        </li>
+        <li>
+          <p class="marginalia-label">Working prototype</p>
+          <p class="tool-name"><a href="/tools/livspusslet/">Livspusslet</a></p>
+          <p class="tool-line">
+            A household runs on a plan that lives in one person's head. This puts the year on a page instead
+            — clickable, in Swedish.
+          </p>
+        </li>
+        <li>
+          <p class="marginalia-label">Working prototype</p>
+          <p class="tool-name"><a href="/tools/bordvakt/">Bordvakt</a></p>
+          <p class="tool-line">
+            Some restaurants release a month of tables in one batch and lose them in minutes. This waits for
+            the release.
+          </p>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .tool-list {
+    list-style: none;
+    padding: 0;
+    margin: 2.4rem 0 0;
+  }
+  .tool-list li {
+    padding: 1.1rem 0;
+    border-top: 1px solid var(--mist);
+  }
+  .tool-list li:last-child {
+    border-bottom: 1px solid var(--mist);
+  }
+  .tool-name {
+    font-family: 'Fraunces', serif;
+    font-size: 1.35rem;
+    margin: 0 0 0.4rem;
+  }
+  .tool-line {
+    margin: 0;
+    color: var(--bark);
+  }
+</style>

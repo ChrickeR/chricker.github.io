@@ -1,0 +1,1096 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Footer from '../../../components/Footer.astro';
+import { AXES, KPI } from '../../../data/self-assessment';
+import { chapterNumber, findChapterLocation } from '../../../data/book-structure';
+import PaperNav from '../../../components/PaperNav.astro';
+
+// Resolve each reading target once at build time, so the number and title can
+// never drift from the paper's actual structure.
+const chapterMeta = Object.fromEntries(
+  [...new Set(AXES.flatMap((a) => a.reads.map((r) => r.slug)))].map((slug) => [
+    slug,
+    { n: chapterNumber(slug), title: findChapterLocation(slug)?.chapter.title ?? slug },
+  ]),
+);
+
+const axesJson = JSON.stringify(AXES);
+const kpiJson = JSON.stringify(KPI);
+---
+
+<BaseLayout
+  title="A Closer Look"
+  description="Eighteen questions about what you can actually observe where you work — and what the answers seem to suggest."
+>
+  <main class="reading" id="main">
+    <section class="block insight-page assess">
+      <!-- intro -->
+      <div id="intro">
+        <p class="kicker">Organizational Flow — Appendix</p>
+        <h1>What would you notice, if you looked?</h1>
+        <p class="assess-lede">
+          Eighteen questions about things you can actually observe where you work — how a decision gets made,
+          what happens when work crosses a boundary, who people go and ask. About seven minutes. What comes
+          back is a picture of your organization, some patterns that seem to stand out, and where in the paper
+          each of them is described.
+        </p>
+        <p>
+          This is not a maturity model and it does not grade anything. It is a way of looking, and the value
+          is mostly in what you notice while answering rather than in any number at the end.
+        </p>
+        <p>
+          Friction never announces itself as failure. It arrives as everyone being busy, which is why it is
+          worth asking about deliberately rather than waiting to notice.
+        </p>
+        <p>
+          One word recurs: <em>capability</em> — meaning something the organization must always be able to do,
+          regardless of who does it or what they use. Settle a claim. Admit a patient. Onboard an employee.
+          The methods change constantly; the capability doesn't.
+        </p>
+        <p class="assess-note">
+          Answer for the organization as you actually experience it, not as it is described in the operating
+          model. Nothing is stored or sent anywhere.
+        </p>
+        <p style="margin-top:2rem;"><button class="assess-btn" id="start">Start looking</button></p>
+      </div>
+
+      <!-- questions -->
+      <div id="quiz" hidden>
+        <div class="assess-prog" id="prog"></div>
+        <div class="assess-qmeta">
+          <span class="assess-eyebrow" id="qsector"></span>
+          <span class="assess-eyebrow" id="qcount"></span>
+        </div>
+        <p class="assess-qtext" id="qtext"></p>
+        <div class="assess-opts" id="qopts"></div>
+        <div class="assess-nav">
+          <button class="assess-btn ghost" id="back">Back</button>
+          <span class="assess-note" id="hint">Choose the description closest to how things actually work.</span>
+        </div>
+      </div>
+
+      <!-- results -->
+      <div id="results" hidden>
+        <div class="assess-banner" id="banner" hidden>
+          You're looking at a result someone else produced — their answers, not yours.
+          <button class="assess-btn ghost small" id="own">Take it yourself</button>
+        </div>
+
+        <p class="kicker">What came back</p>
+        <h1>What the answers suggest</h1>
+        <div class="assess-total">
+          <p class="assess-total-state" id="totalVerdict"></p>
+          <p class="assess-lede" id="summary"></p>
+        </div>
+        <p class="assess-note">
+          There is deliberately no number here. Nobody has measured enough organizations for a score to mean
+          anything, and a number invites comparison with other people rather than with your own reading of
+          the same place in six months.
+        </p>
+
+        <h2>What stood out</h2>
+        <p class="assess-subhead">
+          Patterns that seem to show up in what you answered. Read them as things worth going and checking
+          rather than as conclusions — you know the place and this page does not.
+        </p>
+        <ul class="assess-stood" id="stood"></ul>
+
+        <div class="assess-chart-wrap">
+          <svg id="radar" viewBox="0 0 560 520" role="img" aria-labelledby="radartitle">
+            <title id="radartitle">Radar chart of eighteen flow axes grouped into five indicators</title>
+          </svg>
+        </div>
+        <p class="assess-note" style="text-align:center;">
+          Heavier spokes are the five indicators. The rest are the conditions that produce them, grouped by the
+          coloured arc they sit under.
+        </p>
+
+        <h2>Where to start</h2>
+        <p class="assess-subhead" id="priIntro"></p>
+        <ol class="assess-pri" id="pri"></ol>
+        <div id="suppressed"></div>
+
+        <details class="assess-qa-detail" id="kpiDetail">
+          <summary>The five indicators these questions roll up to</summary>
+          <p class="assess-subhead">
+            They do not divide cleanly into friction and value, and it would be misleading to present them as
+            though they did. Ownership and handoffs recover capacity and say nothing about where it goes.
+            Value creation aims it. The two in between do both — deciding sooner is not only cheaper, it is
+            how you find out sooner whether the decision was any good.
+          </p>
+          <div class="assess-kpis" id="kpis"></div>
+        </details>
+
+        <details class="assess-qa-detail" id="qaDetail">
+          <summary>All eighteen questions and your answers</summary>
+          <ol class="assess-qa-list" id="qaList"></ol>
+        </details>
+
+        <h2>Your own observations</h2>
+        <p class="assess-subhead">
+          Eighteen questions cannot reach everything, and the theory behind them is deliberately unfinished.
+          These are optional. Anything you write stays in this browser — it is not stored, not sent, and
+          deliberately not put in the share link, so a link you pass on carries the answers and nothing you
+          wrote here.
+        </p>
+        <div class="assess-notes">
+          <label>
+            <span>What have you noticed here that these questions did not capture?</span>
+            <textarea id="noteMissed" rows="3"></textarea>
+          </label>
+          <label>
+            <span>What recurring pattern slows work down where you are?</span>
+            <textarea id="notePattern" rows="3"></textarea>
+          </label>
+          <label>
+            <span>What surprised you while answering?</span>
+            <textarea id="noteSurprise" rows="3"></textarea>
+          </label>
+        </div>
+
+        <h2>Things worth noticing next</h2>
+        <p class="assess-subhead">
+          None of these need a project, and all of them are more informative than another round of questions.
+        </p>
+        <ul class="assess-stood assess-next">
+          <li>Notice where work waits, and whether anyone is counting the waiting.</li>
+          <li>Notice how far a decision has to travel before it meets the judgement it needs.</li>
+          <li>Notice who people naturally go and ask, and whether that person's name appears in any process.</li>
+          <li>Notice where a meeting has grown over a question of ownership nobody settled.</li>
+          <li>Notice what survives a reorganization, because that is the part the organization actually runs on.</li>
+          <li>Notice which problems keep coming back, and whether anything changed after the last one.</li>
+        </ul>
+
+        <div class="assess-consult">
+          <p class="kicker" style="margin-bottom:0.6rem;">Help evolve Organizational Flow</p>
+          <p>
+            This is a working theory, not a finished one. The most useful thing anyone sends me is an
+            observation that does not fit — a pattern I have not described, or one I have described wrongly.
+            There is no account and no form.
+          </p>
+          <p>
+            The button below opens a draft email containing the overall reading, what stood out, and anything you
+            wrote above. Nothing is sent until you send it, and you can edit or delete any of it first.
+          </p>
+          <p class="assess-actions">
+            <button class="assess-btn" id="emailResult">Email my observations</button>
+            <a class="assess-consult-link" href="/contact/">Or start a conversation</a>
+          </p>
+        </div>
+
+        <div class="assess-keep">
+          <p class="kicker" style="margin-bottom:0.8rem;">Keep it</p>
+          <div class="assess-share">
+            <span class="assess-share-label">Share this result</span>
+            <input id="shareurl" readonly aria-label="Link to this result" />
+            <button class="assess-btn" id="copy">Copy link</button>
+          </div>
+          <p class="assess-note">
+            The link carries the eighteen answers and nothing else — not what you wrote above. Useful for
+            putting the same picture in front of people who would have answered differently.
+          </p>
+          <p style="margin:1.2rem 0 0;">
+            <button class="assess-btn ghost" id="printResult">Print this result</button>
+          </p>
+          <p class="assess-note">
+            Opens the print dialog — choose Save as PDF for a copy with every question, your answer, and
+            everything above.
+          </p>
+        </div>
+
+        <p style="margin-top:1.8rem; margin-bottom:2.4rem; text-align:center;">
+          <button class="assess-btn ghost" id="restart">Start over</button>
+        </p>
+      </div>
+      <PaperNav current="self-assessment" />
+    </section>
+  </main>
+
+  <Footer label="Organizational Flow — an ongoing work" />
+</BaseLayout>
+
+<script is:inline define:vars={{ AXES: axesJson, KPIS: kpiJson, CH: JSON.stringify(chapterMeta) }}>
+  (function () {
+    const axes = JSON.parse(AXES);
+    const kpi = JSON.parse(KPIS);
+    const ch = JSON.parse(CH);
+    const $ = (id) => document.getElementById(id);
+    let answers = {};
+    let idx = 0;
+
+    // progress segments, one per question, tinted by indicator
+    const prog = $('prog');
+    axes.forEach((a) => {
+      const i = document.createElement('i');
+      i.className = 'k-' + a.kpi;
+      prog.appendChild(i);
+    });
+
+    function renderQ() {
+      const a = axes[idx];
+      $('qsector').textContent = kpi[a.kpi].name;
+      $('qsector').className = 'assess-eyebrow k-text-' + a.kpi;
+      // Count what has been answered, not where the reader is standing. On the
+      // first question nothing is answered yet, so this reads 0 / 15.
+      $('qcount').textContent = Object.keys(answers).length + ' / ' + axes.length;
+      $('qtext').textContent = a.q;
+
+      const box = $('qopts');
+      box.innerHTML = '';
+      a.o.forEach((txt, i) => {
+        const b = document.createElement('button');
+        b.className = 'assess-opt' + (answers[a.id] === i + 1 ? ' sel k-text-' + a.kpi : '');
+        b.textContent = txt;
+        b.addEventListener('click', () => {
+          answers[a.id] = i + 1;
+          advance();
+        });
+        box.appendChild(b);
+      });
+
+      // A segment lights when its question has an answer; the current one is
+      // marked separately so the reader can still see where they are.
+      [...prog.children].forEach((el, i) => {
+        el.classList.toggle('on', answers[axes[i].id] !== undefined);
+        el.classList.toggle('at', i === idx);
+      });
+      $('back').style.visibility = idx === 0 ? 'hidden' : 'visible';
+    }
+
+    function advance() {
+      if (idx < axes.length - 1) {
+        idx++;
+        renderQ();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        renderQ();
+        showResults(false);
+      }
+    }
+
+    // The reader should leave with a sentence, not a score. Each indicator gets
+    // a plain-language verdict; the number stays as the evidence behind it.
+    function verdict(v) {
+      if (v <= 1.6) return 'plenty to look at here';
+      if (v <= 2.4) return 'friction showing in several places';
+      if (v <= 3.2) return 'holding, unevenly';
+      return 'mostly working';
+    }
+
+    function kpiScore(k) {
+      const anchor = axes.find((a) => a.kpi === k && a.anchor);
+      const supp = axes.filter((a) => a.kpi === k && !a.anchor);
+      const sm = supp.reduce((s, a) => s + answers[a.id], 0) / supp.length;
+      return (answers[anchor.id] * 2 + sm) / 3;
+    }
+
+    // One position against all fourteen Part II conditions at once, not just
+    // the five indicators separately — the number this assessment is really
+    // for. Same 1–4 scale as everything else, so it reads next to them.
+    function overallScore() {
+      const ks = Object.keys(kpi);
+      return ks.reduce((s, k) => s + kpiScore(k), 0) / ks.length;
+    }
+
+    function overallState(v) {
+      if (v <= 1.6) return 'From what you answered, most of the fourteen conditions Part II describes seem to be working against the grain here rather than with it — which usually means there is a lot available, not that anything is broken.';
+      if (v <= 2.4) return 'Friction appears to be showing up across several of the fourteen conditions Part II describes, in the ordinary way it does everywhere.';
+      if (v <= 3.2) return 'The conditions look like they are holding unevenly — some of what Part II describes seems to be working here, some of it not yet.';
+      return 'Most of the fourteen conditions Part II describes appear to be working. Friction looks like the exception here rather than the rule, which is rarer than you might think.';
+    }
+
+    // Ordered by sequence rather than severity: ownership before structure,
+    // structure before operations. Amplification is held back while any
+    // foundational axis is still low.
+    function priorities() {
+      const scored = axes
+        .map((a) => ({ ...a, s: answers[a.id], deficit: (4 - answers[a.id]) * a.w }))
+        .sort((x, y) => y.deficit - x.deficit || y.w - x.w);
+
+      const ownAxis = scored.find((a) => a.id === 'own');
+      const foundLow = scored.some((a) => a.w === 1.5 && a.s <= 2);
+
+      let out = [];
+      for (const a of scored) {
+        if (out.length >= 5) break;
+        if (a.id === 'amp' && foundLow) continue;
+        if (a.id === 'own') continue;
+        out.push(a);
+      }
+      if (ownAxis.s <= 2) out = [ownAxis, ...out].slice(0, 5);
+      else {
+        if (ownAxis.deficit > 0 && out.length < 5) out.push(ownAxis);
+        out = out.slice(0, 5);
+      }
+      out.sort((x, y) => y.w - x.w);
+      return { list: out, suppressed: foundLow && scored.find((a) => a.id === 'amp').deficit > 0 };
+    }
+
+    function drawRadar() {
+      const svg = $('radar');
+      const CX = 280, CY = 250, R = 165, N = axes.length;
+      const NS = 'http://www.w3.org/2000/svg';
+      while (svg.childNodes.length > 1) svg.removeChild(svg.lastChild);
+
+      const ang = (i) => ((-90 + (i * 360) / N) * Math.PI) / 180;
+      const pt = (i, v) => [CX + Math.cos(ang(i)) * R * (v / 4), CY + Math.sin(ang(i)) * R * (v / 4)];
+      const mk = (t, attrs, cls) => {
+        const e = document.createElementNS(NS, t);
+        for (const k in attrs) e.setAttribute(k, attrs[k]);
+        if (cls) e.setAttribute('class', cls);
+        svg.appendChild(e);
+        return e;
+      };
+
+      for (let v = 1; v <= 4; v++) {
+        const d = axes
+          .map((_, i) => pt(i, v))
+          .map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ',' + p[1].toFixed(1))
+          .join(' ') + ' Z';
+        mk('path', { d }, v === 4 ? 'ring outer' : 'ring');
+      }
+      axes.forEach((a, i) => {
+        const p = pt(i, 4);
+        mk('line', { x1: CX, y1: CY, x2: p[0].toFixed(1), y2: p[1].toFixed(1) }, a.anchor ? 'spoke anchor' : 'spoke');
+      });
+
+      // arc + label per indicator
+      ['own', 'hand', 'dec', 'learn'].forEach((g) => {
+        const ids = axes.map((a, i) => (a.kpi === g ? i : -1)).filter((i) => i >= 0);
+        const a0 = ang(ids[0]) - Math.PI / N;
+        const a1 = ang(ids[ids.length - 1]) + Math.PI / N;
+        const AR = R + 26;
+        const x0 = CX + Math.cos(a0) * AR, y0 = CY + Math.sin(a0) * AR;
+        const x1 = CX + Math.cos(a1) * AR, y1 = CY + Math.sin(a1) * AR;
+        const large = a1 - a0 > Math.PI ? 1 : 0;
+        // Arc only — the indicator's name and score are carried by the cards
+        // directly below, and repeating them here collided with the spoke labels.
+        mk('path', {
+          d: `M${x0.toFixed(1)},${y0.toFixed(1)} A${AR},${AR} 0 ${large} 1 ${x1.toFixed(1)},${y1.toFixed(1)}`,
+        }, 'sector k-stroke-' + g);
+      });
+
+      const dv = axes
+        .map((a, i) => pt(i, answers[a.id]))
+        .map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ',' + p[1].toFixed(1))
+        .join(' ') + ' Z';
+      mk('path', { d: dv }, 'value-poly');
+      axes.forEach((a, i) => {
+        const p = pt(i, answers[a.id]);
+        mk('circle', { cx: p[0].toFixed(1), cy: p[1].toFixed(1), r: a.anchor ? 4 : 2.6 }, 'value-dot k-fill-' + a.kpi);
+      });
+
+      axes.forEach((a, i) => {
+        const LR = R + 11;
+        const x = CX + Math.cos(ang(i)) * LR;
+        const y = CY + Math.sin(ang(i)) * LR;
+        const anch = Math.abs(Math.cos(ang(i))) < 0.25 ? 'middle' : Math.cos(ang(i)) > 0 ? 'start' : 'end';
+        const t = mk('text', {
+          x: x.toFixed(1), y: y.toFixed(1), 'text-anchor': anch, 'dominant-baseline': 'middle',
+        }, 'spokelab' + (a.anchor ? ' anchor' : ''));
+        t.textContent = a.short;
+      });
+    }
+
+    function render() {
+      drawRadar();
+
+      // Scores are computed but never shown. They order the observations, the
+      // priorities and the radar; put a digit on screen and the whole thing
+      // turns back into a grade, which is what this stopped being.
+      const total = overallScore();
+      $('totalVerdict').textContent = verdict(total);
+      $('totalVerdict').className = 'assess-total-state k-text-' +
+        Object.keys(kpi).reduce((a, b) => (kpiScore(a) < kpiScore(b) ? a : b));
+
+      const worst = Object.keys(kpi).reduce((a, b) => (kpiScore(a) < kpiScore(b) ? a : b));
+      $('summary').textContent =
+        overallState(total) + ' The clearest signal is around ' + kpi[worst].name.toLowerCase() +
+        ', and the others may well be partly downstream of it.';
+
+      // Tentative by construction. Each line describes what the answers suggest,
+      // never what is wrong — the reader is the only one here who can tell
+      // whether an observation actually holds.
+      const stood = $('stood');
+      stood.innerHTML = '';
+      const observations = axes
+        .map((a) => ({ ...a, s: answers[a.id] }))
+        .filter((a) => a.s <= 2)
+        .sort((x, y) => x.s - y.s || y.w - x.w)
+        .slice(0, 5);
+      const lines = observations.length
+        ? observations.map((a) => a.notice)
+        : ['Nothing stood out sharply, which may mean the conditions are genuinely holding — or that the questions did not reach whatever is actually slowing things down here. The free-text box below is the more useful one in that case.'];
+      lines.forEach((t) => {
+        const li = document.createElement('li');
+        li.textContent = t;
+        stood.appendChild(li);
+      });
+
+      const box = $('kpis');
+      box.innerHTML = '';
+      Object.keys(kpi).forEach((k) => {
+        const card = document.createElement('div');
+        card.className = 'assess-kpi k-border-' + k;
+        const head = document.createElement('div');
+        head.className = 'assess-kpi-head';
+        const left = document.createElement('div');
+        const h3 = document.createElement('h3');
+        h3.className = 'k-text-' + k;
+        h3.textContent = kpi[k].name;
+        const q = document.createElement('p');
+        q.className = 'assess-kpi-q';
+        q.textContent = kpi[k].q;
+        left.appendChild(h3);
+        left.appendChild(q);
+        const half = document.createElement('p');
+        half.className = 'assess-kpi-half';
+        const halfTag = document.createElement('span');
+        halfTag.className = 'assess-kpi-halftag k-text-' + k;
+        halfTag.textContent = kpi[k].half;
+        half.appendChild(halfTag);
+        half.appendChild(document.createTextNode(' ' + kpi[k].halfNote));
+        left.appendChild(half);
+        const v = kpiScore(k);
+        const score = document.createElement('div');
+        score.className = 'assess-kpi-score';
+        score.innerHTML = '<span class="verdict k-text-' + k + '">' + verdict(v) + '</span>';
+        head.appendChild(left);
+        head.appendChild(score);
+        card.appendChild(head);
+
+        // No reading list here. Where to start already points at the chapter
+        // for every weak axis, and running both meant the same links twice.
+        box.appendChild(card);
+      });
+
+      const { list, suppressed } = priorities();
+      $('priIntro').textContent =
+        'Five moves, ordered by sequence rather than severity — ownership before structure, structure before ' +
+        'operations. Each is small enough to do without permission, each produces a fact rather than an opinion, ' +
+        'and each points at the chapter that explains why it matters.';
+
+      const ol = $('pri');
+      ol.innerHTML = '';
+      list.forEach((a) => {
+        const li = document.createElement('li');
+        const h3 = document.createElement('h3');
+        h3.textContent = a.short;
+        const why = document.createElement('p');
+        why.className = 'assess-why';
+        why.innerHTML = '<span class="dot k-bg-' + a.kpi + '"></span>Affects ' + kpi[a.kpi].name;
+        const move = document.createElement('div');
+        move.className = 'assess-move';
+        move.innerHTML = '<span>First move</span>';
+        move.appendChild(document.createTextNode(a.move));
+
+        const reads = document.createElement('div');
+        reads.className = 'assess-reads';
+        const link = (slug, why, lead, second) => {
+          const m = ch[slug] || { n: null, title: slug };
+          const el = document.createElement('a');
+          el.className = 'assess-read' + (second ? ' second' : '');
+          el.href = '/organizational-flow/' + slug + '/';
+          el.innerHTML =
+            '<span class="rd-ch"></span><span class="rd-ti"></span><span class="rd-wh"></span>';
+          el.querySelector('.rd-ch').textContent = lead + (m.n ? ' · Chapter ' + m.n : '');
+          el.querySelector('.rd-ti').textContent = m.title;
+          el.querySelector('.rd-wh').textContent = why;
+          return el;
+        };
+        // Several chapters per axis rather than two. The paper has grown past
+        // the point where one pointer and a follow-up covers an observation.
+        a.reads.forEach((r, i) => {
+          reads.appendChild(link(r.slug, r.why, i === 0 ? 'Start here' : 'Then', i > 0));
+        });
+
+        li.appendChild(h3);
+        li.appendChild(why);
+        li.appendChild(move);
+        li.appendChild(reads);
+        ol.appendChild(li);
+      });
+
+      const sup = $('suppressed');
+      sup.innerHTML = '';
+      if (suppressed) {
+        const p = document.createElement('p');
+        p.className = 'assess-note';
+        p.style.marginTop = '1.4rem';
+        p.textContent =
+          'Technology and AI readiness scored low enough to appear here and has been held back deliberately: ' +
+          'scaling a capability that isn’t working produces more of what wasn’t working, faster. It returns ' +
+          'once ownership, guardrails and purpose are above 2.';
+        sup.appendChild(p);
+      }
+
+      const qaList = $('qaList');
+      qaList.innerHTML = '';
+      axes.forEach((a) => {
+        const li = document.createElement('li');
+        li.className = 'assess-qa-item';
+        const q = document.createElement('p');
+        q.className = 'assess-qa-q';
+        q.innerHTML = '<span class="dot k-bg-' + a.kpi + '"></span>' + a.q;
+        const ans = document.createElement('p');
+        ans.className = 'assess-qa-a';
+        const chosen = answers[a.id] || 1;
+        ans.innerHTML = '<span>Your answer</span>' + a.o[chosen - 1];
+        li.appendChild(q);
+        li.appendChild(ans);
+        qaList.appendChild(li);
+      });
+    }
+
+    function encode() { return axes.map((a) => answers[a.id] || 1).join(''); }
+    function decode(str) {
+      if (!new RegExp('^[1-4]{' + axes.length + '}$').test(str)) return false;
+      axes.forEach((a, i) => (answers[a.id] = +str[i]));
+      return true;
+    }
+
+    function showResults(shared) {
+      $('intro').hidden = true;
+      $('quiz').hidden = true;
+      $('results').hidden = false;
+      $('banner').hidden = !shared;
+      if (!shared) history.replaceState(null, '', '#r=' + encode());
+      render();
+
+      const url = location.origin + location.pathname + '#r=' + encode();
+      $('shareurl').value = url;
+      $('copy').onclick = async () => {
+        try { await navigator.clipboard.writeText(url); } catch (e) { $('shareurl').select(); }
+        $('copy').textContent = 'Copied';
+        setTimeout(() => ($('copy').textContent = 'Copy link'), 2200);
+      };
+      $('printResult').onclick = () => window.print();
+
+      // Opens the reader's own mail client with a draft. Nothing leaves the
+      // browser until they press send, and every line is editable first.
+      $('emailResult').onclick = () => {
+        const stood = [...$('stood').querySelectorAll('li')].map((li) => '- ' + li.textContent);
+        const notes = [
+          ['Not captured by the questions', $('noteMissed').value.trim()],
+          ['Recurring pattern that slows work down', $('notePattern').value.trim()],
+          ['What surprised me', $('noteSurprise').value.trim()],
+        ].filter(([, v]) => v);
+
+        const body = [
+          'Overall: ' + $('totalVerdict').textContent,
+          '',
+          'What stood out',
+          ...stood,
+          '',
+          ...(notes.length ? ['My own observations', ...notes.map(([k, v]) => k + ': ' + v), ''] : []),
+          'Result: ' + url,
+          '',
+          '— Anything here can be edited or deleted before sending.',
+        ].join('\n');
+
+        window.location.href =
+          'mailto:christoffer.rasten@troi.se' +
+          '?subject=' + encodeURIComponent('An observation on Organizational Flow') +
+          '&body=' + encodeURIComponent(body);
+      };
+
+      window.scrollTo(0, 0);
+      if (typeof window.cronitor === 'function') window.cronitor('track', 'Self-Assessment Completed');
+    }
+
+    function reset() {
+      history.replaceState(null, '', location.pathname);
+      answers = {}; idx = 0;
+      $('results').hidden = true;
+      $('banner').hidden = true;
+      $('intro').hidden = false;
+      window.scrollTo(0, 0);
+    }
+
+    $('start').onclick = () => {
+      $('intro').hidden = true;
+      $('quiz').hidden = false;
+      renderQ();
+    };
+    $('back').onclick = () => { if (idx > 0) { idx--; renderQ(); } };
+    $('restart').onclick = reset;
+    $('own').onclick = reset;
+
+    // A collapsed <details> prints empty — force it open for the duration of
+    // printing, whether triggered by the button or Cmd+P directly, and put
+    // it back the way the reader had it once the print dialog closes.
+    let qaWasOpen = false;
+    window.addEventListener('beforeprint', () => {
+      qaWasOpen = $('qaDetail').open;
+      $('qaDetail').open = true;
+    });
+    window.addEventListener('afterprint', () => { $('qaDetail').open = qaWasOpen; });
+
+    const m = location.hash.match(new RegExp('^#r=([1-4]{' + axes.length + '})$'));
+    if (m && decode(m[1])) showResults(true);
+  })();
+</script>
+
+<style>
+  .assess h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(1.9rem, 4vw, 2.6rem);
+    line-height: 1.15;
+    margin: 0 0 1.1rem;
+    text-wrap: balance;
+  }
+  .assess h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.4rem;
+    margin: 3rem 0 0.4rem;
+  }
+  .assess-lede {
+    color: var(--bark);
+    font-size: 1.05rem;
+  }
+  .assess-note {
+    color: var(--bark);
+    font-size: 0.88rem;
+    font-style: italic;
+  }
+  .assess-subhead {
+    color: var(--bark);
+    font-size: 0.92rem;
+    margin: 0 0 1.4rem;
+  }
+
+  .assess-btn {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: none;
+    border: 1px solid var(--bark);
+    border-radius: 2rem;
+    padding: 0.8rem 1.8rem;
+    cursor: pointer;
+    transition: color .18s ease, border-color .18s ease, background .18s ease;
+  }
+  .assess-btn:hover {
+    color: var(--moss);
+    border-color: var(--moss);
+  }
+  .assess-btn.ghost {
+    border-color: var(--mist);
+    color: var(--bark);
+    padding: 0.6rem 1.3rem;
+  }
+  .assess-btn.ghost:hover { color: var(--ink); border-color: var(--bark); }
+  .assess-btn.small { padding: 0.35rem 1rem; margin-left: 0.5rem; }
+
+  /* progress */
+  .assess-prog { display: flex; gap: 3px; margin: 0 0 2.4rem; }
+  .assess-prog i { height: 2px; flex: 1; background: var(--mist); transition: background .3s ease, height .3s ease; }
+  /* The question being answered right now — visible without being counted
+     as done, since the counter only tallies answers. */
+  .assess-prog i.at { height: 4px; margin-top: -1px; background: var(--bark); }
+
+  .assess-qmeta {
+    display: flex; justify-content: space-between; align-items: baseline;
+    gap: 1rem; flex-wrap: wrap;
+  }
+  .assess-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--bark);
+  }
+  .assess-qtext {
+    font-family: 'Fraunces', serif;
+    font-size: 1.5rem; line-height: 1.32; font-weight: 500;
+    margin: 0.7rem 0 2rem; max-width: 32rem;
+  }
+  .assess-opts { display: flex; flex-direction: column; gap: 0.55rem; margin-bottom: 2.2rem; }
+  .assess-nav { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+
+  /* Options, KPI cards, priorities and the radar are all built at runtime,
+     so they never receive Astro's scoping attribute — these rules have to be
+     :global, anchored to the static containers they're injected into. */
+  #qopts :global(.assess-opt) {
+    position: relative;
+    text-align: left;
+    border: 1px solid var(--mist);
+    border-radius: 0.4rem;
+    background: var(--card);
+    padding: 0.95rem 1.2rem 0.95rem 2.7rem;
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 0.98rem;
+    line-height: 1.45;
+    color: var(--bark);
+    cursor: pointer;
+    transition: border-color .16s ease, color .16s ease;
+  }
+  #qopts :global(.assess-opt::before) {
+    content: "";
+    position: absolute; left: 1.15rem; top: 1.35rem;
+    width: 0.62rem; height: 0.62rem;
+    border: 1px solid var(--bark);
+    border-radius: 50%;
+    transition: background .16s ease, border-color .16s ease;
+  }
+  #qopts :global(.assess-opt:hover) { border-color: var(--bark); color: var(--ink); }
+  #qopts :global(.assess-opt.sel) { color: var(--ink); border-color: currentColor; }
+  #qopts :global(.assess-opt.sel::before) { background: currentColor; border-color: currentColor; }
+
+  .assess-chart-wrap { margin: 1.8rem 0 0.4rem; display: flex; justify-content: center; }
+  .assess-chart-wrap svg { width: 100%; max-width: 520px; height: auto; overflow: visible; }
+  #radar :global(.ring) { fill: none; stroke: var(--mist); stroke-width: 0.6; }
+  #radar :global(.ring.outer) { stroke-width: 1; }
+  #radar :global(.spoke) { stroke: var(--mist); stroke-width: 0.5; }
+  #radar :global(.spoke.anchor) { stroke-width: 1; }
+  #radar :global(.sector) { fill: none; stroke-width: 2; stroke-linecap: round; opacity: .85; }
+  #radar :global(.value-poly) {
+    fill: var(--moss); fill-opacity: .32;
+    stroke: var(--moss); stroke-width: 1.1; stroke-opacity: .8; stroke-linejoin: round;
+  }
+  #radar :global(.sectorlab) {
+    font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase;
+  }
+  #radar :global(.spokelab) {
+    font-family: 'Space Mono', monospace; font-size: 8.5px; letter-spacing: .09em;
+    text-transform: uppercase; fill: var(--bark);
+  }
+  #radar :global(.spokelab.anchor) { fill: var(--ink); }
+
+  .assess-share {
+    display: flex; gap: 0.7rem; align-items: center; flex-wrap: wrap;
+    margin: 1.6rem 0 0.6rem; padding: 1rem 1.2rem;
+    border: 1px solid var(--mist); border-radius: 0.45rem; background: var(--card);
+  }
+  .assess-share-label {
+    font-family: 'Space Mono', monospace; font-size: 0.63rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--bark); flex: 1 1 100%;
+  }
+  .assess-share input {
+    flex: 1 1 14rem; min-width: 0;
+    font-family: 'Space Mono', monospace; font-size: 0.78rem;
+    background: var(--paper); color: var(--bark);
+    border: 1px solid var(--mist); border-radius: 0.3rem; padding: 0.55rem 0.7rem;
+  }
+  .assess-share .assess-btn { padding: 0.55rem 1.2rem; }
+
+  .assess-banner {
+    border: 1px solid var(--mist); border-left: 3px solid var(--moss);
+    border-radius: 0.4rem; padding: 0.9rem 1.2rem; margin: 0 0 2rem;
+    color: var(--bark); font-size: 0.94rem;
+  }
+
+  /* One position against all fourteen conditions, ahead of the five that
+     make it up — the number the assessment exists to produce. */
+  .assess-total { margin: 0 0 0.4rem; }
+  .assess-total-state {
+    font-family: 'Fraunces', serif; font-weight: 500;
+    font-size: clamp(1.6rem, 4.5vw, 2.2rem); line-height: 1.15;
+    margin: 0 0 0.6rem; text-transform: none; letter-spacing: 0;
+  }
+  .assess-total-verdict {
+    font-family: 'Space Mono', monospace; font-size: 0.68rem; letter-spacing: 0.12em;
+    text-transform: uppercase; margin: 0 0 0.4rem;
+  }
+
+  .assess-kpis { display: grid; gap: 1rem; margin: 1.2rem 0 0; }
+  #kpis :global(.assess-kpi) {
+    border: 1px solid var(--mist); border-left-width: 4px;
+    border-radius: 0.4rem; background: var(--card); padding: 1.1rem 1.3rem;
+  }
+  #kpis :global(.assess-kpi-head) {
+    display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+  }
+  #kpis :global(.assess-kpi h3) {
+    font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 500; margin: 0 0 0.15rem;
+  }
+  #kpis :global(.assess-kpi-q) { color: var(--bark); font-size: 0.88rem; margin: 0; }
+  #kpis :global(.assess-kpi-score) {
+    display: flex; flex-direction: column; align-items: flex-end; gap: 0.25rem; text-align: right;
+  }
+  #kpis :global(.assess-kpi-score .verdict) {
+    font-family: 'Fraunces', serif; font-size: 1.05rem; line-height: 1.2; max-width: 9rem;
+  }
+
+  /* The chapters that make up this indicator in Part II — one condition,
+     read from wherever the paper actually describes it, which is rarely
+     just one chapter. */
+
+  .assess-pri { list-style: none; counter-reset: p; padding: 0; margin: 1.2rem 0 0; }
+  #pri :global(li) {
+    counter-increment: p;
+    border-top: 1px solid var(--mist);
+    padding: 1.3rem 0 1.4rem 3rem;
+    position: relative;
+  }
+  #pri :global(li::before) {
+    content: counter(p);
+    position: absolute; left: 0; top: 1.55rem;
+    font-family: 'Space Mono', monospace; font-size: 0.78rem; color: var(--bark);
+  }
+  #pri :global(li h3) {
+    font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 500; margin: 0 0 0.2rem;
+  }
+  #pri :global(.assess-why) {
+    color: var(--bark); font-size: 0.9rem; margin: 0 0 0.7rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  #pri :global(.assess-why .dot) {
+    width: 0.5rem; height: 0.5rem; border-radius: 50%; display: inline-block; flex: none;
+  }
+  #pri :global(.assess-move) {
+    border-left: 2px solid var(--mist); padding-left: 0.9rem; font-size: 0.96rem;
+  }
+  #pri :global(.assess-move span) {
+    display: block;
+    font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--bark); margin-bottom: 0.25rem;
+  }
+
+  #pri :global(.assess-reads) { display: grid; gap: 0.5rem; margin-top: 0.9rem; }
+  #pri :global(.assess-read) {
+    display: block;
+    padding: 0.75rem 0.95rem;
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid var(--mist);
+    border-radius: 0.4rem;
+    background: var(--card);
+    transition: border-color .16s ease;
+  }
+  #pri :global(.assess-read:hover) { border-color: var(--bark); }
+  #pri :global(.assess-read.second) { border-style: dashed; }
+  #pri :global(.rd-ch) {
+    display: block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--bark);
+    margin-bottom: 0.15rem;
+  }
+  #pri :global(.rd-ti) { display: block; font-family: 'Fraunces', serif; font-size: 1rem; }
+  #pri :global(.assess-read.second .rd-ti) { font-size: 0.95rem; }
+  #pri :global(.rd-ti::after) { content: ' \2192'; color: var(--bark); }
+  #pri :global(.rd-wh) {
+    display: block;
+    color: var(--bark);
+    font-size: 0.9rem;
+    margin-top: 0.2rem;
+    line-height: 1.45;
+  }
+
+  /* Collapsed by default on screen — eighteen Q&A pairs is reference
+     material, not something every visitor needs open. Forced open by JS
+     for the duration of printing, since a collapsed <details> prints empty. */
+  .assess-qa-detail {
+    margin: 2.4rem 0 0;
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--mist);
+  }
+  .assess-qa-detail summary {
+    cursor: pointer;
+    list-style: none;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--bark);
+  }
+  .assess-qa-detail summary::-webkit-details-marker { display: none; }
+  .assess-qa-detail summary::before { content: "▸ "; }
+  .assess-qa-detail[open] summary::before { content: "▾ "; }
+  .assess-qa-detail summary:hover { color: var(--ink); }
+  .assess-qa-list { list-style: none; padding: 0; margin: 1.2rem 0 0; }
+  /* Rows and their contents are built by the script above via
+     document.createElement — Astro's scoped-CSS attribute only reaches
+     elements present in this file's own template, never anything created
+     at runtime, so these need :global() the same way #kpis/#pri do above. */
+  #qaList :global(.assess-qa-item) {
+    padding: 0.9rem 0;
+    border-top: 1px solid var(--mist);
+  }
+  #qaList :global(.assess-qa-item:last-child) { padding-bottom: 0; }
+  #qaList :global(.assess-qa-q) {
+    margin: 0 0 0.4rem;
+    font-family: 'Fraunces', serif;
+    font-size: 0.98rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+  #qaList :global(.assess-qa-q .dot) {
+    width: 0.5rem; height: 0.5rem; border-radius: 50%; flex: none;
+  }
+  #qaList :global(.assess-qa-a) {
+    margin: 0;
+    padding-left: 1rem;
+    font-size: 0.92rem;
+    color: var(--bark);
+  }
+  #qaList :global(.assess-qa-a span) {
+    display: block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.2rem;
+  }
+
+  @media print {
+    .assess-btn, .assess-share, #printResult, .chapter-jump, .chapter-nav,
+    .assess-qa-detail summary { display: none !important; }
+    .assess-consult { display: none !important; }
+  }
+
+  .assess-consult {
+    margin: 3rem 0 0; padding: 1.8rem;
+    border: 1px solid var(--mist); border-radius: 0.5rem; background: var(--card);
+  }
+  /* Sharing and printing are housekeeping, not part of the reading — they sit
+     at the end rather than interrupting the report on the way down. */
+  .assess-keep { margin: 2.4rem 0 0; }
+  .assess-keep .assess-note { text-align: left; }
+  .assess-consult p { font-size: 0.94rem; line-height: 1.55; margin: 0 0 1.1rem; }
+  .assess-consult-link {
+    display: inline-block;
+    font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--paper); background: var(--moss);
+    text-decoration: none; border-radius: 2rem; padding: 0.7rem 1.6rem;
+  }
+
+  /* Observations and the closing prompts — deliberately plainer than the
+     indicator cards, because they are the part that is least like a score. */
+  .assess-stood {
+    list-style: none;
+    padding: 0;
+    margin: 1.2rem 0 0;
+    max-width: var(--max);
+  }
+  .assess-stood li {
+    position: relative;
+    padding: 0 0 0 1.4rem;
+    margin: 0 0 0.9rem;
+    color: var(--bark);
+    line-height: 1.55;
+  }
+  .assess-stood li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 0.42rem;
+    height: 0.42rem;
+    border-radius: 50%;
+    background: var(--moss);
+    opacity: 0.55;
+  }
+  .assess-next li::before { border-radius: 0; opacity: 0.4; }
+
+  .assess-notes {
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+    margin: 1.4rem 0 0;
+    max-width: var(--max);
+  }
+  .assess-notes label { display: block; }
+  .assess-notes span {
+    display: block;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 0.86rem;
+    color: var(--bark);
+    margin-bottom: 0.45rem;
+  }
+  .assess-notes textarea {
+    width: 100%;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: inherit;
+    background: transparent;
+    border: 1px solid var(--mist);
+    border-radius: 4px;
+    padding: 0.6rem 0.7rem;
+    resize: vertical;
+  }
+  .assess-notes textarea:focus {
+    outline: none;
+    border-color: var(--moss);
+  }
+  .assess-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    margin: 1.2rem 0 0;
+  }
+  /* An empty textarea prints as an empty box, which reads like a mistake. */
+  @media print {
+    .assess-notes textarea { border: none; padding: 0; }
+    .assess-actions { display: none; }
+  }
+
+  /* indicator accents */
+  .assess-prog i.k-own.on { background: var(--kpi-own); }
+  .assess-prog i.k-hand.on { background: var(--kpi-hand); }
+  .assess-prog i.k-dec.on { background: var(--kpi-dec); }
+  .assess-prog i.k-learn.on { background: var(--kpi-learn); }
+  .assess-prog i.k-value.on { background: var(--kpi-value); }
+
+  /* Which half of the proposition the indicator moves, under its question. */
+  .assess-kpi-half {
+    margin: 0.5rem 0 0;
+    font-size: 0.86rem;
+    line-height: 1.55;
+    color: var(--bark);
+    max-width: 30rem;
+  }
+  .assess-kpi-halftag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-right: 0.35rem;
+  }
+
+  .k-text-own, #qopts :global(.k-text-own), #kpis :global(.k-text-own) { color: var(--kpi-own); }
+  .k-text-hand, #qopts :global(.k-text-hand), #kpis :global(.k-text-hand) { color: var(--kpi-hand); }
+  .k-text-dec, #qopts :global(.k-text-dec), #kpis :global(.k-text-dec) { color: var(--kpi-dec); }
+  .k-text-learn, #qopts :global(.k-text-learn), #kpis :global(.k-text-learn) { color: var(--kpi-learn); }
+  .k-text-value, #qopts :global(.k-text-value), #kpis :global(.k-text-value) { color: var(--kpi-value); }
+
+  #kpis :global(.k-border-own) { border-left-color: var(--kpi-own); }
+  #kpis :global(.k-border-hand) { border-left-color: var(--kpi-hand); }
+  #kpis :global(.k-border-dec) { border-left-color: var(--kpi-dec); }
+  #kpis :global(.k-border-learn) { border-left-color: var(--kpi-learn); }
+  #kpis :global(.k-border-value) { border-left-color: var(--kpi-value); }
+
+  #pri :global(.k-bg-own), #qaList :global(.k-bg-own) { background: var(--kpi-own); }
+  #pri :global(.k-bg-hand), #qaList :global(.k-bg-hand) { background: var(--kpi-hand); }
+  #pri :global(.k-bg-dec), #qaList :global(.k-bg-dec) { background: var(--kpi-dec); }
+  #pri :global(.k-bg-learn), #qaList :global(.k-bg-learn) { background: var(--kpi-learn); }
+  #pri :global(.k-bg-value), #qaList :global(.k-bg-value) { background: var(--kpi-value); }
+
+  #radar :global(.k-stroke-own) { stroke: var(--kpi-own); }
+  #radar :global(.k-stroke-hand) { stroke: var(--kpi-hand); }
+  #radar :global(.k-stroke-dec) { stroke: var(--kpi-dec); }
+  #radar :global(.k-stroke-learn) { stroke: var(--kpi-learn); }
+  #radar :global(.k-stroke-value) { stroke: var(--kpi-value); }
+  #radar :global(.k-fill-own) { fill: var(--kpi-own); }
+  #radar :global(.k-fill-hand) { fill: var(--kpi-hand); }
+  #radar :global(.k-fill-dec) { fill: var(--kpi-dec); }
+  #radar :global(.k-fill-learn) { fill: var(--kpi-learn); }
+  #radar :global(.k-fill-value) { fill: var(--kpi-value); }
+
+  @media (max-width: 560px) {
+    .assess-qtext { font-size: 1.25rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .assess-prog i, #qopts :global(.assess-opt) { transition: none; }
+  }
+</style>

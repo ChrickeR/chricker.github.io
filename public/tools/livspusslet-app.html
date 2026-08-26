@@ -1,0 +1,794 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><title>Livspusslet — prototype</title><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found]){display:none!important}</style></head><body>
+<title>Livspusslet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#faf8f4; --panel:#fffefb; --sunk:#f3efe7; --ink:#1c1a16; --soft:#5d574c; --faint:#8d8577;
+  --line:#e6e0d4; --hair:#efeae0; --accent:#2f6f5e; --accent-soft:#e4efea; --warm:#b45f24; --warm-soft:#fbeee2;
+  --gold:#a8792c; --alert:#b3372c;
+  --resa:#3f6ea8; --fest:#8a5090; --hem:#8a6a3a; --present:#b45f24; --halsa:#2f6f5e;
+  --serif:'Source Serif 4','Iowan Old Style',Charter,Georgia,serif;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --mono:ui-monospace,'SF Mono',SFMono-Regular,Menlo,monospace;
+  --shadow:0 1px 2px rgba(28,26,22,.04), 0 8px 24px -16px rgba(28,26,22,.18);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#15140f; --panel:#1d1b16; --sunk:#232019; --ink:#efeade; --soft:#b3aa99; --faint:#8a8272;
+    --line:#332f26; --hair:#2a271f; --accent:#63b598; --accent-soft:#1b2b25; --warm:#dd925c; --warm-soft:#2c2015;
+    --gold:#d7ab5c; --alert:#e2786c; --resa:#7ba5d8; --fest:#c08cc6; --hem:#c2a06a; --present:#dd925c; --halsa:#63b598;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px -18px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#15140f; --panel:#1d1b16; --sunk:#232019; --ink:#efeade; --soft:#b3aa99; --faint:#8a8272;
+  --line:#332f26; --hair:#2a271f; --accent:#63b598; --accent-soft:#1b2b25; --warm:#dd925c; --warm-soft:#2c2015;
+  --gold:#d7ab5c; --alert:#e2786c; --resa:#7ba5d8; --fest:#c08cc6; --hem:#c2a06a; --present:#dd925c; --halsa:#63b598;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px -18px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
+::selection{background:var(--accent);color:#fff}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+
+.topbar{position:sticky;top:0;z-index:40;background:var(--panel);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:76rem;margin:0 auto;padding:.8rem 1.25rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.brand{display:flex;align-items:baseline;gap:.55rem}
+.brand b{font-family:var(--serif);font-size:1.2rem;font-weight:600;letter-spacing:-.01em}
+.brand span{font-size:.76rem;color:var(--faint)}
+.tabs{display:flex;gap:.15rem;margin-left:.5rem;flex-wrap:wrap}
+.tab{font:inherit;font-size:.88rem;padding:.42rem .75rem;border-radius:99px;border:none;background:none;
+  color:var(--soft);cursor:pointer;white-space:nowrap}
+.tab:hover{background:var(--sunk);color:var(--ink)}
+.tab.on{background:var(--accent);color:#fff;font-weight:600}
+.who{margin-left:auto;position:relative}
+.whochip{display:flex;align-items:center;gap:.4rem;padding:.28rem .65rem .28rem .28rem;border-radius:99px;
+  border:1px solid var(--line);background:var(--panel);color:var(--soft);font-size:.86rem;cursor:pointer;list-style:none}
+.whochip::-webkit-details-marker{display:none}
+.who[open] .whochip{border-color:var(--accent);color:var(--ink)}
+.avatar{width:1.6rem;height:1.6rem;border-radius:50%;background:var(--accent-soft);color:var(--accent);
+  display:grid;place-items:center;font-size:.72rem;font-weight:700;flex:0 0 auto}
+.caret{color:var(--faint);font-size:.68rem}
+.whopanel{position:absolute;right:0;top:calc(100% + .4rem);min-width:13.5rem;background:var(--panel);
+  border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:.4rem;z-index:50}
+.whohead{font-family:var(--mono);font-size:.62rem;letter-spacing:.11em;text-transform:uppercase;color:var(--faint);
+  margin:.3rem .55rem .35rem}
+.wpbtn{display:flex;align-items:center;gap:.5rem;width:100%;text-align:left;font:inherit;font-size:.9rem;
+  padding:.42rem .55rem;border:none;border-radius:8px;background:none;color:var(--ink);cursor:pointer}
+.wpbtn:hover{background:var(--sunk)}
+.wpbtn small{display:block;font-size:.74rem;color:var(--faint);font-weight:400}
+
+.protobar{background:var(--warm-soft);color:var(--warm);font-size:.82rem;text-align:center;padding:.5rem 1rem}
+.protobar b{font-weight:700}
+
+.wrap{max-width:76rem;margin:0 auto;padding:2rem 1.25rem 5rem}
+.view{display:none}
+.view.on{display:block;animation:fade .25s ease}
+@media (prefers-reduced-motion:reduce){.view.on{animation:none}}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+.eyebrow{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 .4rem}
+h1{font-family:var(--serif);font-weight:600;letter-spacing:-.015em;font-size:clamp(1.7rem,3.6vw,2.3rem);
+  line-height:1.08;margin:0 0 .4rem;text-wrap:balance}
+.lede{color:var(--soft);margin:0 0 1.75rem;max-width:58ch;font-size:1rem}
+h2{font-size:1.08rem;margin:2.1rem 0 .7rem;letter-spacing:-.008em;font-weight:650}
+h3{font-size:.98rem;margin:0 0 .3rem;font-weight:650}
+.section-note{color:var(--faint);font-size:.85rem;margin:-.4rem 0 1rem;max-width:60ch}
+.headrow{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin:2rem 0 .7rem}
+.headrow h2{margin:0}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));gap:.8rem;margin:0 0 1.8rem}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:.8rem .9rem}
+.stat .k{font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);display:block;margin-bottom:.3rem}
+.stat .v{font-family:var(--serif);font-size:1.55rem;line-height:1;font-weight:600}
+.stat .u{font-size:.8rem;color:var(--soft);margin-left:.25rem}
+
+.grid{display:grid;gap:.8rem}
+.g2{grid-template-columns:repeat(auto-fit,minmax(17rem,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(13rem,1fr))}
+@media (max-width:40rem){.g2,.g3{grid-template-columns:1fr}}
+
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:.9rem 1rem;box-shadow:var(--shadow)}
+.card.flat{box-shadow:none}
+.rail{border-left:3px solid var(--line)}
+.rail.nu{border-left-color:var(--alert)}
+.rail.warn{border-left-color:var(--warm)}
+.card h3{display:flex;align-items:baseline;gap:.5rem;flex-wrap:wrap}
+.card p{margin:.3rem 0 0;color:var(--soft);font-size:.9rem}
+.faint{color:var(--faint);font-size:.83rem}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:.85rem}
+
+.pill{display:inline-flex;align-items:center;gap:.3rem;font-size:.71rem;padding:.15rem .55rem;border-radius:99px;
+  background:var(--sunk);border:1px solid var(--line);color:var(--soft);white-space:nowrap;font-weight:500}
+.pill.on{background:var(--accent);border-color:transparent;color:#fff}
+.pill.warm{background:var(--warm-soft);border-color:transparent;color:var(--warm)}
+.pill.cat-resa{color:var(--resa)} .pill.cat-fest{color:var(--fest)} .pill.cat-hem{color:var(--hem)}
+.pill.cat-present{color:var(--present)} .pill.cat-halsa{color:var(--halsa)}
+
+.btn{font:inherit;font-size:.85rem;padding:.42rem .8rem;border-radius:8px;cursor:pointer;border:1px solid var(--line);
+  background:var(--panel);color:var(--ink);text-decoration:none;display:inline-flex;align-items:center;gap:.4rem}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:transparent;color:#fff;font-weight:600}
+.btn.primary:hover{filter:brightness(1.08);color:#fff}
+.btn.ghost{background:none;border-color:transparent;color:var(--faint)}
+.btn.ghost:hover{color:var(--alert)}
+.btn[disabled]{opacity:.45;cursor:default;pointer-events:none}
+.actions{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin-top:.7rem}
+
+.banner{border-radius:12px;padding:.75rem 1rem;margin:0 0 1.4rem;font-size:.9rem;border:1px solid var(--line);background:var(--panel)}
+.banner.ok{background:var(--accent-soft);border-color:transparent}
+.banner.warn{background:var(--warm-soft);border-color:transparent;color:var(--warm)}
+
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+table{width:100%;border-collapse:collapse;font-size:.87rem;min-width:34rem}
+th,td{text-align:left;padding:.6rem .8rem;border-bottom:1px solid var(--hair);vertical-align:top}
+th{font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);
+  font-weight:500;background:var(--sunk)}
+tbody tr:last-child td{border-bottom:none}
+.right{text-align:right}
+td.right,th.right{white-space:nowrap}
+
+.split{display:grid;grid-template-columns:minmax(0,1fr) 20rem;gap:1.4rem;align-items:start}
+@media (max-width:58rem){.split{grid-template-columns:1fr}}
+
+.wheelbox{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:1rem;box-shadow:var(--shadow)}
+.wheelbox svg{display:block;width:100%;height:auto;max-width:32rem;margin:0 auto}
+.legend{display:flex;flex-wrap:wrap;gap:.35rem .8rem;margin-top:.8rem;font-size:.75rem;color:var(--soft);justify-content:center}
+.legend i{width:.6rem;height:.6rem;border-radius:3px;display:inline-block;margin-right:.3rem;vertical-align:-1px}
+.w-lbl{font-family:var(--sans);font-size:10px;fill:var(--faint)}
+.w-ctr-k{font-family:var(--mono);font-size:9px;letter-spacing:.1em;fill:var(--faint)}
+.w-ctr-v{font-family:var(--serif);font-size:22px;font-weight:600;fill:var(--ink)}
+.w-ctr-s{font-family:var(--sans);font-size:10px;fill:var(--soft)}
+
+.week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:.6rem}
+@media (max-width:56rem){.week{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:28rem){.week{grid-template-columns:1fr}}
+.day{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:.6rem .65rem;
+  display:flex;flex-direction:column;gap:.35rem;min-height:8.5rem}
+.day.today{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.day .dn{font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);display:flex;justify-content:space-between}
+.day .meal{font-size:.87rem;font-weight:600;line-height:1.3}
+.day .veg{color:var(--accent)}
+
+.wishlist-note{font-size:.85rem;color:var(--soft);background:var(--sunk);border-radius:8px;padding:.5rem .7rem;margin-top:.5rem}
+ul.gifts{margin:.3rem 0 0;padding-left:1.1rem;font-size:.87rem}
+ul.gifts li{margin-bottom:.25rem}
+ul.gifts li.bought{color:var(--faint);text-decoration:line-through}
+
+.slot{border-bottom:1px solid var(--hair);padding:.5rem 0}
+.slot:last-child{border-bottom:none}
+.slot.done{opacity:.45}
+.slot.done .slot-t{text-decoration:line-through}
+.slot-t{font-size:.87rem;font-weight:600}
+.slot-w{display:flex;gap:.3rem;align-items:center;flex-wrap:wrap;font-size:.76rem;margin-top:.15rem}
+.who-chip{display:inline-flex;padding:.1rem .45rem;border-radius:99px;background:var(--accent-soft);
+  color:var(--accent);font-size:.73rem;font-weight:600}
+
+footer{margin-top:3.5rem;padding-top:1.2rem;border-top:1px solid var(--line);font-family:var(--mono);
+  font-size:.72rem;color:var(--faint);display:flex;gap:1rem;flex-wrap:wrap;justify-content:space-between}
+
+/* segmented control — Träning veckoval, Semester skollovsläge, Kalender personfilter */
+.seg{display:inline-flex;align-items:center;gap:.15rem;padding:.2rem;border:1px solid var(--line);
+  border-radius:99px;background:var(--sunk)}
+.seg button{font:inherit;font-size:.8rem;padding:.32rem .7rem;border-radius:99px;border:none;
+  background:none;color:var(--soft);cursor:pointer}
+.seg button:hover{color:var(--ink)}
+.seg button.on{background:var(--panel);color:var(--ink);font-weight:600;box-shadow:var(--shadow)}
+.seg-label{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--faint);padding:0 .4rem}
+
+/* Semester — utväxlingsläge */
+.win{display:grid;grid-template-columns:auto 1fr auto;gap:.8rem;align-items:center;padding:.7rem .85rem;
+  border:1px solid var(--line);border-radius:11px;background:var(--panel);margin-bottom:.55rem}
+.win .lev{font-family:var(--serif);font-size:1.3rem;font-weight:600;color:var(--accent);line-height:1;
+  text-align:center;min-width:3.2rem}
+.win .lev small{display:block;font-family:var(--mono);font-size:.56rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--faint);font-weight:400;margin-top:.2rem}
+.win .txt strong{display:block;font-size:.92rem}
+@media (max-width:34rem){.win{grid-template-columns:auto 1fr}.win .btn{grid-column:1/-1}}
+
+/* Träning — veckoschema + utveckling */
+.tsess{border-bottom:1px solid var(--hair);padding-bottom:.4rem;margin-bottom:.4rem}
+.tsess:last-child{border:none;margin:0;padding:0}
+.tsess.done{opacity:.5}
+.tsess.done .tt{text-decoration:line-through}
+.tt{font-size:.85rem;font-weight:600}
+
+/* Kalender — agenda */
+.agenda{display:flex;flex-direction:column;gap:.1rem}
+.ag-day{display:grid;grid-template-columns:5rem 1fr;gap:.8rem;padding:.55rem 0;border-bottom:1px solid var(--hair)}
+.ag-day:last-child{border-bottom:none}
+.ag-date{font-family:var(--mono);font-size:.74rem;color:var(--faint)}
+.ag-date b{display:block;font-family:var(--serif);font-size:1.05rem;color:var(--ink);font-weight:600}
+.ag-items{display:flex;flex-direction:column;gap:.3rem}
+.ag-item{display:flex;gap:.45rem;align-items:baseline;font-size:.88rem}
+.ag-item .ic{flex:0 0 1.1rem;text-align:center}
+.ag-item .tm{font-family:var(--mono);font-size:.74rem;color:var(--faint)}
+.ag-item[hidden]{display:none}
+
+/* Upptäck — förslagskort */
+.sug h3{font-size:.98rem}
+.sug-meta{display:flex;flex-wrap:wrap;gap:.3rem;align-items:center;margin:.3rem 0 .5rem!important;
+  font-size:.83rem;color:var(--soft)}
+.sug-facts{display:grid;grid-template-columns:max-content 1fr;gap:.05rem .7rem;margin:.1rem 0 .55rem;
+  align-items:baseline}
+.sug-facts dt{font-family:var(--mono);font-size:.6rem;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--faint)}
+.sug-facts dd{margin:0;font-size:.86rem}
+.sug-facts dd.dl{color:var(--warm);font-weight:600}
+.sug.saved{opacity:.55}
+</style>
+
+<div class="topbar">
+  <div class="topbar-in">
+    <div class="brand"><b>Livspusslet</b><span>Familjen Berg</span></div>
+    <nav class="tabs" id="tabs">
+      <button class="tab on" data-tab="oversikt">Översikt</button>
+      <button class="tab" data-tab="aret">Året</button>
+      <button class="tab" data-tab="familj">Familj</button>
+      <button class="tab" data-tab="radet">Rådet</button>
+      <button class="tab" data-tab="traning">Träning</button>
+      <button class="tab" data-tab="semester">Semester</button>
+      <button class="tab" data-tab="mat">Mat</button>
+      <button class="tab" data-tab="budget">Budget</button>
+      <button class="tab" data-tab="kalender">Kalender</button>
+      <button class="tab" data-tab="upptack">Upptäck</button>
+    </nav>
+    <details class="who" id="who">
+      <summary class="whochip"><span class="avatar" id="wAvatar">?</span><span id="wLabel">Välj profil</span><span class="caret">▾</span></summary>
+      <div class="whopanel">
+        <p class="whohead">Byt till</p>
+        <button class="wpbtn" data-person="Anna" data-init="A"><span class="avatar">A</span><span>Anna<small>partner</small></span></button>
+        <button class="wpbtn" data-person="Erik" data-init="E"><span class="avatar">E</span><span>Erik<small>partner</small></span></button>
+        <button class="wpbtn" data-person="Elsa" data-init="El"><span class="avatar">El</span><span>Elsa<small>barn</small></span></button>
+        <button class="wpbtn" data-person="Vidar" data-init="V"><span class="avatar">V</span><span>Vidar<small>barn</small></span></button>
+      </div>
+    </details>
+  </div>
+</div>
+<div class="protobar">Interaktiv prototyp · exempeldata för <b>Familjen Berg</b> · ingenting sparas</div>
+
+<main class="wrap">
+
+<!-- ÖVERSIKT -->
+<section class="view on" id="v-oversikt">
+  <p class="eyebrow">Vecka 35</p>
+  <h1>Det här behöver din uppmärksamhet</h1>
+  <p class="lede">Allt som är på väg, sorterat efter hur brådskande det är att göra något åt det.</p>
+  <div class="stats">
+    <div class="stat"><span class="k">Vecka</span><span class="v">35</span></div>
+    <div class="stat"><span class="k">Att göra nu</span><span class="v">5</span></div>
+    <div class="stat"><span class="k">Semesterdagar kvar</span><span class="v">27</span><span class="u">av 30</span></div>
+    <div class="stat"><span class="k">Vego denna vecka</span><span class="v">3/3</span></div>
+    <div class="stat"><span class="k">Middagar inlagda</span><span class="v">5/7</span></div>
+  </div>
+
+  <h2>Nu</h2>
+  <p class="section-note">Sådant som inte tål att vänta till nästa vecka.</p>
+  <div class="grid g2">
+    <article class="card rail nu"><h3>Kulturskolan — cello <span class="pill">Aktivitet</span></h3>
+      <p>16:00 · Kulturskolan Enskede</p><p class="faint">27 augusti · idag</p></article>
+    <article class="card rail nu"><h3>Erik: Intervaller <span class="pill">Träning</span></h3>
+      <p>2,5 km · hård — 7 × 400 m i ansträngd fart, 90 s trav emellan.</p><p class="faint">27 augusti · idag</p></article>
+    <article class="card rail nu"><h3>Beställa ved till vintern <span class="pill">Årshjul</span></h3>
+      <p>Ved köpt i juni hinner torka. Köpt i november eldar man fuktigt hela säsongen.</p><p class="faint">Sista dag 31 augusti · om 4 dagar</p></article>
+    <article class="card rail nu"><h3>Boka sotning av fritidshuset <span class="pill">Årshjul</span></h3>
+      <p class="faint">Sista dag 1 september · om 5 dagar</p></article>
+  </div>
+
+  <h2>Snart</h2>
+  <p class="section-note">Fönstret är öppet. Det här är läget att börja, inte att bli klar.</p>
+  <div class="grid g2">
+    <article class="card rail warn"><h3>Anna: Helkropp C <span class="pill">Träning</span></h3>
+      <p>55 min · hård — Frontböj, chins, hantelpress — 3 × 10</p><p class="faint">28 augusti · imorgon</p></article>
+    <article class="card rail warn"><h3>Erik: Långpass <span class="pill">Träning</span></h3>
+      <p>5 km · lugn — långsammare än du tror. Det är hela poängen.</p><p class="faint">29 augusti · i övermorgon</p></article>
+    <article class="card rail warn"><h3>Planera nästa veckas middagar <span class="pill">Mat</span></h3>
+      <p>Inget inlagt ännu</p><p class="faint">31 augusti · om 4 dagar</p></article>
+  </div>
+</section>
+
+<!-- ÅRET -->
+<section class="view" id="v-aret">
+  <p class="eyebrow">Rullande tolv månader</p>
+  <h1>Årshjulet</h1>
+  <p class="lede">Allt som måste bokas i tid, ritat som ett rullande år från den här månaden. Varje båge börjar när det är värt att sätta igång och slutar när det är för sent.</p>
+  <div class="split">
+    <div class="wheelbox"><svg id="wheelSvg" viewBox="0 0 460 460" role="img" aria-label="Rullande årshjul augusti 2026 till juli 2027"></svg>
+      <div class="legend">
+        <span><i style="background:var(--resa)"></i>Resa</span>
+        <span><i style="background:var(--fest)"></i>Fest</span>
+        <span><i style="background:var(--hem)"></i>Hem</span>
+        <span><i style="background:var(--present)"></i>Present</span>
+        <span><i style="background:var(--halsa)"></i>Hälsa</span>
+        <span><i style="background:var(--alert)"></i>Röd dag &amp; idag</span>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="card"><h3>Beställa ved till vintern</h3>
+        <p>Sista dag 31 augusti. Ved köpt i juni hinner torka — köpt i november eldar man fuktigt hela säsongen.</p></div>
+      <div class="card"><h3>Boka sotning &amp; vinterförvaring</h3>
+        <p>Fritidshuset och båten — båda sista dag 1 september.</p></div>
+      <div class="card flat"><h3>5 att ta tag i</h3>
+        <p class="faint">Hovra över en båge för att se vad den gäller och vilket fönster den har.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAMILJ -->
+<section class="view" id="v-familj">
+  <p class="eyebrow">Personer, årsdagar och önskelistor</p>
+  <h1>Familjen</h1>
+  <p class="lede">Sorterad efter vem som fyller år näst. Byt profil uppe till höger — presentidéer som andra lagt upp åt <em>dig</em> döljs, det du skrivit upp åt dig själv syns.</p>
+  <div class="grid g2" id="familjGrid">
+    <article class="card" data-owner="anna"><h3>Anna <span class="pill">partner</span> <span class="pill on">vegetariskt</span></h3>
+      <p>Fyller <strong>41</strong> 27 september — om 4 veckor</p>
+      <ul class="gifts" data-list><li>Keramikkurs, en helg <span class="faint">2 400 kr</span></li></ul>
+      <p class="faint" data-count>1 kvar att köpa</p></article>
+    <article class="card" data-owner="erik"><h3>Erik <span class="pill">partner</span></h3>
+      <p>Fyller <strong>44</strong> 12 april — om 8 månader <span class="faint">· tränar kvällar</span></p>
+      <ul class="gifts" data-list><li>Löparskor, Nimbus 27 <span class="faint">1 800 kr</span></li></ul>
+      <p class="faint" data-count>1 kvar att köpa</p>
+      <p class="wishlist-note" data-selfnote hidden>Skriv upp vad du önskar dig. Vad andra tänkt ge dig syns inte här.</p></article>
+    <article class="card" data-owner="elsa"><h3>Elsa <span class="pill">barn</span> <span class="pill on">vegetariskt</span> <span class="pill">skolålder</span></h3>
+      <p>Fyller <strong>12</strong> 3 juni — om 9 månader <span class="faint">· vill helst inte ha svamp</span></p>
+      <ul class="gifts" data-list><li>Bok — Vi på Saltkråkan <span class="faint">180 kr</span></li><li>Skridskor stl 36 <span class="faint">900 kr</span></li></ul>
+      <p class="faint" data-count>2 kvar att köpa</p>
+      <p class="wishlist-note" data-selfnote hidden>Skriv upp vad du önskar dig. Vad andra tänkt ge dig syns inte här.</p></article>
+    <article class="card" data-owner="vidar"><h3>Vidar <span class="pill">barn</span> <span class="pill">skolålder</span></h3>
+      <p>Fyller <strong>8</strong> 19 november — om 3 månader</p>
+      <ul class="gifts" data-list><li>Simglasögon <span class="faint">250 kr</span></li><li>Lego Technic traktor <span class="faint">600 kr</span></li></ul>
+      <p class="faint" data-count>2 kvar att köpa</p></article>
+  </div>
+  <div class="banner" id="viewerBanner" style="margin-top:1.4rem" hidden></div>
+</section>
+
+<!-- RÅDET -->
+<section class="view" id="v-radet">
+  <p class="eyebrow">Sysslor och beslut</p>
+  <h1>Familjerådet</h1>
+  <p class="lede">Dagordningen sätter sig själv från resten av appen, och fördelningen räknas i minuter — så "jag gör mer" blir något det går att svara på.</p>
+  <div class="stats">
+    <div class="stat"><span class="k">I hushållet</span><span class="v">4</span></div>
+    <div class="stat"><span class="k">Sysslor</span><span class="v">27</span></div>
+    <div class="stat"><span class="k">Per vecka</span><span class="v">14 h 42 min</span></div>
+    <div class="stat"><span class="k">Ofördelat</span><span class="v">1 h 30 min</span></div>
+    <div class="stat"><span class="k">Största skillnad</span><span class="v">2 h 14 min</span></div>
+  </div>
+  <h2>Dagordning</h2>
+  <p class="section-note">Sätter sig själv utifrån vad som ligger i appen. Ett familjeråd faller på den tomma dagordningen.</p>
+  <div class="grid g2">
+    <article class="card rail nu"><h3>1. Fördelningen är sned</h3>
+      <p>Anna +2 h 6 min mot sin andel; Erik −2 h 14 min; Elsa −1 h 11 min</p></article>
+    <article class="card rail warn"><h3>2. Veckans middagar</h3>
+      <p>5 av 7 dagar inlagda. Vem lagar vad?</p></article>
+  </div>
+
+  <h2>Veckans schema — torsdag 27 augusti</h2>
+  <p class="section-note">Rullar från vecka till vecka, så samma person inte fastnar på söndagarna. Klicka av när något är gjort.</p>
+  <div class="grid g3" id="schemaGrid">
+    <div class="slot" data-slot><div class="slot-t">Tömma diskmaskinen</div>
+      <div class="slot-w"><span class="who-chip">Elsa</span><span class="faint">5 min</span></div>
+      <button class="btn" data-toggle>Klart ✓</button></div>
+    <div class="slot" data-slot><div class="slot-t">Laga middag</div>
+      <div class="slot-w"><span class="who-chip">Anna</span><span class="faint">35 min</span></div>
+      <button class="btn" data-toggle>Klart ✓</button></div>
+    <div class="slot" data-slot><div class="slot-t">Duka och duka av</div>
+      <div class="slot-w"><span class="who-chip">Vidar</span><span class="faint">8 min</span></div>
+      <button class="btn" data-toggle>Klart ✓</button></div>
+  </div>
+</section>
+
+<!-- TRÄNING -->
+<section class="view" id="v-traning">
+  <p class="eyebrow">Träning</p>
+  <h1>Erik</h1>
+  <p class="lede">Programmet ligger i samma kalender som allt annat — passen dyker upp i agendan, i feeden och bland påminnelserna.</p>
+  <div class="stats">
+    <div class="stat"><span class="k">Vecka</span><span class="v">35</span></div>
+    <div class="stat"><span class="k">Genomförda pass</span><span class="v">1/3</span></div>
+    <div class="stat"><span class="k">Kilometer</span><span class="v">2,7</span></div>
+    <div class="stat"><span class="k">Minuter</span><span class="v">18</span></div>
+    <div class="stat"><span class="k">Program</span><span class="v">v4/10</span></div>
+  </div>
+  <div class="banner ok"><strong>10 km — Erik</strong> — motionär, 3 pass i veckan. Bygger distans försiktigt och lägger in ett intervallpass i veckan.</div>
+
+  <h2>Veckans pass</h2>
+  <div class="grid g3">
+    <div class="card flat"><h3 style="font-size:.92rem">Måndag <span class="faint" style="font-weight:400">24 aug</span></h3><p class="faint">Vilodag</p></div>
+    <div class="card flat" id="tsWed"><h3 style="font-size:.92rem">Tisdag <span class="faint" style="font-weight:400">25 aug</span></h3>
+      <div class="tsess done" data-tsess>
+        <div class="tt">Lugn distans</div>
+        <p class="faint" style="margin:.15rem 0">löpning · 3 km · 20 min <span class="pill">lugn</span></p>
+        <p style="margin:.15rem 0;font-size:.85rem">Genomfört: 2,7 km · 18 min · kändes 4/10</p>
+        <button class="btn" data-ttoggle>↺ Ångra</button>
+      </div></div>
+    <div class="card flat"><h3 style="font-size:.92rem">Onsdag <span class="faint" style="font-weight:400">26 aug</span></h3><p class="faint">Vilodag</p></div>
+    <div class="card flat" style="border:1px solid var(--accent)"><h3 style="font-size:.92rem">Torsdag <span class="faint" style="font-weight:400">27 aug</span> <span class="pill on">idag</span></h3>
+      <div class="tsess" data-tsess>
+        <div class="tt">Intervaller</div>
+        <p class="faint" style="margin:.15rem 0">löpning · 2,5 km · 18 min <span class="pill warm">hård</span></p>
+        <p style="margin:.15rem 0;font-size:.85rem">7 × 400 m i ansträngd fart, 90 s trav emellan. Uppvärmning och nedjogg utanför.</p>
+        <button class="btn primary" data-ttoggle>Klart ✓</button>
+      </div></div>
+    <div class="card flat"><h3 style="font-size:.92rem">Fredag <span class="faint" style="font-weight:400">28 aug</span></h3><p class="faint">Vilodag</p></div>
+    <div class="card flat"><h3 style="font-size:.92rem">Lördag <span class="faint" style="font-weight:400">29 aug</span></h3>
+      <div class="tsess" data-tsess>
+        <div class="tt">Långpass</div>
+        <p class="faint" style="margin:.15rem 0">löpning · 5 km · 35 min <span class="pill">lugn</span></p>
+        <p style="margin:.15rem 0;font-size:.85rem">Långsammare än du tror. Det är hela poängen.</p>
+        <button class="btn primary" data-ttoggle>Klart ✓</button>
+      </div></div>
+  </div>
+
+  <h2>Utveckling</h2>
+  <p class="section-note">Minuter per vecka · ljust = planerat, mörkt = genomfört.</p>
+  <div class="wheelbox"><svg id="progSvg" viewBox="0 0 640 150" role="img" aria-label="Träningsvolym per vecka, planerat mot genomfört" style="max-width:none"></svg></div>
+</section>
+
+<!-- SEMESTER -->
+<section class="view" id="v-semester">
+  <p class="eyebrow">Rullande tolv månader</p>
+  <h1>Semester</h1>
+  <p class="lede">En semesterdag intill en röd dag är värd flera. Här är de bästa lägena framför dig, räknade på riktiga helgdagar och era egna skollov.</p>
+  <div class="stats">
+    <div class="stat"><span class="k">Fönster</span><span class="v">aug–jul</span><span class="u">26/27</span></div>
+    <div class="stat"><span class="k">Dagar kvar</span><span class="v">52</span><span class="u">över två år</span></div>
+    <div class="stat"><span class="k">Bokade</span><span class="v">3</span></div>
+    <div class="stat"><span class="k">Röda dagar</span><span class="v">16</span></div>
+    <div class="stat"><span class="k">Långhelger</span><span class="v">4</span></div>
+  </div>
+  <p class="section-note">Semesterdagarna räknas per kalenderår men besluten rullar, så budgeten står per år: <strong>2026</strong> 27 av 30 kvar · <strong>2027</strong> 25 av 25 kvar.</p>
+
+  <div class="headrow"><h2>Bästa lägena</h2>
+    <div class="seg" id="skollovSeg"><span class="seg-label">Skollov</span>
+      <button class="on" data-mode="med">Räkna med</button>
+      <button data-mode="prio">Prioritera</button>
+      <button data-mode="av">Ignorera</button>
+    </div></div>
+  <p class="section-note">Sorterat efter utväxling — hur många lediga dagar varje semesterdag köper. Bara lägen som lutar sig mot en röd dag eller ett lov listas.</p>
+
+  <div class="win"><div class="lev">5.0×<small>utväxling</small></div>
+    <div class="txt"><strong>1 semesterdag ger 5 lediga dagar</strong>
+      <span class="faint">Ledig onsdag 23 december – söndag 27 december. Ta ut 23 dec–23 dec.</span>
+      <div style="margin-top:.3rem"><span class="pill warm">Julafton</span> <span class="pill warm">Juldagen</span> <span class="pill warm">Annandag jul</span> <span class="pill on">Jullov · 5 dagar</span></div>
+    </div><button class="btn">Lägg till</button></div>
+  <div class="win"><div class="lev">5.0×<small>utväxling</small></div>
+    <div class="txt"><strong>1 semesterdag ger 5 lediga dagar</strong>
+      <span class="faint">Ledig torsdag 24 december – måndag 28 december. Ta ut 28 dec–28 dec.</span>
+      <div style="margin-top:.3rem"><span class="pill warm">Julafton</span> <span class="pill warm">Juldagen</span> <span class="pill warm">Annandag jul</span> <span class="pill on">Jullov · 5 dagar</span></div>
+    </div><button class="btn">Lägg till</button></div>
+  <div class="win"><div class="lev">5.0×<small>utväxling</small></div>
+    <div class="txt"><strong>1 semesterdag ger 5 lediga dagar</strong>
+      <span class="faint">Ledig onsdag 30 december – söndag 3 januari. Ta ut 30 dec–30 dec.</span>
+      <div style="margin-top:.3rem"><span class="pill warm">Nyårsafton</span> <span class="pill warm">Nyårsdagen</span> <span class="pill on">Jullov · 2 dagar</span></div>
+    </div><button class="btn">Lägg till</button></div>
+</section>
+
+<!-- MAT -->
+<section class="view" id="v-mat">
+  <p class="eyebrow">Vecka 35</p>
+  <h1>Matsedeln</h1>
+  <p class="lede">Veckans middagar, receptbanken och familjens betyg — som tillsammans avgör vad som föreslås nästa vecka.</p>
+  <div class="stats">
+    <div class="stat"><span class="k">Inlagt</span><span class="v">5/7</span></div>
+    <div class="stat"><span class="k">Vegetariskt</span><span class="v">3/3</span></div>
+    <div class="stat"><span class="k">Recept i banken</span><span class="v">12</span></div>
+    <div class="stat"><span class="k">Middag ≈</span><span class="v">2 120</span><span class="u">av 2 909 kcal</span></div>
+    <div class="stat"><span class="k">Träningsdagar</span><span class="v">6</span></div>
+  </div>
+  <div class="banner warn">Måndag och onsdag är träningsdagar med en lätt middag. Hushållets middag ligger kring 2 120 kcal mot målet 2 909 kcal.</div>
+  <div class="week">
+    <div class="day"><div class="dn"><span>MÅN</span><span>24/8</span></div>
+      <div class="meal veg">🌱 Svartbönsburgare</div><p class="faint" style="margin:0">30 min · 2 440 kcal</p></div>
+    <div class="day"><div class="dn"><span>TIS</span><span>25/8</span></div>
+      <div class="meal">Fisksoppa med saffran</div><p class="faint" style="margin:0">35 min · 1 920 kcal</p></div>
+    <div class="day"><div class="dn"><span>ONS</span><span>26/8</span></div>
+      <div class="meal veg">🌱 Ugnsomelett, broccoli</div><p class="faint" style="margin:0">25 min · 1 800 kcal</p></div>
+    <div class="day today"><div class="dn"><span>TOR</span><span>27/8</span></div>
+      <div class="meal veg">🌱 Tacos, svartbönor</div><p class="faint" style="margin:0">25 min · 2 320 kcal</p></div>
+    <div class="day"><div class="dn"><span>FRE</span><span>28/8</span></div>
+      <div class="meal">Fredagsmys — tacos</div></div>
+    <div class="day"><div class="dn"><span>LÖR</span><span>29/8</span></div><p class="faint">Inget inlagt</p></div>
+    <div class="day"><div class="dn"><span>SÖN</span><span>30/8</span></div><p class="faint">Inget inlagt</p></div>
+  </div>
+</section>
+
+<!-- BUDGET -->
+<section class="view" id="v-budget">
+  <p class="eyebrow">Vecka, månad och resa</p>
+  <h1>Budget</h1>
+  <p class="lede">Varje post har sin egen period. Tre tal bredvid varandra: vad ett normalhushåll av er sammansättning brukar göra av med, vad ni själva har budgeterat, och vad som faktiskt hänt.</p>
+  <div class="stats">
+    <div class="stat"><span class="k">Riktvärde</span><span class="v">21 980 kr</span></div>
+    <div class="stat"><span class="k">Egen budget</span><span class="v">27 230 kr</span></div>
+    <div class="stat"><span class="k">Utfall</span><span class="v">17 015 kr</span></div>
+    <div class="stat"><span class="k">Per månad</span><span class="v">27 230 kr</span></div>
+  </div>
+  <div class="banner warn">Över egen budget i 2 kategorier: mat 830 kr, hälsa 1 145 kr.</div>
+  <div class="scroll"><table>
+    <thead><tr><th>Kategori</th><th class="right">Riktvärde</th><th class="right">Egen budget</th><th class="right">Utfall</th><th class="right">Mot budget</th></tr></thead>
+    <tbody>
+      <tr><td><strong>mat</strong><br><span class="faint">Mat och livsmedel (vecka)</span></td><td class="right mono">9 620 kr</td><td class="right mono">9 620 kr</td><td class="right mono">10 450 kr</td><td class="right mono" style="color:var(--alert)">−830 kr</td></tr>
+      <tr><td><strong>hem</strong><br><span class="faint">Förbrukningsvaror, försäkring, hygien (månad)</span></td><td class="right mono">9 120 kr</td><td class="right mono">9 120 kr</td><td class="right mono">3 370 kr</td><td class="right mono">5 750 kr</td></tr>
+      <tr><td><strong>barn</strong><br><span class="faint">Fotboll, cello, fritid (månad)</span></td><td class="right mono">3 240 kr</td><td class="right mono">4 140 kr</td><td class="right mono">1 400 kr</td><td class="right mono">2 740 kr</td></tr>
+      <tr><td><strong>hälsa</strong></td><td class="right mono">—</td><td class="right mono">650 kr</td><td class="right mono">1 795 kr</td><td class="right mono" style="color:var(--alert)">−1 145 kr</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- KALENDER -->
+<section class="view" id="v-kalender">
+  <p class="eyebrow">Allt på ett ställe</p>
+  <h1>Kalendern</h1>
+  <p class="lede">Födelsedagar, aktiviteter, lov, deadlines och middagar i en lista — och samma lista som en feed telefonen kan prenumerera på.</p>
+  <div class="headrow" style="margin-top:0">
+    <span class="faint" id="kalCount">98 poster</span>
+    <div class="seg" id="kalSeg"><span class="seg-label">Kalender</span>
+      <button class="on" data-who="alla">Hela familjen</button>
+      <button data-who="Elsa">Elsa</button>
+      <button data-who="Vidar">Vidar</button>
+      <button data-who="Anna">Anna</button>
+      <button data-who="Erik">Erik</button>
+    </div>
+  </div>
+  <div class="split">
+    <div class="panel" style="background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:.3rem 1rem">
+      <div class="agenda" id="agendaList">
+        <div class="ag-day"><div class="ag-date"><b>27 aug</b>idag · v35</div>
+          <div class="ag-items">
+            <div class="ag-item" data-p="Erik"><span class="ic">🏃</span><span>Erik: Intervaller <span class="tm">2,5 km · hård</span></span></div>
+            <div class="ag-item" data-p="Elsa"><span class="ic">📍</span><span>Kulturskolan — cello <span class="tm">16:00–16:45 · Kulturskolan Enskede</span></span></div>
+            <div class="ag-item" data-p=""><span class="ic">🍽</span><span>Middag: Tacos med svartbönor och majs <span class="tm">17:30–18:30</span></span></div>
+          </div></div>
+        <div class="ag-day"><div class="ag-date"><b>28 aug</b>imorgon · v35</div>
+          <div class="ag-items">
+            <div class="ag-item" data-p="Anna"><span class="ic">🏃</span><span>Anna: Helkropp C <span class="tm">55 min · hård</span></span></div>
+            <div class="ag-item" data-p=""><span class="ic">🍽</span><span>Middag: Fredagsmys — tacos <span class="tm">17:30–18:30</span></span></div>
+          </div></div>
+        <div class="ag-day"><div class="ag-date"><b>29 aug</b>lör · v35</div>
+          <div class="ag-items">
+            <div class="ag-item" data-p="Erik"><span class="ic">🏃</span><span>Erik: Långpass <span class="tm">5 km · lugn</span></span></div>
+            <div class="ag-item" data-p="Vidar"><span class="ic">📍</span><span>Simskola <span class="tm">10:00–10:40 · Eriksdalsbadet</span></span></div>
+          </div></div>
+        <div class="ag-day"><div class="ag-date"><b>31 aug</b>mån · v36</div>
+          <div class="ag-items">
+            <div class="ag-item" data-p=""><span class="ic">⏳</span><span>Sista dag: Beställa ved till vintern</span></div>
+            <div class="ag-item" data-p="Anna"><span class="ic">🏃</span><span>Anna: Helkropp A <span class="tm">55 min · medel</span></span></div>
+          </div></div>
+        <div class="ag-day"><div class="ag-date"><b>1 sep</b>tis · v36</div>
+          <div class="ag-items">
+            <div class="ag-item" data-p=""><span class="ic">⏳</span><span>Sista dag: Boka sotning av fritidshuset</span></div>
+            <div class="ag-item" data-p=""><span class="ic">⏳</span><span>Sista dag: Boka vinterförvaring för båten</span></div>
+          </div></div>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="card"><h3>Kalenderfeed</h3>
+        <p>Prenumerera från Apple Kalender, Google eller Outlook. Feeden uppdateras av sig själv.</p>
+        <p class="mono" style="word-break:break-all;font-size:.72rem">…/feed/lzMP89DX37L6QPWY.ics</p>
+        <div class="actions"><button class="btn primary" disabled>Prenumerera</button><button class="btn" disabled>Ladda ner .ics</button></div></div>
+      <div class="card"><h3>Importera en kalender</h3>
+        <p class="faint">Klistra in en .ics-fil eller en webcal-adress för att se vad som redan är bokat.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- UPPTÄCK -->
+<section class="view" id="v-upptack">
+  <p class="eyebrow">Förslag</p>
+  <h1>Upptäck</h1>
+  <div class="banner warn"><strong>Demoläge.</strong> Förslagen kommer från appens inbyggda listor — inte påhittade, men inte heller sökta åt just er.</div>
+  <div class="headrow" style="margin-top:0"><h2 style="margin:0">Evenemang att boka</h2>
+    <span><span class="pill warm">demodata</span> <span class="faint">27 augusti 2026</span></span></div>
+  <p class="section-note">Söker efter konserter, teater och utställningar som matchar familjens 5 intressen, och tar med en del som ligger <em>intill</em> dem.</p>
+  <div class="actions" style="margin:0 0 1rem"><button class="btn primary" disabled>Svep nu</button><span class="pill on">8 nytt den senaste veckan</span></div>
+  <div class="grid g2" id="sugGrid">
+    <article class="card sug" data-sug><h3>Storsjöyran</h3>
+      <p class="sug-meta"><span class="pill">festival</span><span class="pill on">nytt</span>Östersund</p>
+      <dl class="sug-facts"><dt>När</dt><dd>slutet av juli</dd><dt>Boka</dt><dd class="dl">biljetter från februari, boende i stan tar slut före det</dd></dl>
+      <p class="faint">Hela staden blir festival. Boendet är den svåra delen, inte biljetten.</p>
+      <div class="actions"><button class="btn" disabled>Till arrangören</button><button class="btn primary" data-save>Lägg i årshjulet</button><button class="btn ghost" data-dismiss>Inte intressant</button></div></article>
+    <article class="card sug" data-sug><h3>Kungliga Operan — säsongen</h3>
+      <p class="sug-meta"><span class="pill">opera</span><span class="pill on">nytt</span>Operan, Stockholm</p>
+      <dl class="sug-facts"><dt>När</dt><dd>september till juni</dd><dt>Boka</dt><dd class="dl">säsongen släpps i maj</dd></dl>
+      <p class="faint">Balett och opera. Premiärer och familjeföreställningar går först.</p>
+      <div class="actions"><button class="btn" disabled>Till arrangören</button><button class="btn primary" data-save>Lägg i årshjulet</button><button class="btn ghost" data-dismiss>Inte intressant</button></div></article>
+    <article class="card sug" data-sug><h3>Stockholms stadsteater</h3>
+      <p class="sug-meta"><span class="pill">teater</span><span class="pill on">nytt</span>Kulturhuset, Stockholm</p>
+      <dl class="sug-facts"><dt>När</dt><dd>året runt</dd><dt>Boka</dt><dd class="dl">program släpps terminsvis, i maj och november</dd></dl>
+      <p class="faint">Stor scen och små scener. Barnföreställningarna på loven bokas tidigast av allt.</p>
+      <div class="actions"><button class="btn" disabled>Till arrangören</button><button class="btn primary" data-save>Lägg i årshjulet</button><button class="btn ghost" data-dismiss>Inte intressant</button></div></article>
+  </div>
+</section>
+
+<footer>
+  <span>Livspusslet · exempeldata, ingenting sparas</span>
+  <span>Prototyp för troi.se</span>
+</footer>
+</main>
+
+<script>
+(function(){
+  var tabs = document.getElementById('tabs');
+  tabs.addEventListener('click', function(e){
+    var btn = e.target.closest('.tab');
+    if(!btn) return;
+    tabs.querySelectorAll('.tab').forEach(function(t){ t.classList.toggle('on', t===btn); });
+    document.querySelectorAll('.view').forEach(function(v){ v.classList.remove('on'); });
+    document.getElementById('v-'+btn.dataset.tab).classList.add('on');
+  });
+
+  var who = document.getElementById('who');
+  var wLabel = document.getElementById('wLabel');
+  var wAvatar = document.getElementById('wAvatar');
+  var viewerBanner = document.getElementById('viewerBanner');
+  var gifts = { anna:1, erik:1, elsa:2, vidar:2 };
+
+  who.addEventListener('click', function(e){
+    var b = e.target.closest('.wpbtn');
+    if(!b) return;
+    var name = b.dataset.person, key = name.toLowerCase();
+    wLabel.textContent = name; wAvatar.textContent = b.dataset.init;
+    who.removeAttribute('open');
+
+    document.querySelectorAll('#familjGrid .card').forEach(function(card){
+      var mine = card.dataset.owner === key;
+      var list = card.querySelector('[data-list]');
+      var count = card.querySelector('[data-count]');
+      var note = card.querySelector('[data-selfnote]');
+      if(mine){
+        list.style.display='none';
+        if(note){ note.hidden=false; }
+        if(count) count.textContent = '0 på din önskelista';
+      } else {
+        list.style.display='';
+        if(note){ note.hidden=true; }
+        if(count) count.textContent = gifts[card.dataset.owner]+' kvar att köpa';
+      }
+    });
+    viewerBanner.hidden = false;
+    viewerBanner.className = 'banner ok';
+    viewerBanner.textContent = 'Du är nu inloggad som ' + name + '. Presentidéer andra lagt upp åt ' + name + ' är dolda på ' + name + 's eget kort.';
+  });
+
+  document.getElementById('schemaGrid').addEventListener('click', function(e){
+    var b = e.target.closest('[data-toggle]');
+    if(!b) return;
+    var slot = b.closest('[data-slot]');
+    var done = slot.classList.toggle('done');
+    b.textContent = done ? '↺ Ångra' : 'Klart ✓';
+  });
+
+  // Årshjulet — procedural rolling 12-month wheel (Aug '26 – Jul '27)
+  var C = 230, R = { out:200, in:172, redOut:168, redIn:158, hub:92 };
+  function polar(r,a){ var rad=(a-90)*Math.PI/180; return [C+r*Math.cos(rad), C+r*Math.sin(rad)]; }
+  function frac(monthsFromStart, dayFrac){ return ((monthsFromStart + (dayFrac||0)) / 12) * 360; }
+  function seg(rIn, rOut, a1, a2){
+    a2 = Math.max(a2, a1+1.2);
+    var large = (a2-a1) > 180 ? 1 : 0;
+    var p1=polar(rOut,a1), p2=polar(rOut,a2), p3=polar(rIn,a2), p4=polar(rIn,a1);
+    return 'M'+p1[0].toFixed(1)+' '+p1[1].toFixed(1)+
+      'A'+rOut+' '+rOut+' 0 '+large+' 1 '+p2[0].toFixed(1)+' '+p2[1].toFixed(1)+
+      'L'+p3[0].toFixed(1)+' '+p3[1].toFixed(1)+
+      'A'+rIn+' '+rIn+' 0 '+large+' 0 '+p4[0].toFixed(1)+' '+p4[1].toFixed(1)+'Z';
+  }
+  var months = ['aug','sep','okt','nov','dec','jan','feb','mar','apr','maj','jun','jul'];
+  var svg = document.getElementById('wheelSvg');
+  var parts = [];
+  for(var m=0;m<12;m++){
+    var a = frac(m,0);
+    var p1 = polar(R.in,a), p2 = polar(R.out,a);
+    parts.push('<line x1="'+p1[0].toFixed(1)+'" y1="'+p1[1].toFixed(1)+'" x2="'+p2[0].toFixed(1)+'" y2="'+p2[1].toFixed(1)+'" stroke="var(--hair)"/>');
+    var lp = polar(R.out+14, frac(m,0.5));
+    parts.push('<text class="w-lbl" x="'+lp[0].toFixed(1)+'" y="'+lp[1].toFixed(1)+'" text-anchor="middle" dominant-baseline="middle">'+months[m]+'</text>');
+  }
+  parts.push('<circle cx="'+C+'" cy="'+C+'" r="'+R.out+'" fill="none" stroke="var(--line)"/>');
+  parts.push('<circle cx="'+C+'" cy="'+C+'" r="'+R.in+'" fill="none" stroke="var(--line)"/>');
+
+  var reds = [ frac(0,0.97), frac(3,0.63), frac(4,0.79), frac(4,0.9), frac(4,1.0) ];
+  reds.forEach(function(a){ parts.push('<path d="'+seg(R.redIn,R.redOut,a,a+2.2)+'" fill="var(--alert)" opacity=".8"/>'); });
+
+  var tasks = [
+    {t:'Beställa ved',cat:'hem',a1:frac(0,0.32),a2:frac(0,0.97)},
+    {t:'Boka sotning',cat:'hem',a1:frac(0,0.5),a2:frac(1,0.03)},
+    {t:'Boka vinterförvaring',cat:'hem',a1:frac(0,0.5),a2:frac(1,0.03)},
+    {t:'Ta upp båten',cat:'hem',a1:frac(1,0.5),a2:frac(2,0.97)},
+    {t:'Julklappar',cat:'present',a1:frac(3,0),a2:frac(4,0.48)},
+    {t:'Jul- och nyårsledigheten',cat:'resa',a1:frac(0,0),a2:frac(2,0.97)},
+    {t:'Sportlovet',cat:'resa',a1:frac(2,0),a2:frac(5,0.48)},
+    {t:'Beskära fruktträd',cat:'hem',a1:frac(6,0),a2:frac(7,0.97)},
+    {t:'Sommarsemestern',cat:'resa',a1:frac(5,0.22),a2:frac(7,0.48)},
+    {t:'Midsommar',cat:'fest',a1:frac(5,0.48),a2:frac(10,0.48)}
+  ];
+  tasks.forEach(function(x){
+    parts.push('<path d="'+seg(R.in,R.out,x.a1,x.a2)+'" fill="var(--'+x.cat+')" opacity=".55"><title>'+x.t+'</title></path>');
+  });
+
+  var todayA = frac(0,0.9);
+  var t1 = polar(R.hub-4, todayA), t2 = polar(R.out+6, todayA);
+  parts.push('<line x1="'+t1[0].toFixed(1)+'" y1="'+t1[1].toFixed(1)+'" x2="'+t2[0].toFixed(1)+'" y2="'+t2[1].toFixed(1)+'" stroke="var(--alert)" stroke-width="2"/>');
+
+  parts.push('<circle cx="'+C+'" cy="'+C+'" r="'+R.hub+'" fill="var(--sunk)" stroke="var(--line)"/>');
+  parts.push('<text class="w-ctr-k" x="'+C+'" y="'+(C-30)+'" text-anchor="middle">DE NÄRMASTE 12 MÅNADERNA</text>');
+  parts.push('<text class="w-ctr-v" x="'+C+'" y="'+(C-4)+'" text-anchor="middle">aug ’26 – jul ’27</text>');
+  parts.push('<text class="w-ctr-s" x="'+C+'" y="'+(C+18)+'" text-anchor="middle">5 att ta tag i</text>');
+  parts.push('<text class="w-ctr-s" x="'+C+'" y="'+(C+36)+'" text-anchor="middle" fill="var(--faint)">Beställa ved · senast 31 aug</text>');
+  svg.innerHTML = parts.join('');
+})();
+
+(function(){
+  // Träning — klart/ångra på veckans pass
+  document.querySelectorAll('[data-ttoggle]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var s = btn.closest('[data-tsess]');
+      var done = s.classList.toggle('done');
+      btn.textContent = done ? '↺ Ångra' : 'Klart ✓';
+      btn.classList.toggle('primary', !done);
+    });
+  });
+
+  // Träning — utveckling, planerat vs genomfört, tolv veckor
+  var wk = [
+    {w:24,plan:60,done:0},{w:25,plan:75,done:0},{w:26,plan:70,done:0},{w:27,plan:0,done:0},
+    {w:28,plan:85,done:0},{w:29,plan:95,done:78},{w:30,plan:100,done:92},{w:31,plan:70,done:65},
+    {w:32,plan:110,done:104},{w:33,plan:120,done:0},{w:34,plan:90,done:82},{w:35,plan:73,done:18}
+  ];
+  var pW=640,pH=150,pad=30,max=Math.max.apply(null,wk.map(function(x){return x.plan}));
+  var bw=(pW-pad*2)/wk.length, pp=[];
+  pp.push('<line x1="'+pad+'" y1="'+(pH-pad)+'" x2="'+(pW-pad)+'" y2="'+(pH-pad)+'" stroke="var(--line)"/>');
+  pp.push('<text x="'+pad+'" y="'+(pad-8)+'" class="w-lbl">'+max+' min</text>');
+  wk.forEach(function(x,i){
+    var px=pad+i*bw+bw*0.18, bwid=bw*0.64;
+    var ph=(x.plan/max)*(pH-pad*2), dh=(x.done/max)*(pH-pad*2);
+    pp.push('<rect x="'+px.toFixed(1)+'" y="'+(pH-pad-ph).toFixed(1)+'" width="'+bwid.toFixed(1)+'" height="'+ph.toFixed(1)+'" rx="2" fill="var(--accent)" opacity=".22"/>');
+    pp.push('<rect x="'+px.toFixed(1)+'" y="'+(pH-pad-dh).toFixed(1)+'" width="'+bwid.toFixed(1)+'" height="'+dh.toFixed(1)+'" rx="2" fill="var(--accent)" opacity=".85"><title>Vecka '+x.w+': '+x.done+' av '+x.plan+' min</title></rect>');
+    pp.push('<text x="'+(px+bwid/2).toFixed(1)+'" y="'+(pH-pad+13)+'" text-anchor="middle" class="w-lbl"'+(x.w===35?' fill="var(--alert)"':'')+'>v'+x.w+'</text>');
+  });
+  document.getElementById('progSvg').innerHTML = pp.join('');
+
+  // Semester — skollovsläge (visuellt state, matchar den riktiga kontrollen)
+  document.getElementById('skollovSeg').addEventListener('click', function(e){
+    var b = e.target.closest('button'); if(!b) return;
+    this.querySelectorAll('button').forEach(function(x){ x.classList.toggle('on', x===b); });
+  });
+
+  // Kalender — filtrera agendan per person. Tomt = hela familjen.
+  var kalSeg = document.getElementById('kalSeg');
+  var kalCount = document.getElementById('kalCount');
+  kalSeg.addEventListener('click', function(e){
+    var b = e.target.closest('button'); if(!b) return;
+    kalSeg.querySelectorAll('button').forEach(function(x){ x.classList.toggle('on', x===b); });
+    var who = b.dataset.who, shown = 0;
+    document.querySelectorAll('#agendaList .ag-day').forEach(function(day){
+      var any = false;
+      day.querySelectorAll('.ag-item').forEach(function(item){
+        var mine = who==='alla' || item.dataset.p==='' || item.dataset.p===who;
+        item.hidden = !mine;
+        if(mine){ any = true; shown++; }
+      });
+      day.style.display = any ? '' : 'none';
+    });
+    kalCount.textContent = who==='alla' ? '98 poster' : shown + ' poster för ' + who + ' (+ gemensamt)';
+  });
+
+  // Upptäck — spara eller döljas, per kort
+  document.getElementById('sugGrid').addEventListener('click', function(e){
+    var save = e.target.closest('[data-save]');
+    var dismiss = e.target.closest('[data-dismiss]');
+    if(save){
+      var card = save.closest('[data-sug]');
+      card.classList.add('saved');
+      save.textContent = '✓ I årshjulet';
+      save.disabled = true;
+    }
+    if(dismiss){
+      dismiss.closest('[data-sug]').style.display = 'none';
+    }
+  });
+})();
+</script>
+
+</body></html>
