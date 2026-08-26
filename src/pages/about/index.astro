@@ -1,0 +1,106 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+<BaseLayout title="About" description="I work as an independent consultant helping organizations improve how they create value through technology, architecture and organizational design.">
+  <main class="reading" id="main">
+    <section class="block insight-page">
+      <p class="kicker">About</p>
+      <h1>Practice shapes ideas. Ideas shape practice.</h1>
+      <p>
+        I work as an independent consultant helping organizations improve how they create value through
+        technology, architecture and organizational design.
+      </p>
+      <p>
+        Over time that work evolved into an ongoing body of thought I call <a href="/organizational-flow/">Organizational Flow</a>.
+      </p>
+      <p>
+        Through TROi I share both practical experience and the ideas that emerge from it. The <a href="/blog/">blog</a> captures observations. The paper develops those observations into a coherent perspective.
+      </p>
+
+      <p class="kicker" id="what-i-offer" style="margin-top:2.6rem;">What I Offer</p>
+      <ul style="list-style:none; padding:0; margin:0;">
+        {[
+          {
+            title: 'Organizational Flow Diagnostic',
+            description: 'Applying the perspective behind Organizational Flow to a specific organization — finding where the friction actually sits before recommending anything, which is rarely where the budget is already pointed.',
+          },
+          {
+            title: 'Architecture & Strategy Validation',
+            description: 'Reviewing existing architecture and strategic direction against where the organization actually needs to go — before committing further investment to either.',
+          },
+          {
+            title: 'Architecture Enablement',
+            description: 'Establishing guardrails — principles, decision records, and the coaching that lets architects and tech leads make faster, safer decisions without me in the room.',
+          },
+          {
+            title: 'Interim & Advisory Leadership',
+            description: 'Stepping into chief architect or senior advisor roles during transformation, leadership gaps, or periods that need an outside perspective leadership can trust.',
+          },
+          {
+            title: 'Capability & Domain Design',
+            description: 'Mapping what an organization actually does, and drawing the boundaries that let teams own it — the foundation the rest of the architecture gets built on.',
+          },
+          {
+            title: 'Solution Design',
+            description: 'Designing the specific systems and integrations that make a capability real — target architecture, data flows, and the platform decisions underneath them.',
+          },
+        ].map((item) => (
+          <li style="padding:0.9rem 0; border-top:1px solid var(--mist);">
+            <p style="margin:0; font-family:'Fraunces', serif; font-size:1.05rem;">{item.title}</p>
+            <p style="margin:0.4rem 0 0; font-size:0.92rem; color:var(--bark);">{item.description}</p>
+          </li>
+        ))}
+      </ul>
+
+      <p class="kicker" style="margin-top:2.6rem;">Recent Assignments</p>
+      <ul style="list-style:none; padding:0; margin:0;">
+        {[
+          {
+            client: 'TV4',
+            role: 'Architect — Engineering Competence & Architecture Enablement',
+            dates: 'Jun 2023 – present',
+            description: 'Strengthening architectural capability across domains: ERP migration, digital advertising platform, and marketing automation.',
+          },
+          {
+            client: 'Telia',
+            role: 'Solution Architect — C More / Telia Play',
+            dates: 'Dec 2022 – Jun 2023',
+            description: 'Payments, subscriptions, CRM, and checkout flows.',
+          },
+          {
+            client: 'Raise',
+            role: 'Senior Advisor — Raise Gruppen',
+            dates: 'Dec 2024 – Apr 2026',
+            description: 'Trusted advisor to leadership on architecture and digital strategy, bridging business and technology.',
+          },
+          {
+            client: 'AFA Försäkring',
+            role: 'Chief Architect & Head of Architecture',
+            dates: '2019 – 2021',
+            description: 'Built and led the enterprise architecture function; member of the IT leadership team.',
+          },
+        ].map((item) => (
+          <li style="padding:0.9rem 0; border-top:1px solid var(--mist);">
+            <p style="margin:0; font-family:'Fraunces', serif; font-size:1.05rem;">{item.client}</p>
+            <p style="margin:0.3rem 0 0; color:var(--bark); font-size:0.9rem;">{item.role}</p>
+            <p style="margin:0.15rem 0 0; font-family:'Space Mono', monospace; font-size:0.68rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--bark);">{item.dates}</p>
+            <p style="margin:0.5rem 0 0; font-size:0.92rem;">{item.description}</p>
+          </li>
+        ))}
+      </ul>
+
+      <p style="margin-top:1.6rem; font-size:0.88rem; color:var(--bark); font-style:italic;">
+        The views and observations on this site, including in the writing and the paper, are my own — not those
+        of any client or employer, past or present, named here or not.
+      </p>
+
+      <p style="margin-top:2rem;">
+        Download the full CV: <a href="/cv/christoffer-rasten-cv-en.pdf">English (PDF)</a>&nbsp;· <a href="/cv/christoffer-rasten-cv-sv.pdf">svenska (PDF)</a>
+      </p>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>

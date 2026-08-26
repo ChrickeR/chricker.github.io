@@ -1,0 +1,222 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Footer from '../../../components/Footer.astro';
+import ToolVote from '../../../components/ToolVote.astro';
+---
+
+<BaseLayout
+  title="FlowMission"
+  description="A watch app that turns a free hour in an unfamiliar city into an adventure you get back from on time, and a race into one instruction at a time. Built for five devices, not yet worn."
+>
+  <main class="reading" id="main">
+    <section class="block insight-page">
+      <p class="kicker"><a href="/tools/">Tools</a></p>
+      <h1>FlowMission</h1>
+
+      <p class="lede">
+        The watch does the maths. You just go — six modes on one engine: an hour in a city you don't know, a
+        race paced for you, or nothing at all except a clock that gets you home.
+      </p>
+
+      <p>
+        I like running. Or I would like to like running, which is not quite the same thing. This is the
+        attempt to make an hour outdoors fun, a little exciting, and safe enough that somebody knows when to
+        worry.
+      </p>
+
+      <ul class="ask-list">
+        <li>I land at six and dinner is at eight. What is worth doing with the hour in between?</li>
+        <li>I want to run 55 minutes. Tell me what to do right now, not what my average pace is.</li>
+        <li>I know this city. Leave me alone — just make sure I get back.</li>
+        <li>I'm 18 seconds down at 8 km. How much of that should I actually chase?</li>
+        <li>Nobody knows where I am. Can someone see that I'm late, not just that I'm out?</li>
+      </ul>
+
+      <h2>What it does</h2>
+
+      <p>
+        One engine under five modes, and one idea: the watch works out what is possible and hands back a
+        single instruction. Not a dashboard, not a route, not five true numbers to combine at threshold — one
+        thing to do next, and a promise about how it ends. In a city that promise is that you will be back
+        where you started before dinner. In a race it is the time you came for, or the best one still left.
+      </p>
+
+      <ul class="feature-list">
+        <li>
+          <strong>It does not turn round at halfway.</strong> Half the time is not half the distance — the way
+          home is a straight line and the way out was not. The budget is computed once a second from your own
+          pace, your own detour and the climb still to be regained, so a runner keeps exploring eleven minutes
+          past the point a stopwatch would have turned them.
+        </li>
+        <li>
+          <strong>It never chases lost time.</strong> A minute down at 8 km, a pace calculator asks for
+          thirty seconds a kilometre faster over the two hardest kilometres of the race. That is how people
+          end up walking at nine. The deficit gets spread and capped, and the rest is let go.
+        </li>
+        <li>
+          <strong>It knows you are late, not just where you are.</strong> A dot on a map has no idea where you
+          were going or when you meant to be back. This does, because the return point is where you pressed
+          start — so the person at the other end can be told the difference.
+        </li>
+        <li>
+          <strong>The far end alarms on silence, not on an alert.</strong> An app that promises to shout for
+          help can only keep that promise while it is working — and a flat battery or a dead signal is exactly
+          the case where the shout does not happen. So going quiet is the alarm. It is one file with no
+          dependencies, on your own box: anybody trusted with knowing where somebody is should be able to read
+          the whole of what they are running.
+        </li>
+      </ul>
+
+      <p>
+        Which is why the beacon wants a way out that is not the phone: a safety net carried by the phone is
+        missing on exactly the evenings it exists for. The open question is the grace period. Five minutes of
+        lateness is nobody's emergency, but five minutes of silence would fire on the app's own backoff rather
+        than on anything happening — so the offset comes with a rule attached. Once you are overdue the watch
+        stops saving battery and asks every two minutes, because battery is cheaper than a missed alarm in the
+        one state where that is true.
+      </p>
+
+      <h2>The walkthrough</h2>
+
+      <p>
+        Forty screens, the arithmetic underneath them, and every mission it can issue offline in a city it
+        has never heard of. The last one is not drawn: it runs the same rules — the same detour factor, the
+        same recovery caps, the same eight-sector rose, the same one wild card in four — so you can watch an
+        hour happen.
+      </p>
+    </section>
+
+    <div class="demo-wide">
+      <iframe
+        id="flowmission-demo"
+        src="/tools/flowmission-demo.html"
+        title="FlowMission walkthrough"
+        loading="lazy"
+        scrolling="no"
+      ></iframe>
+      <p class="demo-fallback">
+        <a href="/tools/flowmission-demo.html">Open the walkthrough on its own</a>
+      </p>
+    </div>
+
+    <section class="block insight-page">
+      <h2>Where it is</h2>
+
+      <p>
+        The modes run offline, building clean for five Garmin devices, with the figures in the walkthrough
+        coming out of the app's own tests rather than out of a mock-up. The receiver is written and answers
+        both the beacon and the place lookup, against OpenStreetMap. Trails now persist per city — off by
+        default, coarse, thirty days — and what is left is an address to send to, not a build.
+      </p>
+
+      <p>
+        And it has never been worn. That is the next thing to do and the only one that matters: whether an
+        hour of this is actually good is not a question a simulator can answer.
+      </p>
+
+      <ToolVote tool="flowmission" />
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .insight-page h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.3rem;
+    margin: 2.6rem 0 0.7rem;
+  }
+  .ask-list {
+    margin: 2rem 0 0;
+    padding: 0 0 0 1.2rem;
+    list-style: none;
+    border-left: 2px solid var(--mist);
+  }
+  .ask-list li {
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem;
+    line-height: 1.5;
+    margin-bottom: 0.7rem;
+  }
+  .feature-list {
+    margin: 1.4rem 0 0;
+    padding-left: 1.1rem;
+  }
+  .feature-list li {
+    margin-bottom: 0.9rem;
+  }
+  .feature-list strong {
+    font-weight: 600;
+  }
+  .demo-wide {
+    width: min(65rem, calc(100vw - 3rem));
+    margin: 2rem 0 3.4rem 50%;
+    transform: translateX(-50%);
+  }
+  .demo-wide iframe {
+    display: block;
+    width: 100%;
+    height: 1400px;
+    border: 0;
+  }
+  .demo-fallback {
+    margin: 0.6rem 0 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  @media (max-width: 40rem) {
+    .demo-wide {
+      width: 100vw;
+    }
+    .demo-fallback {
+      padding: 0 1.5rem;
+    }
+  }
+</style>
+
+<script>
+  // Same-origin, so the height can be measured directly rather than posted
+  // across, and the site's theme toggle can be handed through to the frame.
+  const frame = document.getElementById('flowmission-demo') as HTMLIFrameElement | null;
+
+  if (frame) {
+    const syncTheme = () => {
+      const doc = frame.contentDocument;
+      if (!doc) return;
+      const theme = document.documentElement.dataset.theme;
+      if (theme) doc.documentElement.dataset.theme = theme;
+      else delete doc.documentElement.dataset.theme;
+    };
+
+    const syncHeight = () => {
+      const doc = frame.contentDocument;
+      if (!doc?.body) return;
+      frame.style.height = `${doc.body.scrollHeight + 8}px`;
+    };
+
+    const wire = () => {
+      syncTheme();
+      syncHeight();
+      const doc = frame.contentDocument;
+      if (doc?.body && 'ResizeObserver' in window) {
+        new ResizeObserver(syncHeight).observe(doc.body);
+      }
+      // The walkthrough advances on its own, and each frame is a different height.
+      setInterval(syncHeight, 1000);
+    };
+
+    frame.addEventListener('load', wire);
+    // A lazy frame can finish before this script runs, in which case the load
+    // event has already been and gone.
+    if (frame.contentDocument?.readyState === 'complete') wire();
+
+    new MutationObserver(syncTheme).observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+    });
+  }
+</script>

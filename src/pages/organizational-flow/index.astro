@@ -1,0 +1,396 @@
+---
+import { getCollection, getEntry, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Footer from '../../components/Footer.astro';
+import { parts, chapterNumber, appendix, frontMatter, paper } from '../../data/book-structure';
+import { printEditionPublic, printEditionPath } from '../../data/print-edition';
+import { priceIncVat, kr } from '../../data/printed-copy';
+
+const preface = await getEntry('chapters', 'preface');
+if (!preface) throw new Error('Preface entry missing');
+const { Content } = await render(preface);
+
+// Subject nouns come from the chapter files rather than from book-structure, so
+// the topic shown here and the one on the chapter page cannot drift apart.
+const topics = new Map(
+  (await getCollection('chapters')).map((c) => [c.id, c.data.topic]).filter(([, t]) => t)
+);
+
+---
+
+<BaseLayout title={`${paper.title} — ${paper.subtitle}`} description={paper.tagline}>
+  <section class="hero">
+    <p class="kicker">{paper.eyebrow}</p>
+    <h1>{paper.title}<span class="hero-sub">{paper.subtitle}</span></h1>
+    <p class="hero-tagline">{paper.tagline}</p>
+    <p class="hero-thesis">
+      Organizations don't become slow because people work slowly.
+      They become slow because friction accumulates faster than value is created.
+    </p>
+    <p class="lede">
+      Organizational Flow is an organization's ability to continuously create value. Every organization has
+      Organizational Flow — it is a property you hold a position on, not a state you arrive at. It is not a
+      framework or a methodology. It is a way of seeing.
+    </p>
+    <p class="lede">
+      Structural friction determines how much of an organization's potential is actually realized.
+    </p>
+    <p class="lede">
+      We learned that the systems we build are never truly finished. They evolve continuously and must be
+      cultivated over time. Organizations are no different. If one is designed for continuous evolution while
+      the other is designed for completion, structural friction is inevitable. The systems we build and the
+      organizations that build them must therefore be cultivated together.
+    </p>
+    <p class="hero-axiom">
+      Organizational Flow rises as information, decisions, execution and learning move through enduring
+      capabilities with clear ownership — and falls as structural friction accumulates faster than value
+      is created.
+    </p>
+    <div class="hero-friction">
+      <p>
+        A paper this long is itself friction — a wall of material standing between you and the two or three
+        parts that would actually help you on Monday. This one argues that friction should be named rather
+        than tolerated, so: five things exist to take some of it off you.
+      </p>
+      <ul>
+        <li>
+          <a href="/organizational-flow/the-ten-minute-version/">The Ten-Minute Version</a> — the whole
+          argument, standing on its own.
+        </li>
+        <li>
+          <a href="/organizational-flow/self-assessment/">A Closer Look</a> — eighteen questions that point
+          you at the chapters matching whatever is currently creaking, so you needn't guess from a contents
+          page.
+        </li>
+        <li>
+          {/* The player lives on the Print Edition route. If that page is ever
+              hidden, the audio needs a home of its own first. */}
+          <a href={printEditionPath}>Audio</a> — listen while you run, drive or do the washing up.
+          Costs you no evening.
+        </li>
+        <li>
+          <button class="friction-buy" type="button" data-open-order>A printed copy</button> — if
+          you read better on paper, or you want this sitting on somebody's table where it has a
+          fighting chance of being read instead of spending eternity in an open browser tab.
+          {kr(priceIncVat)} plus postage, printed on demand.
+        </li>
+        <li>
+          Chapters that more or less stand alone — take a little of Part I with you, since that is where
+          the words get settled, and after that jump wherever you like. Part IV is
+          the <em>how do I actually do this</em> end of it. Nobody needs to read the whole thing in order, and
+          I would rather you didn't try it in one sitting.
+        </li>
+      </ul>
+      <p class="hero-friction-close">
+        I try to live as I learn. Working out which chapters matter to you shouldn't be your job.
+      </p>
+    </div>
+
+    {/* printEditionPublic hides the online edition. The PDF is no longer
+        offered here at all — it lives behind the licence line in the footer,
+        for anyone who goes looking. */}
+    <p class="hero-action">
+      {printEditionPublic && (
+        <a class="download-paper" href={printEditionPath}>Read it all</a>
+      )}
+      <button class="download-paper" type="button" data-open-order>Get your copy</button>
+      <span class="download-note">
+        Or just carry on down the page and read a part at a time.
+      </span>
+    </p>
+    <p class="hero-aside">
+      Or start with the question the paper is really asking:
+      <a href="/organizational-flow/self-assessment/">where is your organization losing movement?</a>
+    </p>
+    <div class="horizon"></div>
+  </section>
+
+  <main class="reading" id="main">
+    <section class="block preface" id="preface">
+      <p class="kicker">Preface</p>
+      <Content />
+    </section>
+
+    <hr class="chapter-divider" />
+
+    <div class="toc-thesis">
+      <p>Organizations become slow when friction accumulates faster than value is created.</p>
+    </div>
+
+    <div class="toc-part">
+      <p class="kicker">Preface</p>
+      {preface.data.dek && <p class="toc-question">{preface.data.dek}</p>}
+      <ol class="toc-cols">
+        {/* The Preface has no page of its own — it is the body of this one —
+            so it links back up the page rather than out to a route. */}
+        <li>
+          <a class="toc-chapter" href="#preface">
+            <span>Preface</span>
+          </a>
+        </li>
+        {frontMatter.map((item) => (
+          <li>
+            <a class="toc-chapter" href={`/organizational-flow/${item.slug}/`}>
+              <span>{item.title}</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </div>
+
+    {parts.map((part) => (
+      <div class="toc-part">
+        <p class="kicker">Part {part.id} — {part.title}</p>
+        <p class="toc-question">{part.question}</p>
+        <ol class="toc-cols">
+          {part.chapters.map((chapter) => (
+            <li>
+              {chapter.status === 'published' ? (
+                <a class="toc-chapter" href={`/organizational-flow/${chapter.slug}/`}>
+                  <span>
+                    <span class="toc-num">{chapterNumber(chapter.slug)}</span>{chapter.title}
+                    {topics.get(chapter.slug) && (
+                      <span class="toc-topic">{topics.get(chapter.slug)}</span>
+                    )}
+                  </span>
+                </a>
+              ) : (
+                <span class="toc-chapter is-upcoming">
+                  <span>{chapter.title}</span>
+                  <span class="toc-status">Coming</span>
+                </span>
+              )}
+            </li>
+          ))}
+        </ol>
+      </div>
+    ))}
+
+    <div class="toc-part">
+      <p class="kicker">Appendix</p>
+      <ol class="toc-cols">
+        {appendix.map((item) => (
+          <li>
+            <a class="toc-chapter" href={`/organizational-flow/${item.slug}/`}>
+              <span>
+                {item.title}
+                {item.topic && <span class="toc-topic">{item.topic}</span>}
+              </span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </main>
+
+  <Footer label="Organizational Flow — an ongoing work" />
+</BaseLayout>
+
+<script>
+  // Report downloads into the same Cronitor property as pageviews.
+  function track(event: string) {
+    const cronitor = (window as unknown as { cronitor?: (...args: unknown[]) => void }).cronitor;
+    if (typeof cronitor === 'function') cronitor('track', event);
+  }
+  document.querySelectorAll('[data-download-paper]').forEach((link) => {
+    link.addEventListener('click', () => track('Download PDF'));
+  });
+  document.querySelectorAll('[data-printed-copy]').forEach((link) => {
+    link.addEventListener('click', () => track('Ask About Printed Copy'));
+  });
+</script>
+
+<style>
+  /* Its own quiet card, not a marginalia aside — a direct address deserves
+     the full measure, not a narrow column beside the Preface. */
+  .reader-note {
+    max-width: var(--max);
+    margin: 2.4rem auto 0;
+    padding: 1.5rem 1.6rem;
+    border: 1px solid var(--mist);
+    border-radius: 0.6rem;
+    background: var(--card);
+  }
+  .reader-note-label {
+    margin: 0 0 0.9rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .reader-note p:not(.reader-note-label) {
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: var(--bark);
+    margin: 0 0 0.9rem;
+  }
+  .reader-note p:last-child { margin-bottom: 0; }
+
+  /* The paper naming its own friction. Sits between the argument and the
+     download, because a first-time reader should meet the ways out before
+     they meet the size of the thing. */
+  .hero-friction {
+    max-width: var(--max);
+    margin: 2.6rem auto 0;
+    padding: 1.5rem 1.7rem;
+    border: 1px solid var(--mist);
+    border-radius: 0.5rem;
+    background: var(--card);
+    text-align: left;
+  }
+  .hero-friction p { margin: 0 0 1rem; color: var(--bark); font-size: 0.96rem; line-height: 1.6; }
+  .hero-friction ul { margin: 0; padding: 0 0 0 1.1rem; }
+  .hero-friction li {
+    margin: 0 0 0.6rem;
+    color: var(--bark);
+    font-size: 0.94rem;
+    line-height: 1.55;
+  }
+  .hero-friction a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--moss); }
+  .hero-friction a:hover { color: var(--moss); }
+  .hero-friction-close {
+    margin: 1.1rem 0 0 !important;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--mist);
+    font-style: italic;
+  }
+
+  .hero-action {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.7rem;
+    margin: 2rem 0 0;
+  }
+  .hero-action .download-note {
+    flex: 1 0 100%;
+    text-align: center;
+  }
+  /* A button keeps the platform's own fill and text colour unless both are
+     cleared — which is what made it unreadable against the dark palette.
+     Deliberately no `font` shorthand here: this selector outranks
+     .download-paper below, so `font: inherit` silently overrode the family
+     and size and printed this button half again as large as the link beside
+     it, in the body serif. The class sets the type for both. */
+  button.download-paper {
+    color: var(--ink);
+    background: none;
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+  }
+  .download-paper {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    /* Stated rather than inherited: a link picks up the body's line-height
+       and a button keeps the platform's `normal`, which left the two pills
+       three pixels apart in height. */
+    line-height: 1.4;
+    /* Both pills sit at one width so neither reads as the louder offer —
+       the paper is given away, and the order button should not out-shout
+       the invitation to read it. Sized to the longer of the two labels. */
+    min-width: 10.5rem;
+    text-align: center;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    border: 1px solid var(--bark);
+    border-radius: 20px;
+    padding: 0.6rem 1.4rem;
+    transition: color .2s ease, border-color .2s ease;
+  }
+  .download-paper:hover {
+    color: var(--moss);
+    border-color: var(--moss);
+  }
+  .download-note {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    color: var(--bark);
+  }
+  .download-note a {
+    color: var(--bark);
+    text-decoration: none;
+    border-bottom: 1px solid var(--mist);
+  }
+  .download-note a:hover { color: var(--moss); border-color: var(--moss); }
+  .toc-num {
+    display: inline-block;
+    min-width: 1.9rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--bark);
+  }
+  /* Part II titles are written to raise curiosity, so the subject noun rides
+     alongside them here — otherwise the contents page stops being scannable. */
+  .toc-topic {
+    margin-left: 0.5rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--bark);
+    opacity: 0.75;
+    white-space: nowrap;
+  }
+  /* The Editor's Note is far longer than a chapter marginalia; pinning it
+     would leave it taller than the viewport on most screens. */
+  .preface :global(.marginalia-col) {
+    position: static !important;
+  }
+  .preface :global(.marginalia-text + .marginalia-text) {
+    margin-top: 0.7rem;
+  }
+  .hero-thesis {
+    max-width: 36rem;
+    margin: 0 auto 1.6rem;
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+    line-height: 1.5;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+  .toc-thesis {
+    max-width: var(--max);
+    margin: 0 auto 3rem;
+    text-align: center;
+  }
+  .toc-thesis p {
+    font-family: 'Fraunces', serif;
+    font-size: 1.12rem;
+    line-height: 1.55;
+    color: var(--ink);
+    margin: 0 auto;
+    max-width: 34rem;
+    text-wrap: balance;
+  }
+  .toc-question {
+    max-width: 34rem;
+    margin: -0.4rem 0 1rem;
+    font-size: 0.94rem;
+    line-height: 1.55;
+    color: var(--bark);
+    font-style: italic;
+  }
+  .hero-aside {
+    margin: 1.1rem auto 0;
+    max-width: 32rem;
+    font-size: 0.92rem;
+    color: var(--bark);
+  }
+  .hero-aside a {
+    color: var(--bark);
+    text-decoration: none;
+    border-bottom: 1px solid var(--mist);
+    transition: color .2s ease, border-color .2s ease;
+  }
+  .hero-aside a:hover {
+    color: var(--moss);
+    border-color: var(--moss);
+  }
+</style>

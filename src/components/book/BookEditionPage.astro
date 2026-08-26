@@ -1,0 +1,55 @@
+---
+// The copyright / edition page — verso of the title page in a bound copy.
+//
+// The snapshot date is generated from the build clock, because the online text
+// keeps moving and the only honest thing a printed copy can say is which day
+// it froze. No ISBN: there isn't one, and a placeholder in a printed book is
+// worse than an absence.
+import { paper } from '../../data/book-structure';
+import {
+  printEditionLabel,
+  snapshotDate,
+  copyrightYear,
+  livingPaperNote,
+  canonicalUrl,
+  rightsHolder,
+  licenceName,
+  licenceShort,
+  licenceUrl,
+  licenceStatement,
+  imprintLines,
+} from '../../data/print-edition';
+
+const generated = snapshotDate();
+const year = copyrightYear();
+---
+
+<section class="book-page book-edition-page book-only">
+  <div class="edition-block">
+    <p class="edition-line">{paper.title} — {paper.subtitle}</p>
+    <p class="edition-line">{paper.tagline}</p>
+
+    <p class="edition-line edition-gap">© {year} {rightsHolder}</p>
+    <p class="edition-line">Written by {paper.author}</p>
+
+    <p class="edition-line edition-gap">Published under {licenceShort}</p>
+    <p class="edition-line">{licenceName}</p>
+    <p class="edition-note">{licenceStatement}</p>
+    <p class="edition-url">{licenceUrl}</p>
+    <p class="edition-line">christoffer.rasten@troi.se</p>
+
+    <p class="edition-line">{printEditionLabel}</p>
+    <p class="edition-line">Based on the online edition as of {generated}</p>
+
+    <p class="edition-note">{livingPaperNote}</p>
+
+    <p class="edition-line edition-gap">The current edition is published at</p>
+    <p class="edition-url">{canonicalUrl}</p>
+
+    <p class="edition-line edition-gap">{paper.imprint}</p>
+
+    <div class="edition-imprint">
+      {imprintLines.map((line) => <p class="edition-line">{line}</p>)}
+    </div>
+  </div>
+</section>

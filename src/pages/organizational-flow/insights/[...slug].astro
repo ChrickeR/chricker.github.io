@@ -1,0 +1,47 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Footer from '../../../components/Footer.astro';
+import { findChapterLocation } from '../../../data/book-structure';
+
+export async function getStaticPaths() {
+  const insights = await getCollection('insights');
+  return insights.map((insight) => ({
+    params: { slug: insight.id },
+    props: { insight },
+  }));
+}
+
+const { insight } = Astro.props;
+const { Content } = await render(insight);
+
+const relatedChapters = insight.data.relatedChapters
+  .map((slug) => findChapterLocation(slug))
+  .filter((location): location is NonNullable<typeof location> => location !== null);
+---
+
+<BaseLayout title={insight.data.title} description={insight.data.summary}>
+  <main class="reading" id="main">
+    <section class="block insight-page">
+      <p class="kicker">{insight.data.label}</p>
+      <h1>{insight.data.title}</h1>
+      <Content />
+
+      {relatedChapters.length > 0 && (
+        <p class="related">
+          {'Related reading — '}
+          {relatedChapters.map((location, i) => (
+            <>
+              {i > 0 && ', '}
+              <a href={`/organizational-flow/${location.chapter.slug}/`}>
+                Part {location.part.id} · {location.chapter.title}
+              </a>
+            </>
+          ))}
+        </p>
+      )}
+    </section>
+  </main>
+
+  <Footer label="Organizational Flow — an ongoing work" />
+</BaseLayout>

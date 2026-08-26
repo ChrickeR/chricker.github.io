@@ -1,0 +1,1049 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bordvakt — prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Public+Sans:wght@300;400;500;600;700&display=swap">
+<style>
+:root{
+  --ground:#F4F3EE;
+  --surface:#FFFFFF;
+  --ink:#1A1D19;
+  --muted:#5F675C;
+  --rule:#DCDCD2;
+  --hair:#EAEAE1;
+  --sap:#1F6F43;
+  --amber:#8A5A00;
+  --clay:#A03A22;
+  --shadow:rgba(26,32,24,.15);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#12140F;
+    --surface:#1A1D17;
+    --ink:#E9EAE3;
+    --muted:#909788;
+    --rule:#2E322A;
+    --hair:#22261F;
+    --sap:#5FC58A;
+    --amber:#E0A94A;
+    --clay:#D6795C;
+    --shadow:rgba(0,0,0,.55);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#12140F; --surface:#1A1D17; --ink:#E9EAE3; --muted:#909788;
+  --rule:#2E322A; --hair:#22261F; --sap:#5FC58A; --amber:#E0A94A;
+  --clay:#D6795C; --shadow:rgba(0,0,0,.55);
+}
+
+/* The device screens are the product's own surface, so they keep the app's
+   light palette in either theme — the same reason a phone photo stays a phone. */
+:root{
+  --app-bg:#FBFBFA; --app-panel:#FFFFFF; --app-ink:#1A1A19;
+  --app-muted:#7A7A76; --app-line:#E6E5E1; --app-sap:#1F6F43;
+  --app-err:#B3261E;
+}
+
+*{box-sizing:border-box}
+/* .rail and .eyebrow set display:flex, which beats the `hidden` attribute —
+   without this the tour's chapter list stayed on screen in prototype mode. */
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--ground);color:var(--ink);
+  font-family:"Public Sans",ui-sans-serif,system-ui,sans-serif;
+  font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:40px 22px 76px}
+
+/* ---------- masthead ---------- */
+.mast{
+  display:flex;align-items:flex-end;justify-content:space-between;gap:24px;
+  flex-wrap:wrap;border-bottom:1px solid var(--rule);
+  padding-bottom:20px;margin-bottom:32px;
+}
+.kicker{
+  font-size:11.5px;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--sap);font-weight:600;margin-bottom:11px;
+}
+.mast h1{
+  font-family:"Fraunces",Georgia,serif;font-optical-sizing:auto;
+  font-weight:600;font-size:clamp(32px,5.4vw,50px);
+  letter-spacing:-.022em;line-height:1.0;margin:0;text-wrap:balance;
+}
+.mast .sub{margin:10px 0 0;color:var(--muted);max-width:54ch;font-size:15.5px}
+.where{font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.where b{color:var(--ink);font-weight:600}
+
+/* ---------- the premise ---------- */
+.premise{
+  margin:0 0 40px;padding:26px 28px;border-radius:3px;
+  background:var(--surface);border:1px solid var(--rule);border-left:2px solid var(--sap);
+}
+.premise .lede{margin:0 0 18px;font-size:14px;color:var(--muted)}
+.premise ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:16px 34px}
+@media(max-width:720px){.premise ul{grid-template-columns:1fr}}
+.premise li{
+  font-family:"Fraunces",Georgia,serif;font-size:16.5px;line-height:1.42;
+  font-weight:400;color:var(--muted);text-wrap:pretty;
+}
+.premise li span{color:var(--ink);font-weight:600;display:block;font-family:"Public Sans",sans-serif;font-size:15.5px}
+.premise .foot{margin:20px 0 0;padding-top:16px;border-top:1px solid var(--hair);font-size:13.5px;color:var(--muted)}
+
+/* ---------- stage ---------- */
+.stage{display:grid;grid-template-columns:minmax(0,470px) minmax(0,1fr);gap:46px;align-items:start}
+@media(max-width:860px){.stage{grid-template-columns:1fr;gap:32px;justify-items:center}.readout{max-width:560px}}
+
+.devicecol{display:flex;flex-direction:column;align-items:center;gap:18px}
+.devicebox{position:relative;width:470px;height:520px;display:grid;place-items:center}
+@media(max-width:520px){
+  .devicebox{width:100%;max-width:360px;height:430px}
+  .mac{transform:scale(.78)}
+  .phone{transform:scale(.82)}
+}
+
+/* laptop / browser shell */
+.mac{
+  position:absolute;width:452px;height:496px;border-radius:12px;overflow:hidden;
+  background:#E9EAE4;border:1px solid rgba(0,0,0,.16);
+  box-shadow:0 20px 46px var(--shadow);
+  opacity:0;transition:opacity .4s ease;pointer-events:none;
+}
+.mac.on{opacity:1}
+.mac.proto.on{pointer-events:auto}
+.macbar{height:34px;background:#E2E3DC;border-bottom:1px solid rgba(0,0,0,.11);display:flex;align-items:center;gap:7px;padding:0 12px}
+.macbar i{width:10px;height:10px;border-radius:50%;display:block}
+.url{
+  margin-left:8px;flex:1;height:20px;border-radius:5px;background:#F6F6F2;
+  border:1px solid rgba(0,0,0,.09);display:flex;align-items:center;
+  padding:0 8px;font-size:10.5px;color:#7A7A76;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+.macscreen{position:relative;height:462px;background:var(--app-bg);overflow:hidden}
+
+/* phone shell */
+.phone{
+  position:absolute;width:252px;height:508px;border-radius:36px;
+  background:#1C1E1A;border:1px solid rgba(255,255,255,.09);
+  box-shadow:0 20px 46px var(--shadow);padding:11px;
+  opacity:0;transition:opacity .4s ease;pointer-events:none;
+}
+.phone.on{opacity:1}
+.notch{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:82px;height:20px;border-radius:0 0 12px 12px;background:#1C1E1A;z-index:2}
+.phonescreen{
+  position:relative;height:100%;border-radius:26px;overflow:hidden;
+  background:linear-gradient(170deg,#20402F 0%,#12241A 58%,#0C1712 100%);
+}
+
+/* frames */
+.frame{position:absolute;inset:0;opacity:0;transition:opacity .4s ease;pointer-events:none;overflow:hidden}
+.frame.on{opacity:1}
+
+/* ---------- in-device app UI ---------- */
+.ui{
+  position:absolute;inset:0;padding:16px 18px;color:var(--app-ink);
+  font-family:"Public Sans",ui-sans-serif,system-ui,sans-serif;font-size:12.5px;line-height:1.45;
+}
+.ui-h{display:flex;align-items:baseline;gap:8px;margin-bottom:3px}
+.ui-h b{font-size:16px;letter-spacing:-.01em}
+.ui-h span{font-size:10.5px;color:var(--app-muted)}
+.ui-tabs{display:flex;gap:12px;border-bottom:1px solid var(--app-line);margin:11px 0 13px}
+.ui-tabs i{font-style:normal;font-size:11.5px;color:var(--app-muted);padding-bottom:6px;display:flex;gap:5px;align-items:center}
+.ui-tabs i.on{color:var(--app-ink);font-weight:650;box-shadow:inset 0 -2px 0 var(--app-sap)}
+.ui-tabs u{text-decoration:none;font-size:9.5px;background:var(--app-bg);border:1px solid var(--app-line);border-radius:99px;padding:0 5px;color:var(--app-muted)}
+.ui-tabs i.on u{background:var(--app-sap);color:#fff;border-color:transparent}
+.ui-sec{font-size:12.5px;font-weight:700;margin:0 0 8px}
+.ui-card{background:var(--app-panel);border:1px solid var(--app-line);border-radius:8px;padding:10px 11px;margin-bottom:7px}
+.ui-card.best{border-left:3px solid var(--app-sap)}
+.ui-card.skip{border-left:3px solid var(--app-line)}
+.ui-ch{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:2px}
+.ui-ch b{font-size:12.5px}
+.pill{font-size:9.5px;padding:1px 6px;border-radius:99px;background:var(--app-bg);border:1px solid var(--app-line);color:var(--app-muted)}
+.pill.go{background:var(--app-sap);border-color:transparent;color:#fff}
+.ui-when{font-size:14px;margin:2px 0 1px}
+.ui-when b{font-weight:700}
+.ui-m{color:var(--app-muted);font-size:10.5px;margin:1px 0}
+.ui-btns{display:flex;gap:6px;margin-top:8px}
+.ui-b{font-size:10.5px;padding:5px 9px;border-radius:6px;border:1px solid var(--app-line);background:var(--app-panel);color:var(--app-ink)}
+.ui-b.p{background:var(--app-sap);border-color:transparent;color:#fff;font-weight:650}
+.ui-row{display:grid;grid-template-columns:1fr auto;gap:8px;padding:7px 0;border-bottom:1px solid var(--app-line)}
+.ui-row:last-child{border-bottom:none}
+.ui-row b{font-size:11.5px}
+.ui-row .why{color:var(--app-muted);font-size:10px;display:block;margin-top:1px}
+.ui-row .why.hit{color:var(--app-sap);font-weight:650}
+.ui-dl{display:grid;grid-template-columns:max-content 1fr;gap:2px 12px;margin:6px 0 8px}
+.ui-dl dt{font-size:9px;letter-spacing:.05em;text-transform:uppercase;color:var(--app-muted);font-weight:650;padding-top:2px}
+.ui-dl dd{margin:0;font-size:12px}
+.ui-dl dd b{font-size:13px}
+.ui-note{background:var(--app-bg);border:1px solid var(--app-line);border-radius:7px;padding:8px 9px;color:var(--app-muted);font-size:10.5px;margin-top:8px}
+.ui-list{margin:0;padding-left:14px;color:var(--app-muted);font-size:10.5px}
+.ui-list li{margin-bottom:3px}
+.ui-field{margin-bottom:8px}
+.ui-lab{font-size:10px;font-weight:650;display:block;margin-bottom:3px}
+.ui-in{border:1px solid var(--app-line);background:var(--app-bg);border-radius:6px;padding:5px 8px;font-size:11.5px;display:flex;justify-content:space-between;align-items:center;color:var(--app-ink)}
+.ui-in::after{content:"⌄";color:var(--app-muted);font-size:12px;line-height:1}
+.ui-days{display:flex;gap:4px;margin-bottom:8px}
+.ui-days i{font-style:normal;flex:1;text-align:center;font-size:10px;border:1px solid var(--app-line);border-radius:5px;padding:4px 0;color:var(--app-muted);background:var(--app-bg)}
+.ui-days i.on{background:var(--app-sap);border-color:transparent;color:#fff;font-weight:650}
+.ui-chips{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px}
+.ui-chips i{font-style:normal;font-size:9.5px;border:1px solid var(--app-line);border-radius:99px;padding:3px 8px;color:var(--app-muted);background:var(--app-bg)}
+.ui-chips i.on{border-color:var(--app-sap);color:var(--app-sap);font-weight:650}
+.ui-area{border:1px solid var(--app-line);border-radius:7px;padding:8px 9px;margin-bottom:6px;display:flex;gap:8px;align-items:flex-start;background:var(--app-panel)}
+.ui-area.rej{border-color:var(--app-err)}
+.ui-box{width:12px;height:12px;border-radius:3px;border:1.5px solid var(--app-muted);flex:none;margin-top:2px}
+.ui-box.x{background:var(--app-err);border-color:var(--app-err);position:relative}
+.ui-box.x::after{content:"✕";position:absolute;inset:0;color:#fff;font-size:8px;line-height:12px;text-align:center}
+.ui-area b{font-size:11.5px;display:block}
+.ui-area span{font-size:10px;color:var(--app-muted)}
+
+/* the midnight screen */
+.mid{position:absolute;inset:0;background:#12241A;color:#fff;display:flex;flex-direction:column;justify-content:center;padding:0 30px}
+.mid .t{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:52px;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.mid .l{font-size:13px;color:#9EBFAC;margin-top:12px;max-width:26ch;line-height:1.5}
+.mid .r{margin-top:20px;padding-top:14px;border-top:1px solid rgba(255,255,255,.14);font-size:11px;color:#7FA290;letter-spacing:.04em}
+
+/* phone content */
+.ph{position:absolute;inset:0;padding:52px 14px 18px;color:#fff;font-size:12px}
+.ph .time{font-size:44px;font-weight:300;text-align:center;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.ph .date{text-align:center;font-size:11px;color:#A9C5B5;margin-top:1px;letter-spacing:.05em}
+.ph .banner{background:rgba(255,255,255,.13);backdrop-filter:blur(6px);border-radius:14px;padding:10px 11px;margin-top:14px;border:1px solid rgba(255,255,255,.11)}
+.ph .banner .app{font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:#B7D2C3;display:flex;justify-content:space-between}
+.ph .banner .ttl{font-weight:650;font-size:12px;margin-top:3px}
+.ph .banner .bd{font-size:11px;color:#D5E4DB;margin-top:2px;line-height:1.4}
+.watchpip{
+  position:absolute;right:14px;bottom:16px;width:74px;height:88px;border-radius:20px;
+  background:#0A0F0C;border:1px solid rgba(255,255,255,.16);padding:8px 7px;
+  box-shadow:0 8px 20px rgba(0,0,0,.5);
+}
+.watchpip .a{font-size:7px;letter-spacing:.1em;text-transform:uppercase;color:#8FB09E}
+.watchpip .b{font-size:10px;font-weight:650;margin-top:3px;line-height:1.25;color:#fff}
+.watchpip .c{font-size:8.5px;color:#9EBFAC;margin-top:3px}
+
+/* mail screen */
+.mail{position:absolute;inset:0;background:#EEF0F1;padding:14px}
+.mailwin{background:#fff;border-radius:9px;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.1);height:100%}
+.mailbar{background:#F6F7F8;border-bottom:1px solid #E2E5E8;padding:9px 12px}
+.mailbar .s{font-size:12px;font-weight:700;color:#12181D}
+.mailbar .m{font-size:9.5px;color:#6B757D;margin-top:2px}
+.mailbody{padding:12px 14px;color:#1A1A19}
+.mailbody h4{font-family:"Public Sans",sans-serif;font-size:15px;margin:0 0 2px;font-weight:700}
+.mailbody .g{font-size:10px;color:#7A7A76;margin-bottom:8px}
+.mailbody ul{margin:0 0 10px;padding-left:15px;font-size:11.5px;line-height:1.7}
+.mailbody ul span{color:#8A8A85}
+.mailbody .cta{display:inline-block;background:#111;color:#fff;border-radius:5px;padding:6px 12px;font-size:11px;font-weight:600}
+.mailbody .addr{font-size:10.5px;margin-top:9px;color:#1F6F43}
+
+.devicecol .modes{order:-1;margin-bottom:4px}
+
+/* ---------- full-width prototype ----------
+   Squeezed into the 452px tour mockup the prototype was legible but not usable.
+   In Try mode the stage collapses to one column and the window takes the page. */
+.stage.tryon{grid-template-columns:1fr;gap:26px}
+.stage.tryon .devicecol{width:100%;order:2}
+.stage.tryon .readout{order:1;max-width:none}
+.stage.tryon .devicebox{width:100%;height:auto;display:block}
+.stage.tryon .mac.proto{
+  position:static;width:100%;height:min(72vh,660px);
+  border-radius:14px;box-shadow:0 24px 60px var(--shadow);
+}
+.stage.tryon .macscreen{height:calc(100% - 34px)}
+/* Roomier type once it has the width to deserve it. */
+.stage.tryon .ui{padding:22px 26px;font-size:14px}
+.stage.tryon .ui-h b{font-size:20px}
+.stage.tryon .ui-tabs{margin:14px 0 16px;gap:18px}
+.stage.tryon .ui-tabs i{font-size:13.5px;padding-bottom:8px}
+.stage.tryon .ui-sec{font-size:14.5px;margin-bottom:11px}
+.stage.tryon .ui-card{padding:13px 15px;margin-bottom:9px}
+.stage.tryon .ui-when{font-size:17px}
+.stage.tryon .ui-m,.stage.tryon .ui-note{font-size:12.5px}
+.stage.tryon .ui-b{font-size:12.5px;padding:7px 13px}
+.stage.tryon .ui-days i,.stage.tryon .ui-chips i{font-size:12px;padding:6px 10px}
+.stage.tryon .ui-area{padding:10px 12px}
+.stage.tryon .ui-lab{font-size:11.5px}
+.stage.tryon label.pf select{font-size:13px;padding:6px 8px}
+/* Cards side by side once there is room for them. */
+@media(min-width:760px){
+  .stage.tryon .ui-cards{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+  .stage.tryon .ui-cards .ui-card{margin-bottom:0}
+  .stage.tryon .protogrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,300px);gap:24px;align-items:start}
+}
+
+/* ---------- mode switch + prototype ---------- */
+.modes{display:flex;gap:2px;background:var(--hair);border-radius:999px;padding:3px}
+.mode{
+  font-family:inherit;font-size:12px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;
+  border:0;background:transparent;color:var(--muted);padding:7px 15px;border-radius:999px;cursor:pointer;
+  transition:background .15s,color .15s;
+}
+.mode.on{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px var(--shadow)}
+.mode:focus-visible{outline:2px solid var(--sap);outline-offset:2px}
+.mac.proto{pointer-events:auto}
+.live{position:absolute;inset:0;overflow-y:auto}
+.protohint{
+  border-left:2px solid var(--sap);padding-left:12px;color:var(--ink)!important;
+  font-weight:600;font-size:14.5px!important;
+}
+/* the prototype is operable, so its controls must look and behave like controls */
+.ui-tabs i,.ui-days i,.ui-chips i,.ui-area,.ui-b{cursor:pointer;user-select:none}
+.ui-tabs i:hover,.ui-days i:hover,.ui-chips i:hover{color:var(--app-sap)}
+.ui-area:hover{border-color:var(--app-sap)}
+.ui-b:hover{filter:brightness(.96)}
+label.pf{display:flex;flex-direction:column;gap:3px}
+label.pf span{font-size:10px;font-weight:650}
+label.pf select{
+  font:inherit;font-size:11.5px;padding:4px 6px;border-radius:6px;
+  border:1px solid var(--app-line);background:var(--app-bg);color:var(--app-ink);width:100%;
+}
+
+/* ---------- controls ---------- */
+.controls{display:flex;align-items:center;gap:10px}
+.btn{
+  font-family:inherit;font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;
+  background:var(--surface);color:var(--muted);border:1px solid var(--rule);
+  border-radius:999px;padding:9px 17px;cursor:pointer;transition:color .15s,border-color .15s;
+}
+.btn:hover{color:var(--ink);border-color:var(--muted)}
+.btn:focus-visible{outline:2px solid var(--sap);outline-offset:2px}
+.counter{font-size:12px;letter-spacing:.1em;color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* ---------- readout ---------- */
+.readout{width:100%;min-width:0}
+.eyebrow{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.chapter{font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.badge{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;padding:4px 10px;border-radius:999px;border:1px solid}
+.badge.built{color:var(--sap);border-color:color-mix(in srgb,var(--sap) 42%,transparent)}
+.badge.off{color:var(--amber);border-color:color-mix(in srgb,var(--amber) 42%,transparent)}
+.badge.untested{color:var(--clay);border-color:color-mix(in srgb,var(--clay) 42%,transparent)}
+.readout h2{
+  font-family:"Fraunces",Georgia,serif;font-weight:600;
+  font-size:clamp(23px,3.5vw,31px);letter-spacing:-.015em;line-height:1.14;
+  margin:0 0 12px;text-wrap:balance;
+}
+.readout p{margin:0 0 14px;max-width:60ch;color:var(--muted);font-size:15.5px}
+.readout p strong{color:var(--ink);font-weight:600}
+.readout code{
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.86em;
+  background:var(--hair);padding:.1em .35em;border-radius:3px;color:var(--ink);
+}
+
+/* chapter rail */
+.rail{margin-top:30px;display:flex;flex-direction:column;gap:2px;border-top:1px solid var(--hair);padding-top:18px}
+.rail button{
+  display:grid;grid-template-columns:26px 1fr auto;align-items:center;gap:14px;
+  background:none;border:0;padding:9px 4px;cursor:pointer;text-align:left;
+  font-family:inherit;color:var(--muted);font-size:14px;border-radius:6px;
+  transition:color .15s,background .15s;
+}
+.rail button:hover{color:var(--ink);background:var(--hair)}
+.rail button:focus-visible{outline:2px solid var(--sap);outline-offset:-2px}
+.rail button[aria-current="true"]{color:var(--ink);font-weight:600}
+.rail .n{font-size:11px;letter-spacing:.08em;color:var(--muted);font-variant-numeric:tabular-nums}
+.rail button[aria-current="true"] .n{color:var(--sap)}
+.rail .meter{width:52px;height:3px;background:var(--hair);border-radius:2px;overflow:hidden}
+.rail .meter i{display:block;height:100%;width:0;background:var(--sap);transition:width .2s linear}
+
+/* ---------- closing ---------- */
+.note{margin-top:58px;padding-top:26px;border-top:1px solid var(--rule);display:grid;grid-template-columns:repeat(auto-fit,minmax(262px,1fr));gap:36px}
+@media(max-width:720px){.note{grid-template-columns:1fr;gap:26px}}
+.note h3{font-family:"Fraunces",Georgia,serif;font-size:17px;font-weight:600;letter-spacing:-.01em;margin:0 0 10px}
+.note p{margin:0 0 10px;color:var(--muted);font-size:14.5px;max-width:56ch}
+.note .k{color:var(--ink);font-weight:600}
+.note code{font-family:ui-monospace,Menlo,monospace;font-size:.85em;background:var(--hair);padding:.1em .35em;border-radius:3px;color:var(--ink)}
+
+@media (prefers-reduced-motion:reduce){
+  .frame,.mac,.phone{transition:none}
+  .rail .meter i{transition:none}
+}
+</style>
+<style>
+  /* Embedded in the tool page: the host page paints the ground, and the
+     masthead lives up there rather than in here. */
+  html, body { background: transparent; }
+  .wrap { padding: 0 0 8px; max-width: none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <section class="premise">
+    <p class="lede">Three restaurants, three different ways of making you set an alarm.</p>
+    <ul>
+      <li><span>Lilla Ego</span> opens the night thirty days out at 00:00:00. Every night, rolling.</li>
+      <li><span>Frantzén</span> opens an entire month on the first, at ten in the morning.</li>
+      <li><span>Restaurang Hantverket</span> rolls about two months ahead, and is usually gettable.</li>
+      <li><span>The tables people want</span> sit between six and eight. What survives to morning is 21:30.</li>
+    </ul>
+    <p class="foot">Wanting the table is not the qualifying condition. Being awake, free and fast at an arbitrary second is — and that is the friction this removes.</p>
+  </section>
+
+  <div class="stage">
+    <div class="devicecol">
+      <div class="devicebox">
+        <div class="mac" id="mac">
+          <div class="macbar">
+            <i style="background:#F0655A"></i><i style="background:#F5BE4F"></i><i style="background:#61C554"></i>
+            <span class="url">localhost:4747</span>
+          </div>
+          <div class="macscreen" id="macscreen"></div>
+        </div>
+        <div class="mac proto" id="proto">
+          <div class="macbar">
+            <i style="background:#F0655A"></i><i style="background:#F5BE4F"></i><i style="background:#61C554"></i>
+            <span class="url">localhost:4747</span>
+          </div>
+          <div class="macscreen"><div class="live" id="live"></div></div>
+        </div>
+        <div class="phone" id="phone">
+          <div class="notch"></div>
+          <div class="phonescreen" id="phonescreen"></div>
+        </div>
+      </div>
+      <div class="modes" role="tablist" aria-label="Mode">
+        <button class="mode on" id="mTour" type="button" role="tab" aria-selected="true">Guided tour</button>
+        <button class="mode" id="mTry" type="button" role="tab" aria-selected="false">Try it yourself</button>
+      </div>
+      <div class="controls" id="tourControls">
+        <button class="btn" id="prev" type="button">Prev</button>
+        <button class="btn" id="play" type="button">Pause</button>
+        <button class="btn" id="next" type="button">Next</button>
+        <span class="counter" id="counter">1 / 10</span>
+      </div>
+    </div>
+
+    <div class="readout">
+      <div class="eyebrow">
+        <span class="chapter" id="chapter">Midnight</span>
+        <span class="badge built" id="badge">Running today</span>
+      </div>
+      <h2 id="title">—</h2>
+      <p id="body">—</p>
+      <nav class="rail" id="rail" aria-label="Chapters"></nav>
+
+      <div id="tryout" hidden>
+        <h2>A working prototype, not a mockup</h2>
+        <p>The window below runs <strong>the real matching logic</strong> over a snapshot of live
+          availability taken from all three restaurants. Change the evenings, move the window, exclude a
+          week — what appears, how it ranks, and the sentence explaining a miss are all recomputed the
+          way the actual watcher computes them.</p>
+        <p>Two honest limits: the availability is frozen at the moment this page was built, and
+          <strong>Book this table only pretends</strong>. Nothing here can reach a restaurant.</p>
+        <p class="protohint">Click the tabs. Edit the request. Try Lilla Ego at 18:00&ndash;20:00 and read what it tells you.</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="note">
+    <div>
+      <h3>What is actually running</h3>
+      <p><span class="k">Everything up to the booking button</span> is built and was exercised against live availability while this page was written. The numbers in these screens — twelve tables at 21:00 and 21:30, seventy-two matches at Hantverket, nothing at all at Frantzén — came back from real sweeps, not from a mockup.</p>
+      <p>The booking write is the exception, and it is the important one. It has <span class="k">never been executed against a real reservation</span>, because testing it means booking a table at Frantzén. The first press will be the first run.</p>
+    </div>
+    <div>
+      <h3>What it costs the restaurant</h3>
+      <p>One request returns the whole availability grid for the entire horizon — every date, every time, every seating area. Sixty days of availability for a single call.</p>
+      <p>That is what makes a five-second cadence defensible at all: during a release burst it is asking <span class="k">roughly what their own booking page asks</span> when you open it, and the rest of the day it sits at five minutes.</p>
+    </div>
+    <div>
+      <h3>Where it runs, and the gap</h3>
+      <p>On one Mac. Your name, email, phone and the ability to book <span class="k">never leave the machine</span>. There is no account, no server, no queue — a single process and a SQLite file.</p>
+      <p>The honest gap: it is still started by hand with <code>npm run watch</code>. A reboot before midnight and the drop is missed, which is the one moment the whole thing exists for. A launch agent fixes that and is not written yet.</p>
+    </div>
+  </section>
+
+</div>
+<script>
+var SEED={"today":"2026-09-03","data":{"lilla-ego":[{"p":2,"s":[["2026-09-08","21:00","Köksbar ej ryggstöd"],["2026-09-08","21:30","Köksbar ej ryggstöd"],["2026-09-09","21:00","Köksbar ej ryggstöd"],["2026-09-09","21:30","Matsalen/Köksbar ej ryggstöd"],["2026-09-15","21:30","Matsalen"],["2026-09-16","21:30","Matsalen/Köksbar ej ryggstöd"],["2026-09-22","21:30","Matsalen/Köksbar ej ryggstöd"],["2026-09-23","21:30","Matsalen/Köksbar ej ryggstöd"],["2026-09-24","21:30","Matsalen/Köksbar ej ryggstöd"],["2026-09-29","21:30","Matsalen/Köksbar ej ryggstöd"],["2026-09-30","21:00","Köksbar ej ryggstöd"],["2026-09-30","21:30","Matsalen/Köksbar ej ryggstöd"],["2026-10-01","21:00","Köksbar ej ryggstöd"],["2026-10-01","21:30","Matsalen/Köksbar ej ryggstöd"]]},{"p":4,"s":[]}],"frantzen":[{"p":2,"s":[]},{"p":4,"s":[["2026-09-10","12:15",""],["2026-09-30","12:15",""],["2026-10-06","12:00",""],["2026-10-06","12:30",""],["2026-10-08","12:30",""],["2026-10-13","12:30",""],["2026-10-14","12:30",""]]}],"hantverket":[{"p":2,"s":[["2026-09-04","17:00","Köksbaren (ryggstöd)"],["2026-09-04","17:15","Köksbaren (ryggstöd)"],["2026-09-07","17:00","Matsalen/Köksbaren (ryggstöd)"],["2026-09-07","17:15","Matsalen/Köksbaren (ryggstöd)"],["2026-09-07","17:30","Matsalen/Köksbaren (ryggstöd)"],["2026-09-07","20:15","Köksbaren (ryggstöd)"],["2026-09-07","20:30","Köksbaren (ryggstöd)"],["2026-09-07","20:45","Matsalen/Köksbaren (ryggstöd)"],["2026-09-08","17:00","Matsalen/Köksbaren (ryggstöd)"],["2026-09-08","17:15","Matsalen/Köksbaren (ryggstöd)"],["2026-09-08","18:00","Köksbaren (ryggstöd)"],["2026-09-08","20:15","Matsalen/Köksbaren (ryggstöd)"],["2026-09-08","20:30","Matsalen/Köksbaren (ryggstöd)"],["2026-09-08","20:45","Matsalen/Köksbaren (ryggstöd)"],["2026-09-09","17:00","Köksbaren (ryggstöd)"],["2026-09-09","17:15","Köksbaren (ryggstöd)"],["2026-09-09","20:15","Matsalen/Köksbaren (ryggstöd)"],["2026-09-09","20:30","Matsalen/Köksbaren (ryggstöd)"],["2026-09-09","20:45","Matsalen/Köksbaren (ryggstöd)"],["2026-09-10","17:00","Köksbaren (ryggstöd)"],["2026-09-10","17:15","Köksbaren (ryggstöd)"],["2026-09-10","20:15","Matsalen/Köksbaren (ryggstöd)"],["2026-09-10","20:30","Matsalen/Köksbaren (ryggstöd)"],["2026-09-10","20:45","Matsalen/Köksbaren (ryggstöd)"],["2026-09-11","17:00","Matsalen/Köksbaren (ryggstöd)"],["2026-09-11","17:15","Matsalen/Köksbaren (ryggstöd)"],["2026-09-15","17:00","Matsalen/Köksbaren (ryggstöd)"],["2026-09-15","17:15","Matsalen/Köksbaren (ryggstöd)"],["2026-09-15","17:30","Köksbaren (ryggstöd)"],["2026-09-15","20:00","Köksbaren (ryggstöd)"],["2026-09-15","20:15","Matsalen/Köksbaren (ryggstöd)"],["2026-09-15","20:30","Matsalen/Köksbaren (ryggstöd)"],["2026-09-15","20:45","Matsalen/Köksbaren (ryggstöd)"],["2026-09-16","17:00","Matsalen/Köksbaren (ryggstöd)"],["2026-09-16","17:15","Matsalen/Köksbaren (ryggstöd)"],["2026-09-16","17:30","Köksbaren (ryggstöd)"],["2026-09-16","20:00","Matsalen/Köksbaren (ryggstöd)"],["2026-09-16","20:15","Matsalen/Köksbaren (ryggstöd)"],["2026-09-16","20:30","Matsalen/Köksbaren (ryggstöd)"],["2026-09-16","20:45","Matsalen/Köksbaren (ryggstöd)"],["2026-09-17","17:00","Köksbaren (ryggstöd)"],["2026-09-17","17:15","Köksbaren (ryggstöd)"],["2026-09-17","17:30","Köksbaren (ryggstöd)"],["2026-09-17","20:00","Matsalen/Köksbaren (ryggstöd)"],["2026-09-17","20:15","Matsalen/Köksbaren (ryggstöd)"],["2026-09-17","20:30","Matsalen/Köksbaren (ryggstöd)"],["2026-09-17","20:45","Matsalen/Köksbaren (ryggstöd)"],["2026-09-18","17:00","Köksbaren (ryggstöd)"],["2026-09-18","17:15","Köksbaren (ryggstöd)"],["2026-09-18","20:15","Köksbaren (ryggstöd)"],["2026-09-18","20:30","Matsalen/Köksbaren (ryggstöd)"],["2026-09-18","20:45","Matsalen/Köksbaren (ryggstöd)"],["2026-09-18","21:00","Matsalen/Köksbaren (ryggstöd)"],["2026-09-18","21:15","Matsalen/Köksbaren (ryggstöd)"],["2026-09-18","21:30","Matsalen/Köksbaren (ryggstöd)"],["2026-09-19","16:00","Köksbaren (ryggstöd)"],["2026-09-19","16:15","Köksbaren (ryggstöd)"],["2026-09-19","16:30","Köksbaren (ryggstöd)"],["2026-09-19","20:30","Matsalen"],["2026-09-19","20:45","Matsalen"],["2026-09-19","21:00","Matsalen"],["2026-09-19","21:15","Matsalen"],["2026-09-19","21:30","Matsalen/Köksbaren (ryggstöd)"],["2026-09-21","17:00","Matsalen/Köksbaren (ryggstöd)"],["2026-09-21","17:15","Matsalen/Köksbaren (ryggstöd)"],["2026-09-21","17:30","Matsalen/Köksbaren (ryggstöd)"],["2026-09-21","20:00","Matsalen/Köksbaren (ryggstöd)"],["2026-09-21","20:15","Matsalen/Köksbaren (ryggstöd)"],["2026-09-21","20:30","Matsalen/Köksbaren (ryggstöd)"],["2026-09-21","20:45","Matsalen/Köksbaren (ryggstöd)"],["2026-09-22","17:00","Matsalen/Köksbaren (ryggstöd)"],["2026-09-22","17:15","Matsalen/Köksbaren (ryggstöd)"],["2026-09-22","19:30","Matsalen/Köksbaren (ryggstöd)"],["2026-09-22","19:45","Matsalen/Köksbaren (ryggstöd)"],["2026-09-22","20:00","Matsalen/Köksbaren (ryggstöd)"],["2026-09-22","20:15","Matsalen/Köksbaren (ryggstöd)"],["2026-09-22","20:30","Matsalen/Köksbaren (ryggstöd)"],["2026-09-22","20:45","Matsalen/Köksbaren (ryggstöd)"],["2026-09-23","17:00","Matsalen/Köksbaren (ryggstöd)"],["2026-09-23","17:15","Matsalen/Köksbaren (ryggstöd)"],["2026-09-23","19:45","Matsalen/Köksbaren (ryggstöd)"],["2026-09-23","20:00","Matsalen/Köksbaren (ryggstöd)"],["2026-09-23","20:15","Matsalen/Köksbaren (ryggstöd)"],["2026-09-23","20:30","Matsalen/Köksbaren (ryggstöd)"],["2026-09-23","20:45","Matsalen/Köksbaren (ryggstöd)"],["2026-09-24","17:00","Matsalen/Köksbaren (ryggstöd)"],["2026-09-24","17:15","Matsalen/Köksbaren (ryggstöd)"],["2026-09-24","17:45","Matsalen/Köksbaren (ryggstöd)"],["2026-09-24","19:45","Matsalen/Köksbaren (ryggstöd)"],["2026-09-24","20:00","Matsalen/Köksbaren (ryggstöd)"],["2026-09-24","20:15","Matsalen/Köksbaren (ryggstöd)"],["2026-09-24","20:30","Matsalen/Köksbaren (ryggstöd)"],["2026-09-24","20:45","Matsalen/Köksbaren (ryggstöd)"],["2026-09-25","17:00","Matsalen/Köksbaren (ryggstöd)"],["2026-09-25","17:15","Matsalen/Köksbaren (ryggstöd)"],["2026-09-25","17:30","Köksbaren (ryggstöd)"],["2026-09-25","20:15","Köksbaren (ryggstöd)"],["2026-09-25","20:30","Köksbaren (ryggstöd)"],["2026-09-25","20:45","Matsalen/Köksbaren (ryggstöd)"],["2026-09-25","21:00","Matsalen/Köksbaren (ryggstöd)"],["2026-09-25","21:15","Matsalen/Köksbaren (ryggstöd)"],["2026-09-25","21:30","Matsalen/Köksbaren (ryggstöd)"],["2026-09-26","16:00","Köksbaren (ryggstöd)"],["2026-09-26","16:15","Köksbaren (ryggstöd)"],["2026-09-26","16:30","Köksbaren (ryggstöd)"],["2026-09-26","20:15","Köksbaren (ryggstöd)"],["2026-09-26","20:30","Köksbaren (ryggstöd)"],["2026-09-26","20:45","Köksbaren (ryggstöd)"],["2026-09-26","21:00","Köksbaren (ryggstöd)"],["2026-09-26","21:15","Köksbaren (ryggstöd)"],["2026-09-26","21:30","Matsalen/Köksbaren (ryggstöd)"],["2026-09-28","17:00","Matsalen/Köksbaren (ryggstöd)"],["2026-09-28","17:15","Matsalen/Köksbaren (ryggstöd)"],["2026-09-28","17:30","Matsalen/Köksbaren (ryggstöd)"],["2026-09-28","17:45","Matsalen/Köksbaren (ryggstöd)"],["2026-09-28","18:00","Matsalen/Köksbaren (ryggstöd)"],["2026-09-28","19:45","Matsalen/Köksbaren (ryggstöd)"],["2026-09-28","20:00","Matsalen/Köksbaren (ryggstöd)"],["2026-09-28","20:15","Matsalen/Köksbaren (ryggstöd)"],["2026-09-28","20:30","Matsalen/Köksbaren (ryggstöd)"],["2026-09-28","20:45","Matsalen/Köksbaren (ryggstöd)"],["2026-09-29","17:00","Matsalen/Köksbaren (ryggstöd)"],["2026-09-29","17:15","Matsalen/Köksbaren (ryggstöd)"],["2026-09-29","17:30","Matsalen/Köksbaren (ryggstöd)"],["2026-09-29","19:45","Matsalen/Köksbaren (ryggstöd)"],["2026-09-29","20:00","Matsalen/Köksbaren (ryggstöd)"],["2026-09-29","20:15","Matsalen/Köksbaren (ryggstöd)"],["2026-09-29","20:30","Matsalen/Köksbaren (ryggstöd)"],["2026-09-29","20:45","Matsalen/Köksbaren (ryggstöd)"],["2026-09-30","17:00","Matsalen/Köksbaren (ryggstöd)"],["2026-09-30","17:15","Matsalen/Köksbaren (ryggstöd)"],["2026-09-30","17:30","Matsalen/Köksbaren (ryggstöd)"],["2026-09-30","20:00","Matsalen/Köksbaren (ryggstöd)"],["2026-09-30","20:15","Matsalen/Köksbaren (ryggstöd)"],["2026-09-30","20:30","Matsalen/Köksbaren (ryggstöd)"],["2026-09-30","20:45","Matsalen/Köksbaren (ryggstöd)"],["2026-10-01","17:00","Matsalen/Köksbaren (ryggstöd)"],["2026-10-01","17:15","Matsalen/Köksbaren (ryggstöd)"],["2026-10-01","19:45","Matsalen/Köksbaren (ryggstöd)"],["2026-10-01","20:00","Matsalen/Köksbaren (ryggstöd)"],["2026-10-01","20:15","Matsalen/Köksbaren (ryggstöd)"],["2026-10-01","20:30","Matsalen/Köksbaren (ryggstöd)"],["2026-10-01","20:45","Matsalen/Köksbaren (ryggstöd)"],["2026-10-02","17:00","Matsalen/Köksbaren (ryggstöd)"],["2026-10-02","17:15","Matsalen/Köksbaren (ryggstöd)"],["2026-10-02","17:30","Matsalen/Köksbaren (ryggstöd)"],["2026-10-02","20:15","Köksbaren (ryggstöd)"],["2026-10-02","20:30","Köksbaren (ryggstöd)"],["2026-10-02","20:45","Matsalen/Köksbaren (ryggstöd)"],["2026-10-02","21:00","Matsalen/Köksbaren (ryggstöd)"],["2026-10-02","21:15","Matsalen/Köksbaren (ryggstöd)"],["2026-10-02","21:30","Matsalen/Köksbaren (ryggstöd)"],["2026-10-03","16:00","Matsalen/Köksbaren (ryggstöd)"],["2026-10-03","16:15","Matsalen/Köksbaren (ryggstöd)"],["2026-10-03","16:30","Matsalen/Köksbaren (ryggstöd)"],["2026-10-03","16:45","Matsalen/Köksbaren (ryggstöd)"],["2026-10-03","17:00","Matsalen/Köksbaren (ryggstöd)"],["2026-10-03","20:30","Köksbaren (ryggstöd)"],["2026-10-03","20:45","Köksbaren (ryggstöd)"],["2026-10-03","21:00","Köksbaren (ryggstöd)"],["2026-10-03","21:15","Köksbaren (ryggstöd)"],["2026-10-03","21:30","Köksbaren (ryggstöd)"],["2026-10-05","17:00","Matsalen/Köksbaren (ryggstöd)"],["2026-10-05","17:15","Matsalen/Köksbaren (ryggstöd)"],["2026-10-05","17:30","Matsalen/Köksbaren (ryggstöd)"],["2026-10-05","17:45","Matsalen/Köksbaren (ryggstöd)"],["2026-10-05","19:45","Matsalen/Köksbaren (ryggstöd)"],["2026-10-05","20:00","Matsalen/Köksbaren (ryggstöd)"],["2026-10-05","20:15","Matsalen/Köksbaren (ryggstöd)"],["2026-10-05","20:30","Matsalen/Köksbaren (ryggstöd)"],["2026-10-05","20:45","Matsalen/Köksbaren (ryggstöd)"],["2026-10-06","17:00","Matsalen/Köksbaren (ryggstöd)"],["2026-10-06","17:15","Matsalen/Köksbaren (ryggstöd)"],["2026-10-06","17:30","Matsalen/Köksbaren (ryggstöd)"],["2026-10-06","19:45","Matsalen/Köksbaren (ryggstöd)"],["2026-10-06","20:00","Matsalen/Köksbaren (ryggstöd)"],["2026-10-06","20:15","Matsalen/Köksbaren (ryggstöd)"],["2026-10-06","20:30","Matsalen/Köksbaren (ryggstöd)"],["2026-10-06","20:45","Matsalen/Köksbaren (ryggstöd)"],["2026-10-07","17:00","Matsalen/Köksbaren (ryggstöd)"],["2026-10-07","17:15","Matsalen/Köksbaren (ryggstöd)"],["2026-10-07","17:30","Matsalen/Köksbaren (ryggstöd)"],["2026-10-07","19:30","Matsalen/Köksbaren (ryggstöd)"],["2026-10-07","19:45","Matsalen/Köksbaren (ryggstöd)"],["2026-10-07","20:00","Matsalen/Köksbaren (ryggstöd)"],["2026-10-07","20:15","Matsalen/Köksbaren (ryggstöd)"],["2026-10-07","20:30","Matsalen/Köksbaren (ryggstöd)"],["2026-10-07","20:45","Matsalen/Köksbaren (ryggstöd)"],["2026-10-08","17:00","Matsalen/Köksbaren (ryggstöd)"],["2026-10-08","17:15","Matsalen/Köksbaren (ryggstöd)"],["2026-10-08","19:30","Matsalen/Köksbaren (ryggstöd)"],["2026-10-08","19:45","Matsalen/Köksbaren (ryggstöd)"],["2026-10-08","20:00","Matsalen/Köksbaren (ryggstöd)"],["2026-10-08","20:15","Matsalen/Köksbaren (ryggstöd)"],["2026-10-08","20:30","Matsalen/Köksbaren (ryggstöd)"],["2026-10-08","20:45","Matsalen/Köksbaren (ryggstöd)"],["2026-10-09","17:00","Matsalen/Köksbaren (ryggstöd)"],["2026-10-09","17:15","Matsalen/Köksbaren (ryggstöd)"],["2026-10-09","20:00","Matsalen/Köksbaren (ryggstöd)"],["2026-10-09","20:15","Matsalen/Köksbaren (ryggstöd)"],["2026-10-09","20:30","Matsalen/Köksbaren (ryggstöd)"],["2026-10-09","20:45","Matsalen/Köksbaren (ryggstöd)"],["2026-10-09","21:00","Matsalen/Köksbaren (ryggstöd)"],["2026-10-09","21:15","Matsalen/Köksbaren (ryggstöd)"],["2026-10-09","21:30","Matsalen/Köksbaren (ryggstöd)"],["2026-10-10","16:00","Matsalen/Köksbaren (ryggstöd)"],["2026-10-10","16:15","Matsalen/Köksbaren (ryggstöd)"],["2026-10-10","16:30","Matsalen/Köksbaren (ryggstöd)"],["2026-10-10","16:45","Matsalen/Köksbaren (ryggstöd)"],["2026-10-10","17:00","Matsalen/Köksbaren (ryggstöd)"],["2026-10-10","17:15","Matsalen/Köksbaren (ryggstöd)"],["2026-10-10","20:00","Köksbaren (ryggstöd)"],["2026-10-10","20:15","Köksbaren (ryggstöd)"],["2026-10-10","20:30","Köksbaren (ryggstöd)"],["2026-10-10","20:45","Köksbaren (ryggstöd)"],["2026-10-10","21:00","Köksbaren (ryggstöd)"],["2026-10-10","21:15","Köksbaren (ryggstöd)"],["2026-10-10","21:30","Matsalen/Köksbaren (ryggstöd)"],["2026-10-12","17:00","Matsalen/Köksbaren (ryggstöd)"],["2026-10-12","17:15","Matsalen/Köksbaren (ryggstöd)"],["2026-10-12","17:30","Matsalen/Köksbaren (ryggstöd)"],["2026-10-12","17:45","Matsalen/Köksbaren (ryggstöd)"],["2026-10-12","19:30","Matsalen/Köksbaren (ryggstöd)"],["2026-10-12","19:45","Matsalen/Köksbaren (ryggstöd)"],["2026-10-12","20:00","Matsalen/Köksbaren (ryggstöd)"],["2026-10-12","20:15","Matsalen/Köksbaren (ryggstöd)"],["2026-10-12","20:30","Matsalen/Köksbaren (ryggstöd)"],["2026-10-12","20:45","Matsalen/Köksbaren (ryggstöd)"],["2026-10-13","17:00","Matsalen/Köksbaren (ryggstöd)"],["2026-10-13","17:15","Matsalen/Köksbaren (ryggstöd)"],["2026-10-13","17:30","Matsalen/Köksbaren (ryggstöd)"],["2026-10-13","17:45","Matsalen/Köksbaren (ryggstöd)"],["2026-10-13","18:00","Matsalen/Köksbaren (ryggstöd)"],["2026-10-13","18:15","Matsalen/Köksbaren (ryggstöd)"],["2026-10-13","19:45","Matsalen/Köksbaren (ryggstöd)"],["2026-10-13","20:00","Matsalen/Köksbaren (ryggstöd)"],["2026-10-13","20:15","Matsalen/Köksbaren (ryggstöd)"],["2026-10-13","20:30","Matsalen/Köksbaren (ryggstöd)"],["2026-10-13","20:45","Matsalen/Köksbaren (ryggstöd)"],["2026-10-14","17:00","Matsalen/Köksbaren (ryggstöd)"],["2026-10-14","17:15","Matsalen/Köksbaren (ryggstöd)"],["2026-10-14","17:30","Matsalen/Köksbaren (ryggstöd)"],["2026-10-14","17:45","Matsalen/Köksbaren (ryggstöd)"],["2026-10-14","18:15","Matsalen/Köksbaren (ryggstöd)"],["2026-10-14","19:30","Matsalen/Köksbaren (ryggstöd)"],["2026-10-14","19:45","Matsalen/Köksbaren (ryggstöd)"],["2026-10-14","20:00","Matsalen/Köksbaren (ryggstöd)"],["2026-10-14","20:15","Matsalen/Köksbaren (ryggstöd)"],["2026-10-14","20:30","Matsalen/Köksbaren (ryggstöd)"],["2026-10-14","20:45","Matsalen/Köksbaren (ryggstöd)"],["2026-10-15","17:00","Matsalen/Köksbaren (ryggstöd)"],["2026-10-15","17:15","Matsalen/Köksbaren (ryggstöd)"],["2026-10-15","17:30","Matsalen/Köksbaren (ryggstöd)"],["2026-10-15","19:30","Matsalen/Köksbaren (ryggstöd)"],["2026-10-15","19:45","Matsalen/Köksbaren (ryggstöd)"],["2026-10-15","20:00","Matsalen/Köksbaren (ryggstöd)"],["2026-10-15","20:15","Matsalen/Köksbaren (ryggstöd)"],["2026-10-15","20:30","Matsalen/Köksbaren (ryggstöd)"],["2026-10-15","20:45","Matsalen/Köksbaren (ryggstöd)"],["2026-10-16","17:00","Matsalen/Köksbaren (ryggstöd)"],["2026-10-16","17:15","Matsalen/Köksbaren (ryggstöd)"],["2026-10-16","17:30","Köksbaren (ryggstöd)"],["2026-10-16","20:00","Matsalen/Köksbaren (ryggstöd)"],["2026-10-16","20:15","Matsalen/Köksbaren (ryggstöd)"],["2026-10-16","20:30","Matsalen/Köksbaren (ryggstöd)"],["2026-10-16","20:45","Matsalen/Köksbaren (ryggstöd)"],["2026-10-16","21:00","Matsalen/Köksbaren (ryggstöd)"],["2026-10-16","21:15","Matsalen/Köksbaren (ryggstöd)"],["2026-10-16","21:30","Matsalen/Köksbaren (ryggstöd)"],["2026-10-17","16:00","Köksbaren (ryggstöd)"],["2026-10-17","16:15","Köksbaren (ryggstöd)"],["2026-10-17","16:30","Köksbaren (ryggstöd)"],["2026-10-17","17:00","Köksbaren (ryggstöd)"],["2026-10-17","17:30","Köksbaren (ryggstöd)"],["2026-10-17","20:15","Matsalen/Köksbaren (ryggstöd)"],["2026-10-17","20:30","Matsalen/Köksbaren (ryggstöd)"],["2026-10-17","20:45","Matsalen/Köksbaren (ryggstöd)"],["2026-10-17","21:00","Matsalen/Köksbaren (ryggstöd)"],["2026-10-17","21:15","Matsalen/Köksbaren (ryggstöd)"],["2026-10-17","21:30","Matsalen/Köksbaren (ryggstöd)"]]},{"p":4,"s":[["2026-09-07","17:00","Matsalen"],["2026-09-08","17:00","Matsalen"],["2026-09-08","17:15","Matsalen"],["2026-09-08","20:30","Matsalen"],["2026-09-08","20:45","Matsalen"],["2026-09-09","17:00","Matsalen"],["2026-09-09","17:15","Matsalen"],["2026-09-09","20:30","Matsalen"],["2026-09-09","20:45","Matsalen"],["2026-09-10","17:00","Matsalen"],["2026-09-10","17:15","Matsalen"],["2026-09-10","20:15","Matsalen"],["2026-09-10","20:30","Matsalen"],["2026-09-10","20:45","Matsalen"],["2026-09-15","17:00","Matsalen"],["2026-09-15","17:15","Matsalen"],["2026-09-15","17:30","Matsalen"],["2026-09-15","20:00","Matsalen"],["2026-09-15","20:15","Matsalen"],["2026-09-15","20:30","Matsalen"],["2026-09-15","20:45","Matsalen"],["2026-09-16","17:00","Matsalen"],["2026-09-16","17:15","Matsalen"],["2026-09-16","20:30","Matsalen"],["2026-09-16","20:45","Matsalen"],["2026-09-17","20:30","Matsalen"],["2026-09-17","20:45","Matsalen"],["2026-09-21","17:00","Matsalen"],["2026-09-21","17:15","Matsalen"],["2026-09-21","17:30","Matsalen"],["2026-09-21","20:00","Matsalen"],["2026-09-21","20:15","Matsalen"],["2026-09-21","20:30","Matsalen"],["2026-09-21","20:45","Matsalen"],["2026-09-22","17:00","Matsalen"],["2026-09-22","20:30","Matsalen"],["2026-09-22","20:45","Matsalen"],["2026-09-23","20:15","Matsalen"],["2026-09-23","20:30","Matsalen"],["2026-09-23","20:45","Matsalen"],["2026-09-24","17:00","Matsalen"],["2026-09-24","17:15","Matsalen"],["2026-09-24","20:15","Matsalen"],["2026-09-24","20:30","Matsalen"],["2026-09-24","20:45","Matsalen"],["2026-09-28","17:00","Matsalen"],["2026-09-28","17:15","Matsalen"],["2026-09-28","17:30","Matsalen"],["2026-09-28","17:45","Matsalen"],["2026-09-28","19:45","Matsalen"],["2026-09-28","20:00","Matsalen"],["2026-09-28","20:15","Matsalen"],["2026-09-28","20:30","Matsalen"],["2026-09-28","20:45","Matsalen"],["2026-09-29","17:00","Matsalen"],["2026-09-29","17:15","Matsalen"],["2026-09-29","17:30","Matsalen"],["2026-09-29","19:45","Matsalen"],["2026-09-29","20:00","Matsalen"],["2026-09-29","20:15","Matsalen"],["2026-09-29","20:30","Matsalen"],["2026-09-29","20:45","Matsalen"],["2026-09-30","17:00","Matsalen"],["2026-09-30","17:15","Matsalen"],["2026-09-30","17:30","Matsalen"],["2026-09-30","20:00","Matsalen"],["2026-09-30","20:15","Matsalen"],["2026-09-30","20:30","Matsalen"],["2026-09-30","20:45","Matsalen"],["2026-10-01","17:00","Matsalen"],["2026-10-01","20:00","Matsalen"],["2026-10-01","20:15","Matsalen"],["2026-10-01","20:30","Matsalen"],["2026-10-01","20:45","Matsalen"],["2026-10-02","17:00","Matsalen"],["2026-10-05","17:00","Matsalen"],["2026-10-05","17:15","Matsalen"],["2026-10-05","17:30","Matsalen"],["2026-10-05","17:45","Matsalen"],["2026-10-05","19:45","Matsalen"],["2026-10-05","20:00","Matsalen"],["2026-10-05","20:15","Matsalen"],["2026-10-05","20:30","Matsalen"],["2026-10-05","20:45","Matsalen"],["2026-10-06","17:00","Matsalen"],["2026-10-06","17:15","Matsalen"],["2026-10-06","17:30","Matsalen"],["2026-10-06","19:45","Matsalen"],["2026-10-06","20:00","Matsalen"],["2026-10-06","20:15","Matsalen"],["2026-10-06","20:30","Matsalen"],["2026-10-06","20:45","Matsalen"],["2026-10-07","17:00","Matsalen"],["2026-10-07","17:15","Matsalen"],["2026-10-07","17:30","Matsalen"],["2026-10-07","19:45","Matsalen"],["2026-10-07","20:00","Matsalen"],["2026-10-07","20:15","Matsalen"],["2026-10-07","20:30","Matsalen"],["2026-10-07","20:45","Matsalen"],["2026-10-08","20:15","Matsalen"],["2026-10-08","20:30","Matsalen"],["2026-10-08","20:45","Matsalen"],["2026-10-12","17:00","Matsalen"],["2026-10-12","17:15","Matsalen"],["2026-10-12","17:30","Matsalen"],["2026-10-12","17:45","Matsalen"],["2026-10-12","19:45","Matsalen"],["2026-10-12","20:00","Matsalen"],["2026-10-12","20:15","Matsalen"],["2026-10-12","20:30","Matsalen"],["2026-10-12","20:45","Matsalen"],["2026-10-13","17:00","Matsalen"],["2026-10-13","17:15","Matsalen"],["2026-10-13","17:30","Matsalen"],["2026-10-13","17:45","Matsalen"],["2026-10-13","19:45","Matsalen"],["2026-10-13","20:00","Matsalen"],["2026-10-13","20:15","Matsalen"],["2026-10-13","20:30","Matsalen"],["2026-10-13","20:45","Matsalen"],["2026-10-14","17:00","Matsalen"],["2026-10-14","17:15","Matsalen"],["2026-10-14","17:30","Matsalen"],["2026-10-14","19:45","Matsalen"],["2026-10-14","20:00","Matsalen"],["2026-10-14","20:15","Matsalen"],["2026-10-14","20:30","Matsalen"],["2026-10-14","20:45","Matsalen"],["2026-10-15","17:00","Matsalen"],["2026-10-15","17:15","Matsalen"],["2026-10-15","17:30","Matsalen"],["2026-10-15","19:45","Matsalen"],["2026-10-15","20:00","Matsalen"],["2026-10-15","20:15","Matsalen"],["2026-10-15","20:30","Matsalen"],["2026-10-15","20:45","Matsalen"],["2026-10-16","20:45","Matsalen"],["2026-10-16","21:00","Matsalen"],["2026-10-16","21:15","Matsalen"],["2026-10-16","21:30","Matsalen"]]}]}};
+(function(){
+  var STEPS=[
+    {
+      ch:"Midnight", kind:"mid", badge:"built",
+      title:"The month moves one night, at midnight",
+      body:"Lilla Ego keeps a rolling thirty-day window. At <code>00:00:00</code> it slides forward and one new night becomes bookable — a handful of tables, and the good ones are gone inside a minute. <strong>You are asleep.</strong> Or in a meeting. Or, most often, about five minutes late.",
+      screen:function(){
+        return '<div class="mid"><div class="t">00:00:00</div>'+
+          '<div class="l">The night thirty days out opens. A handful of tables, for everyone who wants one.</div>'+
+          '<div class="r">LILLA EGO · ROLLING RELEASE</div></div>';
+      }
+    },
+    {
+      ch:"Midnight", kind:"mac", badge:"built",
+      title:"Twelve tables opened. None of them yours.",
+      body:"This is the same night read back five minutes later, in the app's own words. Twelve tables did open — all of them at 21:00 and 21:30, the sitting nobody chose. <strong>An empty list would have told you none of that</strong>, and would have looked like a full restaurant instead of a race you lost.",
+      screen:function(){
+        return '<div class="ui">'+
+          '<div class="ui-h"><b>Bordvakt</b><span>4 active · Europe/Stockholm</span></div>'+
+          tabs(1,'80','4')+
+          '<div class="ui-sec">Your requests</div>'+
+          row('Lilla Ego · 18–20','2','Tue–Sat · 18:00–20:00',
+              '12 on offer but none between 18:00 and 20:00 — they sit at 21:00, 21:30',false)+
+          row('Frantzén · 2 guests','2','Tue–Fri · 17:00–21:00',
+              'nothing at all on offer for this party size',false)+
+          '<div class="ui-note">Five minutes after the release, this is what was left.</div>'+
+          '</div>';
+      }
+    },
+    {
+      ch:"The request", kind:"mac", badge:"built",
+      title:"Say it once, and say it narrowly",
+      body:"Restaurant, sitting, party size, which evenings, which hours. The window wants to be tight: <strong>a wide one mostly fills with the late tables</strong>, which is how people end up at 21:30 feeling like they won something. Presets set it in one press.",
+      screen:function(){
+        return '<div class="ui">'+
+          '<div class="ui-h"><b>Booking request</b><span>what you would actually accept</span></div>'+
+          '<div style="height:10px"></div>'+
+          '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">'+
+            field('Restaurant','Lilla Ego')+field('Guests','2 guests')+'</div>'+
+          field('Sitting','Dinner — Tue–Sat from 17:00')+
+          '<div class="ui-lab" style="margin-top:9px">Which evenings</div>'+
+          '<div class="ui-days"><i>Mon</i><i class="on">Tue</i><i class="on">Wed</i><i class="on">Thu</i><i class="on">Fri</i><i class="on">Sat</i><i>Sun</i></div>'+
+          '<div class="ui-lab">Between</div>'+
+          '<div class="ui-chips"><i>Early 17–19</i><i class="on">Prime 18–20</i><i>Late 20–22</i><i>Any 17–22</i></div>'+
+          '<div class="ui-note">Keep this narrow. The tables worth having sit early.</div>'+
+          '</div>';
+      }
+    },
+    {
+      ch:"The request", kind:"mac", badge:"built",
+      title:"The restaurant's own words, not yours",
+      body:"Lilla Ego's kitchen bar has no backrest. Hantverket's does. Typing <code>köksbar</code> as free text would have rejected both — so the areas are checkboxes carrying <strong>the exact labels the booking system returns</strong>, and a typo can no longer quietly sink a request that would otherwise have matched.",
+      screen:function(){
+        return '<div class="ui">'+
+          '<div class="ui-h"><b>Seating to avoid</b><span>Lilla Ego</span></div>'+
+          '<div class="ui-note" style="margin:8px 0 10px">Straight from the restaurant’s own labels, so nothing is guessed. Tick an area to reject it.</div>'+
+          area(false,'Matsalen','The dining room')+
+          area(true,'Köksbar ej ryggstöd','High stools at the kitchen bar, no backrest')+
+          '<div class="ui-note">Hantverket labels its bar <b>Köksbaren (ryggstöd)</b> — the same word, the opposite chair.</div>'+
+          '</div>';
+      }
+    },
+    {
+      ch:"Körtider", kind:"mac", badge:"built",
+      title:"Two gears, because one of them is always wrong",
+      body:"Every five minutes is right for cancellations drifting back during the day, and useless at <code>00:00:00</code>. So around each restaurant's release it switches to <strong>every five seconds</strong>, from a minute before to four minutes after, then goes quiet again. Both gears run on Stockholm time rather than the laptop's.",
+      screen:function(){
+        return '<div class="ui">'+
+          '<div class="ui-h"><b>Körtider</b><span>when the watcher runs</span></div>'+
+          '<div style="height:10px"></div>'+
+          '<div class="ui-card"><div class="ui-ch"><b>Steady</b><span class="pill">every 5 min</span></div>'+
+            '<div class="ui-m">While watching. Catches cancellations coming back.</div></div>'+
+          '<div class="ui-card best"><div class="ui-ch"><b>Release burst</b><span class="pill go">every 5 s</span></div>'+
+            '<div class="ui-m">Lilla Ego &amp; Hantverket — daily at 00:00</div>'+
+            '<div class="ui-m">Frantzén — the 1st at 10:00</div>'+
+            '<div class="ui-m">From 60 s before to 240 s after. Replaces the steady sweep while it runs.</div></div>'+
+          '<div class="ui-note">Evaluated in Europe/Stockholm, so it survives DST and a laptop that travels.</div>'+
+          '</div>';
+      }
+    },
+    {
+      ch:"Körtider", kind:"mac", badge:"built",
+      title:"Is tonight even worth staying up for?",
+      body:"Because the window is a fixed length, each release slides it exactly one night further out. Bordvakt works out which night that is and whether any of your requests asked for it. <strong>“Safe to skip” is as useful as the other answer</strong> — most nights, it is the one you get.",
+      screen:function(){
+        return '<div class="ui">'+
+          '<div class="ui-h"><b>Next drop</b><span>what opens, and whether you want it</span></div>'+
+          '<div style="height:9px"></div>'+
+          '<div class="ui-card best"><div class="ui-ch"><b>Lilla Ego</b><span class="pill go">Worth staying up for</span></div>'+
+            '<dl class="ui-dl">'+
+              '<dt>Bookable now to</dt><dd>Friday, 11 September</dd>'+
+              '<dt>Opens next</dt><dd><b>Saturday, 12 September</b></dd>'+
+              '<dt>Happens</dt><dd>tonight at 00:00</dd></dl>'+
+            '<div class="ui-m">Saturday is in your window.</div></div>'+
+          '<div class="ui-card skip"><div class="ui-ch"><b>Hantverket</b><span class="pill">Safe to skip</span></div>'+
+            '<div class="ui-m">Opens Wednesday, 28 October — no request of yours covers it.</div></div>'+
+          '</div>';
+      }
+    },
+    {
+      ch:"The find", kind:"mac", badge:"built",
+      title:"Ranked, with its reasoning left showing",
+      body:"Best fit first, and it says <em>why</em> it ranked there: your preferred weekday, seventy-five minutes off the time you asked for. Preferences never exclude a table — they only decide the order. The list is live, so each one <strong>stays while it is bookable and disappears when somebody else takes it</strong>.",
+      screen:function(){
+        return '<div class="ui">'+
+          '<div class="ui-h"><b>Bordvakt</b><span>3 active · Europe/Stockholm</span></div>'+
+          tabs(0,'80','3')+
+          '<div class="ui-sec">Tables that fit — open now</div>'+
+          '<div class="ui-card best">'+
+            '<div class="ui-ch"><b>Restaurang Hantverket</b><span class="pill">4 guests</span><span class="pill go">best fit</span></div>'+
+            '<div class="ui-when">Saturday, 10 October at <b>20:15</b></div>'+
+            '<div class="ui-m">Matsalen</div>'+
+            '<div class="ui-m">Hantverket · 4 guests · your preferred weekday, 75 min from 19:00</div>'+
+            '<div class="ui-btns"><span class="ui-b p">Book this table</span><span class="ui-b">Open booking page</span></div>'+
+          '</div>'+
+          '<div class="ui-card"><div class="ui-ch"><b>Restaurang Hantverket</b><span class="pill">4 guests</span></div>'+
+            '<div class="ui-when">Saturday, 10 October at <b>20:30</b></div>'+
+            '<div class="ui-m">Matsalen</div></div>'+
+          '</div>';
+      }
+    },
+    {
+      ch:"The find", kind:"mac", badge:"built",
+      title:"And when nothing fits, it says which wall you hit",
+      body:"Four requests, four different reasons. Nothing on offer at all for that party size. Nothing on your weekdays. Nothing inside your hours — <em>and here are the hours that do exist</em>. <strong>“No matches” on its own reads like a full restaurant</strong>, when usually it means you asked for six and they are seating at nine.",
+      screen:function(){
+        return '<div class="ui">'+
+          '<div class="ui-h"><b>Your requests</b><span>why each one is or is not finding anything</span></div>'+
+          '<div style="height:8px"></div>'+
+          row('Lilla Ego · 2 guests','2','Tue–Sat · 17:00–22:00','3 tables fit right now',true)+
+          row('Frantzén · 2 guests','2','Tue–Fri · 17:00–21:00','nothing at all on offer for this party size',false)+
+          row('Hantverket · 4 guests','4','Thu–Sat · 17:00–21:00','72 tables fit right now',true)+
+          row('Lilla Ego · 18–20','2','Tue–Sat · 18:00–20:00','14 on offer but none between 18:00 and 20:00 — they sit at 21:00, 21:30',false)+
+          '</div>';
+      }
+    },
+    {
+      ch:"The decision", kind:"phone", badge:"off",
+      title:"It reaches you where you actually are",
+      body:"Push arrives in a second or two, works on both phones, and iOS mirrors it to the watch with no extra work. The email carries the times, the seating area, the address and a link straight into the booking. <strong>Neither is switched on here</strong> — no topic is set, so right now it tells nobody.",
+      screen:function(){
+        return '<div class="ph">'+
+          '<div class="time">00:00</div><div class="date">FRE 12 SEPTEMBER</div>'+
+          '<div class="banner"><div class="app"><span>Bordvakt</span><span>nu</span></div>'+
+            '<div class="ttl">Table open: Lilla Ego 12 Sep 18:30</div>'+
+            '<div class="bd">2 guests · Fredagsmiddag<br>18:30 Matsalen · 19:00 Matsalen</div></div>'+
+          '<div class="banner" style="opacity:.62;transform:scale(.97)"><div class="app"><span>Mail</span><span>nu</span></div>'+
+            '<div class="ttl">Table open: Lilla Ego +2 more</div>'+
+            '<div class="bd">Times, seating, address, and a link into the booking</div></div>'+
+          '<div class="watchpip"><div class="a">Bordvakt</div>'+
+            '<div class="b">Lilla Ego 18:30</div><div class="c">2 guests<br>Matsalen</div></div>'+
+          '</div>';
+      }
+    },
+    {
+      ch:"The decision", kind:"mac", badge:"untested",
+      title:"It stops one step short, deliberately",
+      body:"Finding a table and taking a table are different acts, and the second is yours. Approval is the default; booking automatically needs two separate switches and turning off a dry run. A confirmed booking then <strong>pauses every request for that restaurant</strong> — you have your table. No card field is ever filled, stored or sent.",
+      screen:function(){
+        return '<div class="mail" style="background:var(--app-bg);padding:0">'+
+          '<div class="ui">'+
+          '<div class="ui-h"><b>Waiting for your approval</b><span>nothing is booked yet</span></div>'+
+          '<div style="height:9px"></div>'+
+          '<div class="ui-card best">'+
+            '<div class="ui-ch"><b>Lilla Ego</b><span class="pill">2 guests</span></div>'+
+            '<div class="ui-when">Friday, 12 September at <b>18:30</b></div>'+
+            '<div class="ui-m">Matsalen · expires 02:00</div>'+
+            '<div class="ui-btns"><span class="ui-b p">Approve &amp; book</span><span class="ui-b">Decline</span></div>'+
+          '</div>'+
+          '<div class="ui-note"><b>Booking mode:</b> Hold for my approval. Automatic booking is a separate setting, gated by a per-request switch and a dry run.</div>'+
+          '<div class="ui-note">A confirmed booking pauses Lilla Ego automatically.</div>'+
+          '</div></div>';
+      }
+    }
+  ];
+
+  function tabs(active, tablesN, reqN){
+    var names=['Tables','Requests','Next drop','Activity'];
+    var badges=[tablesN,reqN,'',''];
+    return '<div class="ui-tabs">'+names.map(function(n,i){
+      return '<i class="'+(i===active?'on':'')+'">'+n+
+        (badges[i]?'<u>'+badges[i]+'</u>':'')+'</i>';
+    }).join('')+'</div>';
+  }
+  function row(name, guests, when, why, hit){
+    return '<div class="ui-row"><div><b>'+name+'</b>'+
+      '<span class="why'+(hit?' hit':'')+'">'+why+'</span></div>'+
+      '<div style="text-align:right"><span class="ui-m">'+guests+' · '+when+'</span></div></div>';
+  }
+  function field(label, value){
+    return '<div class="ui-field"><span class="ui-lab">'+label+'</span>'+
+      '<div class="ui-in">'+value+'</div></div>';
+  }
+  function area(rejected, name, note){
+    return '<div class="ui-area'+(rejected?' rej':'')+'">'+
+      '<span class="ui-box'+(rejected?' x':'')+'"></span>'+
+      '<span><b>'+name+'</b><span>'+note+'</span></span></div>';
+  }
+
+  var macscreen=document.getElementById('macscreen');
+  var phonescreen=document.getElementById('phonescreen');
+  var mac=document.getElementById('mac'), phone=document.getElementById('phone');
+  var railEl=document.getElementById('rail');
+  var idx=0, playing=true, tick=null, elapsed=0;
+  var DURATION=5200;
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var chapters=[];
+  STEPS.forEach(function(s,i){
+    var last=chapters[chapters.length-1];
+    if(last && last.name===s.ch){ last.steps.push(i); }
+    else { chapters.push({name:s.ch, steps:[i]}); }
+  });
+
+  chapters.forEach(function(c,ci){
+    var b=document.createElement('button');
+    b.type='button';
+    b.innerHTML='<span class="n">'+String(ci+1).padStart(2,'0')+'</span>'+
+      '<span>'+c.name+'</span><span class="meter"><i></i></span>';
+    b.addEventListener('click',function(){ go(c.steps[0]); });
+    railEl.appendChild(b);
+  });
+  var railBtns=railEl.querySelectorAll('button');
+
+  STEPS.forEach(function(s){
+    var d=document.createElement('div');
+    d.className='frame';
+    d.innerHTML=s.screen();
+    (s.kind==='phone' ? phonescreen : macscreen).appendChild(d);
+    s.el=d;
+  });
+
+  function chapterOf(i){
+    for(var c=0;c<chapters.length;c++){ if(chapters[c].steps.indexOf(i)>-1) return c; }
+    return 0;
+  }
+
+  var BADGE={built:['built','Running today'],off:['off','Built, not switched on'],untested:['untested','Never run for real']};
+
+  function render(){
+    STEPS.forEach(function(s,i){ s.el.classList.toggle('on', i===idx); });
+    var s=STEPS[idx];
+    mac.classList.toggle('on', s.kind!=='phone');
+    phone.classList.toggle('on', s.kind==='phone');
+    document.getElementById('chapter').textContent=s.ch;
+    document.getElementById('title').innerHTML=s.title;
+    document.getElementById('body').innerHTML=s.body;
+    document.getElementById('counter').textContent=(idx+1)+' / '+STEPS.length;
+    var b=document.getElementById('badge');
+    b.className='badge '+BADGE[s.badge][0];
+    b.textContent=BADGE[s.badge][1];
+
+    var ci=chapterOf(idx);
+    railBtns.forEach(function(btn,i){
+      btn.setAttribute('aria-current', i===ci ? 'true':'false');
+      var m=btn.querySelector('.meter i');
+      if(i<ci){ m.style.width='100%'; } else if(i>ci){ m.style.width='0%'; }
+    });
+  }
+
+  function meterProgress(){
+    var ci=chapterOf(idx), c=chapters[ci], pos=c.steps.indexOf(idx);
+    var frac=(pos+(elapsed/DURATION))/c.steps.length;
+    railBtns[ci].querySelector('.meter i').style.width=Math.min(100,frac*100).toFixed(1)+'%';
+  }
+
+  function go(i){ idx=(i+STEPS.length)%STEPS.length; elapsed=0; render(); if(playing) start(); }
+  function start(){ stop(); if(reduce) return;
+    tick=setInterval(function(){ elapsed+=100; meterProgress(); if(elapsed>=DURATION){ go(idx+1); } },100); }
+  function stop(){ if(tick){ clearInterval(tick); tick=null; } }
+
+  document.getElementById('next').addEventListener('click',function(){ go(idx+1); });
+  document.getElementById('prev').addEventListener('click',function(){ go(idx-1); });
+  var playBtn=document.getElementById('play');
+  playBtn.addEventListener('click',function(){
+    playing=!playing; playBtn.textContent=playing?'Pause':'Play';
+    if(playing){ start(); } else { stop(); }
+  });
+  document.addEventListener('keydown',function(e){
+    if(document.getElementById('proto').classList.contains('on')) return;
+    if(e.key==='ArrowRight'){ go(idx+1); }
+    if(e.key==='ArrowLeft'){ go(idx-1); }
+  });
+  // The prototype takes over the stage, so the tour must stop advancing behind it.
+  document.addEventListener('bv:pause',function(){ playing=false; stop();
+    mac.classList.remove('on'); phone.classList.remove('on'); });
+  document.addEventListener('bv:resume',function(){ playing=true; render(); start(); });
+
+  if(reduce){ playing=false; playBtn.textContent='Play'; }
+
+  // #4 opens on step four and holds it, so a particular screen can be linked to.
+  var fromHash=parseInt((location.hash||'').replace('#',''),10);
+  if(fromHash>=1 && fromHash<=STEPS.length){
+    idx=fromHash-1; playing=false; playBtn.textContent='Play';
+  }
+  render();
+  if(playing) start();
+})();
+</script><script>
+/* ---------- clickable prototype ------------------------------------------
+   The same rules the watcher applies, reimplemented over a frozen snapshot of
+   real availability: hard filters first, then ranking, then the sentence that
+   explains a miss. Nothing here can reach a restaurant. */
+(function () {
+  var live = document.getElementById('live');
+  if (!live || typeof SEED === 'undefined') return;
+
+  var META = {
+    'lilla-ego':  { name:'Lilla Ego', areas:['Matsalen','Köksbar ej ryggstöd'] },
+    'frantzen':   { name:'Frantzén', areas:[] },
+    'hantverket': { name:'Restaurang Hantverket', areas:['Matsalen','Köksbaren (ryggstöd)'] }
+  };
+  var DAYS=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  var MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var TODAY = SEED.today;
+
+  var st = {
+    tab:'tables',
+    editing:false,
+    booked:null,
+    // Defaults chosen so the ranking is visible immediately: this snapshot has
+    // Friday slots, so "your preferred weekday" actually fires on load.
+    req:{ r:'hantverket', p:4, days:[3,4,5], from:'17:00', to:'21:00',
+          deny:[], ranges:[], dates:[], prefTime:'19:00', prefDay:5 }
+  };
+
+  function esc(x){ return String(x).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  function iso(d){ var b=d.split('-'); return (new Date(Date.UTC(+b[0],+b[1]-1,+b[2]))).getUTCDay()||7; }
+  function mins(t){ var b=t.split(':'); return +b[0]*60+ +b[1]; }
+  function shortD(d){ var b=d.split('-'); return +b[2]+' '+MON[+b[1]-1]; }
+  function longD(d){ var b=d.split('-');
+    return DAYS[iso(d)-1]+' '+(+b[2])+' '+MON[+b[1]-1]; }
+  function days(a,b){ return Math.round((Date.parse(b)-Date.parse(a))/864e5)+1; }
+
+  function slots(){
+    var sets = SEED.data[st.req.r] || [];
+    var set = sets.filter(function(x){ return x.p === st.req.p; })[0];
+    if (set) return set.s;
+    // No snapshot for that party size — say so rather than silently showing another.
+    return null;
+  }
+
+  /* The hard filters, in the order the real matcher applies them. */
+  function evaluate(){
+    var all = slots();
+    if (all === null) return { none:'nosize', list:[], offered:0 };
+    var onDay=0, inWin=0, byDate=0, byArea=0, out=[];
+    all.forEach(function(x){
+      var d=x[0], t=x[1], lab=x[2]||'';
+      var dayOk = st.req.days.indexOf(iso(d)) > -1;
+      var winOk = mins(t) >= mins(st.req.from) && mins(t) <= mins(st.req.to);
+      if (dayOk) onDay++;
+      if (winOk) inWin++;
+      if (!dayOk || !winOk) return;
+      if (st.req.dates.indexOf(d) > -1) { byDate++; return; }
+      if (st.req.ranges.some(function(r){ return d >= r.from && d <= r.to; })) { byDate++; return; }
+      if (st.req.deny.length && lab) {
+        var low = lab.toLowerCase();
+        if (st.req.deny.some(function(a){ return low.indexOf(a.toLowerCase()) > -1; })) { byArea++; return; }
+      }
+      out.push({ d:d, t:t, lab:lab });
+    });
+
+    /* Ranking: preferences never exclude, they only order. */
+    out.forEach(function(m){
+      var rank=0, why=[];
+      if (st.req.prefDay) {
+        var hit = iso(m.d) === st.req.prefDay;
+        rank += hit ? 0 : 50000;
+        if (hit) why.push('your preferred weekday');
+        rank += Math.max(0, Math.round((Date.parse(m.d)-Date.parse(TODAY))/864e5)) * 100;
+      } else {
+        rank += Math.max(0, Math.round((Date.parse(m.d)-Date.parse(TODAY))/864e5)) * 10000;
+      }
+      if (st.req.prefTime) {
+        var off = Math.abs(mins(m.t) - mins(st.req.prefTime));
+        rank += off;
+        why.push(off === 0 ? 'your preferred time' : off+' min from '+st.req.prefTime);
+      } else { rank += Math.abs(mins(m.t) - mins(st.req.from)); }
+      m.rank = rank; m.why = why.join(', ') || 'soonest available';
+    });
+    out.sort(function(a,b){ return a.rank - b.rank; });
+
+    var none = null;
+    if (!out.length) {
+      if (!all.length) none='empty';
+      else if (!onDay) none='weekday';
+      else if (!inWin) none='window';
+      // Say which exclusion did it — "a date you excluded" was a lie when the
+      // seating area was the actual cause.
+      else if (byArea && !byDate) none='area';
+      else if (byDate && !byArea) none='dates';
+      else none='excluded';
+    }
+    return { none:none, list:out, offered:all.length, onDay:onDay, inWin:inWin,
+             byDate:byDate, byArea:byArea,
+             times:all.filter(function(x){ return st.req.days.indexOf(iso(x[0]))>-1; })
+                      .map(function(x){ return x[1]; })
+                      .filter(function(v,i,a){ return a.indexOf(v)===i; }).sort() };
+  }
+
+  function missSentence(e){
+    if (e.none === 'nosize')  return 'no snapshot was captured for '+st.req.p+' guests at this restaurant';
+    if (e.none === 'empty')   return 'nothing at all on offer for this party size';
+    if (e.none === 'weekday') return e.offered+' on offer, none on your weekdays';
+    if (e.none === 'window')  return e.offered+' on offer but none between '+st.req.from+' and '+st.req.to+
+                                     ' — they sit at '+e.times.slice(0,6).join(', ')+(e.times.length>6?'…':'');
+    if (e.none === 'area')  return e.byArea+' would have fit, but all of them are in a seating area you rejected';
+    if (e.none === 'dates') return e.byDate+' would have fit, but all of them fall on dates you excluded';
+    return 'everything that fits is ruled out by your exclusions';
+  }
+
+  /* ---------- views ---------- */
+  function tabsBar(e){
+    var t=[['tables','Tables',e.list.length],['request','Request',''],['activity','Activity','']];
+    return '<div class="ui-tabs">'+t.map(function(x){
+      return '<i class="'+(st.tab===x[0]?'on':'')+'" data-tab="'+x[0]+'">'+x[1]+
+        (x[2]!==''?'<u>'+x[2]+'</u>':'')+'</i>';
+    }).join('')+'</div>';
+  }
+
+  function viewTables(e){
+    if (st.booked) {
+      return '<div class="ui-card best"><div class="ui-ch"><b>Booked</b><span class="pill go">pretend</span></div>'+
+        '<div class="ui-when">'+esc(longD(st.booked.d))+' at <b>'+esc(st.booked.t)+'</b></div>'+
+        '<div class="ui-m">'+esc(META[st.req.r].name)+' · '+st.req.p+' guests</div>'+
+        '<div class="ui-note">The real app would now pause every request for this restaurant — you have your table. '+
+        '<b>Nothing was actually reserved.</b></div>'+
+        '<div class="ui-btns"><span class="ui-b" data-act="unbook">Undo</span></div></div>';
+    }
+    if (!e.list.length) {
+      return '<div class="ui-sec">Tables that fit — open now</div>'+
+        '<div class="ui-note" style="margin-top:0"><b>Nothing fits.</b><br>'+esc(missSentence(e))+'</div>'+
+        '<div class="ui-m" style="margin-top:8px">Change the request and this recomputes.</div>';
+    }
+    return '<div class="ui-sec">Tables that fit — open now</div>'+
+      '<div class="ui-cards">'+
+      e.list.slice(0,6).map(function(m,i){
+        return '<div class="ui-card'+(i===0?' best':'')+'">'+
+          '<div class="ui-ch"><b>'+esc(META[st.req.r].name)+'</b>'+
+            '<span class="pill">'+st.req.p+' guests</span>'+
+            (i===0?'<span class="pill go">best fit</span>':'')+'</div>'+
+          '<div class="ui-when">'+esc(longD(m.d))+' at <b>'+esc(m.t)+'</b></div>'+
+          (m.lab?'<div class="ui-m">'+esc(m.lab.split('/').join(' / '))+'</div>':'')+
+          '<div class="ui-m">'+esc(m.why)+'</div>'+
+          (i===0?'<div class="ui-btns"><span class="ui-b p" data-act="book" data-d="'+m.d+'" data-t="'+m.t+'">Book this table</span></div>':'')+
+        '</div>';
+      }).join('')+'</div>'+
+      (e.list.length>6?'<div class="ui-m">+'+(e.list.length-6)+' more, ranked below these</div>':'');
+  }
+
+  function viewRequest(){
+    var m = META[st.req.r];
+    return '<div class="ui-sec">The request</div>'+
+      '<div style="display:grid;grid-template-columns:1fr auto;gap:8px">'+
+        '<label class="pf"><span>Restaurant</span><select data-f="r">'+
+          Object.keys(META).map(function(k){
+            return '<option value="'+k+'"'+(st.req.r===k?' selected':'')+'>'+esc(META[k].name)+'</option>';
+          }).join('')+'</select></label>'+
+        '<label class="pf"><span>Guests</span><select data-f="p">'+
+          [2,4].map(function(n){ return '<option value="'+n+'"'+(st.req.p===n?' selected':'')+'>'+n+'</option>'; }).join('')+
+        '</select></label>'+
+      '</div>'+
+      '<div class="ui-lab" style="margin-top:9px">Evenings</div>'+
+      '<div class="ui-days">'+DAYS.map(function(d,i){
+        return '<i class="'+(st.req.days.indexOf(i+1)>-1?'on':'')+'" data-day="'+(i+1)+'">'+d+'</i>';
+      }).join('')+'</div>'+
+      '<div class="ui-lab">Between</div>'+
+      '<div class="ui-chips">'+[['17:00','19:00','Early'],['18:00','20:00','Prime'],['20:00','22:00','Late'],['17:00','22:00','Any']]
+        .map(function(x){
+          var on = st.req.from===x[0] && st.req.to===x[1];
+          return '<i class="'+(on?'on':'')+'" data-from="'+x[0]+'" data-to="'+x[1]+'">'+x[2]+' '+x[0].slice(0,2)+'–'+x[1].slice(0,2)+'</i>';
+        }).join('')+'</div>'+
+      (m.areas.length
+        ? '<div class="ui-lab">Seating to avoid</div>'+m.areas.map(function(a){
+            var on = st.req.deny.indexOf(a)>-1;
+            return '<div class="ui-area'+(on?' rej':'')+'" data-area="'+esc(a)+'">'+
+              '<span class="ui-box'+(on?' x':'')+'"></span><span><b>'+esc(a)+'</b></span></div>';
+          }).join('')
+        : '<div class="ui-note">This restaurant does not label its seating areas.</div>')+
+      '<div class="ui-lab" style="margin-top:8px">Away? Exclude a period</div>'+
+      '<div class="ui-chips">'+
+        [['2026-10-06','2026-10-12','6–12 Oct'],['2026-10-13','2026-10-19','13–19 Oct']].map(function(x){
+          var on = st.req.ranges.some(function(r){ return r.from===x[0]&&r.to===x[1]; });
+          return '<i class="'+(on?'on':'')+'" data-rf="'+x[0]+'" data-rt="'+x[1]+'">'+x[2]+'</i>';
+        }).join('')+'</div>'+
+      (st.req.ranges.length
+        ? '<div class="ui-m">Excluding '+st.req.ranges.map(function(r){
+            return shortD(r.from)+'–'+shortD(r.to)+' ('+days(r.from,r.to)+' days)'; }).join(', ')+'</div>'
+        : '');
+  }
+
+  function viewActivity(e){
+    var rows=[
+      ['now','sweep', e.offered+' offered', e.list.length+' fit'],
+      ['−5 min','sweep', e.offered+' offered', e.list.length+' fit'],
+      ['00:00:04','burst', '12 offered', '0 fit'],
+      ['00:00:00','burst', '0 offered', '0 fit'],
+      ['23:59:55','burst', '0 offered', '0 fit']
+    ];
+    return '<div class="ui-sec">Recent checks</div>'+
+      '<div class="ui-note" style="margin:0 0 8px">The real log keeps 100. A burst writes a row every five seconds.</div>'+
+      rows.map(function(r){
+        return '<div class="ui-row"><div><b>'+r[0]+'</b><span class="why">'+r[1]+'</span></div>'+
+          '<div style="text-align:right"><span class="ui-m">'+r[2]+' · '+r[3]+'</span></div></div>';
+      }).join('');
+  }
+
+  function render(){
+    var e = evaluate();
+    live.innerHTML =
+      '<div class="ui">'+
+      '<div class="ui-h"><b>Bordvakt</b><span>prototype · frozen availability</span></div>'+
+      tabsBar(e)+
+      (st.tab==='tables' ? viewTables(e) : st.tab==='request' ? viewRequest() : viewActivity(e))+
+      '</div>';
+  }
+
+  /* One delegated listener: the whole screen re-renders from state. */
+  live.addEventListener('click', function(ev){
+    var t = ev.target.closest('[data-tab],[data-day],[data-from],[data-area],[data-rf],[data-act]');
+    if (!t) return;
+    if (t.dataset.tab) st.tab = t.dataset.tab;
+    else if (t.dataset.day) {
+      var d = +t.dataset.day, i = st.req.days.indexOf(d);
+      if (i > -1) { if (st.req.days.length > 1) st.req.days.splice(i,1); }
+      else st.req.days.push(d);
+    }
+    else if (t.dataset.from) { st.req.from = t.dataset.from; st.req.to = t.dataset.to; }
+    else if (t.dataset.area) {
+      var a = t.dataset.area, j = st.req.deny.indexOf(a);
+      if (j > -1) st.req.deny.splice(j,1); else st.req.deny.push(a);
+    }
+    else if (t.dataset.rf) {
+      var f = t.dataset.rf, to = t.dataset.rt;
+      var k = st.req.ranges.findIndex(function(r){ return r.from===f && r.to===to; });
+      if (k > -1) st.req.ranges.splice(k,1); else st.req.ranges.push({from:f,to:to});
+    }
+    else if (t.dataset.act === 'book') { st.booked = { d:t.dataset.d, t:t.dataset.t }; }
+    else if (t.dataset.act === 'unbook') { st.booked = null; }
+    render();
+  });
+
+  live.addEventListener('change', function(ev){
+    var f = ev.target.dataset && ev.target.dataset.f;
+    if (!f) return;
+    if (f === 'r') { st.req.r = ev.target.value; st.req.deny = []; }
+    if (f === 'p') st.req.p = +ev.target.value;
+    st.booked = null;
+    render();
+  });
+
+  /* ---------- mode switch ---------- */
+  var mTour=document.getElementById('mTour'), mTry=document.getElementById('mTry');
+  var proto=document.getElementById('proto'), tryout=document.getElementById('tryout');
+  var rail=document.getElementById('rail'), ctrls=document.getElementById('tourControls');
+  var head=[document.getElementById('title'),document.getElementById('body')];
+  var eyebrow=document.querySelector('.eyebrow');
+
+  function setMode(tryIt){
+    mTour.classList.toggle('on', !tryIt); mTry.classList.toggle('on', tryIt);
+    mTour.setAttribute('aria-selected', String(!tryIt));
+    mTry.setAttribute('aria-selected', String(tryIt));
+    proto.classList.toggle('on', tryIt);
+    document.querySelector('.stage').classList.toggle('tryon', tryIt);
+    tryout.hidden = !tryIt;
+    rail.hidden = tryIt; ctrls.hidden = tryIt;
+    head.forEach(function(el){ if(el) el.hidden = tryIt; });
+    if (eyebrow) eyebrow.hidden = tryIt;
+    document.dispatchEvent(new CustomEvent(tryIt ? 'bv:pause' : 'bv:resume'));
+    if (tryIt) render();
+  }
+  mTour.addEventListener('click', function(){ setMode(false); });
+  mTry.addEventListener('click', function(){ setMode(true); });
+  // #try opens straight into the prototype, so the link can point at the thing
+  // worth showing rather than at the tour.
+  if ((location.hash || '').toLowerCase() === '#try') setMode(true);
+  render();
+})();
+</script>
+<script>
+(function(){
+  if (new URLSearchParams(location.search).get('mode') !== 'try') return;
+  var go = function(){ var b = document.getElementById('mTry'); if (b) b.click(); };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go, {once:true});
+  else go();
+})();
+</script>
+</body>
+</html>

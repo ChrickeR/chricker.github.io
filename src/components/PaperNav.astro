@@ -1,0 +1,35 @@
+---
+// Jump menu plus prev/next, for pages that aren't rendered by the chapter
+// route — the appendix. Chapter pages compose the same two pieces inline.
+import ChapterJump from './ChapterJump.astro';
+import { adjacentPublishedChapters } from '../data/book-structure';
+
+interface Props {
+  /** Slug of the page this is rendered on, as it appears in book-structure. */
+  current: string;
+  /** Open the chapter list on load. Same reasoning as ChapterJump: only for
+   * pages a reader arrives at cold and wants the map from. */
+  openByDefault?: boolean;
+}
+const { current, openByDefault = false } = Astro.props;
+const { prev, next } = adjacentPublishedChapters(current);
+---
+
+<ChapterJump current={current} openByDefault={openByDefault} />
+
+{(prev || next) && (
+  <nav class="chapter-nav" aria-label="Paper">
+    {prev ? (
+      <a href={`/organizational-flow/${prev.slug}/`} class="chapter-nav-prev">
+        <span class="chapter-nav-label">Previous</span>
+        <span class="chapter-nav-title">{prev.title}</span>
+      </a>
+    ) : <span />}
+    {next ? (
+      <a href={`/organizational-flow/${next.slug}/`} class="chapter-nav-next">
+        <span class="chapter-nav-label">Next</span>
+        <span class="chapter-nav-title">{next.title}</span>
+      </a>
+    ) : <span />}
+  </nav>
+)}

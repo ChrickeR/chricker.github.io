@@ -1,0 +1,1704 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FlowMission — walkthrough</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Barlow+Semi+Condensed:wght@400;500;600&display=swap">
+<style>
+:root{
+  --ground:#F1EFE9;
+  --surface:#FCFBF8;
+  --ink:#1A1815;
+  --muted:#6A645A;
+  --rule:#DBD6CB;
+  --hair:#E9E5DC;
+  --sap:#2E6F4E;
+  --amber:#A2670F;
+  --clay:#A4412C;
+  --shadow:rgba(30,26,18,.13);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#111310;
+    --surface:#191C18;
+    --ink:#E7E8E1;
+    --muted:#8D9187;
+    --rule:#2C302B;
+    --hair:#20241F;
+    --sap:#55AA77;
+    --amber:#DE9331;
+    --clay:#C96A52;
+    --shadow:rgba(0,0,0,.55);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#111310;
+  --surface:#191C18;
+  --ink:#E7E8E1;
+  --muted:#8D9187;
+  --rule:#2C302B;
+  --hair:#20241F;
+  --sap:#55AA77;
+  --amber:#DE9331;
+  --clay:#C96A52;
+  --shadow:rgba(0,0,0,.55);
+}
+
+/* The watch screen is a device, not page chrome: black in either theme, and
+   the three phase colours are the app's own constants. */
+:root{
+  --scr-bg:#000000;
+  --scr-ink:#FFFFFF;
+  --scr-muted:#9A9A9A;
+  --scr-rule:#3A3A3A;
+  --scr-good:#55AA77;
+  --scr-mixed:#DE9331;
+  --scr-low:#C96A52;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--ground);
+  color:var(--ink);
+  font-family:"Source Serif 4",Georgia,serif;
+  font-size:16.5px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:"Familjen Grotesk",ui-sans-serif,system-ui,sans-serif;text-wrap:balance}
+
+.wrap{max-width:1080px;margin:0 auto;padding:40px 22px 80px}
+
+/* ---------- masthead ---------- */
+.mast{display:flex;align-items:flex-end;justify-content:space-between;gap:26px;flex-wrap:wrap}
+.mast h1{
+  font-weight:700;font-size:clamp(31px,5.2vw,50px);
+  letter-spacing:-.03em;line-height:1.03;margin:0;max-width:16ch;
+}
+.mast p{margin:12px 0 0;color:var(--muted);max-width:56ch;font-size:16px}
+.device{
+  font-family:"Barlow Semi Condensed",ui-sans-serif,sans-serif;
+  font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);white-space:nowrap;
+}
+.device b{color:var(--ink);font-weight:600}
+.kicker{
+  font-family:"Barlow Semi Condensed",ui-sans-serif,sans-serif;
+  font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--sap);font-weight:600;margin-bottom:12px;
+}
+
+/* The one signature device on the page: the app has exactly one mechanic,
+   and it is a bar that runs from explore to home. It appears here, and again
+   as the walkthrough's own progress meter. */
+.phasebar{
+  display:grid;grid-template-columns:5fr 2fr 1fr;
+  height:5px;margin:30px 0 8px;border-radius:2px;overflow:hidden;
+}
+.phasebar i{display:block}
+.phasebar i:nth-child(1){background:var(--sap)}
+.phasebar i:nth-child(2){background:var(--amber)}
+.phasebar i:nth-child(3){background:var(--clay)}
+.phaselab{
+  display:grid;grid-template-columns:5fr 2fr 1fr;gap:0;
+  font-family:"Barlow Semi Condensed",ui-sans-serif,sans-serif;
+  font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);
+  margin-bottom:36px;
+}
+.phaselab span:nth-child(1){color:var(--sap)}
+.phaselab span:nth-child(2){color:var(--amber)}
+.phaselab span:nth-child(3){color:var(--clay)}
+
+/* ---------- the questions ---------- */
+.asks{
+  margin:0 0 40px;padding:28px 30px;border-radius:2px;
+  background:var(--surface);border:1px solid var(--rule);
+}
+.asks .lede{margin:0 0 20px;font-size:14.5px;color:var(--muted);font-family:"Familjen Grotesk",sans-serif}
+.asks ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:18px 36px}
+.asks li{font-size:16px;line-height:1.5}
+.asks li span{display:block;font-family:"Familjen Grotesk",sans-serif;font-weight:600;font-size:15px;letter-spacing:-.005em}
+.asks .foot{margin:22px 0 0;padding-top:16px;border-top:1px solid var(--hair);font-size:14.5px;color:var(--muted)}
+
+.origin{margin:0 0 46px;max-width:64ch}
+.origin p{margin:0 0 14px}
+.origin .k{font-family:"Familjen Grotesk",sans-serif;font-weight:600}
+
+/* ---------- the stage ---------- */
+.stage{
+  display:grid;grid-template-columns:340px 1fr;gap:44px;align-items:start;
+  padding:34px 0 10px;border-top:1px solid var(--rule);
+}
+.watchcol{position:sticky;top:24px}
+.watch{
+  width:320px;height:320px;border-radius:50%;
+  background:#101010;padding:13px;margin:0 auto;
+  box-shadow:0 0 0 2px #2A2A2A,0 18px 40px -18px var(--shadow);
+}
+.screen{
+  width:100%;height:100%;border-radius:50%;background:var(--scr-bg);
+  color:var(--scr-ink);position:relative;overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font-family:"Barlow Semi Condensed",ui-sans-serif,sans-serif;
+  text-align:center;padding:26px 34px;
+}
+.screen .hd{
+  position:absolute;top:26px;left:0;right:0;
+  font-size:12px;letter-spacing:.19em;text-transform:uppercase;
+}
+.screen .dots{position:absolute;bottom:26px;left:0;right:0;display:flex;gap:9px;justify-content:center}
+.screen .dots i{width:5px;height:5px;border-radius:50%;background:var(--scr-rule)}
+.screen .dots i.on{background:var(--scr-ink)}
+.screen .mark{margin-bottom:12px;line-height:0}
+.screen .l{font-size:25px;font-weight:500;letter-spacing:.05em;line-height:1.16}
+.screen .l.sm{font-size:20px}
+.screen .q{margin-top:11px;font-size:15px;color:var(--scr-muted);letter-spacing:.06em}
+.screen .big{font-size:64px;font-weight:500;line-height:1;font-variant-numeric:tabular-nums}
+.screen .hint{font-size:12.5px;color:var(--scr-muted);letter-spacing:.05em;margin-top:10px}
+.screen .rule{width:38%;height:1px;background:var(--scr-rule);margin:13px 0}
+.screen .dim{font-size:12.5px;color:var(--scr-rule);letter-spacing:.14em;line-height:2.05}
+.screen .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px 26px;width:100%}
+.screen .fig{font-size:22px;font-weight:500;font-variant-numeric:tabular-nums}
+.screen .figlab{font-size:10.5px;color:var(--scr-muted);letter-spacing:.15em;margin-top:1px}
+.good{color:var(--scr-good)} .mixed{color:var(--scr-mixed)} .low{color:var(--scr-low)}
+.screen .trivia{font-size:16px;line-height:1.35;color:var(--scr-ink);letter-spacing:.02em}
+
+.controls{display:flex;align-items:center;gap:9px;margin:20px auto 0;justify-content:center}
+.btn{
+  font-family:"Barlow Semi Condensed",sans-serif;font-size:12.5px;letter-spacing:.12em;
+  text-transform:uppercase;padding:7px 13px;border-radius:2px;cursor:pointer;
+  background:var(--surface);color:var(--ink);border:1px solid var(--rule);
+}
+.btn:hover{border-color:var(--muted)}
+.btn:focus-visible{outline:2px solid var(--sap);outline-offset:2px}
+.counter{
+  font-family:"Barlow Semi Condensed",sans-serif;font-size:12.5px;
+  letter-spacing:.12em;color:var(--muted);margin-left:4px;font-variant-numeric:tabular-nums;
+}
+
+.readout{min-height:430px}
+.eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.chapter{
+  font-family:"Barlow Semi Condensed",sans-serif;font-size:12px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--sap);font-weight:600;
+}
+.badge{
+  font-family:"Barlow Semi Condensed",sans-serif;font-size:11px;letter-spacing:.13em;
+  text-transform:uppercase;padding:3px 9px;border:1px solid var(--rule);border-radius:2px;color:var(--muted);
+}
+.badge.built{border-color:var(--sap);color:var(--sap)}
+.readout h2{margin:0 0 12px;font-size:clamp(23px,3vw,30px);font-weight:600;letter-spacing:-.02em;line-height:1.15}
+.readout p{margin:0;max-width:58ch;color:var(--ink)}
+.readout p em{color:var(--muted);font-style:normal}
+
+.rail{margin-top:34px;border-top:1px solid var(--rule);padding-top:20px;display:grid;gap:2px}
+.rail button{
+  display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:14px;
+  background:none;border:0;border-left:2px solid transparent;
+  padding:7px 0 7px 14px;text-align:left;cursor:pointer;color:var(--muted);
+  font-family:"Familjen Grotesk",sans-serif;font-size:14.5px;width:100%;
+}
+.rail button:hover{color:var(--ink)}
+.rail button.on{color:var(--ink);border-left-color:var(--sap);font-weight:600}
+.rail button.on.mixed{border-left-color:var(--amber)}
+.rail button.on.low{border-left-color:var(--clay)}
+.rail button:focus-visible{outline:2px solid var(--sap);outline-offset:2px}
+.rail .n{font-family:"Barlow Semi Condensed",sans-serif;font-size:11.5px;letter-spacing:.14em;color:var(--muted);font-variant-numeric:tabular-nums}
+.rail .meter{height:3px;background:var(--hair);margin:14px 0 0;border-radius:2px;overflow:hidden}
+.rail .meter i{display:block;height:100%;background:var(--sap);width:0;transition:width .25s linear}
+
+/* ---------- explanation blocks ---------- */
+section.block{margin-top:64px;border-top:1px solid var(--rule);padding-top:34px}
+section.block h2{margin:0 0 10px;font-size:clamp(22px,3vw,29px);font-weight:600;letter-spacing:-.02em}
+section.block > p{margin:0 0 22px;max-width:62ch;color:var(--muted)}
+
+.formula{
+  background:var(--surface);border:1px solid var(--rule);border-radius:2px;
+  padding:22px 24px;overflow-x:auto;
+  font-family:"Barlow Semi Condensed",ui-monospace,monospace;font-size:15px;line-height:2.05;
+}
+.formula b{font-weight:600;color:var(--ink);display:inline-block;min-width:13ch}
+.formula span{color:var(--muted)}
+.formula .out{color:var(--sap);font-weight:600}
+
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:26px}
+.card{background:var(--surface);border:1px solid var(--rule);border-radius:2px;padding:22px 24px}
+.card h3{margin:0 0 8px;font-size:16px;font-weight:600;letter-spacing:-.01em}
+.card p{margin:0;font-size:15px;color:var(--muted)}
+.card .num{
+  font-family:"Familjen Grotesk",sans-serif;font-size:44px;font-weight:700;
+  letter-spacing:-.035em;line-height:1;margin-bottom:6px;font-variant-numeric:tabular-nums;
+}
+.card.run .num{color:var(--sap)} .card.walk .num{color:var(--amber)}
+
+ol.road{
+  list-style:none;counter-reset:step;margin:0;padding:0;
+  display:grid;gap:0;
+}
+ol.road li{
+  counter-increment:step;
+  display:grid;grid-template-columns:44px 1fr;gap:0 18px;
+  padding:18px 0;border-top:1px solid var(--hair);
+}
+ol.road li:first-child{border-top:1px solid var(--rule)}
+ol.road li::before{
+  content:counter(step);
+  /* Pinned down the left of both rows. Without the span the number takes the
+     first cell, the heading takes the second, and the paragraph wraps back
+     under the number into a 44px column. */
+  grid-column:1;grid-row:1 / span 2;
+  font-family:"Familjen Grotesk",sans-serif;font-weight:700;font-size:19px;
+  color:var(--sap);line-height:1.35;font-variant-numeric:tabular-nums;
+}
+ol.road h3{grid-column:2;margin:0 0 5px;font-size:17px;font-weight:600;letter-spacing:-.012em}
+ol.road p{grid-column:2;min-width:0;margin:0;font-size:15px;color:var(--muted);max-width:60ch}
+ol.road .blocked{
+  display:block;margin-top:7px;
+  font-family:"Barlow Semi Condensed",sans-serif;
+  font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--clay);
+}
+.card b{font-family:"Familjen Grotesk",sans-serif;font-weight:600;color:var(--ink)}
+
+/* ---------- the five modes ---------- */
+.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;
+  background:var(--rule);border:1px solid var(--rule);border-radius:2px;margin-top:6px}
+.modes > div{background:var(--surface);padding:20px 20px 22px}
+.modes h3{margin:0 0 4px;font-size:16px;font-weight:600;letter-spacing:-.01em}
+.modes .say{font-family:"Barlow Semi Condensed",sans-serif;font-size:12px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--sap);margin-bottom:10px}
+.modes .say.off{color:var(--muted)}
+.modes p{margin:0;font-size:14.5px;color:var(--muted)}
+
+.payload{background:var(--surface);border:1px solid var(--rule);border-radius:2px;
+  padding:18px 20px;overflow-x:auto;font-family:ui-monospace,"SFMono-Regular",monospace;
+  font-size:13px;line-height:1.75;color:var(--muted);white-space:pre}
+.payload b{color:var(--sap);font-weight:600}
+.payload i{color:var(--ink);font-style:normal}
+
+.simwrap{display:grid;grid-template-columns:340px 1fr;gap:44px;align-items:start;margin-top:8px}
+.simside{min-width:0}
+.toggle{display:flex;align-items:center;gap:9px;margin:16px auto 0;justify-content:center;
+  font-family:"Barlow Semi Condensed",sans-serif;font-size:12.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);cursor:pointer}
+.toggle input{accent-color:var(--sap);width:15px;height:15px;cursor:pointer}
+.toggle:hover span{color:var(--ink)}
+.simrose{display:flex;justify-content:center;margin-bottom:18px}
+.simbudget{margin-bottom:18px}
+.simbar{height:6px;background:var(--hair);border-radius:3px;overflow:hidden}
+.simbar i{display:block;height:100%;width:100%;background:var(--sap);transition:width .3s linear,background .4s}
+.simlabels{display:flex;justify-content:space-between;margin-top:7px;
+  font-family:"Barlow Semi Condensed",sans-serif;font-size:11.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted)}
+.simlabels span:first-child{color:var(--sap);font-weight:600}
+ol.simlog{list-style:none;margin:0;padding:0;height:296px;overflow-y:auto;
+  border-top:1px solid var(--rule)}
+ol.simlog li{display:grid;grid-template-columns:52px 1fr;gap:0 14px;align-items:baseline;
+  padding:9px 0;border-bottom:1px solid var(--hair);font-size:15px}
+ol.simlog .t{font-family:"Barlow Semi Condensed",sans-serif;font-size:12px;letter-spacing:.1em;
+  color:var(--muted);font-variant-numeric:tabular-nums}
+ol.simlog .w{min-width:0}
+ol.simlog .w b{font-family:"Familjen Grotesk",sans-serif;font-weight:600;font-size:14.5px;
+  letter-spacing:.01em;display:block}
+ol.simlog .w span{color:var(--muted);font-size:14px}
+ol.simlog li.fact .w b{color:var(--amber)}
+ol.simlog li.phase .w b{color:var(--amber)}
+ol.simlog li.home .w b{color:var(--clay)}
+ol.simlog li.quest .w b{color:var(--sap)}
+
+table.pot{width:100%;border-collapse:collapse;font-size:15px;margin-top:6px}
+table.pot th{
+  font-family:"Barlow Semi Condensed",sans-serif;font-size:11.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted);text-align:left;font-weight:600;
+  padding:0 14px 10px 0;border-bottom:1px solid var(--rule);
+}
+table.pot td{padding:11px 14px 11px 0;border-bottom:1px solid var(--hair);vertical-align:top}
+table.pot td:first-child{width:44px}
+table.pot .say{font-family:"Barlow Semi Condensed",sans-serif;letter-spacing:.09em;text-transform:uppercase;font-size:14px}
+table.pot .when{color:var(--muted);font-size:14.5px}
+.potwrap{overflow-x:auto}
+
+.rose{display:grid;grid-template-columns:auto 1fr;gap:34px;align-items:center;margin-top:8px}
+.rose p{margin:0 0 12px;max-width:52ch;color:var(--muted);font-size:15.5px}
+.rose p:last-child{margin-bottom:0}
+
+.notes{display:grid;grid-template-columns:1fr 1fr;gap:30px 44px;margin-top:34px}
+.notes h3{margin:0 0 9px;font-size:16px;font-weight:600}
+.notes p{margin:0 0 12px;font-size:15px;color:var(--muted);max-width:52ch}
+.notes .k{color:var(--ink);font-weight:600;font-family:"Familjen Grotesk",sans-serif}
+
+.foot{margin-top:56px;padding-top:20px;border-top:1px solid var(--rule);color:var(--muted);font-size:14px}
+
+@media (max-width:880px){
+  .stage,.simwrap{grid-template-columns:1fr;gap:28px}
+  ol.simlog{height:220px}
+  .watchcol{position:static}
+  .asks ul,.pair,.notes,.rose{grid-template-columns:1fr}
+  .rose{gap:22px}
+}
+@media (prefers-reduced-motion:reduce){
+  .rail .meter i{transition:none}
+}
+</style>
+<style>
+  /* Embedded in the tool page: the host page paints the ground, and the
+     masthead lives up there rather than in here. */
+  html, body { background: transparent; }
+  .wrap { padding: 0 0 8px; max-width: none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="phasebar"><i></i><i></i><i></i></div>
+  <div class="phaselab"><span>Explore</span><span>Explore toward home</span><span>Home</span></div>
+
+  <section class="origin">
+    <p>There is one engine underneath all of it, and one idea: <span class="k">the watch works out what is possible and hands back a single instruction.</span> Not a dashboard, not a route, not five true numbers the wearer has to combine at threshold — one thing to do next, and a promise about how it ends.</p>
+    <p>In a city that promise is <span class="k">you will be back where you started, before your dinner</span>. In a race it is <span class="k">you will finish in the time you came for, or the best one still left</span>. The modes differ in what they compute. They do not differ in what they ask of the person wearing them.</p>
+  </section>
+
+  <section class="block" style="border-top:0;padding-top:0;margin-top:44px">
+    <h2>Six modes, one engine</h2>
+    <p>Same budget, same trail, same three phases. What changes is what gets drawn on top of them.</p>
+    <div class="modes">
+      <div><div class="say">Built · offline</div><h3>Discover City</h3><p>One free hour, one unfamiliar city, no route. Missions one at a time, and the way home priced the whole time.</p></div>
+      <div><div class="say">Built · offline</div><h3>Race Brain</h3><p>A goal, a plan that is not an even split, and one number: what to run for the next kilometre.</p></div>
+      <div><div class="say">Built · offline</div><h3>Free Ride</h3><p>No missions at all. You go where you like; the clock is the only thing holding on to you.</p></div>
+      <div><div class="say">Built · offline</div><h3>Fitness Mission</h3><p>Effort and recovery as missions rather than as a plan. Push, ease, find a hill.</p></div>
+      <div><div class="say">Built · offline</div><h3>Take It Again</h3><p>An hour you kept, taken again — and raced, with the goal opening half a minute under your best.</p></div>
+      <div><div class="say">Built · off by default</div><h3>The Second Evening</h3><p>Streets you used last time, carried between hours in the same city. Coarse, capped, thirty days.</p></div>
+      <div><div class="say off">Specified</div><h3>Explore Nature</h3><p>Bigger cells, gentler detour, climbs at the centre, and a wider margin — dusk on a hillside is a different kind of late.</p></div>
+      <div><div class="say off">Specified</div><h3>Guided Tour</h3><p>The evening you do want the famous things. A separate mode, because a slider between wandering and sightseeing is bad at both.</p></div>
+    </div>
+  </section>
+
+  <div class="stage">
+    <div class="watchcol">
+      <div class="watch"><div class="screen" id="screen"></div></div>
+      <div class="controls">
+        <button class="btn" id="prev" type="button">Prev</button>
+        <button class="btn" id="play" type="button">Pause</button>
+        <button class="btn" id="next" type="button">Next</button>
+        <span class="counter" id="counter">1 / 40</span>
+      </div>
+    </div>
+
+    <div class="readout">
+      <div class="eyebrow">
+        <span class="chapter" id="chapter">The start screen</span>
+        <span class="badge built" id="badge">Running today</span>
+      </div>
+      <h2 id="title"></h2>
+      <p id="body"></p>
+      <nav class="rail" id="rail" aria-label="Chapters"></nav>
+      <div class="rail meter" aria-hidden="true"><i id="meter"></i></div>
+    </div>
+  </div>
+
+  <section class="block">
+    <h2>Why it does not turn round at halfway</h2>
+    <p>Half the time is not half the distance: the way home is a straight line and the way out was not. So the budget is computed rather than assumed, once a second, and every mode is downstream of it.</p>
+    <div class="formula">
+      <b>homeDistance</b><span>straight-line metres back to where you pressed START</span><br>
+      <b>pace</b><span>seconds per metre, rolling over the last ten minutes</span><br>
+      <b>detour</b><span>how much further than the crow flies — learned from your own trail</span><br>
+      <b>climbHome</b><span>metres to be regained, charged at 8 m of flat each — descent is free</span><br>
+      <b>margin</b><span>safety, 15% by default</span><br>
+      <b class="out">minutesLeft</b><span class="out">timeRemaining − (homeDistance × detour + climbHome × 8) × pace × (1 + margin)</span>
+    </div>
+    <div class="pair">
+      <div class="card run">
+        <div class="num">41 min</div>
+        <h3>A runner is still exploring</h3>
+        <p>Wandering at 3 m/s a kilometre out, the runner is not told to head home until minute 41 of 60 — eleven minutes past the halfway point a stopwatch would have used.</p>
+      </div>
+      <div class="card walk">
+        <div class="num">31 min</div>
+        <h3>A walker turns sooner</h3>
+        <p>Same streets, same kilometre, 1.2 m/s. The way home costs twice as much, so exploring ends ten minutes earlier — for the same reason, not by a different rule.</p>
+      </div>
+    </div>
+    <p style="margin-top:22px">Both figures come out of the app’s own unit test, which drives the real <code>Budget</code> through a simulated hour and reads off the minute each one leaves EXPLORE. Neither number is written anywhere in the source. <em>Stopping counts too: the clock runs while the pace does not, so ten minutes outside a café takes more than ten minutes off the budget. There is no pause button, because time did not pause.</em></p>
+  </section>
+
+  <section class="block">
+    <h2>Never chase lost time</h2>
+    <p>The rule Race Brain is built on, and the one place in FlowMission that does arithmetic a person genuinely could not do while running.</p>
+    <div class="pair">
+      <div class="card">
+        <div class="num" style="color:var(--clay)">4:54</div>
+        <h3>What a pace calculator asks for</h3>
+        <p>10K, goal 55:00, a minute down at 8 km. Remaining time over remaining distance says thirty seconds a kilometre faster — for the two hardest kilometres of the race. That is how a runner ends up walking at nine.</p>
+      </div>
+      <div class="card run">
+        <div class="num">5:21</div>
+        <h3>What Race Brain asks for</h3>
+        <p>Against a plan of 5:26. The deficit is spread over what is left and capped at five seconds a kilometre; the rest is let go. <em>Never punish one bad kilometre with another.</em></p>
+      </div>
+    </div>
+    <p style="margin-top:22px">Those three figures are the test’s own debug output. The cap is the strategy: <b>3 sec/km safe, 5 balanced, 8 aggressive</b> — and it drops to zero the moment the effort says the rest of the race cannot afford it, which is a separate test and the one that matters most. <em>The clock is outranked by the body, deliberately and in writing.</em></p>
+  </section>
+
+  <section class="block">
+    <h2>The race plan is not an even split</h2>
+    <p>A real race settles, controls, works, commits and empties — and halfway through a 5K is the middle of the work while halfway through a marathon is still control. Each phase carries a pace multiplier, and the whole profile is normalised so that running it arrives exactly on the goal. That normalisation is checked by a test rather than by eye.</p>
+    <div class="potwrap">
+      <table class="pot">
+        <thead><tr><th>Phase</th><th>5K</th><th>10K</th><th>Half</th><th>Marathon</th></tr></thead>
+        <tbody>
+          <tr><td colspan="1" class="say">Settle</td><td class="when">0–10%</td><td class="when">0–20%</td><td class="when">0–15%</td><td class="when">0–10%</td></tr>
+          <tr><td class="say">Control</td><td class="when">10–50%</td><td class="when">20–60%</td><td class="when">15–70%</td><td class="when">10–75%</td></tr>
+          <tr><td class="say">Work</td><td class="when">50–80%</td><td class="when">60–80%</td><td class="when">70–88%</td><td class="when">75–90%</td></tr>
+          <tr><td class="say">Commit</td><td class="when">80–92%</td><td class="when">80–90%</td><td class="when">88–96%</td><td class="when">90–97%</td></tr>
+          <tr><td class="say">Empty</td><td class="when">92–100%</td><td class="when">90–100%</td><td class="when">96–100%</td><td class="when">97–100%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:22px">A hill is not a runner running badly, so the target moves with the gradient instead: <b>16 sec/km per percent of climb, 8 per percent of descent</b>, because uphill costs about twice what downhill gives back. The screen says CLIMB, never TOO SLOW, and the time lost goes into the same spreading machinery as any other deficit.</p>
+  </section>
+
+  <section class="block">
+    <h2>The pot</h2>
+    <p>Every mission the watch can issue offline, in any city, with no signal. One instruction, one quantity, and something the wearer finishes by moving rather than by pressing. The last four are Fitness Mission’s pot; everything above them is Discover City’s.</p>
+    <div class="potwrap">
+      <table class="pot">
+        <thead><tr><th></th><th>Mission</th><th>Finishes when</th></tr></thead>
+        <tbody id="pot"></tbody>
+      </table>
+    </div>
+    <p style="margin-top:22px">Roughly one in four is a wild card with nothing at the end of it, and that is load-bearing rather than filler. <em>If FlowMission only ever navigated between highly rated points of interest it would be a walking-tour app with a worse screen — and nobody tells anyone about the time an app routed them efficiently between two four-star landmarks.</em></p>
+  </section>
+
+  <section class="block">
+    <h2>The trail is a set of bits, not a track log</h2>
+    <div class="rose">
+      <div id="rosefig"></div>
+      <div>
+        <p>The breadcrumb answers three questions and no others: have I been in this cell, how many have I entered that I had not, and which direction from here has the fewest. One bit per 60-metre cell instead of a point per second — an hour is a couple of hundred bits rather than three and a half thousand points.</p>
+        <p>The rose is the offline substitute for knowing anything at all about the city, and it is a better one than it sounds: <span style="color:var(--ink)">the shape of where you have not been is a real fact about a place</span> even when its name is unknown. West is where <em>HEAD WEST</em> comes from. In EXPLORE TOWARD HOME, the sectors pointing away from the start stop being candidates.</p>
+        <p>It is deleted at the summary screen. That costs a real feature — the second evening in a city cannot be made better than the first — and the trade is made knowingly rather than quietly.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>The tracker, and what it is not</h2>
+    <p><b>It is not Garmin LiveTrack and it does not replace it.</b> Connect IQ cannot start LiveTrack, raise Assistance, or send a message — those are system features and no API hands them to an app. What an app can do is make a web request, over the phone or over LTE with no phone anywhere near.</p>
+    <p style="max-width:62ch;color:var(--ink)">Which is enough for the thing LiveTrack structurally cannot do. <b>A dot has no idea where you were going or when you meant to be back, so it cannot tell anybody you are late.</b> FlowMission knows both — the return point is where START was pressed, and the budget is a continuously computed promise about when you will be back at it.</p>
+    <div class="payload">{
+  <b>"kind"</b>: <i>"adventure"</i>,
+  <b>"lat"</b>: <i>55.678</i>, <b>"lon"</b>: <i>12.591</i>,      <span>← three decimals: ~100 m, not a doorway</span>
+  <b>"elapsed"</b>: <i>2040</i>,
+  <b>"dueInSeconds"</b>: <i>1560</i>,        <span>← the feature</span>
+  <b>"homeMetres"</b>: <i>1430</i>,
+  <b>"phase"</b>: <i>1</i>
+}</div>
+    <p style="max-width:62ch;color:var(--ink);margin-top:22px"><b>And the far end alarms on silence, not on an alert.</b> An app that promises to shout for help can only keep that promise while it is working — a flat battery, no signal, a wrist that has stopped moving. Every real emergency is exactly the case where the shout does not happen. So FlowMission does not plan to shout: it says <em>I will be back at 19:47</em>, repeatedly, while it still can, and the far end raises the alarm when 19:47 passes in silence. Absolute, never a countdown — a countdown means nothing once the sending stops, which is the moment it needs to mean something.</p>
+    <p style="margin-top:22px">Every two minutes, and immediately on three events regardless: setting off, turning for home, and arriving. A failed send backs off — doubling, to a quarter of an hour — rather than retrying into a dead radio. <em>Off by default, inert until the wearer supplies their own endpoint, no identity beyond a random token per activity, and the trail is never sent. There is no FlowMission server.</em></p>
+  </section>
+
+  <section class="block">
+    <h2>Watch an hour happen</h2>
+    <p>The frames above are drawn. This one is not: it runs the same rules — the same detour factor, the same recovery caps, the same eight-sector rose, the same one-in-four wild cards — against the twenty-four places <code>far-end/places.js</code> actually returned for central Copenhagen, facts included. Press replay and it gives you a different evening, which is the entire product argument in one button.</p>
+
+    <div class="simwrap">
+      <div class="watchcol">
+        <div class="watch"><div class="screen" id="simscreen"></div></div>
+        <div class="controls">
+          <button class="btn" id="simplay" type="button">Pause</button>
+          <button class="btn" id="simreplay" type="button">Another evening</button>
+          <span class="counter" id="simclock">00:00</span>
+        </div>
+        <label class="toggle"><input type="checkbox" id="simmemory"> <span>Remember last night’s streets</span></label>
+      </div>
+
+      <div class="simside">
+        <div class="simrose" id="simrose"></div>
+        <div class="simbudget">
+          <div class="simbar"><i id="simbar"></i></div>
+          <div class="simlabels"><span id="simphase">EXPLORE</span><span id="simleft">— min to explore</span></div>
+        </div>
+        <ol class="simlog" id="simlog"></ol>
+      </div>
+    </div>
+    <p style="margin-top:22px"><em>It is a re-implementation of the same rules in JavaScript, not the Monkey C itself — the constants are copied from the source and the shape is the same, but the app on the watch is the app on the watch. Every place name and every fact below is real and came out of OpenStreetMap.</em></p>
+  </section>
+
+  <section class="block">
+    <h2>The far end exists now</h2>
+    <p>One file, no dependencies — anybody who is going to be trusted with knowing where somebody is should be able to read the whole of what they are running.</p>
+    <div class="payload"><b>node</b> far-end/server.js
+
+  <i>POST /beacon</i>   the watch says where it is and when it is due
+  <i>GET  /</i>         a page that counts down and goes loud on silence
+  <i>GET  /places</i>   what is near this coarse position, from OpenStreetMap
+  <i>GET  /city</i>     and the name of the city, rounded to about 11 km</div>
+    <div class="pair" style="margin-top:26px">
+      <div class="card">
+        <h3>It alarms on silence</h3>
+        <p>Overdue and still sending is <b>overdue</b> — somebody is late and you can see it. Overdue and gone quiet is <b>the alarm</b>. It survives its own restart, because a restart at the wrong moment must not clear an alarm that is about to matter.<br><br>The page says what it means, too: <em>the time they gave has passed and nothing newer has arrived — it does not mean something is wrong, it means nobody can tell.</em></p>
+      </div>
+      <div class="card">
+        <h3>And it answers the lookup</h3>
+        <p>The place question had three requirements: coverage of small European cities, a licence permitting caching, and a taxonomy separating <em>historic square</em> from <em>supermarket</em>. <b>OpenStreetMap</b> meets all three, and the third better than anything else — that taxonomy already exists, argued over by people standing in front of the thing.<br><br>Verified against Copenhagen: twenty real places, four per category maximum, and facts that are restatements of tags rather than inventions.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>What comes next</h2>
+    <p>Ordered by what unblocks what, rather than by what is most interesting.</p>
+    <ol class="road">
+      <li>
+        <h3>Put it on a wrist</h3>
+        <p>A cable and two minutes: <code>app/tools/install.sh</code> builds the release image and copies it into <code>GARMIN/APPS</code>. Three questions the simulator cannot answer — whether the detour factor converges in a real city, whether the fatigue allowance covers the last kilometre, and whether one wild card in four actually feels good on an evening. <span class="blocked">Blocked on nothing. Nothing below is worth building first.</span></p>
+      </li>
+      <li>
+        <h3>Somewhere to run the far end</h3>
+        <p>The receiver is written and works. What is left is deciding where it lives — a box at home, a small VPS, something on the home network — and giving the watch the address. <span class="blocked">An afternoon and a decision about who is watching, not a build.</span></p>
+      </li>
+      <li>
+        <h3>Turn the lookup on</h3>
+        <p>Same service, same decision: an address in the watch’s <code>lookupUrl</code>, and the invented side quests become named ones with real facts attached. <span class="blocked">Blocked on 2, since it is the same box.</span></p>
+      </li>
+      <li>
+        <h3>Guided Tour</h3>
+        <p>The evening you do want the famous things. The engineering is the smallest part: tours are authored, themed and reviewed, and where they come from is a publishing question. <span class="blocked">Blocked on 3, and a content pipeline.</span></p>
+      </li>
+      <li>
+        <h3>Race Brain, told about the course</h3>
+        <p>There is no Connect IQ API that hands an app the elevation profile of the course the watch is following, so <code>LOAD COURSE</code> is named and dark. When there is one, the plan can see the hills before the runner does. <span class="blocked">Blocked on the platform.</span></p>
+      </li>
+    </ol>
+    <div class="pair" style="margin-top:30px">
+      <div class="card">
+        <h3>Done since this list was written</h3>
+        <p><b>Items 2, 3 and 4, all three.</b> The far end is written and alarms on silence. The place question is answered — OpenStreetMap, verified against Copenhagen. And trails now persist per city, off by default, coarse to five kilometres, three cities, thirty days.<br><br>The home-city objection had an answer that needed no rule: where everything is eventually remembered the novelty rose goes flat and the picker falls back to bearings. <b>It degrades into being no help rather than into being an accusation.</b></p>
+      </div>
+      <div class="card">
+        <h3>Deliberately not on the list</h3>
+        <p><b>A map.</b> The moment there is a line to follow, every mission becomes a suggestion about a route rather than a thing to go and do.<br><br><b>A leaderboard, a streak, a share card.</b> The app has one line of praise and it is <em>Back on time</em> — praise for the app, not the wearer.<br><br><b>A backend that thinks.</b> Race Brain is deterministic and explainable, and that is not a limitation to lift later: an instruction a runner cannot be told the reason for is one they stop following.</p>
+      </div>
+      <div class="card">
+        <h3>The question that decides the product</h3>
+        <p>Whether an hour of this is actually good.<br><br>Everything here is written as though it is, and the only evidence so far is that the idea survived being specified — and then survived being built five times over the same engine.<br><br>Step 1 is one evening’s work, and it is worth more than the rest of the list put together.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>What is actually running</h2>
+    <div class="notes">
+      <div>
+        <h3>Built, compiled, tested</h3>
+        <p><span class="k">Four modes run offline</span> — Discover City, Race Brain, Free Ride and Fitness Mission. The engine, the trail, the return budget, the picker, the race plan, the effort model and all fourteen mission kinds are Monkey C, building clean for five devices with no warnings: fēnix 9 Pro 43/47/51 mm and Venu 3 / 3S.</p>
+        <p><span class="k">Twenty unit tests pass in the simulator</span>, and the figures on this page are their output rather than illustrations. Release build: 41 KB of code, 11 KB of data. No background service and no store to drain — an adventure only exists while it is being had.</p>
+      </div>
+      <div>
+        <h3>Built, and waiting on an endpoint</h3>
+        <p><span class="k">The phone link, Opportunities, Trivia, the tracker and the far end</span> are all written. The watch asks over Bluetooth or LTE, rate-limits itself, and rounds every position to about a hundred metres; <code>far-end/server.js</code> answers, alarms on silence, and looks places up in OpenStreetMap.</p>
+        <p>What is left is an address. There is no FlowMission server and never will be — the endpoint is the wearer’s own box. Without one, none of it arms and the offline engine carries on exactly as it did. <span class="k">The feature does not degrade; it is absent.</span></p>
+      </div>
+      <div>
+        <h3>The rule that outranks the rest</h3>
+        <p>No point of interest is interesting enough to be worth being late for, and no deficit is worth the kilometre that would take it back. Where goals conflict the promise wins <span class="k">silently, by choosing differently</span> — not by warning and carrying on.</p>
+        <p>So return time is a gate rather than a term: a candidate that cannot be reached and left behind in the time available is removed before anything is scored. A term can be outvoted; this must not be.</p>
+      </div>
+      <div>
+        <h3>What it will not do</h3>
+        <p>It will not optimise. Two FlowMissions from the same hotel should be two different evenings, so the picker draws from what survives its filters rather than taking the best of them — <span class="k">ranking produces the same evening twice</span>.</p>
+        <p>It will not nag. A finished mission buzzes once, a discovery twice, a phase change twice; in a race, four patterns mean four things and nothing else vibrates. The wearer is outdoors, in traffic, in a city they do not know.</p>
+      </div>
+    </div>
+  </section>
+
+  </div>
+
+
+
+
+
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---- the marks, matching Draw.mc rather than illustrating it ---- */
+  function svg(inner, size){
+    size = size || 76;
+    return '<svg width="'+size+'" height="'+size+'" viewBox="-50 -50 100 100" '+
+           'fill="none" stroke="currentColor" stroke-width="7" '+
+           'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+inner+'</svg>';
+  }
+  var MARK = {
+    arrow: function(deg){
+      return '<svg width="72" height="72" viewBox="-50 -50 100 100" aria-hidden="true">'+
+        '<g transform="rotate('+(deg||0)+')" fill="currentColor">'+
+        '<polygon points="0,-42 26,23 0,9 -26,23"/></g></svg>';
+    },
+    fork: svg('<path d="M0 42 V2"/><path d="M0 2 L-32 -30"/><path d="M0 2 L32 -30"/>'+
+              '<circle cx="-32" cy="-30" r="7" fill="currentColor" stroke="none"/>'),
+    eye: svg('<circle cx="0" cy="0" r="34"/><circle cx="0" cy="0" r="13" fill="currentColor" stroke="none"/>'),
+    die: svg('<rect x="-34" y="-34" width="68" height="68" rx="14"/>'+
+             '<circle cx="-16" cy="-16" r="5.5" fill="currentColor" stroke="none"/>'+
+             '<circle cx="0" cy="0" r="5.5" fill="currentColor" stroke="none"/>'+
+             '<circle cx="16" cy="16" r="5.5" fill="currentColor" stroke="none"/>'),
+    water: svg('<path d="M-38 -20 q9.5 -9 19 0 t19 0 t19 0"/>'+
+               '<path d="M-38 2 q9.5 -9 19 0 t19 0 t19 0"/>'+
+               '<path d="M-38 24 q9.5 -9 19 0 t19 0 t19 0"/>'),
+    mountain: svg('<polygon points="-40,26 -10,-32 12,26" fill="currentColor" stroke="none"/>'+
+                  '<polygon points="-6,26 16,-14 40,26" fill="currentColor" stroke="none"/>'),
+    building: '<svg width="76" height="76" viewBox="-50 -50 100 100" aria-hidden="true" fill="currentColor">'+
+              '<polygon points="-40,-14 0,-42 40,-14"/>'+
+              '<rect x="-40" y="26" width="80" height="10"/>'+
+              '<rect x="-34" y="-8" width="9" height="31"/><rect x="-16" y="-8" width="9" height="31"/>'+
+              '<rect x="2" y="-8" width="9" height="31"/><rect x="20" y="-8" width="9" height="31"/></svg>',
+    house: '<svg width="72" height="72" viewBox="-50 -50 100 100" aria-hidden="true" fill="currentColor">'+
+           '<polygon points="-40,-6 0,-40 40,-6"/><rect x="-26" y="-6" width="52" height="36"/></svg>',
+    globe: svg('<circle cx="0" cy="0" r="36"/><path d="M-36 0 H36"/>'+
+               '<ellipse cx="0" cy="0" rx="16" ry="36"/>'),
+    bulb: svg('<circle cx="0" cy="-8" r="24"/><path d="M-11 22 H11"/><path d="M-8 34 H8"/>'),
+    tick: svg('<path d="M-32 0 L-9 22 L32 -22"/>'),
+    push: svg('<path d="M-30 -2 L0 -30 L30 -2"/><path d="M-30 26 L0 -2 L30 26"/>'),
+    ease: svg('<path d="M-30 -12 L0 16 L30 -12"/>'),
+    flag: '<svg width="72" height="72" viewBox="-50 -50 100 100" aria-hidden="true">'+
+          '<path d="M-22 -40 V40" stroke="currentColor" stroke-width="7" stroke-linecap="round"/>'+
+          '<polygon points="-22,-40 40,-18 -22,4" fill="currentColor"/></svg>',
+    clock: svg('<circle cx="0" cy="0" r="36"/><path d="M0 0 V-24"/><path d="M0 0 L20 13"/>'),
+    dot: '<svg width="60" height="60" viewBox="-50 -50 100 100" aria-hidden="true">'+
+         '<circle cx="0" cy="0" r="26" fill="currentColor"/></svg>'
+  };
+
+  function dots(active, count){
+    var out = '<div class="dots">';
+    for (var i = 0; i < (count || 3); i += 1){ out += '<i class="'+(i===active?'on':'')+'"></i>'; }
+    return out + '</div>';
+  }
+  function head(text, tone){ return '<div class="hd '+tone+'">'+text+'</div>'; }
+
+  /* Every frame is the real screen: the same lines the Monkey C draws, in the
+     same three colours, on the same black. */
+  var FRAMES = [
+    { ch:"The start screen", tone:"good", built:true,
+      title:"The hero block is the cursor",
+      body:"Whatever is selected is shown large with its own mark and its own START; the rest are one dim line each in a fixed order, so the shape of the screen does not move as the cursor does. It skips the modes that are not built rather than offering a screen that says no.",
+      html:function(){
+        return head("FLOWMISSION","") +
+          '<div class="mark good">'+MARK.globe+'</div>'+
+          '<div class="l">DISCOVER CITY</div>'+
+          '<div class="q">60 MIN ADVENTURE</div>'+
+          '<div class="l sm good" style="margin-top:6px">START</div>'+
+          '<div class="rule"></div>'+
+          '<div class="dim">RACE BRAIN<br>FREE RIDE<br>FITNESS MISSION</div>';
+      }},
+
+    { ch:"An hour in Copenhagen", tone:"good", built:true,
+      title:"The only question it asks",
+      body:"Walk or run, and it seeds the pace estimate — which measurement has fully displaced inside the first kilometre. Someone who answers wrong is not punished for it; the number quietly becomes true. Everything else already has an answer in it.",
+      html:function(){
+        return head("DISCOVER CITY","") +
+          '<div class="l sm" style="color:var(--scr-muted);margin-bottom:26px">WALK</div>'+
+          '<div class="l" style="font-size:33px">RUN</div>'+
+          '<div class="hint" style="margin-top:34px">seeds the estimate only</div>';
+      }},
+
+    { ch:"An hour in Copenhagen", tone:"good", built:true,
+      title:"The start point is where you press it",
+      body:"Not a saved home, not last night’s hotel. You are standing outside the door, which is the whole signal needed — and asking for an address would be asking for the one thing nobody wants to type on a watch.",
+      html:function(){
+        return '<div class="mark" style="color:var(--scr-rule)">'+MARK.globe+'</div>'+
+          '<div class="l">FINDING<br>THE START</div>'+
+          '<div class="hint" style="margin-top:14px">you come back here</div>';
+      }},
+
+    { ch:"An hour in Copenhagen", tone:"good", built:true,
+      title:"A direction, and how far",
+      body:"East, because east is the emptiest sector of a trail four minutes old. The arrow points where you are facing rather than where north is, and the distance counts down as ground is made good along the bearing — wandering sideways for three hundred metres is not three hundred metres east.",
+      html:function(){
+        return head("EXPLORE","good") +
+          '<div class="mark good">'+MARK.arrow(90)+'</div>'+
+          '<div class="l">HEAD EAST</div>'+
+          '<div class="q">600 m</div>'+ dots(0);
+      }},
+
+    { ch:"An hour in Copenhagen", tone:"good", built:true,
+      title:"A street you have not used",
+      body:"A mission is a thing to do, not a place to be. It finishes when two trail cells nobody has entered are entered — the closest an offline watch gets to knowing this street is new, and close enough.",
+      html:function(){
+        return head("EXPLORE","good") +
+          '<div class="mark good">'+MARK.fork+'</div>'+
+          '<div class="l">TAKE A STREET</div>'+
+          '<div class="l">YOU HAVEN’T USED</div>'+
+          '<div class="q">2 to find</div>'+ dots(0);
+      }},
+
+    { ch:"An hour in Copenhagen", tone:"good", built:true,
+      title:"A side quest, invented or real",
+      body:"Offline the target is an unexplored bearing at a plausible distance, described by what the terrain suggests — OLD BUILDING, because it does not know, and saying more than it knows is how an app spends its credibility for the evening. With a link it becomes a named place from the lookup.",
+      html:function(){
+        return head("EXPLORE","good") +
+          '<div class="mark good">'+MARK.building+'</div>'+
+          '<div class="l sm">SIDE QUEST</div>'+
+          '<div class="l">OLD BUILDING</div>'+
+          '<div class="q">450 m</div>'+ dots(0);
+      }},
+
+    { ch:"An hour in Copenhagen", tone:"good", built:true,
+      title:"Three seconds that say you did that",
+      body:"A finished mission gets an acknowledgement before the next one takes the screen: what it was, and what it came to. Read at the moment it finishes, because a second later the engine has moved on. A statement of fact, not praise — the summary is allowed to be pleased, you are busy.",
+      html:function(){
+        return '<div class="mark good">'+MARK.tick+'</div>'+
+          '<div class="l">DONE</div>'+
+          '<div class="l good" style="margin-top:8px">450 m</div>'+
+          '<div class="hint" style="letter-spacing:.13em">SIDE QUEST</div>';
+      }},
+
+    { ch:"An hour in Copenhagen", tone:"good", built:false,
+      title:"The reward for having arrived",
+      body:"Trivia is triggered by arrival, never by proximity. A fact that appears because you reached a square is a reward; the same fact at two hundred metres is an advert. One every eight minutes at most, four in an hour, and it waits behind the acknowledgement rather than replacing it.",
+      html:function(){
+        return '<div class="mark mixed">'+MARK.bulb+'</div>'+
+          '<div class="hint" style="letter-spacing:.19em;margin:0 0 12px">DID YOU KNOW</div>'+
+          '<div class="trivia">Once the city’s<br>main execution<br>square</div>';
+      }},
+
+    { ch:"An hour in Copenhagen", tone:"good", built:true,
+      title:"A wild card, with nothing at the end of it",
+      body:"About one mission in four. This is what stops FlowMission becoming a tour guide, and it is the mission that produces the story afterwards. The feeling being protected is: I wonder where it is taking me next?",
+      html:function(){
+        return head("EXPLORE","good") +
+          '<div class="mark good">'+MARK.die+'</div>'+
+          '<div class="l">TAKE THE</div>'+
+          '<div class="l">SECOND LEFT</div>'+
+          '<div class="q">2 to go</div>'+ dots(0);
+      }},
+
+    { ch:"An hour in Copenhagen", tone:"good", built:true,
+      title:"One number, and it counts down",
+      body:"Minutes until you have to be heading home — never distance, never a clock time, never two numbers at once. The second line is why the budget is tighter than the ground distance suggests: a viewpoint above the hotel is a lovely place to be at minute forty and an expensive one.",
+      html:function(){
+        return head("EXPLORE","good") +
+          '<div class="big good">17</div>'+
+          '<div class="hint" style="letter-spacing:.17em;margin-top:12px">MINUTES TO EXPLORE</div>'+
+          '<div class="l sm" style="font-size:17px;margin-top:16px">1.4 km out</div>'+
+          '<div class="hint">140 m of climb home</div>'+ dots(1);
+      }},
+
+    { ch:"Coming back", tone:"mixed", built:true,
+      title:"Said once, and never argued about",
+      body:"The one interruption the app permits itself. Nothing on it says turn around — the missions simply start coming from the homeward half of the compass. That is the difference between an app that explores and an app that patrols.",
+      html:function(){
+        return '<div class="mark mixed">'+MARK.dot+'</div>'+
+          '<div class="l">10 MIN UNTIL</div>'+
+          '<div class="l">RETURN MODE</div>'+
+          '<div class="hint" style="margin-top:14px">still exploring, homewards</div>';
+      }},
+
+    { ch:"Coming back", tone:"low", built:true,
+      title:"One mission left",
+      body:"A bearing and a distance, and the arrow keeps pointing at the door you came out of. Phases move one way: a following wind does not send anyone back out, because being told to explore again after being told to go home destroys the only thing you were trusting.",
+      html:function(){
+        return head("RETURN HOME","low") +
+          '<div class="mark low">'+MARK.house+'</div>'+
+          '<div class="l">HEAD HOME</div>'+
+          '<div class="q">1.2 km</div>'+ dots(0);
+      }},
+
+    { ch:"Coming back", tone:"good", built:true,
+      title:"Five figures it can back",
+      body:"Missions completed rather than issued. New areas counted as runs of fresh cells, not cells — twelve along one street is somewhere new, the same twelve scattered is twelve. Back on time is the only line of praise in the app, and it is praise for FlowMission rather than for you.",
+      html:function(){
+        return '<div class="hint good" style="position:absolute;top:46px;left:0;right:0;letter-spacing:.19em">MISSION COMPLETE</div>'+
+          '<div class="grid2" style="margin-top:14px">'+
+            '<div><div class="fig">59 min</div><div class="figlab">ELAPSED</div></div>'+
+            '<div><div class="fig">7.3 km</div><div class="figlab">COVERED</div></div>'+
+            '<div><div class="fig">9</div><div class="figlab">MISSIONS</div></div>'+
+            '<div><div class="fig good">5</div><div class="figlab">NEW AREAS</div></div>'+
+          '</div>'+
+          '<div class="hint" style="margin-top:16px">3 discoveries</div>'+
+          '<div class="l sm good" style="font-size:16px;margin-top:10px">Back on time</div>';
+      }},
+
+    { ch:"Keeping an hour", tone:"good", built:true,
+      title:"A record, not a plan",
+      body:"FlowMission does not do routes — the moment there is a line to follow, every mission becomes a suggestion about a route. Nothing is followed while it is being found. The line comes into existence afterwards, out of an hour that already happened, on a deliberate press. It is the one thing in the app that writes down where you were, so the screen says so in the same breath as it offers it.",
+      html:function(){
+        return '<div class="hint good" style="position:absolute;top:40px;left:0;right:0;letter-spacing:.19em">MISSION COMPLETE</div>'+
+          '<div class="grid2" style="margin-top:6px">'+
+            '<div><div class="fig">59 min</div><div class="figlab">ELAPSED</div></div>'+
+            '<div><div class="fig">7.3 km</div><div class="figlab">COVERED</div></div>'+
+          '</div>'+
+          '<div class="l sm good" style="font-size:16px;margin-top:14px">Back on time</div>'+
+          '<div class="hint" style="margin-top:12px">hold to keep this route</div>';
+      }},
+
+    { ch:"Keeping an hour", tone:"good", built:true,
+      title:"Named from what actually happened",
+      body:"Route 3 is a name nobody recognises a week later. The watch knew which way the hour mostly went, how much it climbed and whether it found water — a name made of those is one you recognise immediately. Two hours of the same shape are told apart by their distance. Eight kept, oldest out: the cap matters more than the number.",
+      html:function(){
+        return '<div class="hint" style="letter-spacing:.19em;margin:0">2 OF 3</div>'+
+          '<div class="l" style="margin-top:6px">THE HILL ONE</div>'+
+          '<div class="hint" style="font-size:15px;margin-top:12px">7.3 km · 148 m up</div>'+
+          '<div class="l sm good" style="font-size:18px;margin-top:10px">best 41:20</div>'+
+          '<div class="hint">run 3 times</div>';
+      }},
+
+    { ch:"Keeping an hour", tone:"good", built:true,
+      title:"A bearing and a distance, never turn-by-turn",
+      body:"Taking it again is its own mode, because discovery and repetition are different activities with opposite goals — the same argument that made Guided Tour separate. A route is a place, not a shape, so it is re-run where it was found; starting two streets away is normal and the first mission simply walks you onto it.",
+      html:function(){
+        return head("EXPLORE","good") +
+          '<div class="mark good">'+MARK.fork+'</div>'+
+          '<div class="l">FOLLOW</div>'+
+          '<div class="q">340 m</div>'+ dots(0);
+      }},
+
+    { ch:"The second evening", tone:"good", built:true,
+      title:"It knows which city, and says so once",
+      body:"Asked once an adventure, at a zoom that cannot resolve anything smaller than a town. The city names itself — København, not Copenhagen — which is what comes of asking the map rather than a list. This is not the app telling you which city you are in; you know. It is explaining, once, why tonight's missions are about to avoid half of what it sent you to yesterday.",
+      html:function(){
+        return '<div class="mark good">'+MARK.globe+'</div>'+
+          '<div class="l">KØBENHAVN</div>'+
+          '<div class="l sm good" style="font-size:17px;margin-top:10px">153 STREETS REMEMBERED</div>'+
+          '<div class="hint">tonight goes somewhere else</div>';
+      }},
+
+    { ch:"The second evening", tone:"good", built:true,
+      title:"Streets you used last time",
+      body:"Last night's cells are loaded before the first mission is drawn, so the emptiest sector is the emptiest of the trip rather than of the hour — and TAKE A STREET YOU HAVEN'T USED starts meaning what it says. Off by default, coarse to about five kilometres, three cities, thirty days.",
+      html:function(){
+        return head("EXPLORE","good") +
+          '<div class="mark good">'+MARK.fork+'</div>'+
+          '<div class="l">TAKE A STREET</div>'+
+          '<div class="l">YOU HAVEN’T USED</div>'+
+          '<div class="hint" style="margin-top:8px">none of Monday’s</div>'+ dots(0);
+      }},
+
+    { ch:"The second evening", tone:"good", built:true,
+      title:"A side quest with a real name",
+      body:"With a link, the invented side quest becomes a named place from OpenStreetMap — scored on interest rather than distance, gated on whether you can still get home, and capped at four per category so a city with eleven museums and one bridge can still offer the bridge.",
+      html:function(){
+        return head("EXPLORE","good") +
+          '<div class="mark good">'+MARK.building+'</div>'+
+          '<div class="l sm">SIDE QUEST</div>'+
+          '<div class="l sm" style="font-size:18px">REFORMATIONS-<br>MONUMENTET</div>'+
+          '<div class="q">450 m</div>'+ dots(0);
+      }},
+
+    { ch:"The second evening", tone:"good", built:true,
+      title:"A fact somebody put on the map",
+      body:"FlowMission attributes rather than asserts. Every fact is a restatement of an OpenStreetMap tag — start_date, artist_name, heritage — and anything the tags do not support gets no fact rather than a guess. An app that confidently tells you the wrong century about the building in front of you has spent its credibility for the evening.",
+      html:function(){
+        return '<div class="mark mixed">'+MARK.bulb+'</div>'+
+          '<div class="hint" style="letter-spacing:.19em;margin:0 0 12px">DID YOU KNOW</div>'+
+          '<div class="trivia">Built in 1943</div>';
+      }},
+
+    { ch:"Race Brain", tone:"good", built:true,
+      title:"The one mode that has to ask",
+      body:"A goal nobody stated cannot be paced towards, so Race Brain asks four questions in the order a runner thinks: how far, how fast, how brave, and is there a course. LOAD COURSE is on the screen and dark — no Connect IQ API hands an app the elevation profile of the course the watch is following.",
+      html:function(){
+        return head("RACE BRAIN","") +
+          '<div class="hint" style="letter-spacing:.19em;margin-bottom:6px">10K GOAL</div>'+
+          '<div class="big" style="font-size:52px">55:00</div>'+
+          '<div class="l sm good" style="font-size:18px;margin-top:14px">5:30 /km</div>'+
+          '<div class="hint">baseline pace</div>';
+      }},
+
+    { ch:"Race Brain", tone:"good", built:true,
+      title:"What should I do right now",
+      body:"Six kilometres four hundred done, eighteen seconds behind the plan, and one instruction: run the next kilometre at 5:26. That is the whole interface. Garmin already tells you how you are running; at threshold, in a field, nobody can do arithmetic with five true numbers.",
+      html:function(){
+        return '<div class="l sm" style="font-size:22px">6.4 KM</div>'+
+          '<div class="l sm mixed" style="font-size:22px;margin-top:4px">+00:18</div>'+
+          '<div class="rule" style="margin:10px 0 6px"></div>'+
+          '<div class="hint" style="letter-spacing:.19em;margin:0">NEXT KM</div>'+
+          '<div class="big" style="font-size:52px">5:26</div>'+
+          '<div class="l sm good" style="font-size:17px;margin-top:8px">STAY CONTROLLED</div>'+
+          '<div class="hint" style="margin-top:6px">158 BPM   55:00</div>';
+      }},
+
+    { ch:"Race Brain", tone:"good", built:true,
+      title:"Twenty seconds up is a debt with a delay on it",
+      body:"Being ahead early is not a bonus. In the settle phase a pace meaningfully faster than the plan is not celebrated — the target is pulled back, and the seconds banked. Being ahead gives you options, not permission to blow up.",
+      html:function(){
+        return '<div class="l sm mixed" style="font-size:20px">TOO FAST</div>'+
+          '<div class="l" style="margin-top:6px">EASY</div>'+
+          '<div class="rule" style="margin:12px 0 6px"></div>'+
+          '<div class="hint" style="letter-spacing:.19em;margin:0">NEXT KM</div>'+
+          '<div class="big" style="font-size:48px">5:34</div>';
+      }},
+
+    { ch:"Race Brain", tone:"mixed", built:true,
+      title:"A hill is not a runner running badly",
+      body:"Pace stops meaning anything on a climb, so the target moves with the gradient instead of the runner being told off for it — sixteen seconds per kilometre per percent. The screen says CLIMB, never TOO SLOW, and the time lost goes into the same spreading machinery as any other deficit.",
+      html:function(){
+        return '<div class="mark mixed">'+MARK.mountain+'</div>'+
+          '<div class="l sm mixed" style="font-size:20px">CLIMB</div>'+
+          '<div class="l" style="margin-top:4px">HOLD EFFORT</div>'+
+          '<div class="hint" style="letter-spacing:.19em;margin-top:10px">NEXT KM 5:52</div>';
+      }},
+
+    { ch:"Race Brain", tone:"low", built:true,
+      title:"The heart outranks the clock",
+      body:"A hundred and seventy at nine kilometres of ten is a race being finished; the same number at two is a race being lost. So effort is measured against a ceiling that rises through the race — and when it is over, recovery drops to zero and the target goes slower than the plan. There is a test that says so.",
+      html:function(){
+        return '<div class="l sm low" style="font-size:20px">EFFORT HIGH</div>'+
+          '<div class="l" style="margin-top:6px">BACK OFF</div>'+
+          '<div class="rule" style="margin:12px 0 6px"></div>'+
+          '<div class="hint" style="letter-spacing:.19em;margin:0">NEXT KM</div>'+
+          '<div class="big" style="font-size:48px">5:44</div>';
+      }},
+
+    { ch:"Race Brain", tone:"good", built:true,
+      title:"Five seconds, then gone",
+      body:"Every kilometre is a lap, a split, and the moment the recommendation is allowed to change — a number that moves every second is a number nobody can run to. Then it disappears: Race Brain is about what comes next, and the kilometre just run is history within the minute.",
+      html:function(){
+        return '<div class="hint" style="letter-spacing:.19em;margin:0 0 4px">KM 6</div>'+
+          '<div class="big" style="font-size:50px">5:37</div>'+
+          '<div class="hint" style="margin-top:10px">plan 5:30</div>'+
+          '<div class="l sm mixed" style="font-size:22px;margin-top:6px">+7 sec</div>'+
+          '<div class="hint">157 bpm</div>';
+      }},
+
+    { ch:"Race Brain", tone:"mixed", built:true,
+      title:"When the goal stops being true",
+      body:"The race does not become a failure because one number left. After sixty per cent, sixty seconds of consistently unlikely, and not more than twice, Race Brain makes the next achievable target — and adopts it by default, because you are at threshold and should not have to press anything to stop chasing a number that has gone.",
+      html:function(){
+        return '<div class="l sm mixed" style="font-size:19px">55:00 UNLIKELY</div>'+
+          '<div class="hint" style="letter-spacing:.19em;margin-top:12px">NEW TARGET</div>'+
+          '<div class="big" style="font-size:50px">55:45</div>'+
+          '<div class="l good" style="font-size:22px;margin-top:12px">GO FOR IT</div>';
+      }},
+
+    { ch:"Race Brain", tone:"good", built:true,
+      title:"And when it is a strong day",
+      body:"The opposite needs stronger evidence — controlled effort, no deterioration, real margin — and is offered rather than applied. A goal being raised is never adopted without a press, because nobody gets to make somebody else’s race harder.",
+      html:function(){
+        return '<div class="l sm good" style="font-size:20px">STRONG DAY</div>'+
+          '<div class="big" style="font-size:50px;margin-top:8px">54:30</div>'+
+          '<div class="l" style="font-size:22px;margin-top:8px">POSSIBLE</div>'+
+          '<div class="hint" style="margin-top:12px">press to take it</div>';
+      }},
+
+    { ch:"Race Brain", tone:"low", built:true,
+      title:"The last kilometre stops being a strategy problem",
+      body:"Everything is still being computed and none of it is on the screen. Three patterns of vibration have already told you what changed without you looking down; this one is the fourth, and it means go.",
+      html:function(){
+        return '<div class="mark low">'+MARK.push+'</div>'+
+          '<div class="l" style="font-size:30px">500 M</div>'+
+          '<div class="l low" style="font-size:34px;margin-top:8px">COMMIT</div>'+
+          '<div class="hint" style="margin-top:14px">52:41</div>';
+      }},
+
+    { ch:"Race Brain", tone:"good", built:true,
+      title:"How you raced it, not how fast you ran",
+      body:"The score is the opening kilometre against its plan, how evenly the rest was held excluding the kilometres with a hill in them, and whether the finish came home level or fell apart. A slow race run exactly to plan scores well; a fast one thrown away in the first kilometre does not.",
+      html:function(){
+        return '<div class="hint good" style="letter-spacing:.19em;margin:0">RACE COMPLETE</div>'+
+          '<div class="big" style="font-size:50px;margin-top:4px">54:47</div>'+
+          '<div class="hint" style="margin-top:12px">GOAL 55:00</div>'+
+          '<div class="l sm good" style="font-size:24px;margin-top:2px">-00:13</div>'+
+          '<div class="fig" style="margin-top:14px">92 / 100</div>'+
+          '<div class="figlab">RACE EXECUTION</div>';
+      }},
+
+    { ch:"Race Brain", tone:"good", built:true,
+      title:"Race the hour you kept",
+      body:"A kept route has a distance and, once raced, a time — so it sits on the distance wheel after 5K, 10K, half, marathon and custom. The goal wheel then opens half a minute under your best rather than at a generic pace. That is the whole of racing the same track to push the time: the number it starts on is the number worth beating.",
+      html:function(){
+        return head("RACE BRAIN","") +
+          '<div class="hint" style="letter-spacing:.19em;margin:0">DISTANCE</div>'+
+          '<div class="l" style="margin-top:6px">THE HILL ONE</div>'+
+          '<div class="hint" style="margin-top:10px">7.3 km</div>'+
+          '<div class="l sm good" style="font-size:18px;margin-top:8px">best 41:20</div>'+
+          '<div class="hint">a route you kept</div>';
+      }},
+
+    { ch:"Safety", tone:"mixed", built:true,
+      title:"Two things to know before you leave",
+      body:"Checked at the first fix, said once, dismissed by a press. Neither is the app refusing to run — a wearer who wants to go anyway is going anyway. The point is finding out here rather than three kilometres out. The failure this prevents is nasty: a tracker going quiet because the watch died looks exactly like one going quiet because something happened.",
+      html:function(){
+        return '<div class="mark mixed">'+MARK.dot+'</div>'+
+          '<div class="l">14% BATTERY</div>'+
+          '<div class="hint" style="font-size:15px;margin-top:12px">may not see the hour out</div>'+
+          '<div class="hint">shorten it, or go anyway</div>';
+      }},
+
+    { ch:"Safety", tone:"mixed", built:true,
+      title:"The real risk is the light, not the distance",
+      body:"Being three kilometres out, somewhere you cannot name, when it gets dark. Worked out from your position and the date with the standard solar approximation — no phone, no forecast, no connection. Good to a couple of minutes, which is far better than the decision it informs.",
+      html:function(){
+        return '<div class="l mixed">DARK AT</div>'+
+          '<div class="big" style="font-size:52px;margin-top:6px">20:14</div>'+
+          '<div class="hint" style="font-size:15px;margin-top:14px">38 min of light</div>'+
+          '<div class="hint">your hour ends after it</div>';
+      }},
+
+    { ch:"Safety", tone:"good", built:true,
+      title:"Fifteen minutes, so it does not cry wolf",
+      body:"The common case is not an emergency — it is a café, a plaque and a wrong turn. A tracker that alarms every time somebody enjoys themselves is one whose alarms get ignored. One hold buys fifteen minutes, moves the return budget with it, and tells the far end before the old promise expires.",
+      html:function(){
+        return '<div class="mark good">'+MARK.clock+'</div>'+
+          '<div class="l">+15 MIN</div>'+
+          '<div class="l sm" style="font-size:19px;margin-top:10px">BACK BY 20:02</div>';
+      }},
+
+    { ch:"Free Ride", tone:"good", built:true,
+      title:"Leave me alone — just get me back",
+      body:"Discover City is two things bolted together: a mission generator, and a promise about getting home. Free Ride is the second half on its own. No missions, no wild cards, nowhere you are being sent — the screen is the budget, and the budget is the whole app.",
+      html:function(){
+        return head("EXPLORE","good") +
+          '<div class="mark" style="color:var(--scr-muted)">'+MARK.arrow(315)+'</div>'+
+          '<div class="l">GO ANYWHERE</div>'+
+          '<div class="l sm" style="font-size:17px;margin-top:10px">1.4 km back</div>'+
+          '<div class="hint">34 min to explore</div>'+ dots(0);
+      }},
+
+    { ch:"Free Ride", tone:"good", built:true,
+      title:"The arrow points home, always",
+      body:"The engine has known the bearing back since the first fix, and in the other modes it keeps that to itself — a standing arrow home would quietly turn every mission screen into a navigation screen. Free Ride is the mode where you are doing your own navigating, so it is the mode that earns the reference. Muted rather than bright, because it is information and not an instruction.",
+      html:function(){
+        return head("TOWARD HOME","mixed") +
+          '<div class="mark" style="color:var(--scr-muted)">'+MARK.arrow(200)+'</div>'+
+          '<div class="l">GO ANYWHERE</div>'+
+          '<div class="l sm" style="font-size:17px;margin-top:10px">2.1 km back</div>'+
+          '<div class="hint">8 min to explore</div>'+ dots(0);
+      }},
+
+    { ch:"Free Ride", tone:"low", built:true,
+      title:"Where information becomes an instruction",
+      body:"Same bearing, same distance, now bright, with HEAD HOME over it. Nothing about the geometry changes — only whether the app is answering a question or asking one. Everything before this was yours.",
+      html:function(){
+        return head("RETURN HOME","low") +
+          '<div class="mark low">'+MARK.house+'</div>'+
+          '<div class="l">HEAD HOME</div>'+
+          '<div class="q">900 m</div>'+ dots(0);
+      }},
+
+    { ch:"Fitness", tone:"good", built:true,
+      title:"A different pot on the same engine",
+      body:"Effort and recovery alternate by being in or out of the pot rather than by a rule, so recovery cannot be drawn twice by bad luck or skipped by it. No pace targets and no zones: the app has no opinion on how fast anybody is, only on when to push and when to stop.",
+      html:function(){
+        return head("EXPLORE","good") +
+          '<div class="mark good">'+MARK.push+'</div>'+
+          '<div class="l">PUSH</div>'+
+          '<div class="l">FOR 3 MIN</div>'+
+          '<div class="q">3 min</div>'+ dots(0);
+      }},
+
+    { ch:"Guided Tour", tone:"good", built:false,
+      title:"The one thing a tour can promise",
+      body:"The evening you do want the famous things. Because the stops are known before anybody moves, this is the only mode that can put a count and a duration on the screen up front — and trim a nine-stop tour to seven before it starts, rather than abandoning it three stops from the end.",
+      html:function(){
+        return head("GUIDED TOUR","") +
+          '<div class="mark good">'+MARK.building+'</div>'+
+          '<div class="l">WATERFRONT HOUR</div>'+
+          '<div class="q">7 STOPS · 62 MIN</div>'+
+          '<div class="l sm good" style="margin-top:12px">START</div>';
+      }},
+
+    { ch:"Guided Tour", tone:"good", built:false,
+      title:"Still a mission, not a route",
+      body:"A bearing and a distance, and you find your own way there — which is most of what makes arriving feel like arriving. It is a separate mode rather than a setting on Discover City, because the two are scored on opposite things and a slider between them has a middle that is bad at both.",
+      html:function(){
+        return head("GUIDED TOUR","") +
+          '<div class="mark good">'+MARK.arrow(45)+'</div>'+
+          '<div class="l">HEAD FOR</div>'+
+          '<div class="l sm">THE ROUND TOWER</div>'+
+          '<div class="q">600 m</div>'+ dots(0);
+      }}
+  ];
+
+  /* ---- the pot ---- */
+  var POT = [
+    [MARK.arrow(90), "Head east · for 600 m", "600 m made good along that bearing"],
+    [MARK.fork, "Take a street you haven’t used", "two trail cells nobody has entered"],
+    [MARK.eye, "Find somewhere you’ve never seen", "three new cells inside eight minutes"],
+    [MARK.arrow(0), "Head north · for 5 min", "five minutes elapsed"],
+    [MARK.die, "Take the next left", "a heading change of 60° or more"],
+    [MARK.die, "Wild card · take the second left", "two heading changes"],
+    [MARK.water, "Find the water", "a sustained descent, or a real place when linked"],
+    [MARK.mountain, "Get higher than you are", "15 m of climb"],
+    [MARK.building, "Side quest · old building", "arrival within 40 m"],
+    [MARK.house, "Head home", "back within 40 m of the start"],
+    [MARK.push, "Push · for 3 min", "three minutes elapsed"],
+    [MARK.ease, "Easy · for 4 min", "four minutes elapsed"],
+    [MARK.mountain, "Find a hill and climb it", "20 m of climb"],
+    [MARK.arrow(90), "Hold this pace · for 800 m", "800 m of ground covered"]
+  ];
+  document.getElementById("pot").innerHTML = POT.map(function(row){
+    return '<tr><td style="color:var(--sap)"><span style="display:inline-block;width:34px;height:34px">'+
+      row[0].replace(/width="\d+" height="\d+"/, 'width="34" height="34"')+
+      '</span></td><td class="say">'+row[1]+'</td><td class="when">'+row[2]+'</td></tr>';
+  }).join("");
+
+  /* ---- the compass rose: eight sectors, filled by visited cells ---- */
+  (function(){
+    var counts = [3, 7, 11, 5, 1, 0, 0, 1];
+    var names = ["N","NE","E","SE","S","SW","W","NW"];
+    var max = 11, parts = "";
+    for (var i = 0; i < 8; i += 1){
+      var a0 = (i * 45 - 22.5 - 90) * Math.PI / 180;
+      var a1 = (i * 45 + 22.5 - 90) * Math.PI / 180;
+      var r = 26 + (counts[i] / max) * 62;
+      var x0 = (100 + r * Math.cos(a0)).toFixed(1), y0 = (100 + r * Math.sin(a0)).toFixed(1);
+      var x1 = (100 + r * Math.cos(a1)).toFixed(1), y1 = (100 + r * Math.sin(a1)).toFixed(1);
+      var empty = counts[i] === 0;
+      parts += '<path d="M100 100 L'+x0+' '+y0+' A'+r+' '+r+' 0 0 1 '+x1+' '+y1+' Z" '+
+        'fill="'+(empty ? 'var(--sap)' : 'var(--rule)')+'" opacity="'+(empty ? '.9' : '.85')+'" '+
+        'stroke="var(--ground)" stroke-width="1.5"/>';
+      var am = (i * 45 - 90) * Math.PI / 180;
+      parts += '<text x="'+(100 + 96 * Math.cos(am)).toFixed(1)+'" y="'+(100 + 96 * Math.sin(am) + 4).toFixed(1)+'" '+
+        'text-anchor="middle" font-family="Barlow Semi Condensed" font-size="11" letter-spacing="1.4" '+
+        'fill="'+(empty ? 'var(--sap)' : 'var(--muted)')+'">'+names[i]+'</text>';
+    }
+    document.getElementById("rosefig").innerHTML =
+      '<svg width="230" height="230" viewBox="0 0 200 200" role="img" '+
+      'aria-label="Compass rose: visited cells per sector after an hour spent mostly east. West and south-west are empty.">'+
+      parts + '<circle cx="100" cy="100" r="4" fill="var(--ink)"/></svg>';
+  })();
+
+  /* ---- the walkthrough ---- */
+  var screen = document.getElementById("screen");
+  var chapterEl = document.getElementById("chapter");
+  var badgeEl = document.getElementById("badge");
+  var titleEl = document.getElementById("title");
+  var bodyEl = document.getElementById("body");
+  var counterEl = document.getElementById("counter");
+  var meterEl = document.getElementById("meter");
+  var railEl = document.getElementById("rail");
+  var playBtn = document.getElementById("play");
+
+  var at = 0, tick = null, elapsed = 0, lastAt = 0;
+  var DWELL = 5400, STEP = 100;
+
+  var chapters = [];
+  FRAMES.forEach(function(f, i){
+    if (!chapters.length || chapters[chapters.length - 1].name !== f.ch){
+      chapters.push({ name:f.ch, first:i, tone:f.tone });
+    }
+  });
+  railEl.innerHTML = chapters.map(function(c){
+    return '<button type="button" data-go="'+c.first+'"><span>'+c.name+'</span>'+
+      '<span class="n">'+String(c.first + 1).padStart(2,"0")+'</span></button>';
+  }).join("");
+  railEl.addEventListener("click", function(e){
+    var b = e.target.closest("button");
+    if (b){ go(parseInt(b.getAttribute("data-go"), 10)); stop(); playBtn.textContent = "Play"; }
+  });
+
+  function chapterOf(i){
+    var found = chapters[0];
+    chapters.forEach(function(c){ if (c.first <= i){ found = c; } });
+    return found;
+  }
+
+  function render(){
+    var f = FRAMES[at];
+    screen.innerHTML = f.html();
+    chapterEl.textContent = f.ch;
+    chapterEl.style.color = f.tone === "low" ? "var(--clay)" :
+                            f.tone === "mixed" ? "var(--amber)" : "var(--sap)";
+    badgeEl.textContent = f.built ? "Running today" : "Needs a link";
+    badgeEl.className = "badge" + (f.built ? " built" : "");
+    titleEl.textContent = f.title;
+    bodyEl.textContent = f.body;
+    counterEl.textContent = (at + 1) + " / " + FRAMES.length;
+
+    var current = chapterOf(at);
+    Array.prototype.forEach.call(railEl.children, function(b){
+      var isOn = parseInt(b.getAttribute("data-go"), 10) === current.first;
+      b.className = isOn ? "on " + (f.tone === "good" ? "" : f.tone) : "";
+    });
+    meterEl.style.background = f.tone === "low" ? "var(--clay)" :
+                               f.tone === "mixed" ? "var(--amber)" : "var(--sap)";
+  }
+
+  function go(i){ at = (i + FRAMES.length) % FRAMES.length; elapsed = 0; lastAt = Date.now(); meterEl.style.width = "0%"; render(); }
+
+  // Counted in milliseconds elapsed rather than in ticks fired. A background
+  // tab clamps setInterval to about once a second, and a loop that assumed it
+  // got what it asked for ran thirty times slow there.
+  function start(){
+    stop();
+    lastAt = Date.now();
+    tick = setInterval(function(){
+      var now = Date.now();
+      elapsed += Math.min(1500, now - lastAt);
+      lastAt = now;
+      meterEl.style.width = Math.min(100, (elapsed / DWELL) * 100) + "%";
+      if (elapsed >= DWELL){ go(at + 1); }
+    }, STEP);
+  }
+  function stop(){ if (tick){ clearInterval(tick); tick = null; } }
+
+  document.getElementById("next").addEventListener("click", function(){ go(at + 1); if (tick){ start(); } });
+  document.getElementById("prev").addEventListener("click", function(){ go(at - 1); if (tick){ start(); } });
+  playBtn.addEventListener("click", function(){
+    if (tick){ stop(); playBtn.textContent = "Play"; }
+    else { start(); playBtn.textContent = "Pause"; }
+  });
+
+  go(0);
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches){ start(); }
+  else { playBtn.textContent = "Play"; }
+})();
+</script><script>
+// An hour of Discover City, simulated.
+//
+// The same rules as app/source, with the constants copied across: 60 m trail
+// cells, an eight-sector novelty rose, a detour factor learned from the
+// wearer's own wandering, a 15% margin, a 12% fatigue allowance, ten minutes
+// of warning before RETURN HOME, and one wild card in four.
+//
+// The places are the twenty-four that far-end/places.js actually returned for
+// central Copenhagen, facts included. Nothing here is invented.
+(function () {
+  "use strict";
+
+  var POIS = [["H.C. Ørsted",55.68081,12.56737,70,"public art","On front of plinth: \"HANS/CHRISTIAN/ ØRSTED\";on right side of pl"],["Reformationsmonument",55.6792,12.57175,70,"memorial","Built in 1943"],["Løven og hesten",55.68398,12.57743,70,"public art","By Peter Husum; Jørgen Wulff"],["Viggo Hørup",55.68337,12.58071,70,"public art","Built in 1908"],["Vejrpigerne",55.67584,12.56741,70,"public art","By Einar Utzon-Frank"],["Mindeankeret ved Nyhavn",55.68063,12.58753,70,"memorial","Built in 1951"],["Vore Faldne",55.68932,12.59523,70,"memorial","Built in 1960"],["Den lille Havfrue",55.69287,12.59929,70,"public art","Built in 1913"],["Johan Herman Wessel og Johannes Ewald",55.68134,12.57618,70,"public art","Built in 1879"],["Slaget i Køge Bugt 1710",55.69062,12.59915,70,"memorial","Ivar Huitfeldt og hans Mænd Kjøge bugt 4de October 1710"],["Stormen på København 1659",55.6902,12.58184,76,"something historic",""],["Teatermuseet",55.67478,12.57863,72,"museum",""],["Nyboder Mindestuer",55.68737,12.58805,72,"museum",""],["Ripley's Believe It or Not",55.67632,12.56995,72,"museum",""],["Dansk Jødisk Museum",55.67437,12.5823,72,"museum",""],["Kong Christian V",55.68052,12.58595,70,"memorial",""],["Comedy Zoo",55.67709,12.57559,62,"theatre",""],["Det Lille Teater",55.67629,12.572,62,"theatre",""],["Anemone Teatret",55.68261,12.57615,62,"theatre",""],["Cafe Liva",55.67963,12.59083,62,"theatre",""],["Europa 1989",55.67865,12.57937,44,"cafe",""],["Zirup",55.67795,12.5772,44,"cafe",""],["Kafe Kys Cafe & Bar",55.67816,12.5784,44,"cafe",""],["Hoppe's",55.67804,12.57806,44,"cafe",""]];
+
+  var HOTEL = [55.6795, 12.5820];
+  var M_LAT = 111320, M_LON = 111320 * Math.cos(HOTEL[0] * Math.PI / 180);
+  var CELL = 60, HORIZON = 800;
+  var DURATION = 60 * 60, MARGIN = 0.15, WARN = 10, LEG = 600;
+  var SPEED = 2.7;                       // m/s, a gentle run
+  var SPEEDUP = 175;                     // simulated seconds per real second
+  var SUBSTEP = 6;                       // never advance more than this at once
+  var TICK = 33;                         // asked for; a hidden tab gives about 1/s
+  var ROSE_EVERY = 8;                    // the rose is a shape, not a readout
+
+  var screen = document.getElementById("simscreen");
+  var logEl = document.getElementById("simlog");
+  var roseEl = document.getElementById("simrose");
+  var barEl = document.getElementById("simbar");
+  var phaseEl = document.getElementById("simphase");
+  var leftEl = document.getElementById("simleft");
+  var clockEl = document.getElementById("simclock");
+  var playBtn = document.getElementById("simplay");
+  var memoryBox = document.getElementById("simmemory");
+
+  var seed = 1, run = null, timer = null, monday = null;
+  function rnd() { seed = (seed * 1103515245 + 12345) & 0x7fffffff; return seed / 0x7fffffff; }
+  function pick(n) { return Math.floor(rnd() * n); }
+
+  var GRID = 4096;
+  function cellKey(e, n) {
+    return (Math.round(e / CELL) + 2048) * GRID + (Math.round(n / CELL) + 2048);
+  }
+  function cellEast(k) { return (Math.floor(k / GRID) - 2048) * CELL; }
+  function cellNorth(k) { return ((k % GRID) - 2048) * CELL; }
+  function len(e, n) { return Math.sqrt(e * e + n * n); }
+  function bearing(e, n) { var d = Math.atan2(e, n) * 180 / Math.PI; return d < 0 ? d + 360 : d; }
+  function apart(a, b) { var d = Math.abs(a - b) % 360; return d > 180 ? 360 - d : d; }
+  var SECTORS = ["NORTH", "NORTH-EAST", "EAST", "SOUTH-EAST", "SOUTH", "SOUTH-WEST", "WEST", "NORTH-WEST"];
+  function sectorOf(b) { return Math.floor(((b + 22.5) / 45)) % 8; }
+
+  // Places, in metres from the hotel.
+  var PLACES = POIS.map(function (p) {
+    return {
+      name: p[0], kind: p[4], interest: p[3], fact: p[5] || null,
+      e: (p[2] - HOTEL[1]) * M_LON, n: (p[1] - HOTEL[0]) * M_LAT
+    };
+  });
+
+  function fresh(remembered) {
+    return {
+      t: 0, e: 0, n: 0, heading: rnd() * 360, path: 0,
+      cells: Object.assign({}, remembered || {}),
+      keys: Object.keys(remembered || {}).map(Number),
+      inherited: Object.keys(remembered || {}).length,
+      areas: 0, lastNew: false, lastKey: null,
+      window: [], detour: 1.30, phase: 0,
+      mission: null, missions: 0, discoveries: 0, facts: 0, lastFactAt: -999,
+      used: {}, lastKind: null, recent: [], log: [], done: false, card: null
+    };
+  }
+
+  function pace(s) {
+    if (s.path < 60 || s.t < 30) { return 1 / SPEED; }
+    var w = s.window;
+    var rolling = (w.length > 1 && w[w.length - 1][0] - w[0][0] > 60 && w[w.length - 1][1] - w[0][1] > 20)
+      ? (w[w.length - 1][0] - w[0][0]) / (w[w.length - 1][1] - w[0][1])
+      : s.t / s.path;
+    var overall = s.t / s.path;
+    return Math.max(rolling, overall) * (1 + 0.12 * Math.min(1, s.t / DURATION));
+  }
+
+  function measuredDetour(s) {
+    var w = s.window;
+    if (w.length < 2) { return 1.30; }
+    var travelled = w[w.length - 1][1] - w[0][1];
+    var moved = len(w[w.length - 1][2] - w[0][2], w[w.length - 1][3] - w[0][3]);
+    if (moved < 100 || travelled <= 0) { return 1.30; }
+    var m = Math.min(2.0, Math.max(1.0, travelled / moved));
+    var weight = Math.min(1, moved / 500);
+    return 1.30 * (1 - weight) + m * weight;
+  }
+
+  function minutesLeft(s) {
+    var home = len(s.e, s.n);
+    var cost = home * s.detour * pace(s) * (1 + MARGIN);
+    return Math.floor(((DURATION - s.t) - cost) / 60);
+  }
+
+  // Walked once per pick and once every few frames for the rose, over a few
+  // hundred cells. Integer keys rather than strings is the difference between
+  // an hour that plays and one that crawls.
+  function novelty(s) {
+    var counts = [0, 0, 0, 0, 0, 0, 0, 0];
+    var keys = s.keys;
+    for (var i = 0; i < keys.length; i += 1) {
+      var dE = cellEast(keys[i]) - s.e, dN = cellNorth(keys[i]) - s.n;
+      var d = len(dE, dN);
+      if (d > HORIZON || d < CELL) { continue; }
+      counts[sectorOf(bearing(dE, dN))] += 1;
+    }
+    return counts;
+  }
+
+  function chooseSector(s) {
+    var counts = novelty(s), homeward = bearing(-s.e, -s.n), best = null, bestScore = null;
+    for (var i = 0; i < 8; i += 1) {
+      var b = i * 45;
+      if (s.phase >= 1 && apart(b, homeward) > 90) { continue; }
+      var score = counts[i];
+      for (var j = 0; j < s.recent.length; j += 1) {
+        if (apart(b, s.recent[j]) <= 45) { score += 3; }
+      }
+      score += rnd();
+      if (bestScore === null || score < bestScore) { bestScore = score; best = i; }
+    }
+    return best === null ? sectorOf(homeward) : best;
+  }
+
+  function affordable(s, metres) {
+    return (metres * (1 + s.detour)) / (60 / pace(s)) <= minutesLeft(s);
+  }
+
+  // The gate, then a weighted draw from what survives - never the best one.
+  function bestPlace(s) {
+    var homeward = bearing(-s.e, -s.n), pool = [], weights = [], total = 0;
+    for (var i = 0; i < PLACES.length; i += 1) {
+      var p = PLACES[i];
+      if (s.used[p.name]) { continue; }
+      var away = len(p.e - s.e, p.n - s.n);
+      if (away < 80 || !affordable(s, away * 1.4)) { continue; }
+      var b = bearing(p.e - s.e, p.n - s.n);
+      if (s.phase >= 1 && apart(b, homeward) > 90) { continue; }
+      var score = p.interest - Math.round(away / 60);
+      if (s.cells[cellKey(p.e, p.n)]) { score -= 25; }
+      if (minutesLeft(s) < 20) { score -= Math.round(away / 40); }
+      if (score < 1) { score = 1; }
+      pool.push(p); weights.push(score); total += score;
+    }
+    if (!pool.length) { return null; }
+    var roll = rnd() * total;
+    for (var k = 0; k < pool.length; k += 1) {
+      if (roll < weights[k]) { return pool[k]; }
+      roll -= weights[k];
+    }
+    return pool[0];
+  }
+
+  function next(s) {
+    if (s.phase >= 2) {
+      return { kind: "HOME", l1: "HEAD HOME", l2: null, home: true, mark: "house", cls: "home" };
+    }
+    var sector = chooseSector(s), b = sector * 45;
+
+    // One in four, and it is the feature rather than the filler.
+    if (pick(4) === 0) {
+      var wilds = ["TURN", "SECOND", "TIMED", "AREA"];
+      var w = wilds[pick(wilds.length)];
+      if (w === "TURN") return { kind: w, l1: "TAKE THE", l2: "NEXT LEFT", turns: 1, mark: "die" };
+      if (w === "SECOND") return { kind: w, l1: "TAKE THE", l2: "SECOND LEFT", turns: 2, mark: "die" };
+      if (w === "TIMED") return { kind: w, l1: "HEAD " + SECTORS[sector], l2: "FOR 5 MIN", bearing: b, seconds: 300, mark: "arrow" };
+      return { kind: w, l1: "FIND SOMEWHERE", l2: "YOU'VE NEVER SEEN", newCells: 3, mark: "eye", discovery: true };
+    }
+
+    var roll = pick(100);
+    if (roll < 26) {
+      var place = bestPlace(s);
+      if (place) {
+        return { kind: "QUEST", l1: "SIDE QUEST", l2: place.name.toUpperCase(),
+                 target: place, mark: "building", discovery: true, cls: "quest" };
+      }
+    }
+    if (roll < 52) {
+      return { kind: "STREET", l1: "TAKE A STREET", l2: "YOU HAVEN'T USED",
+               bearing: b, newCells: 2, mark: "fork" };
+    }
+    return { kind: "BEARING", l1: "HEAD " + SECTORS[sector], l2: null,
+             bearing: b, distance: LEG, mark: "arrow" };
+  }
+
+  function issue(s) {
+    s.mission = next(s);
+    s.mission.atPath = s.path; s.mission.atT = s.t;
+    s.mission.atCells = s.keys.length;
+    s.mission.turnsSeen = 0; s.mission.turnFrom = s.heading;
+    if (s.mission.bearing !== undefined) { s.heading = s.mission.bearing + (rnd() - 0.5) * 30; }
+    if (s.mission.turns) { s.heading = (s.heading + 90 + rnd() * 40) % 360; }
+    note(s, s.mission.l1 + (s.mission.l2 ? " · " + s.mission.l2 : ""),
+      s.mission.kind === "QUEST" ? Math.round(len(s.mission.target.e - s.e, s.mission.target.n - s.n)) + " m away"
+        : (s.mission.distance ? s.mission.distance + " m" : ""), s.mission.cls || "");
+  }
+
+  function finished(s) {
+    var m = s.mission;
+    if (!m) { return true; }
+    if (m.home) { return len(s.e, s.n) <= 40; }
+    if (m.target) { return len(m.target.e - s.e, m.target.n - s.n) <= 40; }
+    if (m.distance) { return s.path - m.atPath >= m.distance; }
+    if (m.seconds) { return s.t - m.atT >= m.seconds; }
+    if (m.turns) { return m.turnsSeen >= m.turns; }
+    if (m.newCells) { return s.keys.length - m.atCells >= m.newCells; }
+    return true;
+  }
+
+  function note(s, head, sub, cls) {
+    s.log.push([s.t, head, sub || "", cls || ""]);
+    var li = document.createElement("li");
+    if (cls) { li.className = cls; }
+    li.innerHTML = '<span class="t">' + clock(s.t) + '</span><span class="w"><b>' +
+      esc(head) + '</b>' + (sub ? '<span>' + esc(sub) + '</span>' : '') + '</span>';
+    logEl.appendChild(li);
+    logEl.scrollTop = logEl.scrollHeight;
+  }
+  function esc(t) { return String(t).replace(/[&<>]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]; }); }
+  function clock(sec) {
+    var m = Math.floor(sec / 60), ss = Math.round(sec % 60);
+    return (m < 10 ? "0" : "") + m + ":" + (ss < 10 ? "0" : "") + ss;
+  }
+
+  function move(s, dt) {
+    // Streets, not a field: the heading wanders and occasionally turns a
+    // corner, which is where the detour factor comes from.
+    if (rnd() < 0.06) {
+      var turn = (rnd() < 0.5 ? -1 : 1) * (60 + rnd() * 40);
+      s.heading = (s.heading + turn + 360) % 360;
+      if (s.mission && s.mission.turns && apart(s.mission.turnFrom, s.heading) >= 60) {
+        s.mission.turnsSeen += 1; s.mission.turnFrom = s.heading;
+      }
+    } else {
+      s.heading = (s.heading + (rnd() - 0.5) * 14 + 360) % 360;
+    }
+
+    // Steer towards whatever the mission is pointing at.
+    var want = null;
+    if (s.mission && s.mission.target) { want = bearing(s.mission.target.e - s.e, s.mission.target.n - s.n); }
+    else if (s.mission && s.mission.home) { want = bearing(-s.e, -s.n); }
+    else if (s.mission && s.mission.bearing !== undefined) { want = s.mission.bearing; }
+    if (want !== null) {
+      var diff = ((want - s.heading + 540) % 360) - 180;
+      s.heading = (s.heading + diff * 0.35 + 360) % 360;
+    }
+
+    var d = SPEED * dt;
+    var rad = s.heading * Math.PI / 180;
+    s.e += Math.sin(rad) * d; s.n += Math.cos(rad) * d;
+    s.path += d; s.t += dt;
+
+    var key = cellKey(s.e, s.n);
+    if (key !== s.lastKey) {
+      var isNew = !s.cells[key];
+      if (isNew) { s.cells[key] = 1; s.keys.push(key); if (!s.lastNew) { s.areas += 1; } }
+      s.lastKey = key; s.lastNew = isNew;
+    }
+    s.window.push([s.t, s.path, s.e, s.n]);
+    while (s.window.length > 2 && s.window[s.window.length - 1][0] - s.window[0][0] > 600) { s.window.shift(); }
+    s.detour = measuredDetour(s);
+  }
+
+  function step(s, dt) {
+    if (s.done) { return; }
+    move(s, dt);
+
+    var left = minutesLeft(s), was = s.phase;
+    if (left <= 0) { s.phase = 2; } else if (left <= WARN && s.phase < 1) { s.phase = 1; }
+    if (s.phase !== was) {
+      if (s.phase === 1) { note(s, "10 MIN UNTIL RETURN MODE", "still exploring, homewards", "phase"); }
+      s.mission = null;
+    }
+
+    if (!s.mission) { issue(s); return; }
+    if (finished(s)) {
+      s.missions += 1;
+      if (s.mission.discovery) { s.discoveries += 1; }
+      var m = s.mission;
+      if (m.target) {
+        s.used[m.target.name] = 1;
+        if (m.target.fact && s.facts < 4 && s.t - s.lastFactAt > 480) {
+          s.facts += 1; s.lastFactAt = s.t;
+          s.card = { until: s.t + 25, fact: m.target.fact, name: m.target.name };
+          note(s, "DID YOU KNOW", m.target.fact, "fact");
+        }
+      }
+      if (m.home) {
+        s.done = true;
+        note(s, "MISSION COMPLETE", s.missions + " missions · " + s.areas + " new areas · " + s.discoveries + " found", "home");
+        return;
+      }
+      s.recent.push(m.bearing === undefined ? bearing(s.e, s.n) : m.bearing);
+      while (s.recent.length > 2) { s.recent.shift(); }
+      issue(s);
+    }
+  }
+
+  var MARKS = {
+    arrow: function (d) { return '<svg width="66" height="66" viewBox="-50 -50 100 100"><g transform="rotate(' + (d || 0) + ')" fill="currentColor"><polygon points="0,-42 26,23 0,9 -26,23"/></g></svg>'; },
+    fork: '<svg width="66" height="66" viewBox="-50 -50 100 100" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"><path d="M0 42 V2"/><path d="M0 2 L-32 -30"/><path d="M0 2 L32 -30"/><circle cx="-32" cy="-30" r="7" fill="currentColor" stroke="none"/></svg>',
+    die: '<svg width="66" height="66" viewBox="-50 -50 100 100" fill="none" stroke="currentColor" stroke-width="7"><rect x="-34" y="-34" width="68" height="68" rx="14"/><circle cx="-16" cy="-16" r="5.5" fill="currentColor" stroke="none"/><circle cx="0" cy="0" r="5.5" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="5.5" fill="currentColor" stroke="none"/></svg>',
+    eye: '<svg width="66" height="66" viewBox="-50 -50 100 100" fill="none" stroke="currentColor" stroke-width="7"><circle cx="0" cy="0" r="34"/><circle cx="0" cy="0" r="13" fill="currentColor" stroke="none"/></svg>',
+    building: '<svg width="66" height="66" viewBox="-50 -50 100 100" fill="currentColor"><polygon points="-40,-14 0,-42 40,-14"/><rect x="-40" y="26" width="80" height="10"/><rect x="-34" y="-8" width="9" height="31"/><rect x="-16" y="-8" width="9" height="31"/><rect x="2" y="-8" width="9" height="31"/><rect x="20" y="-8" width="9" height="31"/></svg>',
+    house: '<svg width="66" height="66" viewBox="-50 -50 100 100" fill="currentColor"><polygon points="-40,-6 0,-40 40,-6"/><rect x="-26" y="-6" width="52" height="36"/></svg>',
+    bulb: '<svg width="66" height="66" viewBox="-50 -50 100 100" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"><circle cx="0" cy="-8" r="24"/><path d="M-11 22 H11"/><path d="M-8 34 H8"/></svg>'
+  };
+  var TONE = ["good", "mixed", "low"];
+  var PHASE = ["EXPLORE", "TOWARD HOME", "RETURN HOME"];
+
+  function draw(s) {
+    var tone = TONE[s.phase];
+    if (s.done) {
+      screen.innerHTML =
+        '<div class="hint good" style="letter-spacing:.19em;margin:0">MISSION COMPLETE</div>' +
+        '<div class="grid2" style="margin-top:12px">' +
+          '<div><div class="fig">' + Math.round(s.t / 60) + ' min</div><div class="figlab">ELAPSED</div></div>' +
+          '<div><div class="fig">' + (s.path / 1000).toFixed(1) + ' km</div><div class="figlab">COVERED</div></div>' +
+          '<div><div class="fig">' + s.missions + '</div><div class="figlab">MISSIONS</div></div>' +
+          '<div><div class="fig good">' + s.areas + '</div><div class="figlab">NEW AREAS</div></div>' +
+        '</div>' +
+        '<div class="hint" style="margin-top:12px">' + s.discoveries + ' discoveries</div>' +
+        '<div class="l sm good" style="font-size:15px;margin-top:6px">Back on time</div>';
+      return;
+    }
+    if (s.card && s.t < s.card.until) {
+      screen.innerHTML = '<div class="mark mixed">' + MARKS.bulb + '</div>' +
+        '<div class="hint" style="letter-spacing:.19em;margin:0 0 10px">DID YOU KNOW</div>' +
+        '<div class="trivia" style="font-size:15px">' + esc(s.card.fact) + '</div>';
+      return;
+    }
+    var m = s.mission;
+    if (!m) { screen.innerHTML = '<div class="l">FINDING<br>THE START</div>'; return; }
+    var mark = m.mark === "arrow"
+      ? MARKS.arrow(((m.bearing || 0) - s.heading + 360) % 360)
+      : MARKS[m.mark];
+    var detail = "";
+    if (m.target) { detail = Math.round(len(m.target.e - s.e, m.target.n - s.n) / 10) * 10 + " m"; }
+    else if (m.home) { detail = len(s.e, s.n) >= 1000 ? (len(s.e, s.n) / 1000).toFixed(1) + " km" : Math.round(len(s.e, s.n) / 10) * 10 + " m"; }
+    else if (m.distance) { detail = Math.max(0, Math.round((m.distance - (s.path - m.atPath)) / 10) * 10) + " m"; }
+    else if (m.seconds) { detail = Math.max(0, Math.ceil((m.seconds - (s.t - m.atT)) / 60)) + " min"; }
+    else if (m.turns) { detail = (m.turns - m.turnsSeen) + " to go"; }
+    else if (m.newCells) { detail = Math.max(0, m.newCells - (s.keys.length - m.atCells)) + " to find"; }
+
+    var big = m.l2 && m.l2.length > 16 ? 'style="font-size:19px"' : '';
+    screen.innerHTML = '<div class="hd ' + tone + '">' + PHASE[s.phase] + '</div>' +
+      '<div class="mark ' + tone + '">' + mark + '</div>' +
+      '<div class="l ' + (m.l2 && m.l2.length > 16 ? 'sm' : '') + '">' + esc(m.l1) + '</div>' +
+      (m.l2 ? '<div class="l sm" ' + big + '>' + esc(m.l2) + '</div>' : '') +
+      (detail ? '<div class="q">' + detail + '</div>' : '');
+  }
+
+  function drawRose(s) {
+    var counts = novelty(s), max = Math.max(1, Math.max.apply(null, counts)), parts = "";
+    var names = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
+    for (var i = 0; i < 8; i += 1) {
+      var a0 = (i * 45 - 22.5 - 90) * Math.PI / 180, a1 = (i * 45 + 22.5 - 90) * Math.PI / 180;
+      var r = 22 + (counts[i] / max) * 56;
+      var empty = counts[i] === 0;
+      parts += '<path d="M100 100 L' + (100 + r * Math.cos(a0)).toFixed(1) + ' ' + (100 + r * Math.sin(a0)).toFixed(1) +
+        ' A' + r + ' ' + r + ' 0 0 1 ' + (100 + r * Math.cos(a1)).toFixed(1) + ' ' + (100 + r * Math.sin(a1)).toFixed(1) +
+        ' Z" fill="' + (empty ? "var(--sap)" : "var(--rule)") + '" opacity=".85" stroke="var(--ground)" stroke-width="1.5"/>';
+      var am = (i * 45 - 90) * Math.PI / 180;
+      parts += '<text x="' + (100 + 90 * Math.cos(am)).toFixed(1) + '" y="' + (100 + 90 * Math.sin(am) + 4).toFixed(1) +
+        '" text-anchor="middle" font-family="Barlow Semi Condensed" font-size="10" letter-spacing="1.2" fill="' +
+        (empty ? "var(--sap)" : "var(--muted)") + '">' + names[i] + '</text>';
+    }
+    roseEl.innerHTML = '<svg width="200" height="200" viewBox="0 0 200 200" role="img" ' +
+      'aria-label="Where the hour has been, by compass sector. Empty sectors are where it goes next.">' +
+      parts + '<circle cx="100" cy="100" r="4" fill="var(--ink)"/></svg>';
+  }
+
+  var frame = 0;
+  function paint(s) {
+    draw(s);
+    if (frame % ROSE_EVERY === 0 || s.done) { drawRose(s); }
+    frame += 1;
+    var left = Math.max(0, minutesLeft(s));
+    var pct = s.done ? 0 : Math.max(0, Math.min(100, (left / 45) * 100));
+    barEl.style.width = pct + "%";
+    barEl.style.background = s.phase === 2 ? "var(--clay)" : s.phase === 1 ? "var(--amber)" : "var(--sap)";
+    phaseEl.textContent = PHASE[s.phase];
+    phaseEl.style.color = s.phase === 2 ? "var(--clay)" : s.phase === 1 ? "var(--amber)" : "var(--sap)";
+    leftEl.textContent = s.done ? "back at the hotel" : left + " min to explore";
+    clockEl.textContent = clock(s.t);
+  }
+
+  function start(remembered) {
+    logEl.innerHTML = "";
+    run = fresh(remembered);
+    if (remembered) {
+      note(run, "BEEN HERE BEFORE", run.keys.length + " streets remembered", "phase");
+    }
+    paint(run);
+    resume();
+  }
+  // Advanced by how much real time has passed rather than by how many times
+  // the timer fired. A hidden tab clamps setInterval to about once a second,
+  // and an hour that counted ticks crawled there - which is exactly the tab
+  // somebody leaves this page in.
+  function resume() {
+    stop();
+    var lastAt = performance.now();
+    timer = setInterval(function () {
+      var now = performance.now();
+      var owed = Math.min(2000, now - lastAt) / 1000 * SPEEDUP;
+      lastAt = now;
+      while (owed > 0 && !run.done) {
+        var dt = Math.min(SUBSTEP, owed);
+        step(run, dt);
+        owed -= dt;
+      }
+      paint(run);
+      if (run.done) { stop(); playBtn.textContent = "Replay"; }
+    }, TICK);
+    playBtn.textContent = "Pause";
+  }
+  function stop() { if (timer) { clearInterval(timer); timer = null; } }
+
+  playBtn.addEventListener("click", function () {
+    if (timer) { stop(); playBtn.textContent = "Play"; }
+    else if (run && run.done) { begin(); }
+    else { resume(); }
+  });
+  document.getElementById("simreplay").addEventListener("click", function () { seed = Date.now() & 0x7fffffff; begin(); });
+  memoryBox.addEventListener("change", begin);
+
+  // Monday, so that Tuesday has something to remember. Run once, invisibly,
+  // at a fixed seed - the toggle then changes one thing and one thing only.
+  function mondayCells() {
+    if (monday) { return monday; }
+    var keep = seed; seed = 20260901;
+    var s = fresh(null);
+    while (!s.done && s.t < DURATION + 900) { step(s, SUBSTEP); }
+    monday = s.cells; seed = keep;
+    return monday;
+  }
+
+  function begin() {
+    var remembered = memoryBox.checked ? mondayCells() : null;
+    start(remembered);
+  }
+
+  begin();
+})();
+</script>
+</body>
+</html>

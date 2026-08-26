@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Footer from '../../components/Footer.astro';
+import {
+  aiTransparencyLede,
+  aiTransparencyHeading,
+  aiTransparencyBody,
+} from '../../data/ai-transparency';
+---
+
+<BaseLayout
+  title="AI Transparency"
+  description="How generative AI was and wasn't used in writing Organizational Flow."
+>
+  <main class="reading" id="main">
+    <section class="block insight-page">
+      <p class="kicker">TROi</p>
+      <h1>AI Transparency</h1>
+
+      <p class="ai-lede">{aiTransparencyLede}</p>
+
+      <h2>{aiTransparencyHeading}</h2>
+      {aiTransparencyBody.map((para) => <p>{para}</p>)}
+
+      <p class="ai-foot">
+        Christoffer Råsten · TROi · <a href="mailto:christoffer.rasten@troi.se">christoffer.rasten@troi.se</a>
+      </p>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .ai-lede { color: var(--bark); font-size: 1.05rem; }
+  .insight-page h2 { margin-top: 2.4rem; }
+  .ai-foot {
+    margin-top: 3rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--mist);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    color: var(--bark);
+  }
+</style>

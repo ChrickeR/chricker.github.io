@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+<BaseLayout title="Contact" description="Get in touch.">
+  <main class="reading" id="main">
+    <section class="block insight-page">
+      <p class="kicker">Contact</p>
+      <h1>Get in touch</h1>
+
+      <p>
+        Not sure where to start the conversation? The <a href="/organizational-flow/self-assessment/">Organizational Flow Self-Assessment</a> takes
+        about fifteen minutes and gives us both something concrete to talk about.
+      </p>
+
+      <ul style="list-style:none; padding:0; margin:0;">
+        <li style="padding:0.9rem 0; border-top:1px solid var(--mist);">
+          <p class="marginalia-label" style="margin:0 0 0.3rem;">Email</p>
+          <a href="mailto:christoffer.rasten@troi.se">christoffer.rasten@troi.se</a>
+        </li>
+        <li style="padding:0.9rem 0; border-top:1px solid var(--mist);">
+          <p class="marginalia-label" style="margin:0 0 0.3rem;">Phone</p>
+          <a href="tel:+46708939551">+46 708 93 95 51</a>
+        </li>
+        <li style="padding:0.9rem 0; border-top:1px solid var(--mist); border-bottom:1px solid var(--mist);">
+          <p class="marginalia-label" style="margin:0 0 0.3rem;">LinkedIn</p>
+          <a href="https://www.linkedin.com/in/christofferrasten">linkedin.com/in/christofferrasten</a>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>

@@ -1,0 +1,1025 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FlowLens — walkthrough</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;800&family=Barlow+Semi+Condensed:wght@300;400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --ground:#F2F4F0;
+  --surface:#FFFFFF;
+  --ink:#151A16;
+  --muted:#5C665F;
+  --rule:#D6DCD6;
+  --hair:#E6EAE5;
+  --sap:#2F7A4F;
+  --amber:#A96A12;
+  --clay:#A8442C;
+  --shadow:rgba(20,30,24,.14);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0E1210;
+    --surface:#161B18;
+    --ink:#E4E9E4;
+    --muted:#8B958E;
+    --rule:#2A312C;
+    --hair:#1E2420;
+    --sap:#55AA77;
+    --amber:#DE9331;
+    --clay:#C96A52;
+    --shadow:rgba(0,0,0,.5);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0E1210;
+  --surface:#161B18;
+  --ink:#E4E9E4;
+  --muted:#8B958E;
+  --rule:#2A312C;
+  --hair:#1E2420;
+  --sap:#55AA77;
+  --amber:#DE9331;
+  --clay:#C96A52;
+  --shadow:rgba(0,0,0,.5);
+}
+
+/* The watch screen is a device, not page chrome: it is black in either theme. */
+:root{
+  --scr-bg:#000000;
+  --scr-ink:#FFFFFF;
+  --scr-muted:#9A9A9A;
+  --scr-rule:#3A3A3A;
+  --scr-good:#55AA77;
+  --scr-mixed:#DE9331;
+  --scr-low:#C96A52;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--ground);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",ui-sans-serif,system-ui,sans-serif;
+  font-size:16px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+
+.wrap{max-width:1060px;margin:0 auto;padding:40px 22px 72px}
+
+/* ---------- masthead ---------- */
+.mast{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  gap:24px;flex-wrap:wrap;
+  border-bottom:1px solid var(--rule);
+  padding-bottom:20px;margin-bottom:34px;
+}
+.mast h1{
+  font-family:"Archivo",ui-sans-serif,system-ui,sans-serif;
+  font-weight:800;font-size:clamp(30px,5vw,46px);
+  letter-spacing:-.026em;line-height:1.02;margin:0;
+  text-wrap:balance;
+}
+.mast p{margin:8px 0 0;color:var(--muted);max-width:52ch;font-size:15px}
+.device{
+  font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--muted);white-space:nowrap;
+}
+.device b{color:var(--ink);font-weight:600}
+
+.kicker{
+  font-family:"IBM Plex Sans",ui-sans-serif,system-ui,sans-serif;
+  font-size:11.5px;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--sap);font-weight:600;margin-bottom:11px;
+}
+
+/* ---------- the questions ---------- */
+.asks{
+  margin:0 0 40px;padding:26px 28px;border-radius:3px;
+  background:var(--surface);border:1px solid var(--rule);
+  border-left:2px solid var(--sap);
+}
+.asks .lede{
+  margin:0 0 18px;font-size:14px;color:var(--muted);
+  letter-spacing:.01em;
+}
+.asks ul{
+  list-style:none;margin:0;padding:0;
+  display:grid;grid-template-columns:1fr 1fr;gap:16px 34px;
+}
+@media(max-width:720px){.asks ul{grid-template-columns:1fr}}
+.asks li{
+  font-family:"Archivo",ui-sans-serif,system-ui,sans-serif;
+  font-size:16.5px;line-height:1.42;font-weight:500;
+  color:var(--muted);text-wrap:pretty;
+}
+.asks li span{color:var(--ink);font-weight:600;display:block}
+.asks .foot{
+  margin:20px 0 0;padding-top:16px;border-top:1px solid var(--hair);
+  font-size:13.5px;color:var(--muted);
+}
+
+/* ---------- where this came from ---------- */
+.origin{
+  margin:0 0 40px;padding:0 0 0 22px;
+  border-left:1px solid var(--rule);
+  max-width:62ch;
+}
+.origin p{
+  margin:0 0 12px;font-size:15.5px;color:var(--muted);
+  font-family:"Archivo",ui-sans-serif,system-ui,sans-serif;
+  font-weight:500;line-height:1.5;text-wrap:pretty;
+}
+.origin p:last-child{margin-bottom:0}
+.origin .k{color:var(--ink);font-weight:600}
+
+/* ---------- stage ---------- */
+.stage{
+  display:grid;
+  grid-template-columns:minmax(0,360px) minmax(0,1fr);
+  gap:44px;align-items:start;
+}
+@media(max-width:820px){
+  .stage{grid-template-columns:1fr;gap:30px;justify-items:center}
+  .readout{max-width:520px}
+}
+
+.watchcol{display:flex;flex-direction:column;align-items:center;gap:18px}
+
+.watch{
+  position:relative;width:340px;height:340px;flex:none;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 32% 24%, #6a6f6c 0%, #3f4442 34%, #242827 62%, #171a19 100%);
+  box-shadow:0 18px 44px var(--shadow), inset 0 0 0 1px rgba(255,255,255,.07);
+  display:grid;place-items:center;
+}
+.watch::after{
+  /* lug hints, so it reads as a fenix rather than a circle */
+  content:"";position:absolute;inset:-10px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.05);pointer-events:none;
+}
+.screen{
+  position:relative;width:286px;height:286px;border-radius:50%;
+  background:var(--scr-bg);overflow:hidden;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.09);
+  font-family:"Barlow Semi Condensed",ui-sans-serif,system-ui,sans-serif;
+  color:var(--scr-ink);
+}
+.frame{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:26px 30px;text-align:center;
+  opacity:0;transition:opacity .42s ease;
+  pointer-events:none;
+}
+.frame.on{opacity:1}
+
+/* screen typography */
+.hdr{
+  font-size:12px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--scr-muted);position:absolute;top:34px;left:0;right:0;
+}
+.dots{position:absolute;bottom:30px;left:0;right:0;display:flex;gap:7px;justify-content:center}
+.dots i{width:4px;height:4px;border-radius:50%;background:var(--scr-rule);display:block}
+.dots i.a{background:var(--scr-ink)}
+.big{font-size:27px;font-weight:500;line-height:1.1}
+.med{font-size:20px;font-weight:400;line-height:1.2}
+.sm{font-size:15px;color:var(--scr-muted);font-weight:300}
+.xs{font-size:13px;color:var(--scr-muted);font-weight:300;letter-spacing:.02em}
+.good{color:var(--scr-good)}
+.mixed{color:var(--scr-mixed)}
+.low{color:var(--scr-low)}
+.tag{
+  position:absolute;bottom:52px;left:0;right:0;
+  font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--scr-mixed);
+}
+
+/* weekly curve: one row per day, one segment per waking hour */
+.hrows{display:flex;flex-direction:column;gap:6px;width:100%;margin-top:10px}
+.hrow{display:grid;grid-template-columns:30px 1fr 24px;align-items:center;gap:8px}
+.hrow .d{font-size:13px;color:var(--scr-muted);text-align:right;font-weight:300}
+.hrow .segs{display:flex;gap:1px;height:11px}
+.hrow .segs i{flex:1;display:block}
+.hrow .sc{
+  font-size:12.5px;font-weight:400;text-align:left;
+  font-variant-numeric:tabular-nums;
+}
+.hscale{
+  display:grid;grid-template-columns:30px 1fr 24px;gap:8px;width:100%;
+  margin-top:7px;
+}
+.hscale div{
+  grid-column:2;display:flex;justify-content:space-between;
+  font-size:10px;color:var(--scr-rule);letter-spacing:.06em;
+}
+.hscale .unit{
+  grid-column:3;font-size:9px;color:var(--scr-rule);
+  letter-spacing:.1em;text-transform:uppercase;text-align:left;
+}
+
+
+/* FlowSignal, taken apart */
+.fbars{display:flex;flex-direction:column;gap:9px;width:74%;margin-top:16px}
+.fbar{display:grid;grid-template-columns:52px 1fr;align-items:center;gap:9px}
+.fbar span:first-child{
+  font-size:12px;color:var(--scr-muted);text-align:right;font-weight:300;
+}
+.fbar .track{height:4px;background:var(--scr-rule);display:block;position:relative}
+.fbar .track i{position:absolute;left:0;top:0;height:100%;display:block}
+
+/* the week's events */
+.evs{display:flex;flex-direction:column;gap:7px;width:84%;margin-top:12px}
+.ev{display:grid;grid-template-columns:64px 1fr;gap:10px;align-items:baseline}
+.ev .w{font-size:12px;color:var(--scr-muted);text-align:right;font-weight:300}
+.ev .v{font-size:13.5px;font-weight:400;text-align:left}
+
+/* glance band */
+.band{
+  position:absolute;left:0;right:0;top:24%;height:34%;
+  display:flex;align-items:center;gap:13px;
+  padding:0 30px;text-align:left;
+}
+.band .txt{display:flex;flex-direction:column;line-height:1.25}
+.band .txt .t{font-size:13.5px;color:var(--scr-muted);font-weight:300}
+.band .txt .v{font-size:19px;font-weight:400}
+.weekbars{display:flex;gap:3px;align-items:center;height:34px;flex:none}
+.weekbars i{width:4px;border-radius:1px;display:block}
+
+/* progress ring */
+.ring{position:relative;width:88px;height:88px;flex:none}
+.ring svg{transform:rotate(-90deg);display:block}
+.ring .num{
+  position:absolute;inset:0;display:grid;place-items:center;
+  font-size:22px;font-weight:400;
+}
+.ring.sm2{width:56px;height:56px}
+.ring.sm2 .num{font-size:15px}
+
+/* faces */
+.faces{display:flex;gap:16px;justify-content:center;margin-top:12px}
+.faces button{
+  width:44px;height:44px;border-radius:50%;border:1px solid var(--scr-rule);
+  background:transparent;display:grid;place-items:center;cursor:default;
+  padding:0;
+}
+.faces svg{display:block}
+
+/* watch face screen */
+.wf-today{
+  display:flex;align-items:baseline;gap:6px;margin-bottom:6px;
+}
+.wf-today .lbl{
+  font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--scr-muted);
+}
+.wf-today .val{
+  font-size:26px;font-weight:500;line-height:1;
+  font-variant-numeric:tabular-nums;
+}
+.wf-today .so{font-size:10.5px;color:var(--scr-muted);letter-spacing:.06em}
+.wf-line{
+  display:flex;align-items:center;gap:7px;margin-top:9px;
+  font-size:16px;font-weight:400;
+}
+.wf-line .bus{
+  font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--scr-muted);
+}
+.wf-line .rt{
+  color:var(--scr-ink);border:1px solid var(--scr-rule);
+  border-radius:2px;padding:0 5px;font-size:14px;
+}
+.wf-line .dep{font-variant-numeric:tabular-nums}
+.wf-time{font-size:52px;font-weight:300;letter-spacing:-.02em;line-height:1}
+.wf-date{font-size:13px;color:var(--scr-muted);letter-spacing:.14em;text-transform:uppercase;margin-top:4px}
+.wf-arc{position:absolute;inset:0}
+.wf-strip{position:absolute;bottom:44px;left:0;right:0;display:flex;gap:4px;justify-content:center}
+.wf-strip i{width:5px;height:14px;border-radius:1px;display:block}
+
+/* ---------- controls ---------- */
+.controls{display:flex;align-items:center;gap:10px}
+.btn{
+  font-family:inherit;font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+  font-weight:600;
+  background:var(--surface);color:var(--muted);
+  border:1px solid var(--rule);border-radius:999px;
+  padding:9px 17px;cursor:pointer;transition:color .15s,border-color .15s;
+}
+.btn:hover{color:var(--ink);border-color:var(--muted)}
+.btn:focus-visible{outline:2px solid var(--sap);outline-offset:2px}
+.counter{
+  font-size:12px;letter-spacing:.1em;color:var(--muted);
+  font-variant-numeric:tabular-nums;
+}
+
+/* ---------- readout ---------- */
+.readout{width:100%;min-width:0}
+.eyebrow{
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  margin-bottom:12px;
+}
+.chapter{
+  font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--muted);font-weight:600;
+}
+.badge{
+  font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;
+  padding:4px 10px;border-radius:999px;border:1px solid;
+}
+.badge.built{color:var(--sap);border-color:color-mix(in srgb,var(--sap) 42%,transparent)}
+.badge.design{color:var(--amber);border-color:color-mix(in srgb,var(--amber) 42%,transparent)}
+
+.readout h2{
+  font-family:"Archivo",ui-sans-serif,system-ui,sans-serif;
+  font-weight:600;font-size:clamp(22px,3.4vw,30px);
+  letter-spacing:-.018em;line-height:1.14;margin:0 0 12px;
+  text-wrap:balance;
+}
+.readout p{margin:0 0 14px;max-width:60ch;color:var(--muted);font-size:15.5px}
+.readout p strong{color:var(--ink);font-weight:600}
+
+/* chapter rail */
+.rail{
+  margin-top:30px;display:flex;flex-direction:column;gap:2px;
+  border-top:1px solid var(--hair);padding-top:18px;
+}
+.rail button{
+  display:grid;grid-template-columns:26px 1fr auto;align-items:center;gap:14px;
+  background:none;border:0;padding:9px 4px;cursor:pointer;text-align:left;
+  font-family:inherit;color:var(--muted);font-size:14px;
+  border-radius:6px;transition:color .15s,background .15s;
+}
+.rail button:hover{color:var(--ink);background:var(--hair)}
+.rail button:focus-visible{outline:2px solid var(--sap);outline-offset:-2px}
+.rail button[aria-current="true"]{color:var(--ink);font-weight:600}
+.rail .n{
+  font-size:11px;letter-spacing:.08em;color:var(--muted);
+  font-variant-numeric:tabular-nums;
+}
+.rail button[aria-current="true"] .n{color:var(--sap)}
+.rail .meter{width:52px;height:3px;background:var(--hair);border-radius:2px;overflow:hidden}
+.rail .meter i{display:block;height:100%;width:0;background:var(--sap);transition:width .2s linear}
+
+/* ---------- closing note ---------- */
+.note{
+  margin-top:56px;padding-top:26px;border-top:1px solid var(--rule);
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:36px;
+}
+@media(max-width:720px){.note{grid-template-columns:1fr;gap:26px}}
+.note h3{
+  font-family:"Archivo",ui-sans-serif,system-ui,sans-serif;
+  font-size:15px;font-weight:600;letter-spacing:-.01em;margin:0 0 10px;
+}
+.note p{margin:0 0 10px;color:var(--muted);font-size:14.5px;max-width:56ch}
+.note .k{color:var(--ink);font-weight:600}
+
+
+/* ---------- the phone settings screen ---------- */
+.connect{
+  margin-top:60px;padding-top:30px;border-top:1px solid var(--rule);
+  display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);
+  gap:44px;align-items:start;
+}
+.connect-head{grid-column:1 / -1}
+.connect-head h2{
+  font-family:"Archivo",ui-sans-serif,system-ui,sans-serif;
+  font-weight:600;font-size:clamp(20px,3vw,26px);letter-spacing:-.018em;
+  margin:0 0 10px;text-wrap:balance;
+}
+.connect-head p{margin:0 0 6px;color:var(--muted);font-size:15px;max-width:66ch}
+.connect-head code{
+  font-family:"IBM Plex Sans",ui-monospace,monospace;font-size:13.5px;
+  background:var(--hair);padding:1px 5px;border-radius:3px;color:var(--ink);
+}
+@media(max-width:820px){.connect{grid-template-columns:1fr;gap:30px}}
+
+.phone{
+  border:1px solid var(--rule);border-radius:14px;overflow:hidden;
+  background:var(--surface);box-shadow:0 10px 30px var(--shadow);
+}
+.phone-bar{
+  padding:14px 18px;border-bottom:1px solid var(--rule);
+  font-family:"Archivo",ui-sans-serif,system-ui,sans-serif;
+  font-weight:600;font-size:15px;
+}
+.phone-bar span{color:var(--muted);font-weight:500;margin-left:6px}
+.setlist{list-style:none;margin:0;padding:0}
+.setlist li{
+  display:flex;align-items:flex-start;gap:14px;
+  padding:13px 18px;border-bottom:1px solid var(--hair);
+}
+.setlist li:last-child{border-bottom:0}
+.setlist .lab{flex:1;min-width:0}
+.setlist h4{margin:0;font-size:14.5px;font-weight:600;letter-spacing:-.005em}
+.setlist p{margin:4px 0 0;font-size:12.5px;color:var(--muted);line-height:1.45}
+.sw{
+  flex:none;width:38px;height:22px;border-radius:11px;
+  background:var(--rule);position:relative;margin-top:2px;
+  transition:background .2s;
+}
+.sw i{
+  position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;
+  background:var(--surface);box-shadow:0 1px 2px rgba(0,0,0,.3);
+  transition:left .2s;
+}
+.sw.on{background:var(--sap)}
+.sw.on i{left:19px}
+.num{
+  flex:none;display:flex;flex-direction:column;align-items:flex-end;
+  font-variant-numeric:tabular-nums;font-weight:600;font-size:17px;
+  color:var(--ink);margin-top:1px;
+}
+.num em{font-style:normal;font-size:10.5px;color:var(--muted);font-weight:500;letter-spacing:.04em}
+
+.connect-notes h3{
+  font-family:"Archivo",ui-sans-serif,system-ui,sans-serif;
+  font-size:15px;font-weight:600;margin:0 0 10px;
+}
+.connect-notes p{margin:0 0 12px;color:var(--muted);font-size:14.5px;max-width:58ch}
+.connect-notes .k{color:var(--ink);font-weight:600}
+
+@media (prefers-reduced-motion:reduce){
+  .frame{transition:none}
+  .rail .meter i{transition:none}
+}
+</style>
+<style>
+  /* Embedded in the tool page: the host page paints the ground, and the
+     masthead lives up there rather than in here. */
+  html, body { background: transparent; }
+  .wrap { padding: 0 0 8px; max-width: none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <section class="origin">
+    <p>This was a pitch Lars and I made more than once at <span class="k">AFA Försäkring</span> — prevention that actually prevents, rather than compensation after the fact.</p>
+    <p>The argument was never wrong. The instruments were. A wrist can now read physiological load every half hour for a month on one charge, know the temperature, and see a calendar. <span class="k">So here is an attempt.</span></p>
+  </section>
+
+  <div class="stage">
+    <div class="watchcol">
+      <div class="watch">
+        <div class="screen" id="screen"></div>
+      </div>
+      <div class="controls">
+        <button class="btn" id="prev" type="button">Prev</button>
+        <button class="btn" id="play" type="button">Pause</button>
+        <button class="btn" id="next" type="button">Next</button>
+        <span class="counter" id="counter">1 / 13</span>
+      </div>
+    </div>
+
+    <div class="readout">
+      <div class="eyebrow">
+        <span class="chapter" id="chapter">First run</span>
+        <span class="badge built" id="badge">Running today</span>
+      </div>
+      <h2 id="title">Nothing to show, and it says so</h2>
+      <p id="body">Copy goes here.</p>
+
+      <nav class="rail" id="rail" aria-label="Chapters"></nav>
+    </div>
+  </div>
+
+  <section class="connect">
+    <div class="connect-head">
+      <h2>What it looks like in Garmin Connect</h2>
+      <p>Every FlowLens feature is switchable from the phone as well as the watch. This screen is generated from the app’s own <code>settings.xml</code> — the titles, the explanatory lines and the defaults below are the shipped values, not written for the page. Garmin Connect renders them in its own styling; the content is what is shown here.</p>
+    </div>
+
+    <div class="phone">
+      <div class="phone-bar">FlowLens <span>Settings</span></div>
+      <ul class="setlist">
+        <li><div class="lab"><h4>Weekly Rhythm</h4><p>Recurring patterns across all seven days. Off means nothing is collected for it.</p></div><span class="sw on"><i></i></span></li>
+        <li><div class="lab"><h4>Weekly Flow Curve</h4></div><span class="sw on"><i></i></span></li>
+        <li><div class="lab"><h4>Flow Map</h4><p>The seven-day heatmap. Drawn on the phone; the watch only fills the buckets.</p></div><span class="sw"><i></i></span></li>
+        <li><div class="lab"><h4>Recurring Flow windows</h4></div><span class="sw on"><i></i></span></li>
+        <li><div class="lab"><h4>Recurring low-Flow windows</h4></div><span class="sw on"><i></i></span></li>
+        <li><div class="lab"><h4>Flow Conditions</h4><p>What tends to be true when Flow is good, so it can transfer to another day.</p></div><span class="sw on"><i></i></span></li>
+        <li><div class="lab"><h4>Weekend Recovery</h4></div><span class="sw on"><i></i></span></li>
+        <li><div class="lab"><h4>Monday Starting State</h4></div><span class="sw on"><i></i></span></li>
+        <li><div class="lab"><h4>Flow Opportunity</h4><p>Suggests a focus window when conditions match. Off by default.</p></div><span class="sw"><i></i></span></li>
+        <li><div class="lab"><h4>Over Time</h4><p>Whether your Flow is slowly drifting, compared against the same fortnight up to eight weeks back.</p></div><span class="sw on"><i></i></span></li>
+        <li><div class="lab"><h4>Underfoot</h4><p>Around freezing, hurrying, and already stretched. All three before it says anything, and once a day at most.</p></div><span class="sw on"><i></i></span></li>
+        <li><div class="lab"><h4>Elevated baseline</h4><p>Where your ordinary waking level stops counting as ordinary. Above this, nothing is reported as simply good. Lower it to be told sooner.</p></div><span class="num">60<em>30–90</em></span></li>
+      </ul>
+    </div>
+
+    <div class="connect-notes">
+      <h3>What the defaults say</h3>
+      <p><span class="k">Flow Opportunity is the only feature that starts off.</span> It is the one thing here that can interrupt someone, and an app about reducing friction that adds friction has argued itself out of existence.</p>
+      <p><span class="k">Flow Map starts off too</span>, for a different reason: there is nothing to draw yet. The watch fills its buckets regardless, so the phone view can be switched on later against history that already exists.</p>
+      <p><span class="k">Elevated baseline is a number, not a switch.</span> Sixty is a judgement rather than a published figure, and the whole floor turns on it — so it moves from this screen without a rebuild, by someone who knows the occupational health literature better than the source file does.</p>
+      <p>Turning a parent off takes its sub-features with it whatever their stored value says, and stops the collection rather than merely hiding the screens.</p>
+    </div>
+  </section>
+
+  <section class="note">
+    <div>
+      <h3>What is actually running</h3>
+      <p>Everything badged <span class="k">running today</span> is built and passing tests: ten pages, a glance, and a separate watch face. The numbers in those frames come from seeded history run through the real analysis, not from a mockup — where a figure looked wrong on the page it was because the analysis said so, and the analysis was usually right.</p>
+      <p><span class="k">Meeting Impact is built on the watch</span> but needs a companion phone app to send the calendar, because only watch faces may read calendar complications and there is no other calendar API. The protocol is three numbers per meeting and is written down.</p>
+      <p><span class="k">Rush is the only screen here that does not exist.</span> It needs a transit API key and a configured stop, and it is drawn to argue the shape rather than to claim it works.</p>
+    </div>
+    <div>
+      <h3>What the watch can already reach</h3>
+      <p>Meeting Impact needs calendar events and interruption counts. Both are available on-device through the Complications API — <span class="k">no companion app required</span>, which was not what we assumed at the start.</p>
+      <p>Rush needs more: departure times want a network request and an API key, and a drive-time estimate wants location. Those are the two permissions the manifest does not yet declare.</p>
+    </div>
+    <div>
+      <h3>One promise the platform cannot keep</h3>
+      <p>The obvious version of Underfoot buzzes the wrist the moment you start running on ice. <span class="k">Connect IQ cannot do that.</span> A background process has no access to vibration and wakes every five minutes at best.</p>
+      <p>So it buzzes when the watch is next looked at, once a day. The only place the immediate version could live is a watch face, which does run continuously — which is a reason to build one, and is said here rather than quietly designed around.</p>
+    </div>
+    <div>
+      <h3>Why it stays observational</h3>
+      <p>Almost everything here is a comparison against <span class="k">your own history</span>, never a population norm and never a clinical reading. “Back toward your weekend baseline on Saturday at 09:30” is a fact about your last eight Saturdays.</p>
+      <p>The single exception is the floor. Self-reference alone would tell someone whose normal is bad that they are fine, forever — so when the baseline itself sits high on <span class="k">the watch’s own published scale</span>, nothing is allowed to read as simply good, and a screen says why.</p>
+      <p>The same restraint governs the interruptions. Flow Opportunity is off by default and Rush stays quiet unless it has something true to say, because <span class="k">an app about friction that adds friction</span> has argued itself out of existence.</p>
+    </div>
+  </section>
+
+</div>
+
+
+
+
+<script>
+(function(){
+  var GOOD="var(--scr-good)", MIX="var(--scr-mixed)", LOW="var(--scr-low)", RULE="var(--scr-rule)";
+
+  function ring(pct, size, num){
+    var r = size===56 ? 24 : 38;
+    var c = 2*Math.PI*r;
+    var on = c * Math.max(pct,1.6)/100;
+    var cls = size===56 ? "ring sm2" : "ring";
+    return '<div class="'+cls+'">'+
+      '<svg width="'+size+'" height="'+size+'" viewBox="0 0 '+size+' '+size+'">'+
+        '<circle cx="'+size/2+'" cy="'+size/2+'" r="'+r+'" fill="none" stroke="'+RULE+'" stroke-width="4"/>'+
+        '<circle cx="'+size/2+'" cy="'+size/2+'" r="'+r+'" fill="none" stroke="'+GOOD+'" stroke-width="4" '+
+          'stroke-linecap="round" stroke-dasharray="'+on.toFixed(1)+' '+c.toFixed(1)+'"/>'+
+      '</svg>'+
+      '<span class="num">'+num+'</span></div>';
+  }
+
+  // Monday..Sunday, matching the seeded week the analysis actually reports.
+  var WEEK=[MIX,GOOD,GOOD,MIX,MIX,GOOD,GOOD];
+  var HEIGHT=[.62,1,1,.62,.62,1,1];
+
+  function bars(h){
+    return '<div class="weekbars">'+WEEK.map(function(c,i){
+      return '<i style="background:'+c+';height:'+Math.round(h*HEIGHT[i])+'px"></i>';
+    }).join('')+'</div>';
+  }
+
+  function dots(active){
+    var s='<div class="dots">';
+    for(var i=0;i<10;i++){ s+='<i class="'+(i===active?'a':'')+'"></i>'; }
+    return s+'</div>';
+  }
+
+  function face(kind){
+    var col = kind==="good"?GOOD:(kind==="mid"?MIX:LOW);
+    var mouth = kind==="good"
+      ? '<path d="M8 15 Q13 20 18 15" fill="none" stroke="'+col+'" stroke-width="1.8" stroke-linecap="round"/>'
+      : (kind==="mid"
+        ? '<line x1="8" y1="16" x2="18" y2="16" stroke="'+col+'" stroke-width="1.8" stroke-linecap="round"/>'
+        : '<path d="M8 18 Q13 13 18 18" fill="none" stroke="'+col+'" stroke-width="1.8" stroke-linecap="round"/>');
+    return '<button type="button" tabindex="-1" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 26 26">'+
+      '<circle cx="9" cy="10" r="1.5" fill="'+col+'"/><circle cx="17" cy="10" r="1.5" fill="'+col+'"/>'+
+      mouth+'</svg></button>';
+  }
+
+  var STEPS=[
+    {
+      ch:"First run", built:true,
+      title:"Nothing to show, and it says so",
+      body:"The glance on the day it is installed. The ring carries a short tick rather than sitting empty — <strong>begun, not broken</strong> — and the number inside still reads zero, because zero days have happened. It counts days remaining, never weeks elapsed: “week 1” reads as a calendar week number, and this week is week 35.",
+      screen:function(){
+        return '<div class="band">'+ring(0,56,'0')+
+          '<div class="txt"><span class="t">Calibrating Flow</span><span class="v">28 days left</span></div></div>';
+      }
+    },
+    {
+      ch:"First run", built:true,
+      title:"Calibrating, not starting",
+      body:"Open the app and the same state fills the screen. <strong>Starting implies something has not begun</strong>; the instrument has begun, and is calibrating. The hint follows the hardware — START on a fēnix, “Tap” on a Venu.",
+      screen:function(){
+        return '<div class="hdr">Recurring</div>'+
+          ring(0,88,'0')+
+          '<div class="med" style="margin-top:16px">Calibrating Flow</div>'+
+          '<div class="sm" style="margin-top:5px">28 days left</div>'+
+          '<div class="xs" style="margin-top:9px">START to see it anyway</div>'+dots(1);
+      }
+    },
+    {
+      ch:"Now", built:true,
+      title:"The one thing that works on day one",
+      body:"Every other screen looks backwards and needs weeks before it can speak. This one answers the question people actually open the app to ask, from the first half hour. <strong>The number is shown taken apart</strong> — a single figure nobody can decompose is a figure nobody can argue with. The three parts say which one is holding it down, here notifications, without saying what to do about it.",
+      screen:function(){
+        function bar(label, pct, colour){
+          return '<div class="fbar"><span>'+label+'</span>'+
+            '<span class="track"><i style="width:'+pct+'%;background:'+colour+'"></i></span></div>';
+        }
+        return '<div class="hdr">Now</div>'+
+          '<div class="big good" style="font-size:38px">68</div>'+
+          '<div class="xs" style="margin-top:2px;letter-spacing:.14em">FLOW \u00B7 HOME</div>'+
+          '<div class="fbars">'+
+            bar("Settled", 74, GOOD)+
+            bar("Focus", 88, GOOD)+
+            bar("Quiet", 38, MIX)+
+          '</div>'+dots(0);
+      }
+    },
+    {
+      ch:"Day 21", built:true,
+      title:"Three weeks in",
+      body:"The ring closes a little each day. At 21 days the scan has found candidate windows, but none of them has cleared the observation floor that lets it be called a pattern — so by default, none of them is shown.",
+      screen:function(){
+        return '<div class="hdr">Recurring</div>'+
+          ring(75,88,'21')+
+          '<div class="med" style="margin-top:16px">Calibrating Flow</div>'+
+          '<div class="sm" style="margin-top:5px">7 days left</div>'+
+          '<div class="xs" style="margin-top:9px">START to see it anyway</div>'+dots(1);
+      }
+    },
+    {
+      ch:"Day 21", built:true,
+      title:"Press START and look anyway",
+      body:"Everything the scan has found, marked for what it is. The confidence model still decides what counts as a finding — it just stopped deciding <strong>what you are allowed to look at</strong>. Note the wording: an emerging pattern, not a recurring one.",
+      screen:function(){
+        return '<div class="hdr">Recurring</div>'+
+          '<div class="sm">Strongest window</div>'+
+          '<div class="big good" style="margin-top:2px">Tuesday</div>'+
+          '<div class="med" style="margin-top:2px">08:00–12:00</div>'+
+          '<div class="sm" style="margin-top:4px">Good Flow 91%</div>'+
+          '<div class="xs" style="margin-top:14px">Emerging pattern</div>'+
+          '<div class="tag">uncalibrated</div>'+dots(1);
+      }
+    },
+    {
+      ch:"Calibrated", built:true,
+      title:"The week, hour by hour",
+      body:"One score, everywhere: <strong>Flow, nought to a hundred, higher is better</strong>. Physiological load, Body Battery and heart rate are how Flow is arrived at, and are never numbers on a screen — a reader should never have to work out whether up is good this time. One segment per waking hour, so a day that <strong>started well and fell apart after lunch</strong> looks different from a day that was mediocre throughout — an averaged colour hides exactly the thing worth seeing. Thursday’s red block is the meeting-heavy afternoon. The number is the day in one figure; the row is where it came from. Saturday and Sunday are rows like any other: the weekend is where the personal baseline comes from.",
+      screen:function(){
+        // Waking hours 06-21. Each day is the hours it actually recorded, so
+        // an unfinished day draws a shorter row than a finished one.
+        var DAYS=[
+          {n:"Mon", h:"mmmmggmgmmmlmmgg", s:58},
+          {n:"Tue", h:"ggggggmmmmmmmggg", s:82},
+          {n:"Wed", h:"ggggggmmmmmmgggg", s:80},
+          {n:"Thu", h:"mmggggmmllmlmmgg", s:54},
+          {n:"Fri", h:"mmmggmmmmmmlgggg", s:61},
+          {n:"Sat", h:"--gggggggggggggg", s:86},
+          {n:"Sun", h:"--ggggggmggggggg", s:84}
+        ];
+        var col={g:GOOD,m:MIX,l:LOW};
+        var rows=DAYS.map(function(d){
+          var segs=d.h.split('').map(function(ch){
+            return ch==='-'
+              ? '<i style="background:transparent"></i>'
+              : '<i style="background:'+col[ch]+'"></i>';
+          }).join('');
+          var sc=col[d.s>=65?'g':(d.s<=35?'l':'m')];
+          return '<div class="hrow"><span class="d">'+d.n+'</span>'+
+            '<span class="segs">'+segs+'</span>'+
+            '<span class="sc" style="color:'+sc+'">'+d.s+'</span></div>';
+        }).join('');
+        return '<div class="hdr">Weekly Rhythm</div>'+
+          '<div class="hrows">'+rows+'</div>'+
+          '<div class="hscale"><div><span>06</span><span>13</span><span>21</span></div>'+
+            '<span class="unit">flow</span></div>'+
+          dots(0);
+      }
+    },
+    {
+      ch:"Calibrated", built:true,
+      title:"A window, and its mirror",
+      body:"Tuesday 08:00–12:00, good every week it was observed. Below it the recurring low point — Friday’s commute hour. <strong>Stated as an observation, not a verdict</strong>: no judgement, no advice, and a warm clay rather than a red.",
+      screen:function(){
+        return '<div class="hdr">Recurring</div>'+
+          '<div class="sm">Strongest window</div>'+
+          '<div class="big good" style="margin-top:2px">Tuesday</div>'+
+          '<div class="med" style="margin-top:2px">08:00–12:00</div>'+
+          '<div class="sm" style="margin-top:3px">Good Flow 100%</div>'+
+          '<div class="sm" style="margin-top:14px">Recurring low point</div>'+
+          '<div class="med low" style="margin-top:1px">Fri 17:00–18:00</div>'+
+          '<div class="xs" style="margin-top:11px">Strong recurring pattern</div>'+dots(1);
+      }
+    },
+    {
+      ch:"Calibrated", built:true,
+      title:"Why Tuesday, though",
+      body:"The point of the whole feature. “You work best on Tuesday” does not transfer to a Thursday; <strong>morning, at home, a recovered start and ninety clear minutes</strong> does. These four were measured against how often each holds across the week at large, so a condition is told apart from a constant.",
+      screen:function(){
+        return '<div class="hdr">Flow Conditions</div>'+
+          '<div class="med">90+ minute free window</div>'+
+          '<div class="med" style="margin-top:6px">Recovered start</div>'+
+          '<div class="med" style="margin-top:6px">Home</div>'+
+          '<div class="med" style="margin-top:6px">Morning</div>'+
+          '<div class="xs" style="margin-top:16px">in 7 good windows</div>'+dots(2);
+      }
+    },
+    {
+      ch:"Calibrated", built:true,
+      title:"Where the week joins itself",
+      body:"Friday work end, Friday evening, Saturday, Sunday, Monday morning — one continuous line. The Saturday reading is where load returned toward the personal weekend baseline and stayed there. <strong>An observational comparison, never a medical one.</strong>",
+      screen:function(){
+        return '<div class="hdr">Week edges</div>'+
+          '<div class="sm">Weekend baseline</div>'+
+          '<div class="med" style="margin-top:2px">Returned toward it</div>'+
+          '<div class="med good" style="margin-top:1px">Saturday at 09:30</div>'+
+          '<div class="sm" style="margin-top:16px">Monday start</div>'+
+          '<div class="xs" style="margin-top:3px">as usual for a Monday</div>'+dots(3);
+      }
+    },
+    {
+      ch:"Calibrated", built:true,
+      title:"And the glance, once it knows",
+      body:"The ring gives way to the week itself. The glance holds 64 KB and cannot build the bucket store, so the app leaves it a finished line of text and seven small numbers, and the glance only draws them.",
+      screen:function(){
+        return '<div class="band">'+bars(30)+
+          '<div class="txt"><span class="t">This week</span><span class="v">Tue 08:00–12:00</span></div></div>';
+      }
+    },
+    {
+      ch:"After a run", built:true,
+      title:"A run is not a rush",
+      body:"To a heart rate monitor these are the same event — movement, a raised pulse, a body working. They are opposites, and the difference is not the effort: it is <strong>whether it was chosen, and what happens in the half hour afterwards</strong>. A rush leaves load high. A run often leaves it lower than it found it. So exertion is never measured; only what settles. Three readings, no target, and no encouragement to run more.",
+      screen:function(){
+        return '<div class="hdr">After exercise</div>'+
+          '<div class="xs">Wednesday 18:00</div>'+
+          '<div class="med" style="margin-top:2px">60 min</div>'+
+          '<div class="big good" style="margin-top:16px">Flow rose 11</div>'+
+          '<div class="sm" style="margin-top:5px">in the hour after</div>'+
+          '<div class="xs" style="margin-top:14px">Flow 62 to 73</div>'+
+          dots(4);
+      }
+    },
+    {
+      ch:"This week", built:true,
+      title:"What stood out",
+      body:"Not a second copy of the history — the buckets already hold what the week looked like. This is the handful of moments that stood out enough to be worth a line, bounded twice: <strong>forty entries and seven days, whichever bites first</strong>, pruned on every read so a watch left in a drawer doesn’t come back with stale lines. It is three per cent of what the app stores.",
+      screen:function(){
+        var rows=[
+          ["Wed 18:00","Flow rose 11",GOOD],
+          ["Wed 08:12","\u22121\u00B0, hurrying",MIX],
+          ["Tue 14:00","Flow fell 34",MIX],
+          ["Sat 09:00","Flow rose 4",GOOD],
+          ["Mon 08:05","Flow 29",LOW]
+        ];
+        return '<div class="hdr">This week</div>'+
+          '<div class="evs">'+rows.map(function(r){
+            return '<div class="ev"><span class="w">'+r[0]+'</span>'+
+              '<span class="v" style="color:'+r[2]+'">'+r[1]+'</span></div>';
+          }).join('')+'</div>'+dots(9);
+      }
+    },
+    {
+      ch:"Over time", built:true,
+      title:"The question a weekly view cannot answer",
+      body:"Every other screen folds the week down and asks what is typical. Folding is exactly what destroys this answer. Nobody slides downhill by having one bad Tuesday — they have two months where each Tuesday was slightly worse than the last, and <strong>no single day of it looked alarming enough to mention</strong>. So the last fortnight is compared against the same fortnight up to eight weeks back, never against the one immediately before: adjacent fortnights are blind to precisely this.",
+      screen:function(){
+        return '<div class="hdr">Over time</div>'+
+          '<div class="big mixed">Trending down</div>'+
+          '<div class="xs" style="margin-top:8px">against the same fortnight</div>'+
+          '<div class="xs">7 weeks back</div>'+
+          '<div class="med" style="margin-top:10px">Flow 64 to 51</div>'+
+          '<div class="sm" style="margin-top:16px">Everything alright?</div>'+
+          '<div class="xs" style="margin-top:3px">Take the weekend gently</div>'+
+          dots(5);
+      }
+    },
+    {
+      ch:"Over time", built:true,
+      title:"And when it goes the other way",
+      body:"A signal that only ever speaks up when things are bad is a nag, and gets switched off. So the rise gets said out loud too. This is the one screen permitted to make a suggestion, and it makes the mildest one available — <strong>it never names a condition</strong>, never suggests seeing anyone about it, and the clinical word for what it is watching appears nowhere in the source, the resources or the specs.",
+      screen:function(){
+        return '<div class="hdr">Over time</div>'+
+          '<div class="big good">Trending up</div>'+
+          '<div class="xs" style="margin-top:8px">against the same fortnight</div>'+
+          '<div class="xs">7 weeks back</div>'+
+          '<div class="med" style="margin-top:10px">Flow 51 to 66</div>'+
+          '<div class="sm" style="margin-top:16px">Whatever you changed,</div>'+
+          '<div class="sm">it shows</div>'+
+          dots(5);
+      }
+    },
+    {
+      ch:"Underfoot", built:true,
+      title:"Around zero is when people fall",
+      body:"Not the coldest days — the ones either side of freezing, where meltwater refreezes overnight and a pavement that looks merely wet is not. Falls on the level are the largest single category of workplace injury, and they cluster in that band.<br><br><strong>Three conditions, not two.</strong> Ice and hurry alone is a brisk walk on a cold morning, and warning anyone about that is how a warning gets ignored. The third is that you were already stretched before you started moving — measured <em>before</em> the hurry, because running raises the numbers by itself and a check taken mid-sprint would find them high every time and filter nothing.",
+      screen:function(){
+        return '<div class="hdr">Underfoot</div>'+
+          '<div class="med mixed" style="margin-top:6px">\u22121\u00B0</div>'+
+          '<div class="big" style="margin-top:10px">Around freezing</div>'+
+          '<div class="sm" style="margin-top:8px">and you were hurrying</div>'+
+          '<div class="sm">on an already hard morning</div>'+
+          '<div class="xs" style="margin-top:18px">Worth slowing down for</div>';
+      }
+    },
+    {
+      ch:"Underfoot", built:true,
+      title:"If it happens anyway, write it down",
+      body:"The watch cannot detect a fall — Connect IQ offers an app no such thing, and implying otherwise would be worse than saying nothing. So it is marked by hand, and what gets kept is small: the time, load, Body Battery, the temperature, and the day so far. A worse trigger than automatic detection, and a far better one than <strong>an incident report written three days later from memory</strong>.",
+      screen:function(){
+        return '<div class="hdr">Incident logged</div>'+
+          '<div class="xs">Today 08:12</div>'+
+          '<div class="med" style="margin-top:12px">Flow 29</div>'+
+          '<div class="med" style="margin-top:3px">Body Battery 34</div>'+
+          '<div class="med mixed" style="margin-top:3px">\u22121\u00B0</div>'+
+          '<div class="xs" style="margin-top:14px">Commute \u00B7 day so far 48</div>';
+      }
+    },
+    {
+      ch:"Your normal", built:true,
+      title:"When your normal is the problem",
+      body:"Comparing someone only to themselves is what keeps this out of clinical territory — and it fails in one specific way: <strong>someone whose normal is bad gets told they are fine, reliably, forever</strong>. Their Tuesday genuinely is good for them, and nothing in a self-referential model can say that their Tuesday is not good. So there is exactly one place the app looks outside the person, and it is not its own opinion: the device’s own published stress bands, which the watch already shows elsewhere. Quoting the instrument, not diagnosing the person.",
+      screen:function(){
+        return '<div class="hdr">Your normal</div>'+
+          '<div class="xs">Your waking baseline</div>'+
+          '<div class="big mixed" style="margin-top:4px">high</div>'+
+          '<div class="med" style="margin-top:14px">This is your normal</div>'+
+          '<div class="med" style="margin-top:2px">It is also high</div>'+
+          '<div class="xs" style="margin-top:16px">Good days are marked against it</div>'+
+          dots(6);
+      }
+    },
+    {
+      ch:"Meeting Impact", built:true,
+      title:"Was it worth it?",
+      body:"The cost is shown as Flow falling, on the same scale as every other number. FlowLens shows it and <strong>you supply the verdict</strong> — it cannot know what the meeting was for, and a demanding meeting is not a bad one. One tap, optional, never asked twice. What it buys is the pattern across the meetings already judged: the ones marked poorly are usually long, crowded, late in the day, and back-to-back.",
+      screen:function(){
+        return '<div class="hdr">Meeting Impact</div>'+
+          '<div class="sm">Yesterday 14:00 · 60 min</div>'+
+          '<div class="med mixed" style="margin-top:8px">Flow fell 34</div>'+
+          '<div class="xs" style="margin-top:2px">below your afternoon baseline</div>'+
+          '<div class="med" style="margin-top:8px">Back up after 45 min</div>'+
+          '<div class="sm" style="margin-top:16px">Worth it?</div>'+
+          '<div class="faces">'+face("low")+face("mid")+face("good")+'</div>'+dots(4);
+      }
+    },
+    {
+      ch:"Rush", built:false,
+      title:"Do you actually need to run?",
+      body:"The sprint is recognisable from movement and heart rate inside a commute window. What FlowLens does with it is the design question, and the answer is <strong>not to tell you to calm down</strong> — being told to relax by a watch while missing a bus is an insult with a strap. Six minutes is a walk. That is the whole intervention, and it works because it is true.",
+      screen:function(){
+        return '<div class="hdr">Rush \u00B7 commute</div>'+
+          '<div class="xs" style="letter-spacing:.16em;text-transform:uppercase">Bus</div>'+
+          '<div class="big" style="letter-spacing:.02em;margin-top:1px">447</div>'+
+          '<div class="med good" style="margin-top:12px">08:14 · in 6 min</div>'+
+          '<div class="med" style="margin-top:3px">08:34 · in 26 min</div>'+
+          '<div class="xs" style="margin-top:18px">Stop: Saltsjö-Boo</div>';
+      }
+    },
+    {
+      ch:"Rush", built:false,
+      title:"And in the traffic home",
+      body:"Elevated load on the drive, and the question underneath it is almost always <em>am I going to be late for something</em>. So it checks. When the answer is comfortable it says so; when it is not, it says that too — <strong>knowing beats wondering</strong>, and FlowLens does not get to pick the comfortable facts.",
+      screen:function(){
+        return '<div class="hdr">Rush \u00B7 car</div>'+
+          '<div class="sm">Home about</div>'+
+          '<div class="big" style="margin-top:2px">17:40</div>'+
+          '<div class="med good" style="margin-top:14px">Nothing until 19:00</div>'+
+          '<div class="xs" style="margin-top:16px">Traffic is usual for a Thursday</div>';
+      }
+    },
+    {
+      ch:"Watch face", built:true,
+      title:"The week, without opening anything",
+      body:"Today’s score so far, the next 447, and the week underneath — <strong>answered without opening anything at all</strong>, which is the only way any of it gets answered at 07:42. The score is partial by design: it is the hours recorded so far, not a verdict on a day that has not finished. The arc is today against your own baseline, the strip is the week so far, and the face reads all of it through the Complications publisher: it consumes the data rather than sampling its own. <strong>The same data other people’s watch faces could subscribe to.</strong>",
+      screen:function(){
+        var c=2*Math.PI*128, on=c*0.72;
+        return '<svg class="wf-arc" width="286" height="286" viewBox="0 0 286 286">'+
+            '<circle cx="143" cy="143" r="128" fill="none" stroke="'+RULE+'" stroke-width="3"/>'+
+            '<circle cx="143" cy="143" r="128" fill="none" stroke="'+GOOD+'" stroke-width="3" '+
+              'stroke-linecap="round" stroke-dasharray="'+on.toFixed(1)+' '+c.toFixed(1)+'" '+
+              'transform="rotate(-90 143 143)"/></svg>'+
+          '<div class="wf-today"><span class="lbl">Today</span>'+
+            '<span class="val good">68</span><span class="so">flow, so far</span></div>'+
+          '<div class="wf-time">07:42</div>'+
+          '<div class="wf-date">Thu 27 Aug</div>'+
+          '<div class="wf-line"><span class="bus">By bus</span>'+
+            '<span class="rt">447</span><span class="dep good">08:14</span></div>'+
+          '<div class="xs" style="margin-top:6px">Good window until 11:30</div>'+
+          '<div class="wf-strip">'+WEEK.map(function(c2,i){
+            return '<i style="background:'+c2+';height:'+Math.round(14*HEIGHT[i])+'px"></i>';
+          }).join('')+'</div>';
+      }
+    }
+  ];
+
+  var screen=document.getElementById('screen');
+  var railEl=document.getElementById('rail');
+  var idx=0, playing=true, timer=null, tick=null, elapsed=0;
+  var DURATION=4200;
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Chapters group consecutive steps that share a name.
+  var chapters=[];
+  STEPS.forEach(function(s,i){
+    var last=chapters[chapters.length-1];
+    if(last && last.name===s.ch){ last.steps.push(i); }
+    else { chapters.push({name:s.ch, built:s.built, steps:[i]}); }
+  });
+
+  chapters.forEach(function(c,ci){
+    var b=document.createElement('button');
+    b.type='button';
+    b.innerHTML='<span class="n">'+String(ci+1).padStart(2,'0')+'</span>'+
+      '<span>'+c.name+'</span>'+
+      '<span class="meter"><i></i></span>';
+    b.addEventListener('click',function(){ go(c.steps[0]); });
+    railEl.appendChild(b);
+  });
+  var railBtns=railEl.querySelectorAll('button');
+
+  STEPS.forEach(function(s,i){
+    var d=document.createElement('div');
+    d.className='frame';
+    d.innerHTML=s.screen();
+    screen.appendChild(d);
+    s.el=d;
+  });
+
+  function chapterOf(i){
+    for(var c=0;c<chapters.length;c++){ if(chapters[c].steps.indexOf(i)>-1) return c; }
+    return 0;
+  }
+
+  function render(){
+    STEPS.forEach(function(s,i){ s.el.classList.toggle('on', i===idx); });
+    var s=STEPS[idx];
+    document.getElementById('chapter').textContent=s.ch;
+    document.getElementById('title').innerHTML=s.title;
+    document.getElementById('body').innerHTML=s.body;
+    document.getElementById('counter').textContent=(idx+1)+' / '+STEPS.length;
+    var badge=document.getElementById('badge');
+    badge.textContent=s.built?'Running today':'Designed, not built';
+    badge.className='badge '+(s.built?'built':'design');
+
+    var ci=chapterOf(idx);
+    railBtns.forEach(function(b,i){
+      b.setAttribute('aria-current', i===ci ? 'true':'false');
+      var meter=b.querySelector('.meter i');
+      if(i<ci){ meter.style.width='100%'; }
+      else if(i>ci){ meter.style.width='0%'; }
+    });
+  }
+
+  function meterProgress(){
+    var ci=chapterOf(idx);
+    var c=chapters[ci];
+    var pos=c.steps.indexOf(idx);
+    var frac=(pos + (elapsed/DURATION))/c.steps.length;
+    var meter=railBtns[ci].querySelector('.meter i');
+    meter.style.width=Math.min(100,frac*100).toFixed(1)+'%';
+  }
+
+  function go(i){
+    idx=(i+STEPS.length)%STEPS.length;
+    elapsed=0;
+    render();
+    if(playing) start();
+  }
+
+  function start(){
+    stop();
+    if(reduce) return;
+    tick=setInterval(function(){
+      elapsed+=100;
+      meterProgress();
+      if(elapsed>=DURATION){ go(idx+1); }
+    },100);
+  }
+  function stop(){ if(tick){ clearInterval(tick); tick=null; } }
+
+  document.getElementById('next').addEventListener('click',function(){ go(idx+1); });
+  document.getElementById('prev').addEventListener('click',function(){ go(idx-1); });
+  var playBtn=document.getElementById('play');
+  playBtn.addEventListener('click',function(){
+    playing=!playing;
+    playBtn.textContent=playing?'Pause':'Play';
+    if(playing){ start(); } else { stop(); }
+  });
+
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'){ go(idx+1); }
+    if(e.key==='ArrowLeft'){ go(idx-1); }
+  });
+
+  if(reduce){ playing=false; playBtn.textContent='Play'; }
+  render();
+  if(playing) start();
+})();
+</script>
+</body>
+</html>

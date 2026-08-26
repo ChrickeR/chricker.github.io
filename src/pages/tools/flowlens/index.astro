@@ -1,0 +1,186 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Footer from '../../../components/Footer.astro';
+import ToolVote from '../../../components/ToolVote.astro';
+---
+
+<BaseLayout
+  title="FlowLens"
+  description="A Garmin watch app that answers four questions people already ask themselves and mostly answer by guessing — from your own history, never a population norm. Partly built."
+>
+  <main class="reading" id="main">
+    <section class="block insight-page">
+      <p class="kicker"><a href="/tools/">Tools</a></p>
+      <h1>FlowLens</h1>
+
+      <p class="lede">
+        Four questions people already ask themselves, and mostly answer by guessing. This is a watch app that
+        answers them from your own history instead.
+      </p>
+
+      <ul class="ask-list">
+        <li>How long into the weekend before I am back to myself after a hard week at the office?</li>
+        <li>When on an ordinary day is my stress actually down — and is it ever down at work?</li>
+        <li>My family says I come home stressed. Are they right, and how often?</li>
+        <li>Which hours are genuinely mine — and what did that meeting cost to get through?</li>
+      </ul>
+
+      <h2>What it does</h2>
+
+      <p>
+        It watches the week hour by hour rather than as a daily average, because a day that started well and
+        fell apart after lunch should not look like a day that was mediocre throughout.
+      </p>
+
+      <ul class="feature-list">
+        <li>
+          <strong>It says when it does not know yet.</strong> On the day it is installed it counts the days
+          remaining and calls itself calibrating rather than starting. The confidence model decides what counts
+          as a finding; it does not get to decide what you are allowed to look at.
+        </li>
+        <li>
+          <strong>Conditions, not verdicts.</strong> "You work best on Tuesday" does not transfer to a
+          Thursday. Morning, at home, a recovered start and ninety clear minutes does.
+        </li>
+        <li>
+          <strong>The slide a weekly view cannot see.</strong> Nobody goes downhill by having one bad Tuesday.
+          They have two months where each Tuesday is slightly worse than the last, and no single day of it
+          looks alarming enough to mention.
+        </li>
+      </ul>
+
+      <p>
+        Almost everything is a comparison against your own history — never a population norm, never a clinical
+        reading. The one exception exists because self-reference fails in a specific way: someone whose normal
+        is bad gets told they are fine, reliably, forever.
+      </p>
+
+      <h2>The walkthrough</h2>
+
+      <p>
+        Twenty-one frames on a fēnix 9 Pro, from the day it is installed to the conditions it eventually
+        learns. What is built is badged as running; the rest is drawn to argue the shape.
+      </p>
+    </section>
+
+    <div class="demo-wide">
+      <iframe
+        id="flowlens-demo"
+        src="/tools/flowlens-demo.html"
+        title="FlowLens walkthrough"
+        loading="lazy"
+        scrolling="no"
+      ></iframe>
+      <p class="demo-fallback">
+        <a href="/tools/flowlens-demo.html">Open the walkthrough on its own</a>
+      </p>
+    </div>
+
+    <section class="block insight-page">
+      <ToolVote tool="flowlens" />
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .insight-page h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.3rem;
+    margin: 2.6rem 0 0.7rem;
+  }
+  .ask-list {
+    margin: 2rem 0 0;
+    padding: 0 0 0 1.2rem;
+    list-style: none;
+    border-left: 2px solid var(--mist);
+  }
+  .ask-list li {
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem;
+    line-height: 1.5;
+    margin-bottom: 0.7rem;
+  }
+  .feature-list {
+    margin: 1.4rem 0 0;
+    padding-left: 1.1rem;
+  }
+  .feature-list li {
+    margin-bottom: 0.9rem;
+  }
+  .feature-list strong {
+    font-weight: 600;
+  }
+  /* The walkthrough is wider than the reading measure, so it steps out of the
+     column to the shell width the rest of the site uses. */
+  .demo-wide {
+    width: min(65rem, calc(100vw - 3rem));
+    margin: 2rem 0 3.4rem 50%;
+    transform: translateX(-50%);
+  }
+  /* On a phone the reading gutter is worth more to the walkthrough than to the
+     margin: the watch and its readout have a floor they cannot shrink past. */
+  @media (max-width: 40rem) {
+    .demo-wide {
+      width: 100vw;
+    }
+  }
+  .demo-wide iframe {
+    display: block;
+    width: 100%;
+    height: 1400px;
+    border: 0;
+  }
+  .demo-fallback {
+    margin: 0.6rem 0 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+</style>
+
+<script>
+  // Same-origin, so the height can be measured directly rather than posted
+  // across, and the site's theme toggle can be handed through to the frame.
+  const frame = document.getElementById('flowlens-demo') as HTMLIFrameElement | null;
+
+  if (frame) {
+    const syncTheme = () => {
+      const doc = frame.contentDocument;
+      if (!doc) return;
+      const theme = document.documentElement.dataset.theme;
+      if (theme) doc.documentElement.dataset.theme = theme;
+      else delete doc.documentElement.dataset.theme;
+    };
+
+    const syncHeight = () => {
+      const doc = frame.contentDocument;
+      if (!doc?.body) return;
+      frame.style.height = `${doc.body.scrollHeight + 8}px`;
+    };
+
+    const wire = () => {
+      syncTheme();
+      syncHeight();
+      const doc = frame.contentDocument;
+      if (doc?.body && 'ResizeObserver' in window) {
+        new ResizeObserver(syncHeight).observe(doc.body);
+      }
+      // The walkthrough advances on its own, and each frame is a different height.
+      setInterval(syncHeight, 1000);
+    };
+
+    frame.addEventListener('load', wire);
+    // A lazy frame can finish before this script runs, in which case the load
+    // event has already been and gone.
+    if (frame.contentDocument?.readyState === 'complete') wire();
+
+    new MutationObserver(syncTheme).observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+    });
+  }
+</script>

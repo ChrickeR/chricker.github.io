@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Footer from '../../../components/Footer.astro';
+import PaperNav from '../../../components/PaperNav.astro';
+import { versionHistory as entries } from '../../../data/version-history';
+---
+
+<BaseLayout title="Version History" description="What has changed in Organizational Flow, and when.">
+  <main class="reading" id="main">
+    <section class="block insight-page">
+      <p class="kicker">Organizational Flow</p>
+      <h1>Version History</h1>
+      <p>This paper is not finished, and it isn't meant to be. It gets better as it goes, and every chapter carries its own draft status, so this page keeps only where it started rather than a record of every revision along the way.</p>
+
+      <ul style="list-style:none; padding:0; margin:2rem 0 0;">
+        {entries.map((entry) => (
+          <li style="padding:1rem 0; border-top:1px solid var(--mist);">
+            <p style="font-family:'Space Mono', monospace; font-size:0.7rem; letter-spacing:0.06em; color:var(--bark); margin:0 0 0.4rem;">{entry.date}</p>
+            <p style="margin:0;">{entry.note}</p>
+            {entry.chapters && entry.chapters.length > 0 && (
+              <p class="vh-chapters">
+                {entry.chapters.map((chapter, i) => (
+                  <>
+                    {i > 0 && <span aria-hidden="true"> · </span>}
+                    <a href={`/organizational-flow/${chapter.slug}/${chapter.anchor ? `#${chapter.anchor}` : ''}`}>{chapter.title}</a>
+                  </>
+                ))}
+              </p>
+            )}
+          </li>
+        ))}
+      </ul>
+          <PaperNav current="version-history" />
+    </section>
+  </main>
+
+  <Footer label="Organizational Flow — an ongoing work" />
+</BaseLayout>
+
+<style>
+  /* The chapters an entry touched, set smaller than the note itself — a reader
+     wants the sentence first and the list only if it applies to them. */
+  .vh-chapters {
+    margin: 0.5rem 0 0;
+    font-size: 0.9rem;
+    color: var(--bark);
+  }
+</style>
