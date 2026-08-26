@@ -1,0 +1,160 @@
+---
+// Two trees, both green. One has a ring cut through the bark.
+// The paper's central claim made visible: friction does not announce itself,
+// and an organization that has stopped circulating looks, for a while,
+// exactly like one that hasn't. Same ink-line language as the flow model
+// (docs/07-illustration-style-guide.md).
+interface Props {
+  caption?: string;
+}
+const {
+  caption = 'Girdling — a ring through the bark stops the sap without felling the tree. Both canopies are green. Only one is still moving.',
+} = Astro.props;
+---
+
+<figure class="girdled">
+  <svg
+    viewBox="0 0 760 400"
+    role="img"
+    aria-label="Two trees side by side above a soil line, both with full canopies. Sap rises through the trunk of the left one. The right one has a ring cut through its bark; the sap rises from the roots and stops at the ring, while the canopy above stays full."
+  >
+    <line x1="20" y1="286" x2="740" y2="286" class="soil-line" />
+
+    <!-- left: circulating -->
+    <g transform="translate(78,26)">
+      <path class="stroke" d="M62,124 C24,124 2,96 12,70 C20,48 48,34 78,40 C92,16 130,12 148,30 C178,22 202,42 200,68 C204,96 170,124 126,124 Z" />
+      <path class="stroke" d="M104,124 C102,150 100,196 99,260" />
+      <path class="stroke" d="M118,124 C120,150 122,196 123,260" />
+      <path class="stroke" d="M108,168 C108,152 96,144 84,136" />
+      <path class="stroke" d="M114,158 C118,144 132,138 146,132" />
+      <path class="stroke root" d="M99,260 C88,282 64,292 44,314" />
+      <path class="stroke root" d="M111,260 C111,288 107,304 103,326" />
+      <path class="stroke root" d="M123,260 C136,282 160,290 180,312" />
+      <!-- sap, rising the whole way -->
+      <path class="sap" d="M111,300 C111,240 111,180 111,116" />
+      <path class="sap-head" d="M105,126 L111,114 L117,126" />
+    </g>
+
+    <!-- right: girdled, and identical from a distance -->
+    <g transform="translate(432,26)">
+      <path class="stroke" d="M60,122 C22,124 0,94 12,68 C22,44 50,32 80,40 C96,14 132,10 150,30 C180,20 204,44 200,70 C206,98 168,124 124,122 Z" />
+      <path class="stroke" d="M104,122 C102,150 100,196 99,260" />
+      <path class="stroke" d="M118,122 C120,150 122,196 123,260" />
+      <path class="stroke" d="M108,166 C108,150 96,142 84,134" />
+      <path class="stroke" d="M114,156 C118,142 132,136 146,130" />
+      <path class="stroke root" d="M99,260 C88,282 64,292 44,314" />
+      <path class="stroke root" d="M111,260 C111,288 107,304 103,326" />
+      <path class="stroke root" d="M123,260 C136,282 160,290 180,312" />
+
+      <!-- the ring: bark taken off all the way round. Drawn heavier than
+           anything else, because it is the one thing in the picture doing
+           the damage and the one thing easiest to miss on a real trunk. -->
+      <path class="cut" d="M97,202 C107,195 117,195 126,202" />
+      <path class="cut" d="M97,224 C107,217 117,217 126,224" />
+      <line class="cut-hatch" x1="100" y1="203" x2="104" y2="222" />
+      <line class="cut-hatch" x1="107" y1="200" x2="111" y2="220" />
+      <line class="cut-hatch" x1="114" y1="199" x2="118" y2="219" />
+      <line class="cut-hatch" x1="121" y1="201" x2="124" y2="221" />
+
+      <!-- sap rises out of the roots and stops at the cut -->
+      <path class="sap" d="M111,300 C111,270 111,248 111,230" />
+      <line class="sap-stop" x1="101" y1="228" x2="121" y2="228" />
+      <!-- above the cut: nothing moving, though the canopy has not noticed yet -->
+      <path class="sap-spent" d="M111,198 C111,168 111,142 111,116" />
+    </g>
+
+    <g class="label">
+      <text x="188" y="366" class="lead">Circulating</text>
+      <text x="188" y="384" class="sub">sap reaches the canopy</text>
+      <text x="542" y="366" class="lead">Girdled</text>
+      <text x="542" y="384" class="sub">canopy green, sap stopped</text>
+    </g>
+  </svg>
+  <figcaption>{caption}</figcaption>
+</figure>
+
+<style>
+  .girdled {
+    margin: 2.6rem auto 2.8rem;
+    max-width: var(--max);
+  }
+  .girdled svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    overflow: visible;
+  }
+  .soil-line { stroke: var(--mist); stroke-width: 1; }
+  .stroke {
+    fill: none;
+    stroke: var(--moss);
+    stroke-width: 2.25;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .stroke.root { stroke: var(--bark); stroke-width: 1.75; opacity: 0.75; }
+
+  .sap, .sap-head {
+    fill: none;
+    stroke: var(--gold);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .sap { stroke-dasharray: 7 6; }
+
+  /* The cut is the only thing drawn in a different hand. */
+  .cut, .sap-stop {
+    fill: none;
+    stroke: var(--ink);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+  }
+  .cut-hatch {
+    stroke: var(--ink);
+    stroke-width: 1.4;
+    stroke-linecap: round;
+    opacity: 0.55;
+  }
+
+  /* What the canopy is still living on, and will not be for long. */
+  .sap-spent {
+    fill: none;
+    stroke: var(--gold);
+    stroke-width: 2;
+    stroke-dasharray: 2 10;
+    stroke-linecap: round;
+    opacity: 0.35;
+  }
+
+  .label text {
+    font-family: 'Space Mono', monospace;
+    text-anchor: middle;
+    fill: var(--ink);
+  }
+  .label text.lead {
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .label text.sub {
+    font-size: 11.5px;
+    letter-spacing: 0.06em;
+    fill: var(--bark);
+  }
+
+  .girdled figcaption {
+    margin-top: 1rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.66rem;
+    line-height: 1.7;
+    letter-spacing: 0.06em;
+    color: var(--bark);
+    text-align: center;
+  }
+
+  @media (max-width: 620px) {
+    .label text.lead { font-size: 15px; }
+    .label text.sub { font-size: 13px; }
+  }
+</style>

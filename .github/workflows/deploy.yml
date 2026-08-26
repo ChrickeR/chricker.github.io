@@ -1,0 +1,43 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: withastro/action@v3
+        with:
+          node-version: 22
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          # The site carries ~58 MB of chapter narration, which took the
+          # artifact from 0.6 MB to 58 MB and Pages' own processing from
+          # seconds to minutes. The last deploy to succeed spent 5m33s
+          # queued against this action's 10-minute default, and everything
+          # after it timed out at exactly 10 minutes with the build itself
+          # green. Thirty minutes leaves real headroom; it only changes how
+          # long we wait for Pages, not what gets published.
+          timeout: 1800000

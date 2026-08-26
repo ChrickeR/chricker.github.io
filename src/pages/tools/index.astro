@@ -1,0 +1,180 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+<BaseLayout
+  title="Labs"
+  description="Where I try things out: watch apps, prototypes and working tools, built because the problem was in front of me and the tool was not."
+>
+  <main class="reading" id="main">
+    <section class="block insight-page">
+      <p class="kicker">TROi</p>
+      <h1>Labs</h1>
+
+      <p class="lede">
+        This is where I experiment. Most of it starts the same way: something comes up over lunch or by the coffee
+        machine and turns out to be a problem several people share — usually one I have run into myself.
+        Work and life outside it both throw up that moment — something is harder than it needs to be, and the tool
+        that would have helped does not exist. The quickest way to find out whether an idea answers it is to build the
+        smallest version and use it for a while. And some of it is here for no better reason than that it was fun to
+        make.
+      </p>
+
+      <p>
+        Some of what is here ships: two Garmin watch apps are in public beta, and a set of watch faces is on the
+        Connect IQ store. The rest runs here and gets used, which is exactly the point at which it becomes
+        impossible to tell whether something is genuinely useful or just fits the way one person works.
+      </p>
+
+      <p>
+        So I put them up, unfinished and clearly labelled. Each page says where that thing actually is — shipped,
+        prototype, or part specification — and the three faces at the bottom take one press and tell me what to
+        take further and what to let mature a while longer. If you have more to say than a face can carry,{' '}
+        <a href="/contact/">write to me</a>.
+      </p>
+
+      <p class="tool-note">
+        <strong>New:</strong> the two watch apps are out as free public betas on Garmin Connect IQ —{' '}
+        <a href="https://apps.garmin.com/apps/35125b1c-d056-4856-9962-2b1652e3f0a3" rel="noopener">FlowLens</a>, on work/life balance, and{' '}
+        <a href="https://apps.garmin.com/apps/eb8a524d-445f-409a-bb51-c2a0a742dabe" rel="noopener">FlowMission</a>, on an hour you have anyway. Both need people wearing them,
+        so install one and tell me what it got right and what it got wrong.
+      </p>
+
+      <ul class="tool-list">
+        <li>
+          <p class="marginalia-label">Public beta on Garmin Connect IQ</p>
+          <p class="tool-name"><a href="/tools/flowlens/">FlowLens</a></p>
+          <p class="tool-line">
+            Work/life balance metrics on the wrist. Four questions about the week that people already ask
+            themselves and mostly answer by guessing, answered from your own history.{' '}
+            <a href="https://apps.garmin.com/apps/35125b1c-d056-4856-9962-2b1652e3f0a3" rel="noopener">Install it</a> and help test it.
+          </p>
+        </li>
+        <li>
+          <p class="marginalia-label">Public beta on Garmin Connect IQ</p>
+          <p class="tool-name"><a href="/tools/flowmission/">FlowMission</a></p>
+          <p class="tool-line">
+            An hour in a city you don't know, or a race you have a time for. The watch works out what is
+            possible and hands back one instruction, plus a promise that you get back — and somebody who is
+            told when you don't.{' '}
+            <a href="https://apps.garmin.com/apps/eb8a524d-445f-409a-bb51-c2a0a742dabe" rel="noopener">Install it</a> and help test it.
+          </p>
+        </li>
+        <li>
+          <p class="marginalia-label">Coming soon to TestFlight</p>
+          <p class="tool-name"><a href="/tools/sammans/">Sammans</a></p>
+          <p class="tool-line">
+            A coach for personal growth that makes your relationships stronger. It helps you find direction and a goal, picks the tools, and keeps the everyday life puzzle in view. It replaces Livspusslet.
+          </p>
+        </li>
+        <li>
+          <p class="marginalia-label">Working prototype</p>
+          <p class="tool-name"><a href="/tools/cambium/">Cambium</a></p>
+          <p class="tool-line">
+            An organization moves at the speed of what it has already settled. That was always true; agents
+            made it visible. A person who reaches an undecided question guesses and carries on, and the cost
+            surfaces months later. An agent stops and asks — so the missing decision shows up on the day it is
+            missing, and the answer serves whoever comes next, person or machine.
+          </p>
+        </li>
+        <li>
+          <p class="marginalia-label">Working prototype</p>
+          <p class="tool-name"><a href="/tools/bordvakt/">Bordvakt</a></p>
+          <p class="tool-line">
+            Some restaurants release a month of tables in one batch and lose them in minutes. This waits for
+            the release.
+          </p>
+        </li>
+        <li>
+          <p class="marginalia-label">Working prototype</p>
+          <p class="tool-name"><a href="/tools/cutover/">Cutover Control Center</a></p>
+          <p class="tool-line">
+            Hundreds of moving parts, and a plan that can start anywhere — typed in here or dropped in from a
+            spreadsheet. What it adds is the answer to what is running, what is late and who is waiting.
+          </p>
+        </li>
+      </ul>
+
+      <h2 class="tool-aside-head">On the wrist</h2>
+      <p class="tool-aside">
+        FlowLens and FlowMission live beside a handful of Garmin watch faces and data fields I have published
+        under the same name — the Grande family, built while learning what the watch can and cannot do. They are on
+        the Connect IQ store as{' '}
+        <a href="https://apps.garmin.com/developer/6e0b12d9-69d1-4f82-be68-6a71025128c5/apps" rel="noopener">Apps by TROi</a>, and they are worth a try if you wear a Garmin.
+      </p>
+
+      <figure class="wrist-figure">
+        <a href="https://apps.garmin.com/developer/6e0b12d9-69d1-4f82-be68-6a71025128c5/apps" rel="noopener">
+          <img
+            src="/tools/grande-watch-faces.webp"
+            width="1850"
+            height="1808"
+            loading="lazy"
+            decoding="async"
+            alt="The Grande family on a Garmin watch: the Complication, Digital, Pulse, Orbit, Words, Expedition, Move, Swimrun, Trail, Ultra and Tri watch faces, the Expedition Card widget, and the Cutoff and Multisport data fields."
+          />
+        </a>
+        <figcaption>Grande — watch faces, a widget and data fields for Garmin.</figcaption>
+      </figure>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .wrist-figure {
+    margin: 1.4rem 0 0;
+  }
+  .wrist-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 3px;
+  }
+  .wrist-figure figcaption {
+    margin-top: 0.6rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--bark);
+  }
+  .tool-note {
+    margin: 1.8rem 0 0;
+    padding: 1rem 1.2rem;
+    border-left: 2px solid var(--moss);
+    background: var(--paper-deep);
+  }
+  .tool-aside-head {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.3rem;
+    margin: 2.8rem 0 0.7rem;
+  }
+  .tool-aside {
+    margin: 0;
+    color: var(--bark);
+  }
+  .tool-list {
+    list-style: none;
+    padding: 0;
+    margin: 2.4rem 0 0;
+  }
+  .tool-list li {
+    padding: 1.1rem 0;
+    border-top: 1px solid var(--mist);
+  }
+  .tool-list li:last-child {
+    border-bottom: 1px solid var(--mist);
+  }
+  .tool-name {
+    font-family: 'Fraunces', serif;
+    font-size: 1.35rem;
+    margin: 0 0 0.4rem;
+  }
+  .tool-line {
+    margin: 0;
+    color: var(--bark);
+  }
+</style>

@@ -1,0 +1,206 @@
+---
+import ShareLinks from '../../../components/ShareLinks.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Footer from '../../../components/Footer.astro';
+import { author, personRef, BOOK_ID, SITE_URL, breadcrumbs } from '../../../data/site';
+
+// Den svenska ingången till bokens begrepp. Boken är skriven på engelska och
+// förblir det; den här sidan förklarar orden på svenska och pekar dit där de
+// utvecklas. Samma innehåll som /organizational-flow/concepts/, inte en översättning av boken.
+const begrepp = [
+  {
+    id: 'organisatorisk-friktion',
+    term: 'Organisatorisk friktion',
+    text: 'Det som organisationens struktur lägger mellan ett arbete och dess värde: otydligt ägarskap, sammanhang som byggs upp på nytt vid varje gräns, beslut som väntar och utfall som aldrig når tillbaka till den som valde. Den verkliga kostnaden är inte tid eller möda utan det värde timmarna annars hade skapat. Organisationer blir långsamma när friktionen växer snabbare än värdet.',
+    las: [
+      { slug: 'what-friction-costs', title: 'The Cost of Value Never Created' },
+      { slug: 'reducing-friction', title: 'Reducing Friction' },
+    ],
+  },
+  {
+    id: 'organizational-flow',
+    term: 'Organizational Flow (organisationsflöde)',
+    text: 'En organisations förmåga att hela tiden föra information, beslut, genomförande och lärande genom de förmågor den vilar på, så att värde faktiskt når kunder och användare. Alla organisationer har det i någon grad. Det är ingen metod eller ett ramverk, utan ett sätt att se.',
+    las: [
+      { slug: 'what-is-organizational-flow', title: 'What is Organizational Flow?' },
+      { slug: 'the-ten-minute-version', title: 'The Ten-Minute Version' },
+    ],
+  },
+  {
+    id: 'de-fyra-indikatorerna',
+    term: 'De fyra indikatorerna',
+    text: 'Fyra sätt att se friktionen: tydligt ägarskap (vet de runt en förmåga vem som äger den?), överlämningsförlust (hur mycket sammanhang byggs upp igen vid varje gräns?), beslutsväntan (hur lång tid går från att ett beslut behövs till att det fattas?) och lärandets cykeltid (hur lång tid tar det innan utfallet når den som valde?).',
+    las: [
+      { slug: 'observing-organizations', title: 'Observing Organizations' },
+      { slug: 'what-friction-costs', title: 'The Cost of Value Never Created' },
+    ],
+  },
+  {
+    id: 'verksamhetsformaga',
+    term: 'Förmåga (verksamhetsförmåga)',
+    text: 'Ett bestående verksamhetsområde — ett avgränsat sammanhang som äger ett utfall. Bestående, eftersom det överlever systemen, leverantörerna och omorganisationerna som levererar det. Avgränsat, eftersom man kan säga vad som hör till och inte. Det närmaste släktet är bounded context från Domain-Driven Design.',
+    las: [
+      { slug: 'what-a-capability-is', title: 'What a Capability Is, and Is Not' },
+      { slug: 'capabilities', title: 'What Survives the Reorg' },
+    ],
+  },
+  {
+    id: 'formagekarta',
+    term: 'Förmågekarta och förmågebaserad organisation',
+    text: 'En förmågekarta beskriver vad organisationen faktiskt gör, oberoende av hur den råkar vara organiserad i år. En förmågebaserad organisation drar gränser för ägarskap, team och system runt förmågorna, så att det som hör ihop också ägs tillsammans och överlever nästa omorganisation.',
+    las: [
+      { slug: 'capabilities', title: 'What Survives the Reorg' },
+      { slug: 'different-capabilities-different-conditions', title: 'Different Capabilities, Different Conditions' },
+    ],
+  },
+  {
+    id: 'formaga-och-kompetens',
+    term: 'Förmåga och kompetens',
+    text: 'Förmågan tillhör organisationen; kompetensen tillhör människor — och allt oftare agenter. En förmåga som vilar på ett fåtal namngivna personers kompetens är en uppsägning från att försvinna.',
+    las: [
+      { slug: 'what-a-capability-is', title: 'What a Capability Is, and Is Not' },
+      { slug: 'people', title: 'The Wait Nobody Logged' },
+    ],
+  },
+  {
+    id: 'teamgranser',
+    term: 'Teamgränser och kognitiv last',
+    text: 'Hur mycket ett team kan bära. Räkna inte människorna i teamet utan hur många skilda områden de måste förstå. Dra gränsen runt en förmåga, så får lasten en naturlig kant. Idén om kognitiv last som dimensionering kommer från Team Topologies (Skelton och Pais).',
+    las: [
+      { slug: 'how-much-can-one-team-hold', title: 'How Much Can One Team Hold' },
+      { slug: 'drawing-the-line-around-a-team', title: 'Drawing the Line Around a Team' },
+    ],
+  },
+  {
+    id: 'agarskap-och-mandat',
+    term: 'Ägarskap och mandat',
+    text: 'Vem som äger en förmåga, och vad den ägaren får avgöra utan att fråga — beslutsrätten. Friktionen minskar när beslutet flyttas dit kontexten finns i stället för att kontexten flyttas till beslutet — och när delegerat mandat överlever sitt första dåliga utfall.',
+    las: [
+      { slug: 'reducing-friction', title: 'Reducing Friction' },
+      { slug: 'leading-without-deciding', title: 'Leading Without Deciding' },
+    ],
+  },
+  {
+    id: 'arkitekturstyrning',
+    term: 'Arkitekturstyrning',
+    text: 'Styrning som gör team snabbare i stället för långsammare: några få principer som faktiskt är överenskomna, beslutsloggar som håller dem ärliga, och arkitektur som en kompetens organisationen bär snarare än en kö den väntar i.',
+    las: [
+      { slug: 'settling-the-few-things', title: 'Settling the Few Things' },
+      { slug: 'equipping-not-reviewing', title: 'Equipping, Not Reviewing' },
+    ],
+  },
+  {
+    id: 'work-harness',
+    term: 'Work harness — arbetets ramverk',
+    text: 'Den struktur människor och AI-agenter — agenter byggda på artificiell intelligens — båda behöver för att agera med trygghet: ett tydligt utfall, rätt kontext, gränser, beslutsrätt, verktyg och återkoppling. Syftet är att göra organisationen billigare att navigera. Frågan är därför inte hur mycket kontext en agent kan få, utan hur lite någon behöver för att fatta ett bra beslut.',
+    las: [
+      { slug: 'the-meter-was-always-running', title: 'The Meter Was Always Running' },
+      { slug: 'owning-what-ai-cant', title: "Owning What AI Can't" },
+    ],
+  },
+];
+
+const pagePath = '/organizational-flow/begrepp/';
+const description =
+  'Organisatorisk friktion, förmågor, förmågekarta, teamgränser, ägarskap och mandat, arkitekturstyrning — begreppen bakom Organizational Flow på svenska.';
+
+const jsonLd = [
+  {
+    '@type': 'DefinedTermSet',
+    '@id': `${SITE_URL}${pagePath}#begrepp`,
+    name: 'Organizational Flow — begrepp på svenska',
+    url: `${SITE_URL}${pagePath}`,
+    description,
+    inLanguage: 'sv',
+    author: personRef,
+    isPartOf: { '@id': BOOK_ID },
+    hasDefinedTerm: begrepp.map((b) => ({
+      '@type': 'DefinedTerm',
+      '@id': `${SITE_URL}${pagePath}#${b.id}`,
+      name: b.term,
+      description: b.text,
+      url: `${SITE_URL}${pagePath}#${b.id}`,
+      inDefinedTermSet: { '@id': `${SITE_URL}${pagePath}#begrepp` },
+    })),
+  },
+  breadcrumbs([
+    { name: 'TROi', path: '/' },
+    { name: 'Organizational Flow', path: '/organizational-flow/' },
+    { name: 'Begrepp på svenska', path: pagePath },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Begrepp"
+  fullTitle="Organisatorisk friktion och förmågor — begrepp · TROi"
+  description={description}
+  lang="sv"
+  alternates={{ sv: pagePath, en: '/organizational-flow/concepts/' }}
+  jsonLd={jsonLd}
+>
+  <main class="reading" id="main">
+    <section class="block insight-page">
+      <p class="kicker"><a href="/organizational-flow/" lang="en">Organizational Flow</a> · Begrepp på svenska</p>
+      <h1>Organisatorisk friktion, förmågor, ägarskap och mandat</h1>
+      <p class="lede">
+        Begreppen bakom <a href="/organizational-flow/" lang="en">Organizational Flow</a>, min arbetsteori om varför
+        organisationer blir långsammare än de behöver vara. Boken är
+        skriven på engelska; här förklaras orden kort på svenska, med länkar till kapitlen där de utvecklas. Det finns
+        också en <a href="/organizational-flow/sv/">tiominutersversion på svenska</a> och{' '}
+        <a href="/organizational-flow/concepts/" lang="en">samma begrepp på engelska</a>.
+      </p>
+
+      <nav class="begrepp-toc" aria-label="Begrepp">
+        {begrepp.map((b, i) => <>{i > 0 && ' · '}<a href={`#${b.id}`}>{b.term}</a></>)}
+      </nav>
+
+      <div class="begrepp-lista">
+        {begrepp.map((b) => (
+          <div class="begrepp" id={b.id}>
+            <h2>{b.term}</h2>
+            <p>{b.text}</p>
+            <p class="begrepp-las">
+              Läs mer (engelska):{' '}
+              {b.las.map((l, i) => (
+                <>{i > 0 && ' · '}<a href={`/organizational-flow/${l.slug}/`} lang="en">{l.title}</a></>
+              ))}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <ShareLinks title="Organisatorisk friktion, förmågor, ägarskap och mandat" label="Dela" />
+
+      <p class="related">
+        Se också — <a href="/tjanster/">Tjänster</a>,{' '}
+        <a href="/blog/2026/09/17/it-avdelningen-finns-for-att-nagon-maste-oversatta/">IT-avdelningen finns för att någon måste översätta</a>
+      </p>
+    </section>
+  </main>
+  <Footer label="Organizational Flow — an ongoing work" />
+</BaseLayout>
+
+<style>
+  .begrepp-toc {
+    margin: 0 0 2rem;
+    font-size: 0.92rem;
+    line-height: 1.8;
+    color: var(--bark);
+  }
+  .begrepp {
+    padding: 1.2rem 0 0.2rem;
+    border-top: 1px solid var(--mist);
+    scroll-margin-top: 5rem;
+  }
+  .begrepp h2 {
+    margin: 0 0 0.5rem !important;
+    font-size: 1.25rem !important;
+  }
+  .begrepp-las {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--bark);
+  }
+</style>

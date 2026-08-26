@@ -1,0 +1,249 @@
+---
+import ShareLinks from '../../../components/ShareLinks.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Footer from '../../../components/Footer.astro';
+import { author, orgRef, personRef, SITE_URL, breadcrumbs } from '../../../data/site';
+
+// The working tools behind the services, described plainly. It sits beside the
+// book rather than inside it: the chapters argue the ideas, this page says how
+// they are used in an assignment.
+const methods = [
+  {
+    id: 'architecture-guardrails',
+    name: 'Architecture guardrails',
+    body: [
+      'A handful of principles the organization has actually agreed on, written so a team can check a decision against them without asking anybody. Guardrails are not fences. They mark where a team can move freely, so the few things that do need a conversation stand out.',
+      'The test of a guardrail is whether a team can apply it on a Tuesday afternoon without an architect in the room. If it needs interpreting every time, it is an opinion, not a guardrail.',
+    ],
+    read: [{ href: '/blog/2022/11/19/how-guardrails-empower-teams/', title: 'How Guardrails Empower Teams' }],
+  },
+  {
+    id: 'architecture-decision-records',
+    name: 'Architecture decision records',
+    body: [
+      'A short, dated note for each decision that matters: the context, the options that were considered, what was chosen, and what it costs. Decision records keep guardrails honest — they show when a principle was set aside and why — and they are how the next team learns what was already settled instead of re-arguing it.',
+      'They also shorten decision latency. A question that has been answered once, in writing, does not have to wait for a meeting the second time.',
+    ],
+    read: [
+      { href: '/organizational-flow/settling-the-few-things/', title: 'Settling the Few Things' },
+      { href: 'https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions', title: 'Michael Nygard: Documenting Architecture Decisions' },
+    ],
+  },
+  {
+    id: 'tech-radar',
+    name: 'Tech radar',
+    body: [
+      'A shared, regularly revised view of which technologies to adopt, trial, assess or hold — the format Thoughtworks made public with its Technology Radar. The value is less in the list than in the conversation that produces it: teams see what others have learned, and choices stop being made in isolation.',
+      'A radar works as a guardrail for technology — a default that teams can depart from, with a decision record when they do.',
+    ],
+    read: [
+      { href: '/blog/2022/12/10/staying-ahead-of-the-curve/', title: 'Staying Ahead of the Curve' },
+      { href: 'https://www.thoughtworks.com/radar', title: 'Thoughtworks Technology Radar' },
+    ],
+  },
+  {
+    id: 'domain-logic-placement',
+    name: 'Domain logic placement',
+    body: [
+      'Business rules drift into systems that were never meant to own them — a price rule in the checkout, an eligibility rule in the CRM, a discount in the ERP. Each copy is reasonable on its own; together they mean nobody can change the rule in one place.',
+      'The method is to map where each rule actually lives today, decide which capability should own it, and move it deliberately. It is where capability design and solution architecture meet.',
+    ],
+    read: [
+      { href: '/blog/2026/03/07/where-logic-ends-up-matters/', title: 'Where logic ends up matters' },
+      { href: '/organizational-flow/what-a-capability-is/', title: 'What a Capability Is, and Is Not' },
+    ],
+  },
+  {
+    id: 'architecture-enablement',
+    name: 'Architecture enablement',
+    body: [
+      'Guardrails, decision records and a radar only help if teams can use them. Enablement is the coaching and the practice around them: pairing with teams on real decisions until the organization holds architecture as a competence rather than waiting for it in a queue.',
+    ],
+    read: [{ href: '/organizational-flow/equipping-not-reviewing/', title: 'Equipping, Not Reviewing' }],
+  },
+];
+
+const measures = [
+  {
+    id: 'decision-latency',
+    name: 'Decision latency',
+    text: 'The time from when a decision is needed to when it is made. It rarely shows up in any report, because the wait is spread across calendars and inboxes. Measured for a handful of real decisions, it is often the largest delay in the whole flow.',
+  },
+  {
+    id: 'handoff-loss',
+    name: 'Handoff loss',
+    text: 'How much context has to be rebuilt each time work crosses a boundary — between teams, systems or suppliers. It shows up as clarifying questions, rework and meetings whose only purpose is to explain what someone else already knew.',
+  },
+  {
+    id: 'ownership-clarity',
+    name: 'Ownership clarity',
+    text: 'Whether the people around a capability can name who owns it, and give the same answer. Disagreement here predicts both decision latency and handoff loss.',
+  },
+  {
+    id: 'learning-cycle-time',
+    name: 'Learning cycle time',
+    text: 'How long before the outcome of a choice reaches the person who made it. When it takes a quarter, the organization repeats the same mistake for a quarter.',
+  },
+];
+
+const pagePath = '/services/architecture-methods/';
+const description =
+  'Architecture guardrails, decision records, tech radar and domain logic placement — and flow metrics such as decision latency, handoff loss and DORA.';
+
+const jsonLd = [
+  {
+    '@type': 'WebPage',
+    '@id': `${SITE_URL}${pagePath}`,
+    name: 'Architecture methods and measures',
+    url: `${SITE_URL}${pagePath}`,
+    description,
+    author: personRef,
+    publisher: orgRef,
+    about: [...methods, ...measures].map((m) => ({ '@type': 'Thing', name: m.name })),
+  },
+  breadcrumbs([
+    { name: 'TROi', path: '/' },
+    { name: 'Services', path: '/services/' },
+    { name: 'Architecture methods and measures', path: pagePath },
+  ]),
+];
+---
+
+<BaseLayout
+  title="Architecture methods and measures"
+  fullTitle="Architecture decision records, guardrails and flow metrics"
+  description={description}
+  jsonLd={jsonLd}
+>
+  <main class="reading" id="main">
+    <section class="block insight-page">
+      <p class="kicker"><a href="/services/">Services</a> · Methods</p>
+      <h1>Architecture methods and measures</h1>
+
+      <p class="lede">
+        The working tools behind the <a href="/services/">services</a>: how architecture governance can make teams
+        faster instead of slower, and how to tell whether the flow of work is actually improving. None of it is a
+        framework to install. Each method is small, and each is only worth having if teams use it without being asked.
+      </p>
+
+      <nav class="method-toc" aria-label="On this page">
+        {methods.map((m) => <a href={`#${m.id}`}>{m.name}</a>)}
+        <a href="#measures">Flow metrics</a>
+        <a href="#dora">DORA and organizational flow</a>
+      </nav>
+
+      <h2 class="method-part">Methods</h2>
+
+      {methods.map((m) => (
+        <div class="method" id={m.id}>
+          <h3>{m.name}</h3>
+          {m.body.map((p) => <p>{p}</p>)}
+          <p class="method-read">
+            Read more:{' '}
+            {m.read.map((r, i) => <>{i > 0 && ' · '}<a href={r.href}>{r.title}</a></>)}
+          </p>
+        </div>
+      ))}
+
+      <h2 class="method-part" id="measures">Flow metrics for organizations</h2>
+
+      <p>
+        Most measures describe output — how much was built, how fast it shipped. The friction that slows an
+        organization down sits between the teams, in the waiting and the rebuilding, and it needs measures of its own.
+        These four come from <a href="/organizational-flow/">Organizational Flow</a> and are reported separately, never
+        summed into a score: a single number acquires a target, and a measure with a target stops measuring.
+      </p>
+
+      <dl class="measures">
+        {measures.map((m) => (
+          <div id={m.id}>
+            <dt>{m.name}</dt>
+            <dd>{m.text}</dd>
+          </div>
+        ))}
+      </dl>
+
+      <p class="method-read">
+        Read more: <a href="/organizational-flow/observing-organizations/">Observing Organizations</a> ·{' '}
+        <a href="/organizational-flow/concepts/">Key concepts</a> ·{' '}
+        <a href="/organizational-flow/self-assessment/">Self-assessment</a>
+      </p>
+
+      <h2 class="method-part" id="dora">DORA and organizational flow</h2>
+
+      <p>
+        The <a href="https://dora.dev/">DORA</a> metrics — deployment frequency, lead time for changes, change failure
+        rate and time to restore — are the best-researched measures of software delivery there are, set out in
+        <a href="https://itrevolution.com/product/accelerate/"><em>Accelerate</em></a> by Nicole Forsgren, Jez Humble
+        and Gene Kim. They describe how well a team gets a change into
+        production once the change is decided.
+      </p>
+      <p>
+        What they do not show is the time before that: the weeks a change waits for a decision, an owner or another
+        team. A team can have excellent DORA numbers and still deliver slowly, because the delay sits upstream of the
+        pipeline. The two sets of measures belong together — DORA for the delivery, decision latency and handoff loss
+        for the organization around it.
+      </p>
+
+      <p class="method-read">
+        Read more: <a href="/blog/2022/12/05/optimize-for-speed-and-deploy-with-confidence/">Optimize for Speed and Deploy with Confidence</a>
+      </p>
+
+      <h2 class="method-part">Using this in an assignment</h2>
+      <p>
+        These methods are part of the <a href="/services/#architecture-enablement">architecture enablement</a> and
+        <a href="/services/#organizational-flow-diagnostic">diagnostic</a> work I do, on site in the Stockholm area
+        and remotely. <a href="/contact/">Get in touch</a> or write to{' '}
+        <a href={`mailto:${author.email}`}>{author.email}</a>.
+      </p>
+
+      <ShareLinks title="Architecture methods and measures" />
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .method-toc {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem 1.1rem;
+    margin: 0 0 1.5rem;
+    font-size: 0.92rem;
+  }
+  .method-part {
+    margin-top: 2.8rem !important;
+    scroll-margin-top: 5rem;
+  }
+  .method {
+    padding: 1.1rem 0 0.2rem;
+    border-top: 1px solid var(--mist);
+    scroll-margin-top: 5rem;
+  }
+  .method h3 {
+    margin: 0 0 0.5rem;
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.2rem;
+  }
+  .method-read {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--bark);
+  }
+  .measures {
+    margin: 1.4rem 0 1rem;
+  }
+  .measures > div {
+    padding: 0.8rem 0;
+    border-top: 1px solid var(--mist);
+    scroll-margin-top: 5rem;
+  }
+  .measures dt {
+    font-weight: 600;
+  }
+  .measures dd {
+    margin: 0.3rem 0 0;
+  }
+</style>

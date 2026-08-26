@@ -1,0 +1,114 @@
+---
+import ShareLinks from '../../components/ShareLinks.astro';
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Footer from '../../components/Footer.astro';
+import { findChapterLocation, isFrontMatter, frontMatter } from '../../data/book-structure';
+import { author, personRef, orgRef, SITE_URL, breadcrumbs } from '../../data/site';
+
+export async function getStaticPaths() {
+  function datePath(date: Date) {
+    const yyyy = date.getUTCFullYear();
+    const mm = String(date.getUTCMonth() + 1).padStart(2, '0');
+    const dd = String(date.getUTCDate()).padStart(2, '0');
+    return `${yyyy}/${mm}/${dd}`;
+  }
+
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: `${datePath(post.data.date)}/${post.id}` },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const sv = post.data.lang === 'sv';
+const formattedDate = post.data.date.toLocaleDateString(sv ? 'sv-SE' : 'en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC',
+});
+
+// The forward-link's wording is resolved from the paper's structure rather than
+// stored beside the post. These labels were written once and then named
+// chapters that had since been retitled or moved to another part — a reader
+// clicked "Part II · People" and landed on The Wait Nobody Logged. Derived
+// here, a retitle updates the archive on the next build and cannot drift.
+const dev = post.data.developedIn;
+const devLocation = dev ? findChapterLocation(dev.chapterSlug) : null;
+const devFront = dev && isFrontMatter(dev.chapterSlug)
+  ? frontMatter.find((f) => f.slug === dev.chapterSlug)
+  : null;
+const devLabel = devLocation
+  ? `Part ${devLocation.part.id} · ${devLocation.chapter.title}`
+  : devFront
+    ? devFront.title
+    : (dev?.label ?? null);
+
+const isoDate = post.data.date.toISOString().slice(0, 10);
+
+// A post and its translation point at each other, whichever side names the link.
+const allPosts = await getCollection('blog');
+const pathOf = (p: { id: string; data: { date: Date } }) => {
+  const d = p.data.date;
+  return `/blog/${d.getUTCFullYear()}/${String(d.getUTCMonth() + 1).padStart(2, '0')}/${String(d.getUTCDate()).padStart(2, '0')}/${p.id}/`;
+};
+const translation = post.data.translationOf
+  ? allPosts.find((p) => p.id === post.data.translationOf)
+  : allPosts.find((p) => p.data.translationOf === post.id);
+const alternates = translation
+  ? { [post.data.lang]: pathOf(post), [translation.data.lang]: pathOf(translation) }
+  : undefined;
+const pagePath = Astro.url.pathname;
+const description = post.data.description ?? `${post.data.title} — a post by ${author.name}, TROi.`;
+const jsonLd = [
+  {
+    '@type': 'BlogPosting',
+    '@id': `${SITE_URL}${pagePath}#post`,
+    headline: post.data.title,
+    description,
+    url: `${SITE_URL}${pagePath}`,
+    datePublished: isoDate,
+    author: personRef,
+    publisher: orgRef,
+    inLanguage: post.data.lang,
+    ...(post.data.tags.length ? { keywords: post.data.tags.join(', ') } : {}),
+    ...(dev ? { isBasedOn: undefined, mentions: { '@id': `${SITE_URL}/organizational-flow/${dev.chapterSlug}/#chapter` } } : {}),
+  },
+  breadcrumbs([
+    { name: 'TROi', path: '/' },
+    { name: 'Blog', path: '/blog/' },
+    { name: post.data.title, path: pagePath },
+  ]),
+];
+---
+
+<BaseLayout title={post.data.seoTitle ?? post.data.title} description={description} ogType="article" jsonLd={jsonLd} published={isoDate} lang={post.data.lang} alternates={alternates}>
+  <main class="reading" id="main">
+    <section class="block insight-page">
+      <p class="kicker">
+        <time datetime={isoDate}>{formattedDate}</time>
+        {post.data.category && ` — ${post.data.category}`}
+      </p>
+      <h1>{post.data.title}</h1>
+      <p class="post-byline">{sv ? 'Av' : 'By'} <a href="/about/" rel="author">{author.name}</a>{translation && <> · <a href={pathOf(translation)} hreflang={translation.data.lang} lang={translation.data.lang}>{translation.data.lang === 'sv' ? 'Läs på svenska' : 'Read in English'}</a></>}</p>
+      <Content />
+
+      {post.data.tags.length > 0 && (
+        <p class="related">{post.data.tags.join(' · ')}</p>
+      )}
+
+      {dev && devLabel && (
+        <p class="related">
+          <em>{sv ? 'Tanken utvecklas vidare i' : 'This idea is developed further in'} <a href={`/organizational-flow/${dev.chapterSlug}/`} lang="en">{devLabel}</a>.</em>
+        </p>
+      )}
+      <ShareLinks title={post.data.title} label={sv ? 'Dela' : 'Share this post'} />
+    </section>
+  </main>
+
+  <Footer label="TROi — blog archive" />
+</BaseLayout>
